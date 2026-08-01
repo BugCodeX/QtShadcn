@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>QPushButtonDemo</class>
+ <widget class="QWidget" name="QPushButtonDemo">
+  <property name="windowTitle">
+   <string>QPushButton Variants and Sizes</string>
+  </property>
+  <layout class="QVBoxLayout" name="rootLayout">
+   <item>
+    <widget class="QLabel" name="titleLabel">
+     <property name="text">
+      <string>QPushButton variants</string>
+     </property>
+     <property name="class">
+      <string>h3</string>
+     </property>
+    </widget>
+   </item>
+    <item>
+     <widget class="QLabel" name="descriptionLabel">
+      <property name="text">
+       <string>Dynamic Qt properties in this .ui file drive reusable variant and buttonSize styles.</string>
+      </property>
+     <property name="class">
+      <string>muted</string>
+     </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="darkModeButton">
+      <property name="text">
+       <string>Dark mode</string>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+      <property name="variant">
+       <string>outline</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <layout class="QGridLayout" name="variantGrid">
+     <item row="0" column="0">
+      <widget class="QLabel" name="variantHeaderLabel">
+       <property name="text">
+        <string>Variant</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLabel" name="enabledHeaderLabel">
+       <property name="text">
+        <string>Enabled</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="2">
+      <widget class="QLabel" name="disabledHeaderLabel">
+       <property name="text">
+        <string>Disabled</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="defaultLabel"><property name="text"><string>default</string></property></widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QPushButton" name="defaultButton"><property name="text"><string>Default</string></property><property name="variant"><string>default</string></property></widget>
+     </item>
+     <item row="1" column="2">
+      <widget class="QPushButton" name="defaultDisabledButton"><property name="enabled"><bool>false</bool></property><property name="text"><string>Default</string></property><property name="variant"><string>default</string></property></widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="outlineLabel"><property name="text"><string>outline</string></property></widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QPushButton" name="outlineButton"><property name="text"><string>Outline</string></property><property name="variant"><string>outline</string></property></widget>
+     </item>
+     <item row="2" column="2">
+      <widget class="QPushButton" name="outlineDisabledButton"><property name="enabled"><bool>false</bool></property><property name="text"><string>Outline</string></property><property name="variant"><string>outline</string></property></widget>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="secondaryLabel"><property name="text"><string>secondary</string></property></widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QPushButton" name="secondaryButton"><property name="text"><string>Secondary</string></property><property name="variant"><string>secondary</string></property></widget>
+     </item>
+     <item row="3" column="2">
+      <widget class="QPushButton" name="secondaryDisabledButton"><property name="enabled"><bool>false</bool></property><property name="text"><string>Secondary</string></property><property name="variant"><string>secondary</string></property></widget>
+     </item>
+     <item row="4" column="0">
+      <widget class="QLabel" name="ghostLabel"><property name="text"><string>ghost</string></property></widget>
+     </item>
+     <item row="4" column="1">
+      <widget class="QPushButton" name="ghostButton"><property name="text"><string>Ghost</string></property><property name="variant"><string>ghost</string></property></widget>
+     </item>
+     <item row="4" column="2">
+      <widget class="QPushButton" name="ghostDisabledButton"><property name="enabled"><bool>false</bool></property><property name="text"><string>Ghost</string></property><property name="variant"><string>ghost</string></property></widget>
+     </item>
+     <item row="5" column="0">
+      <widget class="QLabel" name="destructiveLabel"><property name="text"><string>destructive</string></property></widget>
+     </item>
+     <item row="5" column="1">
+      <widget class="QPushButton" name="destructiveButton"><property name="text"><string>Destructive</string></property><property name="variant"><string>destructive</string></property></widget>
+     </item>
+     <item row="5" column="2">
+      <widget class="QPushButton" name="destructiveDisabledButton"><property name="enabled"><bool>false</bool></property><property name="text"><string>Destructive</string></property><property name="variant"><string>destructive</string></property></widget>
+     </item>
+     <item row="6" column="0">
+      <widget class="QLabel" name="linkLabel"><property name="text"><string>link</string></property></widget>
+     </item>
+     <item row="6" column="1">
+      <widget class="QPushButton" name="linkButton"><property name="text"><string>Link</string></property><property name="variant"><string>link</string></property></widget>
+     </item>
+     <item row="6" column="2">
+      <widget class="QPushButton" name="linkDisabledButton"><property name="enabled"><bool>false</bool></property><property name="text"><string>Link</string></property><property name="variant"><string>link</string></property></widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QLabel" name="sizesTitleLabel">
+     <property name="text">
+      <string>QPushButton sizes</string>
+     </property>
+     <property name="class">
+      <string>h4</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="sizeLayout">
+     <item><widget class="QPushButton" name="xsButton"><property name="text"><string>Extra small</string></property><property name="buttonSize"><string>xs</string></property></widget></item>
+     <item><widget class="QPushButton" name="smButton"><property name="text"><string>Small</string></property><property name="buttonSize"><string>sm</string></property></widget></item>
+     <item><widget class="QPushButton" name="defaultSizeButton"><property name="text"><string>Default</string></property><property name="buttonSize"><string>default</string></property></widget></item>
+     <item><widget class="QPushButton" name="lgButton"><property name="text"><string>Large</string></property><property name="buttonSize"><string>lg</string></property></widget></item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="iconSizeLayout">
+     <item><widget class="QPushButton" name="iconXsButton"><property name="text"><string>XS</string></property><property name="variant"><string>outline</string></property><property name="buttonSize"><string>icon-xs</string></property></widget></item>
+     <item><widget class="QPushButton" name="iconSmButton"><property name="text"><string>S</string></property><property name="variant"><string>outline</string></property><property name="buttonSize"><string>icon-sm</string></property></widget></item>
+     <item><widget class="QPushButton" name="iconButton"><property name="text"><string>M</string></property><property name="variant"><string>outline</string></property><property name="buttonSize"><string>icon</string></property></widget></item>
+     <item><widget class="QPushButton" name="iconLgButton"><property name="text"><string>L</string></property><property name="variant"><string>outline</string></property><property name="buttonSize"><string>icon-lg</string></property></widget></item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

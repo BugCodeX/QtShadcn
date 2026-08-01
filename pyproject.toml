@@ -1,0 +1,180 @@
+# ============================================================
+# Project metadata
+# ============================================================
+
+[project]
+name = "qtshadcn"
+version = "0.0.1"
+description = "Modern styling and theming framework for Qt/PyQt/PySide applications."
+readme = "README.md"
+requires-python = ">=3.11"
+
+authors = [{ name = "Christopher Nuñez", email = "busine015@gmail.com" }]
+
+maintainers = [{ name = "Christopher Nuñez", email = "busine015@gmail.com" }]
+
+# ============================================================
+# PyPI keywords
+# ============================================================
+
+keywords = [
+  "desktop",
+  "gui",
+  "pyside",
+  "pyside6",
+  "qss",
+  "qt",
+  "shadcn",
+  "stylesheet",
+  "theme",
+  "widgets",
+]
+
+# ============================================================
+# PyPI classifiers
+# ============================================================
+
+classifiers = [
+  "Development Status :: 2 - Pre-Alpha",
+
+  "Intended Audience :: Developers",
+
+  "License :: OSI Approved :: MIT License",
+
+  "Operating System :: OS Independent",
+
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+
+  "Topic :: Software Development :: Libraries :: Python Modules",
+  "Topic :: Software Development :: User Interfaces",
+]
+
+# ============================================================
+# Runtime dependencies (installed automatically with qtshadcn)
+# ============================================================
+
+dependencies = [
+  "Jinja2>=3.1.6",  # template engine
+  "darkdetect>=0.8.0",  # OS dark-mode detection
+  "pydantic>=2.13.4",  # data validation
+]
+
+# ============================================================
+# Project URLs
+# ============================================================
+
+[project.urls]
+Documentation = "https://BugCodeX.github.io/qtshadcn/"
+Homepage = "https://github.com/BugCodeX/qtshadcn"
+Issues = "https://github.com/BugCodeX/qtshadcn/issues"
+Repository = "https://github.com/BugCodeX/qtshadcn"
+
+# ============================================================
+# Optional dependencies (not installed by default)
+# ============================================================
+
+[project.optional-dependencies]
+dev = [
+  "pyside6>=6.11.1",  # Qt bindings
+  "build>=1.2",  # package builder
+  "pytest>=9.1.1",  # test runner
+  "pytest-cov>=7.1.0",  # coverage plugin
+  "pytest-qt>=4.2.0",  # Qt widget testing (qtbot fixture)
+  "ruff>=0.9",  # linter and formatter
+  "ty>=0.0.1",  # type checker
+  "twine>=7.0",  # PyPI upload
+  "mkdocs>=1.6.1",  # documentation builder
+  "mkdocs-material>=9.7.7",  # Material theme for MkDocs
+  "pymdown-extensions>=11.0.1",  # Markdown extensions for MkDocs
+]
+
+# ============================================================
+# Build system
+# ============================================================
+
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+# ============================================================
+# Hatchling — wheel contents
+# ============================================================
+
+[tool.hatch.build.targets.wheel]
+packages = ["qtshadcn"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"qtshadcn/themes/default.xml" = "qtshadcn/themes/default.xml"
+"qtshadcn/styles/shadcn.jinja" = "qtshadcn/styles/shadcn.jinja"
+"qtshadcn/fonts/" = "qtshadcn/fonts/"
+
+# ============================================================
+# pytest
+# ============================================================
+
+[tool.pytest.ini_options]
+python_files = ["test_*.py"]
+testpaths = ["tests"]
+
+addopts = ["-ra", "--strict-markers", "--strict-config"]
+
+# ============================================================
+# ruff — linter and formatter
+# ============================================================
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+
+src = ["qtshadcn", "tests"]
+
+[tool.ruff.lint]
+select = [
+  "D",  # pydocstyle
+  "F",  # Pyflakes
+  "E",  # pycodestyle errors
+  "W",  # pycodestyle warnings
+  "I",  # isort
+  "UP",  # pyupgrade
+  "B",  # flake8-bugbear
+  "SIM",  # flake8-simplify
+  "C4",  # flake8-comprehensions
+]
+
+ignore = [
+  "E501",  # line too long
+  "D104",  # missing public package docstring
+  "D202",  # no blank lines after docstring
+  "F403",  # star imports
+  "SIM102",  # nested ifs (sometimes clearer)
+  "COM812",  # trailing comma (conflicts with formatter)
+  "ISC001",  # implicit string concat (conflicts with formatter)
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = [
+  "D100",  # missing module docstring
+  "D101",  # missing class docstring
+  "D102",  # missing method docstring
+  "D103",  # missing function docstring
+]
+"examples/**" = [
+  "D100",  # missing module docstring
+  "D103",  # missing function docstring
+]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+# ============================================================
+# ty — type checker
+# ============================================================
+
+[tool.ty.environment]
+python-version = "3.11"
+
+[tool.ty.terminal]
+error-on-warning = true

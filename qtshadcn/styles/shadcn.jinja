@@ -1,0 +1,263 @@
+/* QtShadcn base stylesheet generated from a native QtShadcn XML theme. */
+
+* {
+    color: {{ tokens.foreground }};
+    font-family: {{ tokens.font_family }};
+    font-size: {{ scale.TEXT_BASE }};
+}
+
+QWidget {
+    background-color: {{ tokens.background }};
+    color: {{ tokens.foreground }};
+}
+
+/* ============================================================
+   QPushButton - QtShadcn
+   ============================================================ */
+
+QPushButton {
+    background-color: {{ tokens.primary }};
+    color: {{ tokens.primary_foreground }};
+    border: 1px solid transparent;
+    outline: none;
+    border-radius: {{ scale.radius_px(tokens.radius, scale.RADIUS_LG_RATIO) }};
+    padding-left: {{ scale.spacing_px(tokens.spacing, 2.5) }};
+    padding-right: {{ scale.spacing_px(tokens.spacing, 2.5) }};
+    min-height: {{ scale.spacing_px(tokens.spacing, 8) }};
+    font-size: {{ scale.TEXT_SM }};
+    font-weight: {{ scale.FONT_WEIGHT_MEDIUM }};
+}
+
+QPushButton:hover {
+    background-color: {{ colors.alpha(tokens.primary, 0.8) }};
+}
+
+QPushButton:pressed {
+    background-color: {{ tokens.secondary }};
+    color: {{ tokens.secondary_foreground }};
+}
+
+QPushButton:focus {
+    background-color: {{ tokens.primary }};
+    color: {{ tokens.primary_foreground }};
+    border-color: {{ colors.alpha(tokens.ring, 0.5) }};
+    outline: none;
+}
+
+QPushButton:disabled {
+    background-color: {{ colors.alpha(tokens.primary, 0.5) }};
+    color: {{ colors.alpha(tokens.primary_foreground, 0.5) }};
+    border-color: transparent;
+}
+
+QPushButton[invalid="true"]:focus {
+    border-color: {{ tokens.destructive }};
+    color: {{ tokens.destructive }};
+}
+
+QPushButton[variant="default"] {
+    background-color: {{ tokens.primary }};
+    color: {{ tokens.primary_foreground }};
+    border-color: transparent;
+}
+
+QPushButton[variant="default"]:focus {
+    background-color: {{ tokens.primary }};
+    color: {{ tokens.primary_foreground }};
+    border-color: {{ colors.alpha(tokens.ring, 0.5) }};
+}
+
+QPushButton[variant="default"]:hover,
+QPushButton[variant="default"]:pressed {
+    background-color: {{ colors.alpha(tokens.primary, 0.8) }};
+}
+
+QPushButton[variant="outline"] {
+    background-color: {{ tokens.background }};
+    color: {{ tokens.foreground }};
+    border-color: {{ tokens.border }};
+}
+
+QPushButton[variant="outline"]:hover,
+QPushButton[variant="outline"]:pressed {
+    background-color: {{ tokens.muted }};
+    color: {{ tokens.foreground }};
+}
+
+QPushButton[variant="secondary"] {
+    background-color: {{ tokens.secondary }};
+    color: {{ tokens.secondary_foreground }};
+    border-color: transparent;
+}
+
+QPushButton[variant="secondary"]:hover,
+QPushButton[variant="secondary"]:pressed {
+    background-color: {{ colors.mix(tokens.secondary, tokens.foreground, 0.05) }};
+    color: {{ tokens.secondary_foreground }};
+}
+
+QPushButton[variant="ghost"] {
+    background-color: transparent;
+    color: {{ tokens.foreground }};
+    border-color: transparent;
+}
+
+QPushButton[variant="ghost"]:hover,
+QPushButton[variant="ghost"]:pressed {
+    background-color: {{ tokens.muted }};
+    color: {{ tokens.foreground }};
+}
+
+QPushButton[variant="destructive"] {
+    background-color: {{ colors.alpha(tokens.destructive, 0.1) }};
+    color: {{ tokens.destructive }};
+    border-color: transparent;
+}
+
+QPushButton[variant="destructive"]:hover,
+QPushButton[variant="destructive"]:pressed {
+    background-color: {{ colors.alpha(tokens.destructive, 0.2) }};
+}
+
+{# QPushButton[variant="destructive"]:focus {
+    border-color: {{ colors.alpha(tokens.destructive, 0.4) }};
+} #}
+
+QPushButton[variant="link"] {
+    background-color: transparent;
+    color: {{ tokens.primary }};
+    border-color: transparent;
+    padding-left: 0px;
+    padding-right: 0px;
+    text-decoration: underline;
+}
+
+QPushButton[variant="link"]:hover,
+QPushButton[variant="link"]:pressed {
+    background-color: transparent;
+    color: {{ tokens.primary }};
+    text-decoration: underline;
+}
+
+QPushButton[variant="outline"]:disabled {
+    background-color: transparent;
+    color: {{ colors.alpha(tokens.foreground, 0.5) }};
+    border-color: {{ tokens.border }};
+}
+
+QPushButton[variant="ghost"]:disabled,
+QPushButton[variant="link"]:disabled {
+    border: none;
+    background-color: transparent;
+    color: {{ colors.alpha(tokens.foreground, 0.5) }};
+}
+
+QPushButton[size="default"],
+QPushButton[buttonSize="default"] {
+    padding-left: {{ scale.spacing_px(tokens.spacing, 2.5) }};
+    padding-right: {{ scale.spacing_px(tokens.spacing, 2.5) }};
+    min-height: {{ scale.spacing_px(tokens.spacing, 8) }};
+    font-size: {{ scale.TEXT_SM }};
+}
+
+QPushButton[size="default"][iconPosition="start"],
+QPushButton[buttonSize="default"][iconPosition="start"] {
+    padding-left: {{ scale.spacing_px(tokens.spacing, 2) }};
+}
+
+QPushButton[size="default"][iconPosition="end"],
+QPushButton[buttonSize="default"][iconPosition="end"] {
+    padding-right: {{ scale.spacing_px(tokens.spacing, 2) }};
+}
+
+QPushButton[size="xs"],
+QPushButton[buttonSize="xs"] {
+    border-radius: {{ scale.radius_min_px(tokens.radius, scale.RADIUS_MD_RATIO, "10px") }};
+    padding-left: {{ scale.spacing_px(tokens.spacing, 2) }};
+    padding-right: {{ scale.spacing_px(tokens.spacing, 2) }};
+    min-height: {{ scale.spacing_px(tokens.spacing, 6) }};
+    font-size: {{ scale.TEXT_XS }};
+}
+
+QPushButton[size="sm"],
+QPushButton[buttonSize="sm"] {
+    border-radius: {{ scale.radius_min_px(tokens.radius, scale.RADIUS_MD_RATIO, "12px") }};
+    min-height: {{ scale.spacing_px(tokens.spacing, 7) }};
+    font-size: 13px;
+}
+
+QPushButton[size="lg"],
+QPushButton[buttonSize="lg"] {
+    min-height: {{ scale.spacing_px(tokens.spacing, 9) }};
+    font-size: {{ scale.TEXT_SM }};
+}
+
+QPushButton[size="icon"],
+QPushButton[buttonSize="icon"] {
+    min-width: {{ scale.spacing_px(tokens.spacing, 8) }};
+    max-width: {{ scale.spacing_px(tokens.spacing, 8) }};
+    min-height: {{ scale.spacing_px(tokens.spacing, 8) }};
+    max-height: {{ scale.spacing_px(tokens.spacing, 8) }};
+}
+
+QPushButton[size="icon-xs"],
+QPushButton[buttonSize="icon-xs"] {
+    border-radius: {{ scale.radius_min_px(tokens.radius, scale.RADIUS_MD_RATIO, "10px") }};
+    padding-left: {{ scale.spacing_px(tokens.spacing, 2) }};
+    padding-right: {{ scale.spacing_px(tokens.spacing, 2) }};
+    min-width: {{ scale.spacing_px(tokens.spacing, 6) }};
+    max-width: {{ scale.spacing_px(tokens.spacing, 6) }};
+    min-height: {{ scale.spacing_px(tokens.spacing, 6) }};
+    max-height: {{ scale.spacing_px(tokens.spacing, 6) }};
+    font-size: {{ scale.TEXT_XS }};
+}
+
+QPushButton[size="icon-sm"],
+QPushButton[buttonSize="icon-sm"] {
+    border-radius: {{ scale.radius_min_px(tokens.radius, scale.RADIUS_MD_RATIO, "12px") }};
+    min-width: {{ scale.spacing_px(tokens.spacing, 7) }};
+    max-width: {{ scale.spacing_px(tokens.spacing, 7) }};
+    min-height: {{ scale.spacing_px(tokens.spacing, 7) }};
+    max-height: {{ scale.spacing_px(tokens.spacing, 7) }};
+}
+
+QPushButton[size="icon-lg"],
+QPushButton[buttonSize="icon-lg"] {
+    min-width: {{ scale.spacing_px(tokens.spacing, 9) }};
+    max-width: {{ scale.spacing_px(tokens.spacing, 9) }};
+    min-height: {{ scale.spacing_px(tokens.spacing, 9) }};
+    max-height: {{ scale.spacing_px(tokens.spacing, 9) }};
+    font-size: {{ scale.TEXT_SM }};
+}
+
+/* ============================================================
+   LineEdit - QtShadcn
+   ============================================================ */
+
+QLineEdit {
+    background-color: {{ tokens.input }};
+    color: {{ tokens.foreground }};
+    border: 1px solid {{ tokens.border }};
+    border-radius: {{ tokens.radius }};
+    padding: 6px 8px;
+    selection-background-color: {{ tokens.primary }};
+    selection-color: {{ tokens.primary_foreground }};
+}
+
+QLineEdit:focus {
+    border-color: {{ tokens.ring }};
+}
+
+QLineEdit:disabled {
+    background-color: {{ tokens.muted }};
+    color: {{ tokens.muted_foreground }};
+}
+
+/* Typography classes */
+*[class~="h1"] { font-size: 36px; font-weight: 700; }
+*[class~="h2"] { font-size: 30px; font-weight: 600; }
+*[class~="h3"] { font-size: 24px; font-weight: 600; }
+*[class~="h4"] { font-size: 20px; font-weight: 600; }
+*[class~="p"] { font-size: 16px; font-weight: 400; }
+*[class~="small"] { font-size: 14px; font-weight: 400; }
+*[class~="muted"] { color: {{ tokens.muted_foreground }}; }

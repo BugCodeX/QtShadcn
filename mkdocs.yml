@@ -1,0 +1,58 @@
+site_name: QtShadcn
+site_description: Modern styling and theming framework for Qt/PySide6 applications, inspired by shadcn/ui.
+site_url: https://GoMuse.github.io/qtshadcn/
+
+repo_name: GoMuse/qtshadcn
+repo_url: https://github.com/GoMuse/qtshadcn
+
+nav:
+  - Home: index.md
+  - Getting Started: getting-started.md
+  - Theme Format: theme-format.md
+  - API Reference: api-reference.md
+  - Changelog: changelog.md
+
+docs_dir: docs
+
+theme:
+  name: material
+  features:
+    - content.code.copy
+    - navigation.top
+    - navigation.footer
+  logo: 'https://res.cloudinary.com/dv5dpinww/image/upload/v1773351424/logo_tcu39w.png'
+  favicon: 'https://res.cloudinary.com/dv5dpinww/image/upload/v1773351424/logo_tcu39w.png'
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+markdown_extensions:
+  - admonition
+  - pymdownx.mark
+  - pymdownx.keys
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.blocks.tab:
+      alternate_style: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.magiclink
+  - pymdownx.superfences
+  - pymdownx.snippets
+  - pymdownx.blocks.admonition
+  - toc:
+      permalink: true

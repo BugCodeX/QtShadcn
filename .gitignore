@@ -1,0 +1,48 @@
+# ── Bytecode ────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+
+# ── Virtual environment ────────────────────────────────────
+.venv/
+venv/
+env/
+*.egg-info/
+*.egg
+
+# ── Build artifacts ────────────────────────────────────────
+dist/
+build/
+site/
+*.whl
+.atl/
+*.atl
+
+# ── Testing ────────────────────────────────────────────────
+.pytest_cache/
+.coverage
+htmlcov/
+coverage.xml
+
+# ── Linting / formatting ───────────────────────────────────
+.ruff_cache/
+
+# ── IDE ────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ── OS ─────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ── Environment ────────────────────────────────────────────
+.env
+.env.*
+
+# ── CodeGraph index (regenerated locally) ──────────────────
+.codegraph/
+
+# ── SDD / planning artifacts (local only) ──────────────────
+openspec/

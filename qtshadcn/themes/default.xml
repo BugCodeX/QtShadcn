@@ -1,0 +1,50 @@
+<theme>
+  <light>
+    <background>#ffffff</background>
+    <foreground>#0a0a0a</foreground>
+    <card>#ffffff</card>
+    <card_foreground>#0a0a0a</card_foreground>
+    <popover>#ffffff</popover>
+    <popover_foreground>#0a0a0a</popover_foreground>
+    <primary>#171717</primary>
+    <primary_foreground>#fafafa</primary_foreground>
+    <secondary>#f5f5f5</secondary>
+    <secondary_foreground>#171717</secondary_foreground>
+    <muted>#f5f5f5</muted>
+    <muted_foreground>#737373</muted_foreground>
+    <accent>#f5f5f5</accent>
+    <accent_foreground>#171717</accent_foreground>
+    <destructive>#e7000b</destructive>
+    <destructive_foreground>#ffffff</destructive_foreground>
+    <border>#e5e5e5</border>
+    <input>#e5e5e5</input>
+    <ring>#a1a1a1</ring>
+    <spacing>4px</spacing>
+    <radius>8px</radius>
+    <font_family>Open Sans, ui-sans-serif, sans-serif, system-ui</font_family>
+  </light>
+  <dark>
+    <background>#0a0a0a</background>
+    <foreground>#fafafa</foreground>
+    <card>#171717</card>
+    <card_foreground>#fafafa</card_foreground>
+    <popover>#262626</popover>
+    <popover_foreground>#fafafa</popover_foreground>
+    <primary>#e5e5e5</primary>
+    <primary_foreground>#171717</primary_foreground>
+    <secondary>#262626</secondary>
+    <secondary_foreground>#fafafa</secondary_foreground>
+    <muted>#262626</muted>
+    <muted_foreground>#a1a1a1</muted_foreground>
+    <accent>#404040</accent>
+    <accent_foreground>#fafafa</accent_foreground>
+    <destructive>#ff6467</destructive>
+    <destructive_foreground>#fafafa</destructive_foreground>
+    <border>#282828</border>
+    <input>#343434</input>
+    <ring>#737373</ring>
+    <spacing>4px</spacing>
+    <radius>8px</radius>
+    <font_family>Open Sans, ui-sans-serif, sans-serif, system-ui</font_family>
+  </dark>
+</theme>
