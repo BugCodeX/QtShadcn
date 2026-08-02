@@ -63,6 +63,25 @@ Returns `None` if `apply_theme` has never been called or the cache is absent.
 
 ---
 
+## Styled Qt Widgets
+
+QtShadcn renders shadcn-style QSS for common Qt widgets. Widget variants are selected with dynamic Qt properties.
+
+### `QPushButton` vs `QToolButton`
+
+Use `QPushButton` for regular command buttons with text labels, form actions, dialog actions, and primary calls to action.
+
+Use `QToolButton` for compact action primitives: icon buttons, toolbar-style controls, menu triggers, and toggle buttons. It shares the same visual variant names as `QPushButton`, but it is sized as an icon-oriented control and is not intended to replace text-first buttons.
+
+Supported `QToolButton` dynamic properties:
+
+| Property | Values | Description |
+| --- | --- | --- |
+| `variant` | `default`, `outline`, `secondary`, `ghost`, `destructive` | Visual intent. |
+| `size` | `icon-sm`, `icon`, `icon-lg` | Icon-oriented control size. |
+
+---
+
 ## Configuration
 
 ### `ThemeConfig`

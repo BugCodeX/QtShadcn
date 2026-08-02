@@ -4,7 +4,7 @@ import sys
 from pathlib import Path
 
 from PySide6.QtUiTools import QUiLoader
-from PySide6.QtWidgets import QApplication, QPushButton
+from PySide6.QtWidgets import QApplication, QPushButton, QToolButton
 
 try:
     import qtshadcn
@@ -13,38 +13,40 @@ except ModuleNotFoundError:
     import qtshadcn
 
 
-BUTTON_PROPERTIES = {
-    "darkModeButton": {"variant": "outline"},
-    "defaultButton": {"variant": "default"},
-    "defaultDisabledButton": {"variant": "default"},
-    "outlineButton": {"variant": "outline"},
-    "outlineDisabledButton": {"variant": "outline"},
-    "secondaryButton": {"variant": "secondary"},
-    "secondaryDisabledButton": {"variant": "secondary"},
-    "ghostButton": {"variant": "ghost"},
-    "ghostDisabledButton": {"variant": "ghost"},
-    "destructiveButton": {"variant": "destructive"},
-    "destructiveDisabledButton": {"variant": "destructive"},
-    "linkButton": {"variant": "link"},
-    "linkDisabledButton": {"variant": "link"},
-    "xsButton": {"size": "xs"},
-    "smButton": {"size": "sm"},
-    "defaultSizeButton": {"size": "default"},
-    "lgButton": {"size": "lg"},
-    "iconXsButton": {"variant": "outline", "size": "icon-xs"},
+TOOL_BUTTON_PROPERTIES = {
+    "defaultButton": {"variant": "default", "size": "icon"},
+    "defaultDisabledButton": {"variant": "default", "size": "icon"},
+    "outlineButton": {"variant": "outline", "size": "icon"},
+    "outlineDisabledButton": {"variant": "outline", "size": "icon"},
+    "secondaryButton": {"variant": "secondary", "size": "icon"},
+    "secondaryDisabledButton": {"variant": "secondary", "size": "icon"},
+    "ghostButton": {"variant": "ghost", "size": "icon"},
+    "ghostDisabledButton": {"variant": "ghost", "size": "icon"},
+    "destructiveButton": {"variant": "destructive", "size": "icon"},
+    "destructiveDisabledButton": {"variant": "destructive", "size": "icon"},
+    "toggleButton": {"variant": "outline", "size": "icon"},
     "iconSmButton": {"variant": "outline", "size": "icon-sm"},
     "iconButton": {"variant": "outline", "size": "icon"},
     "iconLgButton": {"variant": "outline", "size": "icon-lg"},
 }
 
+ICON_SIZE_PRESENTATION = {
+    "iconSmButton": 28,
+    "iconButton": 36,
+    "iconLgButton": 48,
+}
+
 
 def refresh_dynamic_property_styles(widget) -> None:
     """Reapply documented .ui properties and polish QSS property selectors."""
-    for button in widget.findChildren(QPushButton):
-        for name, value in BUTTON_PROPERTIES.get(button.objectName(), {}).items():
+    for button in widget.findChildren(QToolButton):
+        for name, value in TOOL_BUTTON_PROPERTIES.get(button.objectName(), {}).items():
             button.setProperty(name, value)
         button.style().unpolish(button)
         button.style().polish(button)
+        if button.objectName() in ICON_SIZE_PRESENTATION:
+            size = ICON_SIZE_PRESENTATION[button.objectName()]
+            button.setFixedSize(size, size)
         button.update()
 
 

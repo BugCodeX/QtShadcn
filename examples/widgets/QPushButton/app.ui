@@ -19,7 +19,7 @@
     <item>
      <widget class="QLabel" name="descriptionLabel">
       <property name="text">
-       <string>Dynamic Qt properties in this .ui file drive reusable variant and buttonSize styles.</string>
+        <string>Dynamic Qt properties in this .ui file drive reusable variant and size styles.</string>
       </property>
      <property name="class">
       <string>muted</string>
@@ -130,18 +130,18 @@
    </item>
    <item>
     <layout class="QHBoxLayout" name="sizeLayout">
-     <item><widget class="QPushButton" name="xsButton"><property name="text"><string>Extra small</string></property><property name="buttonSize"><string>xs</string></property></widget></item>
-     <item><widget class="QPushButton" name="smButton"><property name="text"><string>Small</string></property><property name="buttonSize"><string>sm</string></property></widget></item>
-     <item><widget class="QPushButton" name="defaultSizeButton"><property name="text"><string>Default</string></property><property name="buttonSize"><string>default</string></property></widget></item>
-     <item><widget class="QPushButton" name="lgButton"><property name="text"><string>Large</string></property><property name="buttonSize"><string>lg</string></property></widget></item>
+      <item><widget class="QPushButton" name="xsButton"><property name="text"><string>Extra small</string></property><property name="size"><string>xs</string></property></widget></item>
+      <item><widget class="QPushButton" name="smButton"><property name="text"><string>Small</string></property><property name="size"><string>sm</string></property></widget></item>
+      <item><widget class="QPushButton" name="defaultSizeButton"><property name="text"><string>Default</string></property><property name="size"><string>default</string></property></widget></item>
+      <item><widget class="QPushButton" name="lgButton"><property name="text"><string>Large</string></property><property name="size"><string>lg</string></property></widget></item>
     </layout>
    </item>
    <item>
     <layout class="QHBoxLayout" name="iconSizeLayout">
-     <item><widget class="QPushButton" name="iconXsButton"><property name="text"><string>XS</string></property><property name="variant"><string>outline</string></property><property name="buttonSize"><string>icon-xs</string></property></widget></item>
-     <item><widget class="QPushButton" name="iconSmButton"><property name="text"><string>S</string></property><property name="variant"><string>outline</string></property><property name="buttonSize"><string>icon-sm</string></property></widget></item>
-     <item><widget class="QPushButton" name="iconButton"><property name="text"><string>M</string></property><property name="variant"><string>outline</string></property><property name="buttonSize"><string>icon</string></property></widget></item>
-     <item><widget class="QPushButton" name="iconLgButton"><property name="text"><string>L</string></property><property name="variant"><string>outline</string></property><property name="buttonSize"><string>icon-lg</string></property></widget></item>
+      <item><widget class="QPushButton" name="iconXsButton"><property name="text"><string>XS</string></property><property name="variant"><string>outline</string></property><property name="size"><string>icon-xs</string></property></widget></item>
+      <item><widget class="QPushButton" name="iconSmButton"><property name="text"><string>S</string></property><property name="variant"><string>outline</string></property><property name="size"><string>icon-sm</string></property></widget></item>
+      <item><widget class="QPushButton" name="iconButton"><property name="text"><string>M</string></property><property name="variant"><string>outline</string></property><property name="size"><string>icon</string></property></widget></item>
+      <item><widget class="QPushButton" name="iconLgButton"><property name="text"><string>L</string></property><property name="variant"><string>outline</string></property><property name="size"><string>icon-lg</string></property></widget></item>
     </layout>
    </item>
   </layout>

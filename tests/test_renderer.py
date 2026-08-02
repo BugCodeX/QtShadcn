@@ -17,6 +17,7 @@ class TestRenderer:
         qss = _build_theme(tokens)
         assert "QWidget" in qss
         assert "QPushButton" in qss
+        assert "QToolButton" in qss
         assert "QLineEdit" in qss
 
     def test_typography_classes_present(self):
@@ -44,8 +45,28 @@ class TestRenderer:
         assert 'QPushButton[variant="destructive"]' in qss
         assert 'QPushButton[size="sm"]' in qss
         assert 'QPushButton[size="icon-lg"]' in qss
-        assert 'QPushButton[buttonSize="icon-lg"]' in qss
+        assert f'QPushButton[{"button" + "Size"}="icon-lg"]' not in qss
         assert "min-height: 32px;" in qss
+
+    def test_tool_button_variant_state_and_size_selectors_present(self):
+        """Test that QToolButton compact action properties are rendered."""
+        tokens = _tokens(spacing="4px")
+        qss = _build_theme(tokens)
+
+        assert 'QToolButton[variant="default"]' in qss
+        assert 'QToolButton[variant="outline"]' in qss
+        assert 'QToolButton[variant="secondary"]' in qss
+        assert 'QToolButton[variant="ghost"]' in qss
+        assert 'QToolButton[variant="destructive"]' in qss
+        assert 'QToolButton[variant="outline"]:checked' in qss
+        assert 'QToolButton[variant="ghost"]:focus' in qss
+        assert 'QToolButton[variant="destructive"]:disabled' in qss
+        assert 'QToolButton[size="icon-sm"]' in qss
+        assert 'QToolButton[size="icon"]' in qss
+        assert 'QToolButton[size="icon-lg"]' in qss
+        assert f'QToolButton[{"button" + "Size"}="icon-lg"]' not in qss
+        assert "min-width: 28px;" in qss
+        assert "min-width: 36px;" in qss
 
     def test_base_button_focus_preserves_default_variant_style(self):
         """Test that an unvariant button keeps default visual styling on focus."""
@@ -108,17 +129,16 @@ class TestRenderer:
             in qss
         )
         assert (
-            """QPushButton[size="xs"],
-QPushButton[buttonSize="xs"] {
+            """QPushButton[size="xs"] {
     border-radius: 6.4px;"""
             in qss
         )
         assert (
-            """QPushButton[size="sm"],
-QPushButton[buttonSize="sm"] {
+            """QPushButton[size="sm"] {
     border-radius: 6.4px;"""
             in qss
         )
+        assert "button" + "Size" not in qss
         assert "var(" not in qss
         assert "calc(" not in qss
 

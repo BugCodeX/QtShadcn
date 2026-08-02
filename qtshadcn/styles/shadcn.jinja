@@ -148,26 +148,22 @@ QPushButton[variant="link"]:disabled {
     color: {{ colors.alpha(tokens.foreground, 0.5) }};
 }
 
-QPushButton[size="default"],
-QPushButton[buttonSize="default"] {
+QPushButton[size="default"] {
     padding-left: {{ scale.spacing_px(tokens.spacing, 2.5) }};
     padding-right: {{ scale.spacing_px(tokens.spacing, 2.5) }};
     min-height: {{ scale.spacing_px(tokens.spacing, 8) }};
     font-size: {{ scale.TEXT_SM }};
 }
 
-QPushButton[size="default"][iconPosition="start"],
-QPushButton[buttonSize="default"][iconPosition="start"] {
+QPushButton[size="default"][iconPosition="start"] {
     padding-left: {{ scale.spacing_px(tokens.spacing, 2) }};
 }
 
-QPushButton[size="default"][iconPosition="end"],
-QPushButton[buttonSize="default"][iconPosition="end"] {
+QPushButton[size="default"][iconPosition="end"] {
     padding-right: {{ scale.spacing_px(tokens.spacing, 2) }};
 }
 
-QPushButton[size="xs"],
-QPushButton[buttonSize="xs"] {
+QPushButton[size="xs"] {
     border-radius: {{ radius.min_px(tokens.radius, "md", "10px") }};
     padding-left: {{ scale.spacing_px(tokens.spacing, 2) }};
     padding-right: {{ scale.spacing_px(tokens.spacing, 2) }};
@@ -175,29 +171,26 @@ QPushButton[buttonSize="xs"] {
     font-size: {{ scale.TEXT_XS }};
 }
 
-QPushButton[size="sm"],
-QPushButton[buttonSize="sm"] {
+QPushButton[size="sm"] {
     border-radius: {{ radius.min_px(tokens.radius, "md", "12px") }};
     min-height: {{ scale.spacing_px(tokens.spacing, 7) }};
     font-size: 13px;
 }
 
-QPushButton[size="lg"],
-QPushButton[buttonSize="lg"] {
+QPushButton[size="lg"] {
     min-height: {{ scale.spacing_px(tokens.spacing, 9) }};
     font-size: {{ scale.TEXT_SM }};
 }
 
 QPushButton[size="icon"],
-QPushButton[buttonSize="icon"] {
+QToolButton[size="icon"] {
     min-width: {{ scale.spacing_px(tokens.spacing, 8) }};
     max-width: {{ scale.spacing_px(tokens.spacing, 8) }};
     min-height: {{ scale.spacing_px(tokens.spacing, 8) }};
     max-height: {{ scale.spacing_px(tokens.spacing, 8) }};
 }
 
-QPushButton[size="icon-xs"],
-QPushButton[buttonSize="icon-xs"] {
+QPushButton[size="icon-xs"] {
     border-radius: {{ radius.min_px(tokens.radius, "md", "10px") }};
     padding-left: {{ scale.spacing_px(tokens.spacing, 2) }};
     padding-right: {{ scale.spacing_px(tokens.spacing, 2) }};
@@ -209,7 +202,7 @@ QPushButton[buttonSize="icon-xs"] {
 }
 
 QPushButton[size="icon-sm"],
-QPushButton[buttonSize="icon-sm"] {
+QToolButton[size="icon-sm"] {
     border-radius: {{ radius.min_px(tokens.radius, "md", "12px") }};
     min-width: {{ scale.spacing_px(tokens.spacing, 7) }};
     max-width: {{ scale.spacing_px(tokens.spacing, 7) }};
@@ -218,12 +211,179 @@ QPushButton[buttonSize="icon-sm"] {
 }
 
 QPushButton[size="icon-lg"],
-QPushButton[buttonSize="icon-lg"] {
+QToolButton[size="icon-lg"] {
     min-width: {{ scale.spacing_px(tokens.spacing, 9) }};
     max-width: {{ scale.spacing_px(tokens.spacing, 9) }};
     min-height: {{ scale.spacing_px(tokens.spacing, 9) }};
     max-height: {{ scale.spacing_px(tokens.spacing, 9) }};
     font-size: {{ scale.TEXT_SM }};
+}
+
+/* ============================================================
+   QToolButton - QtShadcn
+   ============================================================ */
+
+QToolButton {
+    background-color: {{ tokens.primary }};
+    color: {{ tokens.primary_foreground }};
+    border: 1px solid transparent;
+    outline: none;
+    border-radius: {{ radius.class_px(tokens.radius, "lg") }};
+    padding: 0px;
+    min-width: {{ scale.spacing_px(tokens.spacing, 8) }};
+    max-width: {{ scale.spacing_px(tokens.spacing, 8) }};
+    min-height: {{ scale.spacing_px(tokens.spacing, 8) }};
+    max-height: {{ scale.spacing_px(tokens.spacing, 8) }};
+    font-size: {{ scale.TEXT_SM }};
+    font-weight: {{ scale.FONT_WEIGHT_MEDIUM }};
+}
+
+QToolButton:hover {
+    background-color: {{ colors.alpha(tokens.primary, 0.8) }};
+}
+
+QToolButton:pressed,
+QToolButton:checked {
+    background-color: {{ colors.alpha(tokens.primary, 0.8) }};
+    color: {{ tokens.primary_foreground }};
+}
+
+QToolButton:focus {
+    background-color: {{ tokens.primary }};
+    color: {{ tokens.primary_foreground }};
+    border-color: {{ colors.alpha(tokens.ring, 0.5) }};
+    outline: none;
+}
+
+QToolButton:disabled {
+    background-color: {{ colors.alpha(tokens.primary, 0.5) }};
+    color: {{ colors.alpha(tokens.primary_foreground, 0.5) }};
+    border-color: transparent;
+}
+
+QToolButton[variant="default"] {
+    background-color: {{ tokens.primary }};
+    color: {{ tokens.primary_foreground }};
+    border-color: transparent;
+}
+
+QToolButton[variant="default"]:focus {
+    background-color: {{ tokens.primary }};
+    color: {{ tokens.primary_foreground }};
+    border-color: {{ colors.alpha(tokens.ring, 0.5) }};
+}
+
+QToolButton[variant="default"]:hover,
+QToolButton[variant="default"]:pressed,
+QToolButton[variant="default"]:checked {
+    background-color: {{ colors.alpha(tokens.primary, 0.8) }};
+    color: {{ tokens.primary_foreground }};
+}
+
+QToolButton[variant="outline"] {
+    background-color: {{ tokens.background }};
+    color: {{ tokens.foreground }};
+    border-color: {{ tokens.border }};
+}
+
+QToolButton[variant="outline"]:focus {
+    background-color: {{ tokens.background }};
+    color: {{ tokens.foreground }};
+    border-color: {{ colors.alpha(tokens.ring, 0.5) }};
+}
+
+QToolButton[variant="outline"]:hover,
+QToolButton[variant="outline"]:pressed,
+QToolButton[variant="outline"]:checked {
+    background-color: {{ tokens.muted }};
+    color: {{ tokens.foreground }};
+}
+
+QToolButton[variant="secondary"] {
+    background-color: {{ tokens.secondary }};
+    color: {{ tokens.secondary_foreground }};
+    border-color: transparent;
+}
+
+QToolButton[variant="secondary"]:focus {
+    background-color: {{ tokens.secondary }};
+    color: {{ tokens.secondary_foreground }};
+    border-color: {{ colors.alpha(tokens.ring, 0.5) }};
+}
+
+QToolButton[variant="secondary"]:hover,
+QToolButton[variant="secondary"]:pressed,
+QToolButton[variant="secondary"]:checked {
+    background-color: {{ colors.mix(tokens.secondary, tokens.foreground, 0.05) }};
+    color: {{ tokens.secondary_foreground }};
+}
+
+QToolButton[variant="ghost"] {
+    background-color: transparent;
+    color: {{ tokens.foreground }};
+    border-color: transparent;
+}
+
+QToolButton[variant="ghost"]:focus {
+    background-color: transparent;
+    color: {{ tokens.foreground }};
+    border-color: {{ colors.alpha(tokens.ring, 0.5) }};
+}
+
+QToolButton[variant="ghost"]:hover,
+QToolButton[variant="ghost"]:pressed,
+QToolButton[variant="ghost"]:checked {
+    background-color: {{ tokens.muted }};
+    color: {{ tokens.foreground }};
+}
+
+QToolButton[variant="destructive"] {
+    background-color: {{ colors.alpha(tokens.destructive, 0.1) }};
+    color: {{ tokens.destructive }};
+    border-color: transparent;
+}
+
+QToolButton[variant="destructive"]:focus {
+    background-color: {{ colors.alpha(tokens.destructive, 0.1) }};
+    color: {{ tokens.destructive }};
+    border-color: {{ colors.alpha(tokens.ring, 0.5) }};
+}
+
+QToolButton[variant="destructive"]:hover,
+QToolButton[variant="destructive"]:pressed,
+QToolButton[variant="destructive"]:checked {
+    background-color: {{ colors.alpha(tokens.destructive, 0.2) }};
+    color: {{ tokens.destructive }};
+}
+
+QToolButton[variant="outline"]:disabled {
+    background-color: transparent;
+    color: {{ colors.alpha(tokens.foreground, 0.5) }};
+    border-color: {{ tokens.border }};
+}
+
+QToolButton[variant="default"]:disabled {
+    background-color: {{ colors.alpha(tokens.primary, 0.5) }};
+    color: {{ colors.alpha(tokens.primary_foreground, 0.5) }};
+    border-color: transparent;
+}
+
+QToolButton[variant="secondary"]:disabled {
+    background-color: {{ colors.alpha(tokens.secondary, 0.5) }};
+    color: {{ colors.alpha(tokens.secondary_foreground, 0.5) }};
+    border-color: transparent;
+}
+
+QToolButton[variant="ghost"]:disabled {
+    border: none;
+    background-color: transparent;
+    color: {{ colors.alpha(tokens.foreground, 0.5) }};
+}
+
+QToolButton[variant="destructive"]:disabled {
+    background-color: {{ colors.alpha(tokens.destructive, 0.1) }};
+    color: {{ colors.alpha(tokens.destructive, 0.5) }};
+    border-color: transparent;
 }
 
 /* ============================================================
