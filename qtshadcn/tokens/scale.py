@@ -63,15 +63,6 @@ LEADING_NORMAL = 1.5
 LEADING_RELAXED = 1.625
 LEADING_LOOSE = 2
 
-RADIUS_XS = "2px"
-RADIUS_SM_RATIO = 0.6
-RADIUS_MD_RATIO = 0.8
-RADIUS_LG_RATIO = 1
-RADIUS_XL_RATIO = 1.4
-RADIUS_2XL_RATIO = 1.8
-RADIUS_3XL_RATIO = 2.2
-RADIUS_4XL_RATIO = 2.6
-
 _PX_RE = re.compile(r"^(-?\d+(?:\.\d+)?)px$")
 
 
@@ -90,32 +81,3 @@ def scale_px(value: str, factor: float) -> str:
 def spacing_px(value: str, multiple: float) -> str:
     """Return a Qt-safe spacing multiple."""
     return scale_px(value, multiple)
-
-
-def radius_px(value: str, ratio: float = RADIUS_LG_RATIO) -> str:
-    """Return a Qt-safe radius value scaled by a radius ratio."""
-    return scale_px(value, ratio)
-
-
-def radius_min_px(value: str, ratio: float, maximum: str) -> str:
-    """Return ``min(value * ratio, maximum)`` as a static Qt-safe pixel value."""
-    scaled = scale_px(value, ratio)
-    scaled_number = _px_number(scaled)
-    maximum_number = _px_number(maximum)
-    if scaled_number is None or maximum_number is None:
-        return scaled
-
-    return _format_px(min(scaled_number, maximum_number))
-
-
-def _px_number(value: str) -> float | None:
-    match = _PX_RE.match(value.strip())
-    if match is None:
-        return None
-    return float(match.group(1))
-
-
-def _format_px(value: float) -> str:
-    if value % 1 == 0:
-        return f"{int(value)}px"
-    return f"{value:.2f}".rstrip("0").rstrip(".") + "px"

@@ -17,7 +17,7 @@ from PySide6.QtWidgets import QApplication
 
 from .models import ShadcnTheme, ShadcnThemeTokens, ThemeConfig
 from .parser import ThemeParseError, parse_theme_source
-from .tokens import colors, scale
+from .tokens import colors, radius, scale
 
 logger = logging.getLogger(__name__)
 
@@ -100,7 +100,7 @@ def _build_theme(tokens: ShadcnThemeTokens, template: str = TEMPLATE_FILE) -> st
         env = jinja2.Environment(autoescape=False, loader=jinja2.BaseLoader())
         stylesheet = env.from_string(template)
 
-    return stylesheet.render(tokens=tokens, colors=colors, scale=scale)
+    return stylesheet.render(tokens=tokens, colors=colors, radius=radius, scale=scale)
 
 
 def _resolve_theme_source_path(config: ThemeConfig) -> Path:

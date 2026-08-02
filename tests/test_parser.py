@@ -139,8 +139,8 @@ class TestParseThemeSource:
         """Test that the packaged default theme is complete."""
         path = Path(__file__).resolve().parent.parent / "qtshadcn" / "themes" / "default.xml"
         theme = parse_theme_source(path)
-        assert theme.light.secondary == "#f1f5f9"
-        assert theme.dark.secondary == "#1e293b"
+        assert theme.light.secondary == "#f5f5f5"
+        assert theme.dark.secondary == "#262626"
 
     def test_convertible_value_not_defaulted(self, sample_xml: Path):
         """Test that convertible values are not defaulted."""

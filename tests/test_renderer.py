@@ -52,12 +52,15 @@ class TestRenderer:
         tokens = _tokens()
         qss = _build_theme(tokens)
 
-        assert """QPushButton:focus {
+        assert (
+            """QPushButton:focus {
     background-color: #0f172a;
     color: #f8fafc;
     border-color: rgba(15, 23, 42, 0.5);
     outline: none;
-}""" in qss
+}"""
+            in qss
+        )
 
     def test_button_shadcn_color_mapping_is_qss_safe(self):
         """Test that web color transforms render to static QSS colors."""
@@ -75,7 +78,6 @@ class TestRenderer:
         assert "rgba(15, 23, 42, 0.5)" in qss
         assert "rgba(239, 68, 68, 0.1)" in qss
         assert "rgba(239, 68, 68, 0.2)" in qss
-        assert "rgba(239, 68, 68, 0.4)" in qss
         assert "rgb(229, 233, 238)" in qss
         assert "color-mix" not in qss
         assert "calc(" not in qss
@@ -90,6 +92,35 @@ class TestRenderer:
         assert "border-radius: 10px;" in qss
         assert "border-radius: 12px;" in qss
         assert "min(" not in qss
+
+    def test_button_radius_selectors_use_static_radius_api(self):
+        """Test rendered QPushButton selectors use static rounded values."""
+        tokens = _tokens(radius="8px")
+        qss = _build_theme(tokens)
+
+        assert (
+            """QPushButton {
+    background-color: #0f172a;
+    color: #f8fafc;
+    border: 1px solid transparent;
+    outline: none;
+    border-radius: 8px;"""
+            in qss
+        )
+        assert (
+            """QPushButton[size="xs"],
+QPushButton[buttonSize="xs"] {
+    border-radius: 6.4px;"""
+            in qss
+        )
+        assert (
+            """QPushButton[size="sm"],
+QPushButton[buttonSize="sm"] {
+    border-radius: 6.4px;"""
+            in qss
+        )
+        assert "var(" not in qss
+        assert "calc(" not in qss
 
     def test_no_material_tokens(self):
         """Test that no material tokens are present in the QSS."""

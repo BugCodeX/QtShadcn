@@ -1,6 +1,7 @@
 """Tests for static token helper modules."""
 
-from qtshadcn.tokens import colors, scale
+import pytest
+from qtshadcn.tokens import colors, radius, scale
 
 
 def test_color_alpha_renders_rgba_from_hex():
@@ -16,8 +17,37 @@ def test_color_mix_renders_static_rgb():
 
 def test_radius_min_px_uses_static_cap():
     """Test that CSS min() radius equivalents become static pixel values."""
-    assert scale.radius_min_px("8px", scale.RADIUS_MD_RATIO, "10px") == "6.4px"
-    assert scale.radius_min_px("20px", scale.RADIUS_MD_RATIO, "10px") == "10px"
+    assert radius.min_px("8px", "md", "10px") == "6.4px"
+    assert radius.min_px("20px", "md", "10px") == "10px"
+
+
+def test_radius_class_px_maps_tailwind_names():
+    """Test Tailwind rounded-* names become static QSS pixel values."""
+    assert radius.class_px("10px", "none") == "0px"
+    assert radius.class_px("10px", "xs") == "2px"
+    assert radius.class_px("10px", "sm") == "6px"
+    assert radius.class_px("10px", "md") == "8px"
+    assert radius.class_px("10px", "lg") == "10px"
+    assert radius.class_px("10px", "xl") == "14px"
+    assert radius.class_px("10px", "2xl") == "18px"
+    assert radius.class_px("10px", "3xl") == "22px"
+    assert radius.class_px("10px", "4xl") == "26px"
+    assert radius.class_px("10px", "full") == "9999px"
+
+
+def test_radius_arithmetic_helpers_render_static_pixels():
+    """Test radius arithmetic helpers avoid CSS functions in QSS output."""
+    assert radius.min_px("20px", "md", "10px") == "10px"
+    assert radius.min_px("8px", "md", "10px") == "6.4px"
+    assert radius.add_px("8px", "md", "2px") == "8.4px"
+    assert radius.sub_px("8px", "md", "2px") == "4.4px"
+    assert radius.sub_px("8px", "none", "2px") == "0px"
+
+
+def test_radius_helpers_reject_non_px_values():
+    """Test radius helpers fail before emitting unsupported QSS units."""
+    with pytest.raises(ValueError, match="Expected a pixel value"):
+        radius.class_px("0.5rem", "lg")
 
 
 def test_spacing_px_matches_scale_px():

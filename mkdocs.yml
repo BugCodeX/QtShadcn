@@ -10,7 +10,6 @@ nav:
   - Getting Started: getting-started.md
   - Theme Format: theme-format.md
   - API Reference: api-reference.md
-  - Changelog: changelog.md
 
 docs_dir: docs
 
