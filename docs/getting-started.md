@@ -7,10 +7,13 @@
 
 ## Installation
 
+QtShadcn is published on PyPI. PySide6 is intentionally not bundled; install it in your application environment so your app controls the Qt runtime version.
+
 /// tab | pip
 
 ```bash
 pip install qtshadcn
+pip install PySide6
 ```
 
 ///
@@ -19,6 +22,7 @@ pip install qtshadcn
 
 ```bash
 uv add qtshadcn
+uv add PySide6
 ```
 
 ///
@@ -27,8 +31,8 @@ uv add qtshadcn
 
 ```bash
 # Clones the repo and installs all dev deps (PySide6, ruff, pytest, mkdocs…)
-git clone https://github.com/GoMuse/qtshadcn
-cd qtshadcn
+git clone https://github.com/BugCodeX/QtShadcn
+cd QtShadcn
 uv sync --extra dev
 ```
 
@@ -62,7 +66,7 @@ Save this as `my_theme.xml` next to your script:
     <ring>#0f172a</ring>
     <radius>8px</radius>
     <font_family>system-ui, sans-serif</font_family>
-    <font_size>16px</font_size>
+    <spacing>4px</spacing>
     <card>#ffffff</card>
     <card_foreground>#020617</card_foreground>
     <popover>#ffffff</popover>
@@ -86,7 +90,7 @@ Save this as `my_theme.xml` next to your script:
     <ring>#cbd5e1</ring>
     <radius>8px</radius>
     <font_family>system-ui, sans-serif</font_family>
-    <font_size>16px</font_size>
+    <spacing>4px</spacing>
     <card>#020617</card>
     <card_foreground>#f8fafc</card_foreground>
     <popover>#020617</popover>

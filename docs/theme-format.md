@@ -44,7 +44,7 @@ Every palette section must contain **all 22 tokens** listed below. If any are mi
 | `ring` | Focus ring color | `#0f172a` |
 | `radius` | Default border radius | `8px` |
 | `font_family` | CSS font-family stack | `system-ui, sans-serif` |
-| `font_size` | Base font size | `16px` |
+| `spacing` | Base spacing unit | `4px` |
 
 ---
 
@@ -141,7 +141,7 @@ The fallback chain (`system-ui, sans-serif`) ensures the app works even on syste
     <ring>#0f172a</ring>
     <radius>0.5rem</radius>
     <font_family>Open Sans, system-ui, sans-serif</font_family>
-    <font_size>16px</font_size>
+    <spacing>4px</spacing>
   </light>
   <dark>
     <!-- dark palette tokens -->

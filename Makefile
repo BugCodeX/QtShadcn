@@ -47,14 +47,14 @@ test-cov:
 	$(UV) run --extra dev pytest --cov=qtshadcn --cov-report=term-missing --cov-report=html
 
 # ---------------------------------------------------------------------------
-# Build & Publish
+# Build & Release
 # ---------------------------------------------------------------------------
 
 build:
 	$(UV) run --extra dev python -m build
 
-publish: build
-	$(UV) run --extra dev twine upload dist/*
+publish:
+	@$(UV) run python -c "print('Default releases publish to PyPI through GitHub Actions Trusted Publishing. Push a vMAJOR.MINOR.PATCH tag and use the pypi environment. Manual fallback: uv run --extra dev twine upload dist/*')"
 
 # ---------------------------------------------------------------------------
 # Documentation
@@ -91,7 +91,7 @@ targets = [\
   ('test',         'Run test suite'),\
   ('test-cov',     'Run tests with coverage report'),\
   ('build',        'Build wheel and sdist distributions'),\
-  ('publish',      'Build and upload to PyPI via twine'),\
+  ('publish',      'Show PyPI Trusted Publishing guidance'),\
   ('docs',         'Build static documentation site'),\
   ('docs-serve',   'Serve docs locally at http://127.0.0.1:8000'),\
   ('docs-deploy',  'Deploy docs to the docs branch (GitHub Pages)'),\

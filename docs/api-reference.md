@@ -159,7 +159,7 @@ The example values below come from the packaged `default.xml` light palette. The
 | `ring` | `#0f172a` |
 | `radius` | `8px` |
 | `font_family` | `system-ui, sans-serif` |
-| `font_size` | `16px` |
+| `spacing` | `4px` |
 
 ---
 

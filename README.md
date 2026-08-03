@@ -26,13 +26,56 @@ QtShadcn loads a local **XML theme file** containing `<light>` and `<dark>` pale
 ## Installation
 
 ```bash
-# Production (no Qt included — you provide it)
+# Install QtShadcn from PyPI
 pip install qtshadcn
 
-# Development (includes PySide6, ruff, pytest, mkdocs, …)
-uv sync --extra dev
+# Or with uv
+uv add qtshadcn
+```
+
+QtShadcn does not bundle PySide6. Install PySide6 in your application environment so your app controls the Qt runtime version:
+
+```bash
+pip install PySide6
 # or
-make install-dev
+uv add PySide6
+```
+
+---
+
+## Distribution
+
+Python distributions are published to [PyPI](https://pypi.org/project/qtshadcn/). GitHub Releases are used for release notes and tags only; wheel and source distribution files should not be attached there once PyPI publishing is active.
+
+---
+
+## Maintainer Release Checklist
+
+Configure PyPI Trusted Publishing before the first release:
+
+| PyPI field | Value |
+| --- | --- |
+| Project | `qtshadcn` |
+| Owner | `BugCodeX` |
+| Repository | `QtShadcn` |
+| Workflow | `publish-pypi.yml` |
+| Environment | `pypi` |
+
+Release path:
+
+1. Confirm the version in `pyproject.toml` matches the next semver release.
+2. Push a tag named `vMAJOR.MINOR.PATCH` for future releases.
+3. Let `.github/workflows/publish-pypi.yml` build and publish the wheel and sdist to PyPI.
+4. For an already-pushed tag such as `v0.0.5`, run the workflow manually from GitHub Actions after Trusted Publishing is configured.
+5. Use GitHub Releases for notes/tags, not `.whl` or `.tar.gz` assets.
+
+If the PyPI publish succeeds for `v0.0.5`, existing wheel and source distribution assets can be removed from GitHub Releases.
+
+Local Twine upload should be treated as an explicit fallback only, not the default release path:
+
+```bash
+make build
+uv run --extra dev twine upload dist/*
 ```
 
 ---
@@ -85,7 +128,7 @@ A QtShadcn theme is a plain XML file with two palette sections:
     <ring>#0f172a</ring>
     <radius>8px</radius>
     <font_family>system-ui, sans-serif</font_family>
-    <font_size>16px</font_size>
+    <spacing>4px</spacing>
     <card>#ffffff</card>
     <card_foreground>#020617</card_foreground>
     <popover>#ffffff</popover>
@@ -144,6 +187,7 @@ make test          # pytest
 make test-cov      # pytest with HTML coverage report
 make docs-serve    # live-reload docs at http://127.0.0.1:8000
 make build         # wheel + sdist
+make publish       # show PyPI Trusted Publishing guidance
 make clean         # remove dist/, caches, .coverage
 ```
 

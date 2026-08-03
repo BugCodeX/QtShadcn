@@ -1,15 +1,16 @@
 site_name: QtShadcn
 site_description: Modern styling and theming framework for Qt/PySide6 applications, inspired by shadcn/ui.
-site_url: https://GoMuse.github.io/qtshadcn/
+site_url: https://BugCodeX.github.io/QtShadcn/
 
-repo_name: GoMuse/qtshadcn
-repo_url: https://github.com/GoMuse/qtshadcn
+repo_name: BugCodeX/QtShadcn
+repo_url: https://github.com/BugCodeX/QtShadcn
 
 nav:
   - Home: index.md
   - Getting Started: getting-started.md
   - Theme Format: theme-format.md
   - API Reference: api-reference.md
+  - Release Guide: release.md
 
 docs_dir: docs
 

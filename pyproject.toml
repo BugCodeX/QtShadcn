@@ -66,10 +66,10 @@ dependencies = [
 # ============================================================
 
 [project.urls]
-Documentation = "https://BugCodeX.github.io/qtshadcn/"
-Homepage = "https://github.com/BugCodeX/qtshadcn"
-Issues = "https://github.com/BugCodeX/qtshadcn/issues"
-Repository = "https://github.com/BugCodeX/qtshadcn"
+Documentation = "https://BugCodeX.github.io/QtShadcn/"
+Homepage = "https://github.com/BugCodeX/QtShadcn"
+Issues = "https://github.com/BugCodeX/QtShadcn/issues"
+Repository = "https://github.com/BugCodeX/QtShadcn"
 
 # ============================================================
 # Optional dependencies (not installed by default)

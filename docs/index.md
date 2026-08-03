@@ -42,6 +42,10 @@ sys.exit(app.exec())
 
 ```bash
 pip install qtshadcn
+# or
+uv add qtshadcn
 ```
+
+QtShadcn is distributed through [PyPI](https://pypi.org/project/qtshadcn/). PySide6 is app-provided rather than bundled, so install PySide6 in your application environment.
 
 See [Getting Started](getting-started.md) for the full setup guide.
