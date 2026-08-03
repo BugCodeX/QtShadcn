@@ -387,7 +387,7 @@ QToolButton[variant="destructive"]:disabled {
 }
 
 /* ============================================================
-   LineEdit - QtShadcn
+   Text input widgets - QtShadcn
    ============================================================ */
 
 QLineEdit {
@@ -406,23 +406,45 @@ QLineEdit {
     selection-color: {{ tokens.primary_foreground }};
 }
 
-QLineEdit:focus {
+QTextEdit {
+    background-color: {{ colors.alpha(tokens.input, 0.3) if is_dark else "transparent" }};
+    color: {{ tokens.foreground }};
+    border: 1px solid {{ tokens.input }};
+    outline: none;
+    border-radius: {{ radius.class_px(tokens.radius, "lg") }};
+    padding-left: {{ scale.spacing_px(tokens.spacing, 2.5) }};
+    padding-right: {{ scale.spacing_px(tokens.spacing, 2.5) }};
+    padding-top: {{ scale.spacing_px(tokens.spacing, 2) }};
+    padding-bottom: {{ scale.spacing_px(tokens.spacing, 2) }};
+    min-width: {{ scale.spacing_px(tokens.spacing, 0) }};
+    min-height: {{ scale.spacing_px(tokens.spacing, 16) }};
+    font-size: {{ scale.TEXT_SM }};
+    placeholder-text-color: {{ tokens.muted_foreground }};
+    selection-background-color: {{ tokens.primary }};
+    selection-color: {{ tokens.primary_foreground }};
+}
+
+QLineEdit:focus,
+QTextEdit:focus {
     border-color: {{ colors.alpha(tokens.ring, 0.5) }};
     outline: none;
 }
 
-QLineEdit:disabled {
+QLineEdit:disabled,
+QTextEdit:disabled {
     background-color: {{ tokens.muted }};
     color: {{ colors.alpha(tokens.muted_foreground, 0.5) }};
     border-color: {{ colors.alpha(tokens.input, 0.5) }};
     placeholder-text-color: {{ colors.alpha(tokens.muted_foreground, 0.5) }};
 }
 
-QLineEdit[invalid="true"] {
+QLineEdit[invalid="true"],
+QTextEdit[invalid="true"] {
     border-color: {{ tokens.destructive }};
 }
 
-QLineEdit[invalid="true"]:focus {
+QLineEdit[invalid="true"]:focus,
+QTextEdit[invalid="true"]:focus {
     border-color: {{ colors.alpha(tokens.destructive, 0.5) }};
 }
 

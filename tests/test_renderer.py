@@ -22,6 +22,10 @@ class TestRenderer:
         assert "QLineEdit:focus" in qss
         assert "QLineEdit:disabled" in qss
         assert 'QLineEdit[invalid="true"]' in qss
+        assert "QTextEdit" in qss
+        assert "QTextEdit:focus" in qss
+        assert "QTextEdit:disabled" in qss
+        assert 'QTextEdit[invalid="true"]' in qss
 
     def test_typography_classes_present(self):
         """Test that typography classes are present in the QSS."""
@@ -76,17 +80,19 @@ class TestRenderer:
         tokens = _tokens(spacing="4px")
         qss = _build_theme(tokens)
 
-        assert (
-            """QLineEdit {
+        line_edit_block = """QLineEdit {
     background-color: transparent;
     color: #020617;
     border: 1px solid #e2e8f0;
     outline: none;
-    border-radius: 8px;"""
-            in qss
-        )
-        assert "padding-top:" not in qss
-        assert "padding-bottom:" not in qss
+    border-radius: 8px;
+    padding-left: 10px;
+    padding-right: 10px;
+    min-width: 0px;
+    min-height: 32px;"""
+        assert line_edit_block in qss
+        assert "padding-top:" not in line_edit_block
+        assert "padding-bottom:" not in line_edit_block
         assert "padding-left: 10px;" in qss
         assert "padding-right: 10px;" in qss
         assert "min-width: 0px;" in qss
@@ -119,6 +125,58 @@ class TestRenderer:
         tokens = _tokens(input="#343434")
         qss = _build_theme(tokens, is_dark=True)
 
+        assert "background-color: rgba(52, 52, 52, 0.3);" in qss
+
+    def test_text_edit_textarea_semantics_are_rendered(self):
+        """Test that QTextEdit renders shadcn Textarea semantics."""
+        tokens = _tokens(spacing="4px")
+        qss = _build_theme(tokens)
+
+        assert (
+            """QTextEdit {
+    background-color: transparent;
+    color: #020617;
+    border: 1px solid #e2e8f0;
+    outline: none;
+    border-radius: 8px;"""
+            in qss
+        )
+        assert "padding-left: 10px;" in qss
+        assert "padding-right: 10px;" in qss
+        assert "padding-top: 8px;" in qss
+        assert "padding-bottom: 8px;" in qss
+        assert "min-width: 0px;" in qss
+        assert "min-height: 64px;" in qss
+        assert "font-size: 14px;" in qss
+        assert "placeholder-text-color: #64748b;" in qss
+
+    def test_text_edit_shares_input_state_colors(self):
+        """Test that QTextEdit shares QLineEdit focus, disabled, and invalid states."""
+        tokens = _tokens(
+            input="#e2e8f0",
+            muted="#f1f5f9",
+            muted_foreground="#64748b",
+            destructive="#ef4444",
+            ring="#0f172a",
+        )
+        qss = _build_theme(tokens)
+
+        assert "QLineEdit:focus,\nQTextEdit:focus" in qss
+        assert "QLineEdit:disabled,\nQTextEdit:disabled" in qss
+        assert 'QLineEdit[invalid="true"],\nQTextEdit[invalid="true"]' in qss
+        assert "border-color: rgba(15, 23, 42, 0.5);" in qss
+        assert "background-color: #f1f5f9;" in qss
+        assert "color: rgba(100, 116, 139, 0.5);" in qss
+        assert "border-color: rgba(226, 232, 240, 0.5);" in qss
+        assert "border-color: #ef4444;" in qss
+        assert "border-color: rgba(239, 68, 68, 0.5);" in qss
+
+    def test_text_edit_dark_mode_uses_input_background_alpha(self):
+        """Test that dark QTextEdit background maps shadcn input/30 semantics."""
+        tokens = _tokens(input="#343434")
+        qss = _build_theme(tokens, is_dark=True)
+
+        assert "QTextEdit {" in qss
         assert "background-color: rgba(52, 52, 52, 0.3);" in qss
 
     def test_base_button_focus_preserves_default_variant_style(self):

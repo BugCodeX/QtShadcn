@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>QTextEditDemo</class>
+ <widget class="QWidget" name="QTextEditDemo">
+  <property name="windowTitle">
+   <string>QTextEdit States</string>
+  </property>
+  <layout class="QVBoxLayout" name="rootLayout">
+   <item>
+    <widget class="QLabel" name="titleLabel">
+     <property name="text">
+      <string>QTextEdit states</string>
+     </property>
+     <property name="class">
+      <string>h3</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="descriptionLabel">
+     <property name="text">
+      <string>Use QTextEdit for multiline form values, validation feedback, disabled fields, and longer notes.</string>
+     </property>
+     <property name="class">
+      <string>muted</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="darkModeButton">
+     <property name="text">
+      <string>Dark mode</string>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>128</width>
+       <height>36</height>
+      </size>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+     <property name="variant">
+      <string>outline</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QGridLayout" name="stateGrid">
+     <property name="verticalSpacing">
+      <number>12</number>
+     </property>
+     <item row="0" column="0">
+      <widget class="QLabel" name="defaultLabel">
+       <property name="text">
+        <string>Default</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QTextEdit" name="defaultInput">
+       <property name="placeholderText">
+        <string>Write a short message</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="prefilledLabel">
+       <property name="text">
+        <string>Prefilled</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QTextEdit" name="prefilledInput">
+       <property name="placeholderText">
+        <string>Tell us about the customer</string>
+       </property>
+       <property name="plainText">
+        <string>Olivia prefers concise release notes with clear verification steps.</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="disabledLabel">
+       <property name="text">
+        <string>Disabled</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QTextEdit" name="disabledInput">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="placeholderText">
+        <string>Unavailable notes</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="invalidLabel">
+       <property name="text">
+        <string>Invalid</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QTextEdit" name="invalidInput">
+       <property name="placeholderText">
+        <string>Describe the issue</string>
+       </property>
+       <property name="plainText">
+        <string>Too short.</string>
+       </property>
+       <property name="invalid">
+        <string>true</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
