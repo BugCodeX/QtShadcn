@@ -391,22 +391,39 @@ QToolButton[variant="destructive"]:disabled {
    ============================================================ */
 
 QLineEdit {
-    background-color: {{ tokens.input }};
+    background-color: {{ colors.alpha(tokens.input, 0.3) if is_dark else "transparent" }};
     color: {{ tokens.foreground }};
-    border: 1px solid {{ tokens.border }};
-    border-radius: {{ tokens.radius }};
-    padding: 6px 8px;
+    border: 1px solid {{ tokens.input }};
+    outline: none;
+    border-radius: {{ radius.class_px(tokens.radius, "lg") }};
+    padding-left: {{ scale.spacing_px(tokens.spacing, 2.5) }};
+    padding-right: {{ scale.spacing_px(tokens.spacing, 2.5) }};
+    min-width: {{ scale.spacing_px(tokens.spacing, 0) }};
+    min-height: {{ scale.spacing_px(tokens.spacing, 8) }};
+    font-size: {{ scale.TEXT_SM }};
+    placeholder-text-color: {{ tokens.muted_foreground }};
     selection-background-color: {{ tokens.primary }};
     selection-color: {{ tokens.primary_foreground }};
 }
 
 QLineEdit:focus {
-    border-color: {{ tokens.ring }};
+    border-color: {{ colors.alpha(tokens.ring, 0.5) }};
+    outline: none;
 }
 
 QLineEdit:disabled {
     background-color: {{ tokens.muted }};
-    color: {{ tokens.muted_foreground }};
+    color: {{ colors.alpha(tokens.muted_foreground, 0.5) }};
+    border-color: {{ colors.alpha(tokens.input, 0.5) }};
+    placeholder-text-color: {{ colors.alpha(tokens.muted_foreground, 0.5) }};
+}
+
+QLineEdit[invalid="true"] {
+    border-color: {{ tokens.destructive }};
+}
+
+QLineEdit[invalid="true"]:focus {
+    border-color: {{ colors.alpha(tokens.destructive, 0.5) }};
 }
 
 /* Typography classes */

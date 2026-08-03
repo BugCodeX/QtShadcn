@@ -64,7 +64,7 @@ def apply_theme(app: QApplication, config: ThemeConfig | None = None) -> ShadcnT
     active_tokens = theme.dark if is_dark else theme.light
     mode_label = "dark" if is_dark else "light"
 
-    stylesheet = _build_theme(active_tokens)
+    stylesheet = _build_theme(active_tokens, is_dark=is_dark)
 
     # test export css
     # with open("debug_theme.qss", "w", encoding="utf-8") as f:
@@ -82,7 +82,9 @@ def get_theme() -> ShadcnTheme | None:
     return saved_theme
 
 
-def _build_theme(tokens: ShadcnThemeTokens, template: str = TEMPLATE_FILE) -> str:
+def _build_theme(
+    tokens: ShadcnThemeTokens, template: str = TEMPLATE_FILE, *, is_dark: bool = False
+) -> str:
     """Render the QSS stylesheet from resolved tokens."""
     try:
         _add_fonts()
@@ -100,7 +102,13 @@ def _build_theme(tokens: ShadcnThemeTokens, template: str = TEMPLATE_FILE) -> st
         env = jinja2.Environment(autoescape=False, loader=jinja2.BaseLoader())
         stylesheet = env.from_string(template)
 
-    return stylesheet.render(tokens=tokens, colors=colors, radius=radius, scale=scale)
+    return stylesheet.render(
+        tokens=tokens,
+        colors=colors,
+        radius=radius,
+        scale=scale,
+        is_dark=is_dark,
+    )
 
 
 def _resolve_theme_source_path(config: ThemeConfig) -> Path:

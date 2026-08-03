@@ -19,6 +19,9 @@ class TestRenderer:
         assert "QPushButton" in qss
         assert "QToolButton" in qss
         assert "QLineEdit" in qss
+        assert "QLineEdit:focus" in qss
+        assert "QLineEdit:disabled" in qss
+        assert 'QLineEdit[invalid="true"]' in qss
 
     def test_typography_classes_present(self):
         """Test that typography classes are present in the QSS."""
@@ -67,6 +70,56 @@ class TestRenderer:
         assert f'QToolButton[{"button" + "Size"}="icon-lg"]' not in qss
         assert "min-width: 28px;" in qss
         assert "min-width: 36px;" in qss
+
+    def test_line_edit_input_semantics_are_rendered(self):
+        """Test that QLineEdit renders shadcn Input semantics."""
+        tokens = _tokens(spacing="4px")
+        qss = _build_theme(tokens)
+
+        assert (
+            """QLineEdit {
+    background-color: transparent;
+    color: #020617;
+    border: 1px solid #e2e8f0;
+    outline: none;
+    border-radius: 8px;"""
+            in qss
+        )
+        assert "padding-top:" not in qss
+        assert "padding-bottom:" not in qss
+        assert "padding-left: 10px;" in qss
+        assert "padding-right: 10px;" in qss
+        assert "min-width: 0px;" in qss
+        assert "min-height: 32px;" in qss
+        assert "font-size: 14px;" in qss
+        assert "placeholder-text-color: #64748b;" in qss
+
+    def test_line_edit_state_colors_are_qss_safe(self):
+        """Test that QLineEdit focus, disabled, and invalid states use static colors."""
+        tokens = _tokens(
+            input="#e2e8f0",
+            muted="#f1f5f9",
+            muted_foreground="#64748b",
+            destructive="#ef4444",
+            ring="#0f172a",
+        )
+        qss = _build_theme(tokens)
+
+        assert "border-color: rgba(15, 23, 42, 0.5);" in qss
+        assert "background-color: #f1f5f9;" in qss
+        assert "color: rgba(100, 116, 139, 0.5);" in qss
+        assert "border-color: rgba(226, 232, 240, 0.5);" in qss
+        assert "border-color: #ef4444;" in qss
+        assert "border-color: rgba(239, 68, 68, 0.5);" in qss
+        assert "box-shadow" not in qss
+        assert "transition" not in qss
+
+    def test_line_edit_dark_mode_uses_input_background_alpha(self):
+        """Test that dark QLineEdit background maps shadcn input/30 semantics."""
+        tokens = _tokens(input="#343434")
+        qss = _build_theme(tokens, is_dark=True)
+
+        assert "background-color: rgba(52, 52, 52, 0.3);" in qss
 
     def test_base_button_focus_preserves_default_variant_style(self):
         """Test that an unvariant button keeps default visual styling on focus."""
