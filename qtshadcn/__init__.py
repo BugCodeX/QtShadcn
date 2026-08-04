@@ -5,7 +5,7 @@ from typing import Any
 
 from .models import ShadcnTheme, ShadcnThemeTokens, ThemeConfig, ThemeMode
 from ._parser import ThemeParseError
-from .utils import blend_colors
+from ._utils import blend_colors
 
 
 def _resolve_version() -> str:
