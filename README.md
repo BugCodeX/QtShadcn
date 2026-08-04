@@ -1,6 +1,6 @@
 # QtShadcn
 
-> Modern styling and theming framework for Qt/PySide6 applications, inspired by [shadcn/ui](https://ui.shadcn.com).
+> Modern styling and theming framework for Qt/PySide and PyQt applications, inspired by [shadcn/ui](https://ui.shadcn.com).
 
 QtShadcn loads a local **XML theme file** containing `<light>` and `<dark>` palettes, resolves the design tokens, renders a QSS stylesheet via Jinja2, and applies it to your `QApplication` in one call.
 
@@ -10,16 +10,17 @@ QtShadcn loads a local **XML theme file** containing `<light>` and `<dark>` pale
 
 - 🎨 **Light & dark palettes** — single XML file, both modes
 - 🔄 **Auto mode** — follows the OS theme via `darkdetect`
+- 🖥️ **Binding neutral** — works with PySide6, PyQt6, PySide2, or PyQt5
 - 🖋 **Custom fonts** — drop font files in the package `fonts/` directory
 - ⚡ **Disk cache** — theme is re-rendered only when the source file changes
-- ✅ **App-provided Qt runtime** — install PySide6 in your application environment
+- ✅ **App-provided Qt runtime** — install the Qt binding your app already uses
 
 ---
 
 ## Requirements
 
 - Python ≥ 3.11
-- PySide6 ≥ 6.11 (provided by your application environment)
+- One of: PySide6, PyQt6, PySide2, or PyQt5 (provided by your application environment)
 
 ---
 
@@ -33,13 +34,27 @@ pip install qtshadcn
 uv add qtshadcn
 ```
 
-QtShadcn does not bundle PySide6. Install PySide6 in your application environment so your app controls the Qt runtime version:
+QtShadcn does not bundle a Qt binding. Install the binding your application already uses:
 
 ```bash
+# PySide6 (recommended)
 pip install PySide6
-# or
-uv add PySide6
+
+# Or PyQt6, PySide2, PyQt5
+pip install PyQt6
 ```
+
+---
+
+## Widget Gallery
+
+Explore the supported widgets by running the gallery:
+
+```bash
+uv run --extra dev python examples/gallery/main.py
+```
+
+The gallery includes a sidebar navigator, a light/dark toggle, and pages for every currently styled widget.
 
 ---
 
@@ -66,10 +81,10 @@ Release path:
 1. Confirm the version in `pyproject.toml` matches the next semver release.
 2. Push a tag named `vMAJOR.MINOR.PATCH` for future releases.
 3. Let `.github/workflows/publish-pypi.yml` build and publish the wheel and sdist to PyPI.
-4. For an already-pushed tag such as `v0.0.5`, run the workflow manually from GitHub Actions after Trusted Publishing is configured.
+4. For an already-pushed tag such as `v0.0.6`, run the workflow manually from GitHub Actions after Trusted Publishing is configured.
 5. Use GitHub Releases for notes/tags, not `.whl` or `.tar.gz` assets.
 
-If the PyPI publish succeeds for `v0.0.5`, existing wheel and source distribution assets can be removed from GitHub Releases.
+Once the PyPI publish succeeds for the current release, any existing wheel and source distribution assets from earlier releases may be removed from GitHub Releases.
 
 Local Twine upload should be treated as an explicit fallback only, not the default release path:
 
@@ -84,10 +99,10 @@ uv run --extra dev twine upload dist/*
 
 ```python
 import sys
-from PySide6.QtWidgets import QApplication, QLabel
+from qtshadcn._qt import QtWidgets
 from qtshadcn import ThemeConfig, apply_theme
 
-app = QApplication(sys.argv)
+app = QtWidgets.QApplication(sys.argv)
 
 config = ThemeConfig(
     theme_source_path="path/to/my_theme.xml",
@@ -97,10 +112,24 @@ config = ThemeConfig(
 tokens = apply_theme(app, config)
 print(tokens.primary)  # resolved hex color
 
-label = QLabel("Hello, QtShadcn!")
+label = QtWidgets.QLabel("Hello, QtShadcn!")
 label.show()
 sys.exit(app.exec())
 ```
+
+---
+
+## Supported Styled Widgets
+
+QtShadcn currently ships QSS for:
+
+- `QWidget` — base background, foreground, and typography classes
+- `QPushButton` — variants, sizes, and disabled states
+- `QToolButton` — compact icon/action variants
+- `QLineEdit` — input states including focus, disabled, and invalid
+- `QTextEdit` — textarea states including focus, disabled, and invalid
+
+See the [gallery](examples/gallery/main.py) and the [roadmap](docs/roadmap.md) for what is planned next.
 
 ---
 

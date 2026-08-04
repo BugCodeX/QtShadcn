@@ -11,10 +11,8 @@ from pathlib import Path
 
 import darkdetect
 import jinja2
-from PySide6.QtCore import QStandardPaths
-from PySide6.QtGui import QFontDatabase
-from PySide6.QtWidgets import QApplication
 
+from ._qt import QtCore, QtGui, QtWidgets
 from .models import ShadcnTheme, ShadcnThemeTokens, ThemeConfig
 from .parser import ThemeParseError, parse_theme_source
 from .tokens import colors, radius, scale
@@ -25,7 +23,7 @@ TEMPLATE_FILE = str(Path(__file__).resolve().parent / "styles" / "shadcn.jinja")
 DEFAULT_THEME_FILE = Path(__file__).resolve().parent / "themes" / "default.xml"
 
 
-def apply_theme(app: QApplication, config: ThemeConfig | None = None) -> ShadcnThemeTokens:
+def apply_theme(app: QtWidgets.QApplication, config: ThemeConfig | None = None) -> ShadcnThemeTokens:
     """Apply a QtShadcn XML theme and return the active palette.
 
     If ``config`` is None or omits ``theme_source_path``, the packaged default
@@ -121,8 +119,8 @@ def _resolve_theme_source_path(config: ThemeConfig) -> Path:
 def _save_theme(config: ThemeConfig, theme: ShadcnTheme, mtime: float) -> None:
     """Persist configuration, resolved theme, and source mtime to AppData."""
     try:
-        app_data_path = QStandardPaths.writableLocation(
-            QStandardPaths.StandardLocation.AppDataLocation
+        app_data_path = QtCore.QStandardPaths.writableLocation(
+            QtCore.QStandardPaths.AppDataLocation
         )
         dir_path = Path(app_data_path)
         dir_path.mkdir(parents=True, exist_ok=True)
@@ -145,8 +143,8 @@ def _save_theme(config: ThemeConfig, theme: ShadcnTheme, mtime: float) -> None:
 def _load_theme_cache() -> tuple[ThemeConfig | None, ShadcnTheme | None, float | None]:
     """Load the cached theme, configuration, and source mtime from disk."""
     try:
-        app_data_path = QStandardPaths.writableLocation(
-            QStandardPaths.StandardLocation.AppDataLocation
+        app_data_path = QtCore.QStandardPaths.writableLocation(
+            QtCore.QStandardPaths.AppDataLocation
         )
         file_path = Path(app_data_path) / "theme.json"
 
@@ -178,7 +176,7 @@ def _get_mtime(path: Path) -> float:
 
 def _add_fonts() -> None:
     """Register local font files found under the package ``fonts`` directory."""
-    if QApplication.instance() is None:
+    if QtWidgets.QApplication.instance() is None:
         return
 
     fonts_path = Path(__file__).parent / "fonts"
@@ -191,6 +189,6 @@ def _add_fonts() -> None:
             continue
 
         for font_file in font_dir.glob("*.[to]tf"):
-            font_id = QFontDatabase.addApplicationFont(str(font_file))
+            font_id = QtGui.QFontDatabase.addApplicationFont(str(font_file))
             if font_id == -1:
                 logger.warning("Could not load font: %s", font_file.name)

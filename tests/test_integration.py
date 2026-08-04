@@ -4,7 +4,7 @@ import sys
 from pathlib import Path
 
 import pytest
-from PySide6.QtWidgets import QApplication
+from qtshadcn._qt import QtWidgets
 from qtshadcn.app import _build_theme, apply_theme
 from qtshadcn.models import ShadcnThemeTokens, ThemeConfig
 
@@ -73,7 +73,7 @@ def full_theme_path(tmp_path: Path) -> Path:
 class TestIntegration:
     """Tests for the integration of the QtShadcn theme pipeline."""
 
-    def test_full_pipeline(self, qapp: QApplication, full_theme_path: Path):
+    def test_full_pipeline(self, qapp: QtWidgets.QApplication, full_theme_path: Path):
         """Test the full theme application pipeline."""
         config = ThemeConfig(theme_source_path=str(full_theme_path), theme_mode="light")
         tokens = apply_theme(qapp, config)
@@ -84,7 +84,7 @@ class TestIntegration:
         assert tokens.spacing == "4px"
         assert qapp.styleSheet() != ""
 
-    def test_qss_output_is_qt_safe(self, qapp: QApplication, full_theme_path: Path):
+    def test_qss_output_is_qt_safe(self, qapp: QtWidgets.QApplication, full_theme_path: Path):
         """Test that the QSS output is safe for Qt."""
         config = ThemeConfig(theme_source_path=str(full_theme_path), theme_mode="light")
         tokens = apply_theme(qapp, config)

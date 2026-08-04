@@ -1,14 +1,14 @@
 """Shared pytest fixtures."""
 
 import pytest
-from PySide6.QtWidgets import QApplication
+from qtshadcn._qt import QtWidgets
 
 
 @pytest.fixture(scope="session")
 def qapp():
     """Provide a single QApplication instance for the test session."""
-    app = QApplication.instance()
+    app = QtWidgets.QApplication.instance()
     if app is None:
-        app = QApplication([])
+        app = QtWidgets.QApplication([])
     yield app
     app.deleteLater()

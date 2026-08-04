@@ -4,7 +4,7 @@ from pathlib import Path
 from unittest.mock import patch
 
 import pytest
-from PySide6.QtWidgets import QApplication
+from qtshadcn._qt import QtWidgets
 from qtshadcn.app import _load_theme_cache, apply_theme
 from qtshadcn.models import ThemeConfig
 from qtshadcn.parser import ThemeParseError
@@ -74,54 +74,54 @@ def sample_xml(tmp_path: Path) -> Path:
 class TestApplyTheme:
     """Tests for the apply_theme function."""
 
-    def test_applies_theme_and_returns_active_palette(self, qapp: QApplication, sample_xml: Path):
+    def test_applies_theme_and_returns_active_palette(self, qapp: QtWidgets.QApplication, sample_xml: Path):
         """Test that the theme is applied and the active palette is returned."""
         config = ThemeConfig(theme_source_path=str(sample_xml), theme_mode="light")
         tokens = apply_theme(qapp, config)
         assert tokens.background == "#ffffff"
         assert qapp.styleSheet() != ""
 
-    def test_explicit_dark_palette(self, qapp: QApplication, sample_xml: Path):
+    def test_explicit_dark_palette(self, qapp: QtWidgets.QApplication, sample_xml: Path):
         """Test that the dark palette is applied."""
         config = ThemeConfig(theme_source_path=str(sample_xml), theme_mode="dark")
         tokens = apply_theme(qapp, config)
         assert tokens.background == "#020617"
 
-    def test_default_theme_applies_without_source_path(self, qapp: QApplication):
+    def test_default_theme_applies_without_source_path(self, qapp: QtWidgets.QApplication):
         """Test that the default theme is applied without a source path."""
         config = ThemeConfig(theme_mode="light")
         tokens = apply_theme(qapp, config)
         assert tokens.background == "#ffffff"
         assert qapp.styleSheet() != ""
 
-    def test_default_theme_applies_without_config(self, qapp: QApplication):
+    def test_default_theme_applies_without_config(self, qapp: QtWidgets.QApplication):
         """Test that the default theme is applied without a config object."""
         with patch("qtshadcn.app.darkdetect.isDark", return_value=False):
             tokens = apply_theme(qapp)
         assert tokens.background == "#ffffff"
         assert qapp.styleSheet() != ""
 
-    def test_missing_file_raises_theme_parse_error(self, qapp: QApplication):
+    def test_missing_file_raises_theme_parse_error(self, qapp: QtWidgets.QApplication):
         """Test that a missing file raises a ThemeParseError."""
         config = ThemeConfig(theme_source_path="missing-theme.xml", theme_mode="light")
         with pytest.raises(ThemeParseError, match="Could not read theme source"):
             apply_theme(qapp, config)
 
-    def test_auto_mode_selects_dark_when_detected(self, qapp: QApplication, sample_xml: Path):
+    def test_auto_mode_selects_dark_when_detected(self, qapp: QtWidgets.QApplication, sample_xml: Path):
         """Test that the auto mode selects dark when detected."""
         config = ThemeConfig(theme_source_path=str(sample_xml), theme_mode="auto")
         with patch("qtshadcn.app.darkdetect.isDark", return_value=True):
             tokens = apply_theme(qapp, config)
         assert tokens.background == "#020617"
 
-    def test_auto_mode_selects_light_when_not_detected(self, qapp: QApplication, sample_xml: Path):
+    def test_auto_mode_selects_light_when_not_detected(self, qapp: QtWidgets.QApplication, sample_xml: Path):
         """Test that the auto mode selects light when not detected."""
         config = ThemeConfig(theme_source_path=str(sample_xml), theme_mode="auto")
         with patch("qtshadcn.app.darkdetect.isDark", return_value=False):
             tokens = apply_theme(qapp, config)
         assert tokens.background == "#ffffff"
 
-    def test_json_rejected(self, qapp: QApplication, tmp_path: Path):
+    def test_json_rejected(self, qapp: QtWidgets.QApplication, tmp_path: Path):
         """Test that JSON files are rejected."""
         path = tmp_path / "theme.json"
         path.write_text("{}", encoding="utf-8")
@@ -129,7 +129,7 @@ class TestApplyTheme:
         with pytest.raises(ThemeParseError, match="JSON"):
             apply_theme(qapp, config)
 
-    def test_css_rejected(self, qapp: QApplication, tmp_path: Path):
+    def test_css_rejected(self, qapp: QtWidgets.QApplication, tmp_path: Path):
         """Test that CSS files are rejected."""
         path = tmp_path / "theme.css"
         path.write_text("* { color: red; }", encoding="utf-8")
@@ -141,7 +141,7 @@ class TestApplyTheme:
 class TestCache:
     """Tests for the theme cache."""
 
-    def test_cache_stores_config_and_theme(self, qapp: QApplication, sample_xml: Path):
+    def test_cache_stores_config_and_theme(self, qapp: QtWidgets.QApplication, sample_xml: Path):
         """Test that the cache stores the config and theme."""
         config = ThemeConfig(theme_source_path=str(sample_xml), theme_mode="light")
         apply_theme(qapp, config)
@@ -152,7 +152,7 @@ class TestCache:
         assert saved_mtime is not None
         assert saved_config.theme_source_path == str(sample_xml)
 
-    def test_cache_reused_on_same_mtime(self, qapp: QApplication, sample_xml: Path):
+    def test_cache_reused_on_same_mtime(self, qapp: QtWidgets.QApplication, sample_xml: Path):
         """Test that the cache is reused on the same mtime."""
         config = ThemeConfig(theme_source_path=str(sample_xml), theme_mode="light")
         apply_theme(qapp, config)
@@ -161,7 +161,7 @@ class TestCache:
             apply_theme(qapp, config)
             mock_parse.assert_not_called()
 
-    def test_cache_refreshed_on_source_change(self, qapp: QApplication, sample_xml: Path):
+    def test_cache_refreshed_on_source_change(self, qapp: QtWidgets.QApplication, sample_xml: Path):
         """Test that the cache is refreshed when the source file changes."""
         config = ThemeConfig(theme_source_path=str(sample_xml), theme_mode="light")
         apply_theme(qapp, config)

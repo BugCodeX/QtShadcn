@@ -3,17 +3,17 @@
 ## Requirements
 
 - Python ≥ 3.11
-- PySide6 ≥ 6.11 (provided by your application environment)
+- One of the supported Qt bindings: **PySide6**, **PyQt6**, **PySide2**, or **PyQt5**
 
 ## Installation
 
-QtShadcn is published on PyPI. PySide6 is intentionally not bundled; install it in your application environment so your app controls the Qt runtime version.
+QtShadcn is published on PyPI. A Qt binding is intentionally not bundled; install the one your application already uses so your app controls the Qt runtime version.
 
 /// tab | pip
 
 ```bash
 pip install qtshadcn
-pip install PySide6
+pip install PySide6  # or PyQt6, PySide2, PyQt5
 ```
 
 ///
@@ -22,7 +22,7 @@ pip install PySide6
 
 ```bash
 uv add qtshadcn
-uv add PySide6
+uv add PySide6  # or PyQt6, PySide2, PyQt5
 ```
 
 ///
@@ -103,10 +103,10 @@ Save this as `my_theme.xml` next to your script:
 
 ```python
 import sys
-from PySide6.QtWidgets import QApplication, QPushButton
+from qtshadcn._qt import QtWidgets
 from qtshadcn import ThemeConfig, ThemeParseError, apply_theme
 
-app = QApplication(sys.argv)
+app = QtWidgets.QApplication(sys.argv)
 
 config = ThemeConfig(
     theme_source_path="my_theme.xml",
@@ -121,7 +121,7 @@ except ThemeParseError as e:
 
 print(f"Active primary color: {tokens.primary}")
 
-btn = QPushButton("Hello, QtShadcn!")
+btn = QtWidgets.QPushButton("Hello, QtShadcn!")
 btn.show()
 sys.exit(app.exec())
 ```
@@ -143,7 +143,7 @@ apply_theme(app, config)
 
 ## Using Bundled Fonts
 
-QtShadcn includes **Open Sans** and **Roboto**. To activate them, set `font_family` in your XML:
+QtShadcn includes **Open Sans** and **Roboto** under `qtshadcn/fonts/`. To activate them, set `font_family` in your XML:
 
 ```xml
 <font_family>Open Sans, system-ui, sans-serif</font_family>
@@ -171,3 +171,24 @@ config = ThemeConfig(
     theme_mode=ThemeMode.DARK,
 )
 ```
+
+---
+
+## Supported Qt Bindings
+
+QtShadcn detects and uses the first available binding in this order:
+
+1. PySide6
+2. PyQt6
+3. PySide2
+4. PyQt5
+
+Import `qtshadcn._qt` if you need to use the same Qt classes in your application:
+
+```python
+from qtshadcn._qt import QtWidgets
+
+app = QtWidgets.QApplication([])
+```
+
+The public API remains the same regardless of which binding is active.

@@ -1,6 +1,6 @@
 # QtShadcn
 
-**Modern styling and theming framework for Qt/PySide6 applications, inspired by [shadcn/ui](https://ui.shadcn.com).**
+**Modern styling and theming framework for Qt/PySide and PyQt applications, inspired by [shadcn/ui](https://ui.shadcn.com).**
 
 QtShadcn applies a design-token–based QSS stylesheet to your `QApplication` in a single function call. Themes are plain XML files — no web tooling required.
 
@@ -10,9 +10,10 @@ QtShadcn applies a design-token–based QSS stylesheet to your `QApplication` in
 
 - 🎨 **Light & dark palettes** — single XML file, both modes
 - 🔄 **Auto mode** — follows the OS preference via `darkdetect`
+- 🖥️ **Binding neutral** — works with PySide6, PyQt6, PySide2, or PyQt5
 - 🖋 **Bundled fonts** — Open Sans and Roboto included out of the box
 - ⚡ **Disk cache** — QSS is re-rendered only when the theme file changes
-- ✅ **App-provided Qt runtime** — install PySide6 in your application environment
+- ✅ **App-provided Qt runtime** — install the binding your application already uses
 
 ---
 
@@ -20,10 +21,10 @@ QtShadcn applies a design-token–based QSS stylesheet to your `QApplication` in
 
 ```python
 import sys
-from PySide6.QtWidgets import QApplication, QPushButton
+from qtshadcn._qt import QtWidgets
 from qtshadcn import ThemeConfig, apply_theme
 
-app = QApplication(sys.argv)
+app = QtWidgets.QApplication(sys.argv)
 
 config = ThemeConfig(
     theme_source_path="my_theme.xml",
@@ -31,10 +32,22 @@ config = ThemeConfig(
 )
 apply_theme(app, config)
 
-btn = QPushButton("Hello, QtShadcn!")
+btn = QtWidgets.QPushButton("Hello, QtShadcn!")
 btn.show()
 sys.exit(app.exec())
 ```
+
+---
+
+## Widget Gallery
+
+Run the gallery to explore every supported widget and state:
+
+```bash
+uv run --extra dev python examples/gallery/main.py
+```
+
+The gallery has a sidebar, a light/dark toggle, and one page per supported widget.
 
 ---
 
@@ -46,6 +59,14 @@ pip install qtshadcn
 uv add qtshadcn
 ```
 
-QtShadcn is distributed through [PyPI](https://pypi.org/project/qtshadcn/). PySide6 is app-provided rather than bundled, so install PySide6 in your application environment.
+QtShadcn is distributed through [PyPI](https://pypi.org/project/qtshadcn/). A Qt binding is app-provided rather than bundled, so install PySide6, PyQt6, PySide2, or PyQt5 in your application environment.
 
 See [Getting Started](getting-started.md) for the full setup guide.
+
+---
+
+## What's Next
+
+- See the [Theme Format](theme-format.md) for every supported token and color syntax.
+- See [API Reference](api-reference.md) for `apply_theme`, `ThemeConfig`, and the supported widget list.
+- See [Roadmap](roadmap.md) for planned widget coverage and release milestones.

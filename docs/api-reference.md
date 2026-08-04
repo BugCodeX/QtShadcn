@@ -14,6 +14,16 @@ from qtshadcn import (
 )
 ```
 
+If you want your application to use the same Qt binding that QtShadcn detected, import from `qtshadcn._qt`:
+
+```python
+from qtshadcn._qt import QtWidgets
+
+app = QtWidgets.QApplication([])
+```
+
+Supported bindings, in detection order: **PySide6**, **PyQt6**, **PySide2**, **PyQt5**.
+
 ---
 
 ## Functions
@@ -79,6 +89,20 @@ Supported `QToolButton` dynamic properties:
 | --- | --- | --- |
 | `variant` | `default`, `outline`, `secondary`, `ghost`, `destructive` | Visual intent. |
 | `size` | `icon-sm`, `icon`, `icon-lg` | Icon-oriented control size. |
+
+---
+
+## Supported Widgets
+
+QtShadcn v0.0.6 ships QSS for these widgets:
+
+- `QWidget` — base background, foreground, and typography classes
+- `QPushButton` — variants, sizes, and disabled states
+- `QToolButton` — compact icon/action variants
+- `QLineEdit` — input states including focus, disabled, and invalid
+- `QTextEdit` — textarea states including focus, disabled, and invalid
+
+See the [Roadmap](roadmap.md) for planned widget coverage.
 
 ---
 

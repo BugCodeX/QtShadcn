@@ -24,11 +24,11 @@ The workflow uses GitHub Actions OIDC, so no PyPI API token should be stored in 
 4. Confirm the `pypi` environment approval and PyPI publish completed successfully.
 5. Create or update the GitHub Release with notes only.
 
-For an already-pushed tag such as `v0.0.5`, run `Publish to PyPI` manually from GitHub Actions after Trusted Publishing is configured. The workflow also supports manual dispatch for this first PyPI publication.
+For an already-pushed tag such as `v0.0.6`, run `Publish to PyPI` manually from GitHub Actions after Trusted Publishing is configured. The workflow also supports manual dispatch for this first PyPI publication.
 
 Do not attach `.whl` or `.tar.gz` files to GitHub Releases once PyPI publishing is active.
 
-If the PyPI publish succeeds for `v0.0.5`, the existing wheel and source distribution assets can be removed from GitHub Releases.
+Once the PyPI publish succeeds for the current release, any existing wheel and source distribution assets from earlier releases may be removed from GitHub Releases.
 
 ## Fallback Only
 
