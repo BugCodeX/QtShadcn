@@ -12,9 +12,10 @@ from pathlib import Path
 import darkdetect
 import jinja2
 
+from ._icons import ThemedIconManager
+from ._parser import ThemeParseError, parse_theme_source
 from ._qt import QtCore, QtGui, QtWidgets
 from .models import ShadcnTheme, ShadcnThemeTokens, ThemeConfig
-from .parser import ThemeParseError, parse_theme_source
 from .tokens import colors, radius, scale
 
 logger = logging.getLogger(__name__)
@@ -23,7 +24,9 @@ TEMPLATE_FILE = str(Path(__file__).resolve().parent / "styles" / "shadcn.jinja")
 DEFAULT_THEME_FILE = Path(__file__).resolve().parent / "themes" / "default.xml"
 
 
-def apply_theme(app: QtWidgets.QApplication, config: ThemeConfig | None = None) -> ShadcnThemeTokens:
+def apply_theme(
+    app: QtWidgets.QApplication, config: ThemeConfig | None = None
+) -> ShadcnThemeTokens:
     """Apply a QtShadcn XML theme and return the active palette.
 
     If ``config`` is None or omits ``theme_source_path``, the packaged default
@@ -103,6 +106,7 @@ def _build_theme(
     return stylesheet.render(
         tokens=tokens,
         colors=colors,
+        icons=ThemedIconManager(),
         radius=radius,
         scale=scale,
         is_dark=is_dark,

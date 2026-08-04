@@ -387,6 +387,50 @@ QToolButton[variant="destructive"]:disabled {
 }
 
 /* ============================================================
+   QCheckBox - QtShadcn
+   ============================================================ */
+
+QCheckBox {
+    background-color: transparent;
+    color: {{ tokens.foreground }};
+    spacing: {{ scale.spacing_px(tokens.spacing, 2) }};
+    font-size: {{ scale.TEXT_SM }};
+    font-weight: {{ scale.FONT_WEIGHT_MEDIUM }};
+}
+
+QCheckBox::indicator {
+    width: {{ scale.spacing_px(tokens.spacing, 4) }};
+    height: {{ scale.spacing_px(tokens.spacing, 4) }};
+    border: 1px solid {{ tokens.input }};
+    border-radius: {{ radius.class_px(tokens.radius, "sm") }};
+    background-color: {{ colors.alpha(tokens.input, 0.3) if is_dark else "transparent" }};
+}
+
+QCheckBox::indicator:hover {
+    border-color: {{ colors.alpha(tokens.ring, 0.5) }};
+}
+
+QCheckBox::indicator:checked {
+    background-color: {{ tokens.primary }};
+    border-color: {{ tokens.primary }};
+    image: url("{{ icons.checkbox_check(tokens.primary_foreground) }}");
+}
+
+QCheckBox::indicator:disabled {
+    background-color: {{ colors.alpha(tokens.muted, 0.5) }};
+    border-color: {{ colors.alpha(tokens.input, 0.5) }};
+}
+
+QCheckBox::indicator:checked:disabled {
+    background-color: {{ colors.alpha(tokens.primary, 0.5) }};
+    border-color: {{ colors.alpha(tokens.primary, 0.5) }};
+}
+
+QCheckBox:disabled {
+    color: {{ colors.alpha(tokens.muted_foreground, 0.5) }};
+}
+
+/* ============================================================
    Text input widgets - QtShadcn
    ============================================================ */
 

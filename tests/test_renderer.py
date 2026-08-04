@@ -2,6 +2,7 @@
 
 from pathlib import Path
 
+from qtshadcn._icons import ThemedIconManager
 from qtshadcn.app import _build_theme
 from qtshadcn.models import ShadcnThemeTokens
 
@@ -26,6 +27,9 @@ class TestRenderer:
         assert "QTextEdit:focus" in qss
         assert "QTextEdit:disabled" in qss
         assert 'QTextEdit[invalid="true"]' in qss
+        assert "QCheckBox" in qss
+        assert "QCheckBox::indicator" in qss
+        assert "QCheckBox::indicator:checked" in qss
 
     def test_typography_classes_present(self):
         """Test that typography classes are present in the QSS."""
@@ -178,6 +182,36 @@ class TestRenderer:
 
         assert "QTextEdit {" in qss
         assert "background-color: rgba(52, 52, 52, 0.3);" in qss
+
+    def test_checkbox_semantics_are_rendered(self):
+        """Test that QCheckBox renders shadcn checkbox semantics."""
+        tokens = _tokens(spacing="4px", primary="#0f172a", primary_foreground="#f8fafc")
+        qss = _build_theme(tokens)
+
+        assert "QCheckBox {" in qss
+        assert "spacing: 8px;" in qss
+        assert "QCheckBox::indicator {" in qss
+        assert "width: 16px;" in qss
+        assert "height: 16px;" in qss
+        assert "border: 1px solid #e2e8f0;" in qss
+        assert "QCheckBox::indicator:checked {" in qss
+        assert "background-color: #0f172a;" in qss
+        assert "border-color: #0f172a;" in qss
+        assert 'image: url("' in qss
+        assert "checkbox-check" in qss
+        assert ".svg" in qss
+        assert "QCheckBox:disabled" in qss
+
+    def test_checkbox_icon_contains_primary_foreground_and_uses_runtime_cache(self):
+        """Test that checkbox SVGs use token colors and avoid the package directory."""
+        tokens = _tokens(primary_foreground="#f8fafc")
+        manager = ThemedIconManager()
+        icon_path = Path(manager.checkbox_check(tokens.primary_foreground))
+        package_dir = Path(__file__).resolve().parents[1] / "qtshadcn"
+
+        assert icon_path.exists()
+        assert tokens.primary_foreground in icon_path.read_text(encoding="utf-8")
+        assert not icon_path.resolve().is_relative_to(package_dir.resolve())
 
     def test_base_button_focus_preserves_default_variant_style(self):
         """Test that an unvariant button keeps default visual styling on focus."""

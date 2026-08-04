@@ -6,8 +6,12 @@ widget with a sidebar navigator and a light/dark theme toggle.
 
 from __future__ import annotations
 
+import logging
 import sys
 from pathlib import Path
+
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger(__name__)
 
 # Make the package importable when running from a fresh clone without install.
 _ROOT = Path(__file__).resolve().parents[2]
@@ -31,6 +35,7 @@ class GalleryWindow(QtWidgets.QMainWindow):
     def __init__(self, app: QtWidgets.QApplication) -> None:
         """Initialize the gallery window with the given application."""
         super().__init__()
+        logger.debug("Initializing GalleryWindow")
         self._app = app
         self.setWindowTitle("QtShadcn Gallery")
         self.resize(900, 650)
@@ -61,6 +66,7 @@ class GalleryWindow(QtWidgets.QMainWindow):
             ("QToolButton", self._build_tool_button_page()),
             ("QLineEdit", self._build_line_edit_page()),
             ("QTextEdit", self._build_text_edit_page()),
+            ("QCheckBox", self._build_checkbox_page()),
         ]
         for label, page in self._pages:
             self._stack.addWidget(page)
@@ -102,14 +108,17 @@ class GalleryWindow(QtWidgets.QMainWindow):
     def _on_theme_toggled(self, checked: bool) -> None:
         """Reapply the theme and refresh dynamic properties across the window."""
         mode = "dark" if checked else "light"
+        logger.info("Theme toggled to: %s", mode)
         self._apply_theme(mode)
         self._repolish(self)
 
     def _apply_theme(self, mode: str) -> None:
         """Apply the requested theme mode to the application."""
+        logger.debug("Applying theme mode: %s", mode)
         apply_theme(self._app, ThemeConfig(theme_mode=mode))
         self._theme_toggle.setChecked(mode == "dark")
         self._theme_toggle.setText("Light mode" if mode == "dark" else "Dark mode")
+        logger.debug("Theme applied and UI updated")
 
     def _repolish(self, widget: QtWidgets.QWidget) -> None:
         """Unpolish and polish every descendant so QSS property selectors apply."""
@@ -136,7 +145,7 @@ class GalleryWindow(QtWidgets.QMainWindow):
 
         content = QtWidgets.QLabel(
             "Supported widgets in this release: QWidget, QPushButton, QToolButton, "
-            "QLineEdit, QTextEdit."
+            "QLineEdit, QTextEdit, QCheckBox."
         )
         content.setWordWrap(True)
         layout.addWidget(content)
@@ -308,6 +317,43 @@ class GalleryWindow(QtWidgets.QMainWindow):
         layout.addStretch(1)
         return page
 
+    def _build_checkbox_page(self) -> QtWidgets.QWidget:
+        """Build the QCheckBox page covering common checkbox states."""
+        page = QtWidgets.QWidget()
+        layout = QtWidgets.QVBoxLayout(page)
+        layout.setContentsMargins(_PAGE_MARGIN, _PAGE_MARGIN, _PAGE_MARGIN, _PAGE_MARGIN)
+        layout.setSpacing(_SPACING)
+
+        layout.addWidget(self._page_title("QCheckBox"))
+        layout.addWidget(self._muted_label(
+            "Toggle controls for boolean choices, with checked, unchecked, and disabled states."
+        ))
+        layout.addWidget(self._separator())
+
+        layout.addWidget(self._section_label("States"))
+        states = QtWidgets.QVBoxLayout()
+        states.setSpacing(_SPACING)
+
+        unchecked = QtWidgets.QCheckBox("Accept terms and conditions")
+        states.addWidget(unchecked)
+
+        checked = QtWidgets.QCheckBox("Subscribe to newsletter")
+        checked.setChecked(True)
+        states.addWidget(checked)
+
+        disabled_unchecked = QtWidgets.QCheckBox("Disabled option")
+        disabled_unchecked.setEnabled(False)
+        states.addWidget(disabled_unchecked)
+
+        disabled_checked = QtWidgets.QCheckBox("Disabled checked option")
+        disabled_checked.setChecked(True)
+        disabled_checked.setEnabled(False)
+        states.addWidget(disabled_checked)
+
+        layout.addLayout(states)
+        layout.addStretch(1)
+        return page
+
     def _page_title(self, text: str) -> QtWidgets.QLabel:
         """Return a page title label."""
         label = QtWidgets.QLabel(text)
@@ -389,9 +435,11 @@ class QToolButtonVariantRow(QtWidgets.QHBoxLayout):
 
 def main() -> int:
     """Run the gallery application."""
+    logger.info("Starting QtShadcn Gallery")
     app = QtWidgets.QApplication(sys.argv)
     window = GalleryWindow(app)
     window.show()
+    logger.info("Gallery window displayed")
     return app.exec()
 
 

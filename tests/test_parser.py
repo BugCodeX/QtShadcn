@@ -4,7 +4,7 @@ import re
 from pathlib import Path
 
 import pytest
-from qtshadcn.parser import ThemeParseError, parse_theme_source, resolve_value
+from qtshadcn._parser import ThemeParseError, parse_theme_source, resolve_value
 
 SAMPLE_XML = """\
 <theme>

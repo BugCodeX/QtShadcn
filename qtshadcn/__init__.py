@@ -4,7 +4,7 @@ from pathlib import Path
 from typing import Any
 
 from .models import ShadcnTheme, ShadcnThemeTokens, ThemeConfig, ThemeMode
-from .parser import ThemeParseError
+from ._parser import ThemeParseError
 from .utils import blend_colors
 
 

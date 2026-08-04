@@ -10,10 +10,17 @@ def test_gallery_window_creates_pages(qapp: QtWidgets.QApplication):
     from examples.gallery.main import GalleryWindow
 
     window = GalleryWindow(qapp)
-    assert window._stack.count() == 5
-    assert window._sidebar.count() == 5
+    assert window._stack.count() == 6
+    assert window._sidebar.count() == 6
     labels = [window._sidebar.item(i).text() for i in range(window._sidebar.count())]
-    assert labels == ["Overview", "QPushButton", "QToolButton", "QLineEdit", "QTextEdit"]
+    assert labels == [
+        "Overview",
+        "QPushButton",
+        "QToolButton",
+        "QLineEdit",
+        "QTextEdit",
+        "QCheckBox",
+    ]
 
 
 def test_gallery_theme_toggle_reapplies_qss(qapp: QtWidgets.QApplication):

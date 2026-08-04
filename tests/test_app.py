@@ -7,7 +7,7 @@ import pytest
 from qtshadcn._qt import QtWidgets
 from qtshadcn.app import _load_theme_cache, apply_theme
 from qtshadcn.models import ThemeConfig
-from qtshadcn.parser import ThemeParseError
+from qtshadcn._parser import ThemeParseError
 
 SAMPLE_XML = """\
 <theme>
