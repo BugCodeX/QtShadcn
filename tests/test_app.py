@@ -4,9 +4,9 @@ from pathlib import Path
 from unittest.mock import patch
 
 import pytest
-from qtshadcn.exceptions import ThemeParseError
 from qtshadcn._qt import QtWidgets
 from qtshadcn.app import _load_theme_cache, apply_theme
+from qtshadcn.exceptions import ThemeParseError
 from qtshadcn.models import ThemeConfig
 
 SAMPLE_XML = """\

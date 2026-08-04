@@ -73,6 +73,8 @@ jobs:
 
       - name: Run tests under xvfb
         run: xvfb-run -a uv run --extra dev pytest
+        env:
+          QT_QPA_PLATFORM: offscreen
 
       - name: Upload coverage HTML
         if: failure()
