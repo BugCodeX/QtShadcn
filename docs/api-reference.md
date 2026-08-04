@@ -94,13 +94,14 @@ Supported `QToolButton` dynamic properties:
 
 ## Supported Widgets
 
-QtShadcn v0.0.6 ships QSS for these widgets:
+QtShadcn v0.0.7 ships QSS for these widgets:
 
 - `QWidget` — base background, foreground, and typography classes
 - `QPushButton` — variants, sizes, and disabled states
 - `QToolButton` — compact icon/action variants
 - `QLineEdit` — input states including focus, disabled, and invalid
 - `QTextEdit` — textarea states including focus, disabled, and invalid
+- `QCheckBox` — toggle controls with themed check icons and disabled states
 
 See the [Roadmap](roadmap.md) for planned widget coverage.
 

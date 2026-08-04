@@ -8,12 +8,13 @@ QtShadcn loads a local **XML theme file** containing `<light>` and `<dark>` pale
 
 ## Features
 
-- 🎨 **Light & dark palettes** — single XML file, both modes
+-  **Light & dark palettes** — single XML file, both modes
 - 🔄 **Auto mode** — follows the OS theme via `darkdetect`
 - 🖥️ **Binding neutral** — works with PySide6, PyQt6, PySide2, or PyQt5
 - 🖋 **Custom fonts** — drop font files in the package `fonts/` directory
 - ⚡ **Disk cache** — theme is re-rendered only when the source file changes
 - ✅ **App-provided Qt runtime** — install the Qt binding your app already uses
+- 🎯 **Themed icons** — SVG check icons generated and cached at runtime
 
 ---
 
@@ -51,7 +52,7 @@ pip install PyQt6
 Explore the supported widgets by running the gallery:
 
 ```bash
-uv run --extra dev python examples/gallery/main.py
+make gallery
 ```
 
 The gallery includes a sidebar navigator, a light/dark toggle, and pages for every currently styled widget.
@@ -128,6 +129,7 @@ QtShadcn currently ships QSS for:
 - `QToolButton` — compact icon/action variants
 - `QLineEdit` — input states including focus, disabled, and invalid
 - `QTextEdit` — textarea states including focus, disabled, and invalid
+- `QCheckBox` — toggle controls with themed check icons and disabled states
 
 See the [gallery](examples/gallery/main.py) and the [roadmap](docs/roadmap.md) for what is planned next.
 
@@ -215,6 +217,7 @@ make type-check    # ty check
 make test          # pytest
 make test-cov      # pytest with HTML coverage report
 make docs-serve    # live-reload docs at http://127.0.0.1:8000
+make gallery       # run the widget gallery example
 make build         # wheel + sdist
 make publish       # show PyPI Trusted Publishing guidance
 make clean         # remove dist/, caches, .coverage

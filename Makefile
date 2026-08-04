@@ -8,7 +8,7 @@ SHELL        := pwsh.exe
 
 .DEFAULT_GOAL := help
 .PHONY: help install install-dev lint format type-check test test-cov \
-        build publish docs docs-serve clean
+        build publish docs docs-serve docs-deploy clean gallery
 
 UV := uv
 
@@ -77,6 +77,13 @@ clean:
 	$(UV) run python -c "import shutil, pathlib; [shutil.rmtree(p, ignore_errors=True) for p in ['dist','site','htmlcov','.pytest_cache','.ruff_cache']]; [shutil.rmtree(p, ignore_errors=True) for p in pathlib.Path('.').rglob('__pycache__')]; [shutil.rmtree(p, ignore_errors=True) for p in pathlib.Path('.').rglob('*.egg-info')]"
 
 # ---------------------------------------------------------------------------
+# Examples
+# ---------------------------------------------------------------------------
+
+gallery:
+	$(UV) run python examples/gallery/main.py
+
+# ---------------------------------------------------------------------------
 # Help
 # ---------------------------------------------------------------------------
 
@@ -95,6 +102,7 @@ targets = [\
   ('docs',         'Build static documentation site'),\
   ('docs-serve',   'Serve docs locally at http://127.0.0.1:8000'),\
   ('docs-deploy',  'Deploy docs to the docs branch (GitHub Pages)'),\
+  ('gallery',      'Run the widget gallery example'),\
   ('clean',        'Remove build artifacts and caches'),\
 ];\
 print('\nUsage: make <target>\n');\
