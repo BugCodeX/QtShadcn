@@ -22,7 +22,7 @@ except ModuleNotFoundError:
     import qtshadcn  # noqa: F401
 
 from qtshadcn import ThemeConfig, apply_theme  # noqa: E402
-from qtshadcn._qt import QtWidgets  # noqa: E402
+from qtshadcn._qt import QtCore, QtWidgets  # noqa: E402
 
 _SIDEBAR_WIDTH = 220
 _PAGE_MARGIN = 24
@@ -333,7 +333,7 @@ class GalleryWindow(QtWidgets.QMainWindow):
         layout.addWidget(self._page_title("QCheckBox"))
         layout.addWidget(
             self._muted_label(
-                "Toggle controls for boolean choices, with checked, unchecked, and disabled states."
+                "Toggle controls for boolean choices, with checked, unchecked, indeterminate, and disabled states."
             )
         )
         layout.addWidget(self._separator())
@@ -349,6 +349,11 @@ class GalleryWindow(QtWidgets.QMainWindow):
         checked.setChecked(True)
         states.addWidget(checked)
 
+        indeterminate = QtWidgets.QCheckBox("Partially selected option")
+        indeterminate.setTristate(True)
+        indeterminate.setCheckState(QtCore.Qt.CheckState.PartiallyChecked)
+        states.addWidget(indeterminate)
+
         disabled_unchecked = QtWidgets.QCheckBox("Disabled option")
         disabled_unchecked.setEnabled(False)
         states.addWidget(disabled_unchecked)
@@ -359,6 +364,29 @@ class GalleryWindow(QtWidgets.QMainWindow):
         states.addWidget(disabled_checked)
 
         layout.addLayout(states)
+
+        layout.addWidget(self._separator())
+        layout.addWidget(self._section_label("Invalid"))
+
+        invalid_layout = QtWidgets.QVBoxLayout()
+        invalid_layout.setSpacing(_SPACING)
+
+        invalid = QtWidgets.QCheckBox("Invalid checkbox")
+        invalid.setProperty("invalid", "true")
+        invalid_layout.addWidget(invalid)
+
+        invalid_checked = QtWidgets.QCheckBox("Invalid checked checkbox")
+        invalid_checked.setChecked(True)
+        invalid_checked.setProperty("invalid", "true")
+        invalid_layout.addWidget(invalid_checked)
+
+        invalid_indeterminate = QtWidgets.QCheckBox("Invalid indeterminate checkbox")
+        invalid_indeterminate.setTristate(True)
+        invalid_indeterminate.setCheckState(QtCore.Qt.CheckState.PartiallyChecked)
+        invalid_indeterminate.setProperty("invalid", "true")
+        invalid_layout.addWidget(invalid_indeterminate)
+
+        layout.addLayout(invalid_layout)
         layout.addStretch(1)
         return page
 

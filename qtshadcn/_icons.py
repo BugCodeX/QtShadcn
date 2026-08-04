@@ -29,6 +29,13 @@ class ThemedIconManager:
         logger.debug("Generating checkbox check icon for color: %s", color)
         return self._write_icon("checkbox-check", color, _checkbox_check_svg(color))
 
+    def checkbox_indeterminate(self, color: str) -> str:
+        """Return a QSS-safe URL for a checkbox indeterminate icon using ``color``."""
+        logger.debug("Generating checkbox indeterminate icon for color: %s", color)
+        return self._write_icon(
+            "checkbox-indeterminate", color, _checkbox_indeterminate_svg(color)
+        )
+
     def _write_icon(self, name: str, color: str, svg: str) -> str:
         self.cache_dir.mkdir(parents=True, exist_ok=True)
         color_key = _safe_name(color)
@@ -70,5 +77,16 @@ def _checkbox_check_svg(color: str) -> str:
         'viewBox="0 0 16 16" fill="none">'
         f'<path d="M13.333 4 6 11.333 2.667 8" stroke="{safe_color}" '
         'stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'
+        "</svg>"
+    )
+
+
+def _checkbox_indeterminate_svg(color: str) -> str:
+    safe_color = escape(color, quote=True)
+    return (
+        '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" '
+        'viewBox="0 0 16 16" fill="none">'
+        f'<path d="M3 8h10" stroke="{safe_color}" '
+        'stroke-width="2" stroke-linecap="round"/>'
         "</svg>"
     )

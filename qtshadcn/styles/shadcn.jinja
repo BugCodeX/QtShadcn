@@ -416,6 +416,12 @@ QCheckBox::indicator:checked {
     image: url("{{ icons.checkbox_check(tokens.primary_foreground) }}");
 }
 
+QCheckBox::indicator:indeterminate {
+    background-color: {{ tokens.primary }};
+    border-color: {{ tokens.primary }};
+    image: url("{{ icons.checkbox_indeterminate(tokens.primary_foreground) }}");
+}
+
 QCheckBox::indicator:disabled {
     background-color: {{ colors.alpha(tokens.muted, 0.5) }};
     border-color: {{ colors.alpha(tokens.input, 0.5) }};
@@ -426,8 +432,38 @@ QCheckBox::indicator:checked:disabled {
     border-color: {{ colors.alpha(tokens.primary, 0.5) }};
 }
 
+QCheckBox::indicator:indeterminate:disabled {
+    background-color: {{ colors.alpha(tokens.primary, 0.5) }};
+    border-color: {{ colors.alpha(tokens.primary, 0.5) }};
+}
+
 QCheckBox:disabled {
     color: {{ colors.alpha(tokens.muted_foreground, 0.5) }};
+}
+
+QCheckBox[invalid="true"] {
+    color: {{ tokens.destructive }};
+}
+
+QCheckBox[invalid="true"]::indicator {
+    border-color: {{ tokens.destructive }};
+    border-width: 2px;
+}
+
+QCheckBox[invalid="true"]::indicator:hover {
+    border-color: {{ colors.alpha(tokens.destructive, 0.8) }};
+}
+
+QCheckBox[invalid="true"]::indicator:checked {
+    background-color: {{ tokens.destructive }};
+    border-color: {{ tokens.destructive }};
+    image: url("{{ icons.checkbox_check(tokens.destructive_foreground) }}");
+}
+
+QCheckBox[invalid="true"]::indicator:indeterminate {
+    background-color: {{ tokens.destructive }};
+    border-color: {{ tokens.destructive }};
+    image: url("{{ icons.checkbox_indeterminate(tokens.destructive_foreground) }}");
 }
 
 /* ============================================================
