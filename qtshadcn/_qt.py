@@ -35,9 +35,7 @@ def _load_binding(binding: str) -> dict[str, ModuleType]:
         try:
             modules[name] = importlib.import_module(f"{binding}.{name}")
         except ImportError as exc:
-            raise ImportError(
-                f"Binding {binding!r} is missing required module {name!r}"
-            ) from exc
+            raise ImportError(f"Binding {binding!r} is missing required module {name!r}") from exc
     return modules
 
 
@@ -60,9 +58,7 @@ def _select_binding() -> tuple[str, dict[str, ModuleType]]:
         return binding, modules
 
     supported = ", ".join(_BINDING_ORDER)
-    raise ImportError(
-        f"No supported Qt binding found. Install one of: {supported}."
-    )
+    raise ImportError(f"No supported Qt binding found. Install one of: {supported}.")
 
 
 binding_name, _modules = _select_binding()

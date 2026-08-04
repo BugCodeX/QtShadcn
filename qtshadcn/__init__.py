@@ -3,9 +3,8 @@ from importlib.metadata import PackageNotFoundError, version
 from pathlib import Path
 from typing import Any
 
+from .exceptions import ThemeParseError
 from .models import ShadcnTheme, ShadcnThemeTokens, ThemeConfig, ThemeMode
-from ._parser import ThemeParseError
-from ._utils import blend_colors
 
 
 def _resolve_version() -> str:
@@ -44,7 +43,6 @@ __all__ = [
     # Functions
     "apply_theme",
     "get_theme",
-    "blend_colors",
     "__version__",
     # Errors
     "ThemeParseError",

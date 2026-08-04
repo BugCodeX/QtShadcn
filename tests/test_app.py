@@ -4,10 +4,10 @@ from pathlib import Path
 from unittest.mock import patch
 
 import pytest
+from qtshadcn.exceptions import ThemeParseError
 from qtshadcn._qt import QtWidgets
 from qtshadcn.app import _load_theme_cache, apply_theme
 from qtshadcn.models import ThemeConfig
-from qtshadcn._parser import ThemeParseError
 
 SAMPLE_XML = """\
 <theme>
@@ -74,7 +74,9 @@ def sample_xml(tmp_path: Path) -> Path:
 class TestApplyTheme:
     """Tests for the apply_theme function."""
 
-    def test_applies_theme_and_returns_active_palette(self, qapp: QtWidgets.QApplication, sample_xml: Path):
+    def test_applies_theme_and_returns_active_palette(
+        self, qapp: QtWidgets.QApplication, sample_xml: Path
+    ):
         """Test that the theme is applied and the active palette is returned."""
         config = ThemeConfig(theme_source_path=str(sample_xml), theme_mode="light")
         tokens = apply_theme(qapp, config)
@@ -107,14 +109,18 @@ class TestApplyTheme:
         with pytest.raises(ThemeParseError, match="Could not read theme source"):
             apply_theme(qapp, config)
 
-    def test_auto_mode_selects_dark_when_detected(self, qapp: QtWidgets.QApplication, sample_xml: Path):
+    def test_auto_mode_selects_dark_when_detected(
+        self, qapp: QtWidgets.QApplication, sample_xml: Path
+    ):
         """Test that the auto mode selects dark when detected."""
         config = ThemeConfig(theme_source_path=str(sample_xml), theme_mode="auto")
         with patch("qtshadcn.app.darkdetect.isDark", return_value=True):
             tokens = apply_theme(qapp, config)
         assert tokens.background == "#020617"
 
-    def test_auto_mode_selects_light_when_not_detected(self, qapp: QtWidgets.QApplication, sample_xml: Path):
+    def test_auto_mode_selects_light_when_not_detected(
+        self, qapp: QtWidgets.QApplication, sample_xml: Path
+    ):
         """Test that the auto mode selects light when not detected."""
         config = ThemeConfig(theme_source_path=str(sample_xml), theme_mode="auto")
         with patch("qtshadcn.app.darkdetect.isDark", return_value=False):

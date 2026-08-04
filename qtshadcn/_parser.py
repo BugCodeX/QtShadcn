@@ -12,6 +12,7 @@ import re
 from pathlib import Path
 from xml.etree import ElementTree as ET
 
+from .exceptions import ThemeParseError
 from .models import ShadcnTheme, ShadcnThemeTokens
 
 logger = logging.getLogger(__name__)
@@ -43,10 +44,6 @@ _RE_RGB_RGBA = re.compile(
     r"^(rgba?)\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*"
     r"(?:,\s*([\d.]+)\s*)?\)$"
 )
-
-
-class ThemeParseError(ValueError):
-    """Raised when a QtShadcn XML theme cannot be parsed or validated."""
 
 
 # ---------------------------------------------------------------------------

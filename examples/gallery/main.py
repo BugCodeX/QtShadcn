@@ -138,10 +138,12 @@ class GalleryWindow(QtWidgets.QMainWindow):
         layout.setSpacing(_SPACING)
 
         layout.addWidget(self._page_title("Overview"))
-        layout.addWidget(self._muted_label(
-            "QtShadcn styles common Qt widgets with a single XML theme. "
-            "Use the sidebar to explore supported widgets and states."
-        ))
+        layout.addWidget(
+            self._muted_label(
+                "QtShadcn styles common Qt widgets with a single XML theme. "
+                "Use the sidebar to explore supported widgets and states."
+            )
+        )
 
         content = QtWidgets.QLabel(
             "Supported widgets in this release: QWidget, QPushButton, QToolButton, "
@@ -161,9 +163,11 @@ class GalleryWindow(QtWidgets.QMainWindow):
         layout.setSpacing(_SPACING)
 
         layout.addWidget(self._page_title("QPushButton"))
-        layout.addWidget(self._muted_label(
-            "Buttons support variant and size properties, plus enabled and disabled states."
-        ))
+        layout.addWidget(
+            self._muted_label(
+                "Buttons support variant and size properties, plus enabled and disabled states."
+            )
+        )
         layout.addWidget(self._separator())
 
         layout.addWidget(self._section_label("Variants"))
@@ -209,9 +213,9 @@ class GalleryWindow(QtWidgets.QMainWindow):
         layout.setSpacing(_SPACING)
 
         layout.addWidget(self._page_title("QToolButton"))
-        layout.addWidget(self._muted_label(
-            "Compact action controls for toolbars, toggles, and icon buttons."
-        ))
+        layout.addWidget(
+            self._muted_label("Compact action controls for toolbars, toggles, and icon buttons.")
+        )
         layout.addWidget(self._separator())
 
         layout.addWidget(self._section_label("Variants"))
@@ -244,9 +248,11 @@ class GalleryWindow(QtWidgets.QMainWindow):
         layout.setSpacing(_SPACING)
 
         layout.addWidget(self._page_title("QLineEdit"))
-        layout.addWidget(self._muted_label(
-            "Input fields for short text values, including validation and disabled states."
-        ))
+        layout.addWidget(
+            self._muted_label(
+                "Input fields for short text values, including validation and disabled states."
+            )
+        )
         layout.addWidget(self._separator())
 
         form = QtWidgets.QFormLayout()
@@ -288,9 +294,9 @@ class GalleryWindow(QtWidgets.QMainWindow):
         layout.setSpacing(_SPACING)
 
         layout.addWidget(self._page_title("QTextEdit"))
-        layout.addWidget(self._muted_label(
-            "Textarea control for longer content, with focus and invalid states."
-        ))
+        layout.addWidget(
+            self._muted_label("Textarea control for longer content, with focus and invalid states.")
+        )
         layout.addWidget(self._separator())
 
         form = QtWidgets.QFormLayout()
@@ -325,9 +331,11 @@ class GalleryWindow(QtWidgets.QMainWindow):
         layout.setSpacing(_SPACING)
 
         layout.addWidget(self._page_title("QCheckBox"))
-        layout.addWidget(self._muted_label(
-            "Toggle controls for boolean choices, with checked, unchecked, and disabled states."
-        ))
+        layout.addWidget(
+            self._muted_label(
+                "Toggle controls for boolean choices, with checked, unchecked, and disabled states."
+            )
+        )
         layout.addWidget(self._separator())
 
         layout.addWidget(self._section_label("States"))
