@@ -32,9 +32,12 @@ class ThemedIconManager:
     def checkbox_indeterminate(self, color: str) -> str:
         """Return a QSS-safe URL for a checkbox indeterminate icon using ``color``."""
         logger.debug("Generating checkbox indeterminate icon for color: %s", color)
-        return self._write_icon(
-            "checkbox-indeterminate", color, _checkbox_indeterminate_svg(color)
-        )
+        return self._write_icon("checkbox-indeterminate", color, _checkbox_indeterminate_svg(color))
+
+    def radio_checked(self, color: str) -> str:
+        """Return a QSS-safe URL for a radio button checked icon using ``color``."""
+        logger.debug("Generating radio button checked icon for color: %s", color)
+        return self._write_icon("radio-checked", color, _radio_checked_svg(color))
 
     def _write_icon(self, name: str, color: str, svg: str) -> str:
         self.cache_dir.mkdir(parents=True, exist_ok=True)
@@ -88,5 +91,15 @@ def _checkbox_indeterminate_svg(color: str) -> str:
         'viewBox="0 0 16 16" fill="none">'
         f'<path d="M3 8h10" stroke="{safe_color}" '
         'stroke-width="2" stroke-linecap="round"/>'
+        "</svg>"
+    )
+
+
+def _radio_checked_svg(color: str) -> str:
+    safe_color = escape(color, quote=True)
+    return (
+        '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" '
+        'viewBox="0 0 16 16" fill="none">'
+        f'<circle cx="8" cy="8" r="4" fill="{safe_color}"/>'
         "</svg>"
     )

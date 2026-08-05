@@ -474,6 +474,76 @@ QCheckBox[invalid="true"]::indicator {
 {% endif %}
 
 /* ============================================================
+   QRadioButton - QtShadcn
+   ============================================================ */
+
+QRadioButton {
+    background-color: transparent;
+    color: {{ tokens.foreground }};
+    spacing: {{ scale.spacing_px(tokens.spacing, 2) }};
+    font-size: {{ scale.TEXT_SM }};
+    font-weight: {{ scale.FONT_WEIGHT_MEDIUM }};
+}
+
+QRadioButton::indicator {
+    width: {{ scale.spacing_px(tokens.spacing, 4) }};
+    height: {{ scale.spacing_px(tokens.spacing, 4) }};
+    border-radius: {{ scale.spacing_px(tokens.spacing, 2) }};
+    border: 1px solid {{ tokens.input }};
+    background-color: {{ colors.alpha(tokens.input, 0.3) if is_dark else "transparent" }};
+}
+
+QRadioButton::indicator:hover {
+    border-color: {{ colors.alpha(tokens.ring, 0.5) }};
+}
+
+QRadioButton::indicator:checked {
+    background-color: {{ tokens.primary }};
+    border-color: {{ tokens.primary }};
+    image: url("{{ icons.radio_checked(tokens.primary_foreground) }}");
+}
+
+QRadioButton::indicator:disabled {
+    background-color: {{ colors.alpha(tokens.muted, 0.5) }};
+    border-color: {{ colors.alpha(tokens.input, 0.5) }};
+}
+
+QRadioButton::indicator:checked:disabled {
+    background-color: {{ colors.alpha(tokens.primary, 0.5) }};
+    border-color: {{ colors.alpha(tokens.primary, 0.5) }};
+}
+
+QRadioButton:disabled {
+    color: {{ colors.alpha(tokens.muted_foreground, 0.5) }};
+}
+
+QRadioButton[invalid="true"] {
+    color: {{ tokens.destructive }};
+}
+
+QRadioButton[invalid="true"]::indicator {
+    border: 1px solid {{ tokens.destructive }};
+    outline: 3px solid {{ colors.alpha(tokens.destructive, 0.2) }};
+}
+
+QRadioButton[invalid="true"]::indicator:hover {
+    border-color: {{ colors.alpha(tokens.destructive, 0.8) }};
+}
+
+QRadioButton[invalid="true"]::indicator:checked {
+    background-color: {{ tokens.destructive }};
+    border-color: {{ tokens.destructive }};
+    image: url("{{ icons.radio_checked(tokens.destructive_foreground) }}");
+}
+
+{% if is_dark %}
+QRadioButton[invalid="true"]::indicator {
+    border: 1px solid {{ colors.alpha(tokens.destructive, 0.5) }};
+    outline: 3px solid {{ colors.alpha(tokens.destructive, 0.4) }};
+}
+{% endif %}
+
+/* ============================================================
    Text input widgets - QtShadcn
    ============================================================ */
 

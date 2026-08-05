@@ -67,6 +67,7 @@ class GalleryWindow(QtWidgets.QMainWindow):
             ("QLineEdit", self._build_line_edit_page()),
             ("QTextEdit", self._build_text_edit_page()),
             ("QCheckBox", self._build_checkbox_page()),
+            ("QRadioButton", self._build_radio_button_page()),
         ]
         for label, page in self._pages:
             self._stack.addWidget(page)
@@ -147,7 +148,7 @@ class GalleryWindow(QtWidgets.QMainWindow):
 
         content = QtWidgets.QLabel(
             "Supported widgets in this release: QWidget, QPushButton, QToolButton, "
-            "QLineEdit, QTextEdit, QCheckBox."
+            "QLineEdit, QTextEdit, QCheckBox, QRadioButton."
         )
         content.setWordWrap(True)
         layout.addWidget(content)
@@ -385,6 +386,62 @@ class GalleryWindow(QtWidgets.QMainWindow):
         invalid_indeterminate.setCheckState(QtCore.Qt.CheckState.PartiallyChecked)
         invalid_indeterminate.setProperty("invalid", "true")
         invalid_layout.addWidget(invalid_indeterminate)
+
+        layout.addLayout(invalid_layout)
+        layout.addStretch(1)
+        return page
+
+    def _build_radio_button_page(self) -> QtWidgets.QWidget:
+        """Build the QRadioButton page covering common radio button states."""
+        page = QtWidgets.QWidget()
+        layout = QtWidgets.QVBoxLayout(page)
+        layout.setContentsMargins(_PAGE_MARGIN, _PAGE_MARGIN, _PAGE_MARGIN, _PAGE_MARGIN)
+        layout.setSpacing(_SPACING)
+
+        layout.addWidget(self._page_title("QRadioButton"))
+        layout.addWidget(
+            self._muted_label(
+                "Radio buttons for selecting one option from a set, with checked, unchecked, and disabled states."
+            )
+        )
+        layout.addWidget(self._separator())
+
+        layout.addWidget(self._section_label("States"))
+        states = QtWidgets.QVBoxLayout()
+        states.setSpacing(_SPACING)
+
+        unchecked = QtWidgets.QRadioButton("Default")
+        states.addWidget(unchecked)
+
+        checked = QtWidgets.QRadioButton("Selected option")
+        checked.setChecked(True)
+        states.addWidget(checked)
+
+        disabled_unchecked = QtWidgets.QRadioButton("Disabled option")
+        disabled_unchecked.setEnabled(False)
+        states.addWidget(disabled_unchecked)
+
+        disabled_checked = QtWidgets.QRadioButton("Disabled selected")
+        disabled_checked.setChecked(True)
+        disabled_checked.setEnabled(False)
+        states.addWidget(disabled_checked)
+
+        layout.addLayout(states)
+
+        layout.addWidget(self._separator())
+        layout.addWidget(self._section_label("Invalid"))
+
+        invalid_layout = QtWidgets.QVBoxLayout()
+        invalid_layout.setSpacing(_SPACING)
+
+        invalid = QtWidgets.QRadioButton("Invalid radio button")
+        invalid.setProperty("invalid", "true")
+        invalid_layout.addWidget(invalid)
+
+        invalid_checked = QtWidgets.QRadioButton("Invalid selected radio button")
+        invalid_checked.setChecked(True)
+        invalid_checked.setProperty("invalid", "true")
+        invalid_layout.addWidget(invalid_checked)
 
         layout.addLayout(invalid_layout)
         layout.addStretch(1)

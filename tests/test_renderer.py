@@ -205,7 +205,13 @@ class TestRenderer:
 
     def test_checkbox_semantics_are_rendered(self):
         """Test that QCheckBox renders shadcn checkbox semantics."""
-        tokens = _tokens(spacing="4px", primary="#0f172a", primary_foreground="#f8fafc", destructive="#ef4444", destructive_foreground="#f8fafc")
+        tokens = _tokens(
+            spacing="4px",
+            primary="#0f172a",
+            primary_foreground="#f8fafc",
+            destructive="#ef4444",
+            destructive_foreground="#f8fafc",
+        )
         qss = _build_theme(tokens)
 
         assert "QCheckBox {" in qss
@@ -255,6 +261,53 @@ class TestRenderer:
         assert icon_path.exists()
         assert tokens.primary_foreground in icon_path.read_text(encoding="utf-8")
         assert "M3 8h10" in icon_path.read_text(encoding="utf-8")
+
+    def test_radio_button_semantics_are_rendered(self):
+        """Test that QRadioButton renders shadcn radio button semantics."""
+        tokens = _tokens(
+            spacing="4px",
+            primary="#0f172a",
+            primary_foreground="#f8fafc",
+            destructive="#ef4444",
+            destructive_foreground="#f8fafc",
+        )
+        qss = _build_theme(tokens)
+
+        assert "QRadioButton {" in qss
+        assert "spacing: 8px;" in qss
+        assert "QRadioButton::indicator {" in qss
+        assert "width: 16px;" in qss
+        assert "height: 16px;" in qss
+        assert "border-radius: 8px;" in qss
+        assert "border: 1px solid #e2e8f0;" in qss
+        assert "QRadioButton::indicator:checked {" in qss
+        assert "background-color: #0f172a;" in qss
+        assert "border-color: #0f172a;" in qss
+        assert 'image: url("' in qss
+        assert "radio-checked" in qss
+        assert ".svg" in qss
+        assert "QRadioButton:disabled" in qss
+        assert 'QRadioButton[invalid="true"]' in qss
+        assert "#ef4444" in qss
+        assert "rgba(239, 68, 68, 0.2)" in qss  # Light mode ring opacity
+
+    def test_radio_button_invalid_dark_mode_opacities(self):
+        """Test that QRadioButton invalid state uses correct opacities in dark mode."""
+        tokens = _tokens(spacing="4px", destructive="#ef4444")
+        qss = _build_theme(tokens, is_dark=True)
+
+        assert "rgba(239, 68, 68, 0.5)" in qss  # Dark mode border opacity
+        assert "rgba(239, 68, 68, 0.4)" in qss  # Dark mode ring opacity
+
+    def test_radio_button_icon_uses_runtime_cache(self):
+        """Test that radio button SVGs are generated and cached."""
+        tokens = _tokens(primary_foreground="#f8fafc")
+        manager = ThemedIconManager()
+        icon_path = Path(manager.radio_checked(tokens.primary_foreground))
+
+        assert icon_path.exists()
+        assert tokens.primary_foreground in icon_path.read_text(encoding="utf-8")
+        assert "circle" in icon_path.read_text(encoding="utf-8")
 
     def test_base_button_focus_preserves_default_variant_style(self):
         """Test that an unvariant button keeps default visual styling on focus."""
