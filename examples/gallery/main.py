@@ -68,6 +68,7 @@ class GalleryWindow(QtWidgets.QMainWindow):
             ("QTextEdit", self._build_text_edit_page()),
             ("QCheckBox", self._build_checkbox_page()),
             ("QRadioButton", self._build_radio_button_page()),
+            ("QComboBox", self._build_combo_box_page()),
         ]
         for label, page in self._pages:
             self._stack.addWidget(page)
@@ -148,7 +149,7 @@ class GalleryWindow(QtWidgets.QMainWindow):
 
         content = QtWidgets.QLabel(
             "Supported widgets in this release: QWidget, QPushButton, QToolButton, "
-            "QLineEdit, QTextEdit, QCheckBox, QRadioButton."
+            "QLineEdit, QTextEdit, QCheckBox, QRadioButton, QComboBox."
         )
         content.setWordWrap(True)
         layout.addWidget(content)
@@ -442,6 +443,64 @@ class GalleryWindow(QtWidgets.QMainWindow):
         invalid_checked.setChecked(True)
         invalid_checked.setProperty("invalid", "true")
         invalid_layout.addWidget(invalid_checked)
+
+        layout.addLayout(invalid_layout)
+        layout.addStretch(1)
+        return page
+
+    def _build_combo_box_page(self) -> QtWidgets.QWidget:
+        """Build the QComboBox page covering common combo box states."""
+        page = QtWidgets.QWidget()
+        layout = QtWidgets.QVBoxLayout(page)
+        layout.setContentsMargins(_PAGE_MARGIN, _PAGE_MARGIN, _PAGE_MARGIN, _PAGE_MARGIN)
+        layout.setSpacing(_SPACING)
+
+        layout.addWidget(self._page_title("QComboBox"))
+        layout.addWidget(
+            self._muted_label(
+                "Dropdown selection controls with styled trigger and popup."
+            )
+        )
+        layout.addWidget(self._separator())
+
+        layout.addWidget(self._section_label("States"))
+        states = QtWidgets.QVBoxLayout()
+        states.setSpacing(_SPACING)
+
+        default = QtWidgets.QComboBox()
+        default.addItems(["Next.js", "SvelteKit", "Nuxt.js", "Remix", "Astro"])
+        default.setCurrentIndex(-1)
+        default.setPlaceholderText("Select a framework")
+        states.addWidget(default)
+
+        selected = QtWidgets.QComboBox()
+        selected.addItems(["Next.js", "SvelteKit", "Nuxt.js", "Remix", "Astro"])
+        selected.setCurrentIndex(0)
+        states.addWidget(selected)
+
+        disabled = QtWidgets.QComboBox()
+        disabled.addItems(["Option 1", "Option 2", "Option 3"])
+        disabled.setEnabled(False)
+        states.addWidget(disabled)
+
+        layout.addLayout(states)
+
+        layout.addWidget(self._separator())
+        layout.addWidget(self._section_label("Invalid"))
+
+        invalid_layout = QtWidgets.QVBoxLayout()
+        invalid_layout.setSpacing(_SPACING)
+
+        invalid = QtWidgets.QComboBox()
+        invalid.addItems(["Option 1", "Option 2", "Option 3"])
+        invalid.setProperty("invalid", "true")
+        invalid_layout.addWidget(invalid)
+
+        invalid_selected = QtWidgets.QComboBox()
+        invalid_selected.addItems(["Option 1", "Option 2", "Option 3"])
+        invalid_selected.setCurrentIndex(1)
+        invalid_selected.setProperty("invalid", "true")
+        invalid_layout.addWidget(invalid_selected)
 
         layout.addLayout(invalid_layout)
         layout.addStretch(1)

@@ -544,6 +544,99 @@ QRadioButton[invalid="true"]::indicator {
 {% endif %}
 
 /* ============================================================
+   QComboBox - QtShadcn
+   ============================================================ */
+
+QComboBox {
+    background-color: {{ colors.alpha(tokens.input, 0.3) if is_dark else "transparent" }};
+    color: {{ tokens.foreground }};
+    border: 1px solid {{ tokens.input }};
+    border-radius: {{ radius.class_px(tokens.radius, "lg") }};
+    padding-left: {{ scale.spacing_px(tokens.spacing, 2.5) }};
+    padding-right: {{ scale.spacing_px(tokens.spacing, 8) }};
+    min-height: {{ scale.spacing_px(tokens.spacing, 8) }};
+    font-size: {{ scale.TEXT_SM }};
+    selection-background-color: {{ tokens.primary }};
+    selection-color: {{ tokens.primary_foreground }};
+}
+
+QComboBox:focus {
+    border-color: {{ tokens.ring }};
+    outline: 3px solid {{ colors.alpha(tokens.ring, 0.5) }};
+}
+
+QComboBox:disabled {
+    background-color: {{ colors.alpha(tokens.input, 0.5) if not is_dark else colors.alpha(tokens.input, 0.8) }};
+    color: {{ colors.alpha(tokens.muted_foreground, 0.5) }};
+    border-color: {{ colors.alpha(tokens.input, 0.5) }};
+}
+
+QComboBox::drop-down {
+    border: none;
+    width: {{ scale.spacing_px(tokens.spacing, 8) }};
+}
+
+QComboBox::down-arrow {
+    width: {{ scale.spacing_px(tokens.spacing, 4) }};
+    height: {{ scale.spacing_px(tokens.spacing, 4) }};
+    image: url("{{ icons.chevron_down(tokens.muted_foreground) }}");
+}
+
+QComboBox:disabled::down-arrow {
+    image: url("{{ icons.chevron_down(colors.alpha(tokens.muted_foreground, 0.5)) }}");
+}
+
+QComboBox[invalid="true"] {
+    color: {{ tokens.destructive }};
+    border-color: {{ tokens.destructive }};
+    outline: 3px solid {{ colors.alpha(tokens.destructive, 0.2) }};
+}
+
+QComboBox[invalid="true"]:focus {
+    color: {{ tokens.destructive }};
+    border-color: {{ tokens.destructive }};
+    outline: 3px solid {{ colors.alpha(tokens.destructive, 0.2) }};
+}
+
+QComboBox[invalid="true"]::down-arrow {
+    image: url("{{ icons.chevron_down(tokens.destructive) }}");
+}
+
+{% if is_dark %}
+QComboBox[invalid="true"] {
+    color: {{ tokens.destructive }};
+    border-color: {{ colors.alpha(tokens.destructive, 0.5) }};
+    outline: 3px solid {{ colors.alpha(tokens.destructive, 0.4) }};
+}
+{% endif %}
+
+QComboBox QAbstractItemView {
+    background-color: {{ tokens.popover }};
+    color: {{ tokens.popover_foreground }};
+    border: 1px solid {{ tokens.border }};
+    border-radius: {{ radius.class_px(tokens.radius, "lg") }};
+    padding: {{ scale.spacing_px(tokens.spacing, 1) }};
+    selection-background-color: {{ tokens.accent }};
+    selection-color: {{ tokens.accent_foreground }};
+    font-size: {{ scale.TEXT_SM }};
+    outline: none;
+}
+
+QComboBox QAbstractItemView::item {
+    padding: {{ scale.spacing_px(tokens.spacing, 1) }} {{ scale.spacing_px(tokens.spacing, 8) }} {{ scale.spacing_px(tokens.spacing, 1) }} {{ scale.spacing_px(tokens.spacing, 1.5) }};
+    min-height: {{ scale.spacing_px(tokens.spacing, 8) }};
+}
+
+QComboBox QAbstractItemView::item:selected {
+    background-color: {{ tokens.accent }};
+    color: {{ tokens.accent_foreground }};
+}
+
+QComboBox QAbstractItemView::item:disabled {
+    color: {{ colors.alpha(tokens.muted_foreground, 0.5) }};
+}
+
+/* ============================================================
    Text input widgets - QtShadcn
    ============================================================ */
 

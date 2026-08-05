@@ -10,8 +10,8 @@ def test_gallery_window_creates_pages(qapp: QtWidgets.QApplication):
     from examples.gallery.main import GalleryWindow
 
     window = GalleryWindow(qapp)
-    assert window._stack.count() == 7
-    assert window._sidebar.count() == 7
+    assert window._stack.count() == 8
+    assert window._sidebar.count() == 8
     labels = [window._sidebar.item(i).text() for i in range(window._sidebar.count())]
     assert labels == [
         "Overview",
@@ -21,6 +21,7 @@ def test_gallery_window_creates_pages(qapp: QtWidgets.QApplication):
         "QTextEdit",
         "QCheckBox",
         "QRadioButton",
+        "QComboBox",
     ]
 
 

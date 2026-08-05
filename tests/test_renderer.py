@@ -309,6 +309,51 @@ class TestRenderer:
         assert tokens.primary_foreground in icon_path.read_text(encoding="utf-8")
         assert "circle" in icon_path.read_text(encoding="utf-8")
 
+    def test_combo_box_semantics_are_rendered(self):
+        """Test that QComboBox renders shadcn combobox semantics."""
+        tokens = _tokens(spacing="4px", primary="#0f172a", primary_foreground="#f8fafc", destructive="#ef4444", destructive_foreground="#f8fafc", muted_foreground="#64748b", input="#e2e8f0", ring="#0f172a", popover="#ffffff", popover_foreground="#020617", border="#e2e8f0", accent="#f1f5f9", accent_foreground="#0f172a")
+        qss = _build_theme(tokens)
+
+        assert "QComboBox {" in qss
+        assert "border: 1px solid #e2e8f0;" in qss
+        assert "border-radius: 8px;" in qss
+        assert "min-height: 32px;" in qss
+        assert "font-size: 14px;" in qss
+        assert "QComboBox:focus" in qss
+        assert "border-color: #0f172a;" in qss
+        assert "outline: 3px solid rgba(15, 23, 42, 0.5);" in qss
+        assert "QComboBox:disabled" in qss
+        assert "QComboBox::drop-down" in qss
+        assert "QComboBox::down-arrow" in qss
+        assert "chevron-down" in qss
+        assert ".svg" in qss
+        assert 'QComboBox[invalid="true"]' in qss
+        assert "#ef4444" in qss
+        assert "rgba(239, 68, 68, 0.2)" in qss
+        assert "QComboBox QAbstractItemView" in qss
+        assert "background-color: #ffffff;" in qss
+        assert "color: #020617;" in qss
+        assert "padding: 4px 32px 4px 6px;" in qss
+        assert "min-height: 32px;" in qss
+
+    def test_combo_box_invalid_dark_mode_opacities(self):
+        """Test that QComboBox invalid state uses correct opacities in dark mode."""
+        tokens = _tokens(spacing="4px", destructive="#ef4444")
+        qss = _build_theme(tokens, is_dark=True)
+
+        assert "rgba(239, 68, 68, 0.5)" in qss
+        assert "rgba(239, 68, 68, 0.4)" in qss
+
+    def test_combo_box_icon_uses_runtime_cache(self):
+        """Test that chevron down SVGs are generated and cached."""
+        tokens = _tokens(muted_foreground="#64748b")
+        manager = ThemedIconManager()
+        icon_path = Path(manager.chevron_down(tokens.muted_foreground))
+
+        assert icon_path.exists()
+        assert tokens.muted_foreground in icon_path.read_text(encoding="utf-8")
+        assert "M4 6l4 4 4-4" in icon_path.read_text(encoding="utf-8")
+
     def test_base_button_focus_preserves_default_variant_style(self):
         """Test that an unvariant button keeps default visual styling on focus."""
         tokens = _tokens()
