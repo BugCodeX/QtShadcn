@@ -547,7 +547,8 @@ QRadioButton[invalid="true"]::indicator {
    QComboBox - QtShadcn
    ============================================================ */
 
-QComboBox {
+QComboBox,
+QFontComboBox {
     background-color: {{ colors.alpha(tokens.input, 0.3) if is_dark else "transparent" }};
     color: {{ tokens.foreground }};
     border: 1px solid {{ tokens.input }};
@@ -560,57 +561,67 @@ QComboBox {
     selection-color: {{ tokens.primary_foreground }};
 }
 
-QComboBox:focus {
+QComboBox:focus,
+QFontComboBox:focus {
     border-color: {{ tokens.ring }};
     outline: 3px solid {{ colors.alpha(tokens.ring, 0.5) }};
 }
 
-QComboBox:disabled {
+QComboBox:disabled,
+QFontComboBox:disabled {
     background-color: {{ colors.alpha(tokens.input, 0.5) if not is_dark else colors.alpha(tokens.input, 0.8) }};
     color: {{ colors.alpha(tokens.muted_foreground, 0.5) }};
     border-color: {{ colors.alpha(tokens.input, 0.5) }};
 }
 
-QComboBox::drop-down {
+QComboBox::drop-down,
+QFontComboBox::drop-down {
     border: none;
     width: {{ scale.spacing_px(tokens.spacing, 8) }};
 }
 
-QComboBox::down-arrow {
+QComboBox::down-arrow,
+QFontComboBox::down-arrow {
     width: {{ scale.spacing_px(tokens.spacing, 4) }};
     height: {{ scale.spacing_px(tokens.spacing, 4) }};
     image: url("{{ icons.chevron_down(tokens.muted_foreground) }}");
 }
 
-QComboBox:disabled::down-arrow {
+QComboBox:disabled::down-arrow,
+QFontComboBox:disabled::down-arrow {
     image: url("{{ icons.chevron_down(colors.alpha(tokens.muted_foreground, 0.5)) }}");
 }
 
-QComboBox[invalid="true"] {
+QComboBox[invalid="true"],
+QFontComboBox[invalid="true"] {
     color: {{ tokens.destructive }};
     border-color: {{ tokens.destructive }};
     outline: 3px solid {{ colors.alpha(tokens.destructive, 0.2) }};
 }
 
-QComboBox[invalid="true"]:focus {
+QComboBox[invalid="true"]:focus,
+QFontComboBox[invalid="true"]:focus {
     color: {{ tokens.destructive }};
     border-color: {{ tokens.destructive }};
     outline: 3px solid {{ colors.alpha(tokens.destructive, 0.2) }};
 }
 
-QComboBox[invalid="true"]::down-arrow {
+QComboBox[invalid="true"]::down-arrow,
+QFontComboBox[invalid="true"]::down-arrow {
     image: url("{{ icons.chevron_down(tokens.destructive) }}");
 }
 
 {% if is_dark %}
-QComboBox[invalid="true"] {
+QComboBox[invalid="true"],
+QFontComboBox[invalid="true"] {
     color: {{ tokens.destructive }};
     border-color: {{ colors.alpha(tokens.destructive, 0.5) }};
     outline: 3px solid {{ colors.alpha(tokens.destructive, 0.4) }};
 }
 {% endif %}
 
-QComboBox QAbstractItemView {
+QComboBox QAbstractItemView,
+QFontComboBox QAbstractItemView {
     background-color: {{ tokens.popover }};
     color: {{ tokens.popover_foreground }};
     border: 1px solid {{ tokens.border }};
@@ -622,18 +633,21 @@ QComboBox QAbstractItemView {
     outline: none;
 }
 
-QComboBox QAbstractItemView::item {
+QComboBox QAbstractItemView::item,
+QFontComboBox QAbstractItemView::item {
     padding: {{ scale.spacing_px(tokens.spacing, 1) }} {{ scale.spacing_px(tokens.spacing, 8) }} {{ scale.spacing_px(tokens.spacing, 1) }} {{ scale.spacing_px(tokens.spacing, 1.5) }};
     min-height: {{ scale.spacing_px(tokens.spacing, 8) }};
 }
 
-QComboBox QAbstractItemView::item:selected {
+QComboBox QAbstractItemView::item:selected,
+QFontComboBox QAbstractItemView::item:selected {
     background-color: {{ tokens.accent }};
     color: {{ tokens.accent_foreground }};
     border-radius: {{ radius.class_px(tokens.radius, "md") }};
 }
 
-QComboBox QAbstractItemView::item:disabled {
+QComboBox QAbstractItemView::item:disabled,
+QFontComboBox QAbstractItemView::item:disabled {
     color: {{ colors.alpha(tokens.muted_foreground, 0.5) }};
 }
 

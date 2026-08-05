@@ -314,23 +314,30 @@ class TestRenderer:
         tokens = _tokens(spacing="4px", primary="#0f172a", primary_foreground="#f8fafc", destructive="#ef4444", destructive_foreground="#f8fafc", muted_foreground="#64748b", input="#e2e8f0", ring="#0f172a", popover="#ffffff", popover_foreground="#020617", border="#e2e8f0", accent="#f1f5f9", accent_foreground="#0f172a")
         qss = _build_theme(tokens)
 
-        assert "QComboBox {" in qss
+        assert "QComboBox," in qss
+        assert "QFontComboBox {" in qss
         assert "border: 1px solid #e2e8f0;" in qss
         assert "border-radius: 8px;" in qss
         assert "min-height: 32px;" in qss
         assert "font-size: 14px;" in qss
-        assert "QComboBox:focus" in qss
+        assert "QComboBox:focus," in qss
+        assert "QFontComboBox:focus" in qss
         assert "border-color: #0f172a;" in qss
         assert "outline: 3px solid rgba(15, 23, 42, 0.5);" in qss
-        assert "QComboBox:disabled" in qss
-        assert "QComboBox::drop-down" in qss
-        assert "QComboBox::down-arrow" in qss
+        assert "QComboBox:disabled," in qss
+        assert "QFontComboBox:disabled" in qss
+        assert "QComboBox::drop-down," in qss
+        assert "QFontComboBox::drop-down" in qss
+        assert "QComboBox::down-arrow," in qss
+        assert "QFontComboBox::down-arrow" in qss
         assert "chevron-down" in qss
         assert ".svg" in qss
-        assert 'QComboBox[invalid="true"]' in qss
+        assert 'QComboBox[invalid="true"],' in qss
+        assert 'QFontComboBox[invalid="true"]' in qss
         assert "#ef4444" in qss
         assert "rgba(239, 68, 68, 0.2)" in qss
-        assert "QComboBox QAbstractItemView" in qss
+        assert "QComboBox QAbstractItemView," in qss
+        assert "QFontComboBox QAbstractItemView" in qss
         assert "background-color: #ffffff;" in qss
         assert "color: #020617;" in qss
         assert "padding: 4px 32px 4px 6px;" in qss

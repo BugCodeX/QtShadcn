@@ -22,7 +22,7 @@ except ModuleNotFoundError:
     import qtshadcn  # noqa: F401
 
 from qtshadcn import ThemeConfig, apply_theme  # noqa: E402
-from qtshadcn._qt import QtCore, QtWidgets  # noqa: E402
+from qtshadcn._qt import QtCore, QtGui, QtWidgets  # noqa: E402
 
 _SIDEBAR_WIDTH = 220
 _PAGE_MARGIN = 24
@@ -149,7 +149,7 @@ class GalleryWindow(QtWidgets.QMainWindow):
 
         content = QtWidgets.QLabel(
             "Supported widgets in this release: QWidget, QPushButton, QToolButton, "
-            "QLineEdit, QTextEdit, QCheckBox, QRadioButton, QComboBox."
+            "QLineEdit, QTextEdit, QCheckBox, QRadioButton, QComboBox, QFontComboBox."
         )
         content.setWordWrap(True)
         layout.addWidget(content)
@@ -503,6 +503,27 @@ class GalleryWindow(QtWidgets.QMainWindow):
         invalid_layout.addWidget(invalid_selected)
 
         layout.addLayout(invalid_layout)
+
+        layout.addWidget(self._separator())
+        layout.addWidget(self._section_label("QFontComboBox"))
+        layout.addWidget(
+            self._muted_label(
+                "Font selection dropdown with the same styling as QComboBox."
+            )
+        )
+
+        font_combo = QtWidgets.QFontComboBox()
+        font_combo.setCurrentIndex(-1)
+        layout.addWidget(font_combo)
+
+        font_combo_selected = QtWidgets.QFontComboBox()
+        font_combo_selected.setCurrentFont(QtGui.QFont("Arial"))
+        layout.addWidget(font_combo_selected)
+
+        font_combo_disabled = QtWidgets.QFontComboBox()
+        font_combo_disabled.setEnabled(False)
+        layout.addWidget(font_combo_disabled)
+
         layout.addStretch(1)
         return page
 
