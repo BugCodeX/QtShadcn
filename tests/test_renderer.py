@@ -115,12 +115,17 @@ class TestRenderer:
         )
         qss = _build_theme(tokens)
 
-        assert "border-color: rgba(15, 23, 42, 0.5);" in qss
-        assert "background-color: #f1f5f9;" in qss
+        # Focus: border sólido + ring con opacidad 50%
+        assert "border-color: #0f172a;" in qss
+        assert "outline: 3px solid rgba(15, 23, 42, 0.5);" in qss
+        # Disabled: background input con opacidad 50% (light mode)
+        assert "background-color: rgba(226, 232, 240, 0.5);" in qss
         assert "color: rgba(100, 116, 139, 0.5);" in qss
         assert "border-color: rgba(226, 232, 240, 0.5);" in qss
+        # Invalid: texto rojo + border destructivo + ring con opacidad 20%
+        assert "color: #ef4444;" in qss
         assert "border-color: #ef4444;" in qss
-        assert "border-color: rgba(239, 68, 68, 0.5);" in qss
+        assert "outline: 3px solid rgba(239, 68, 68, 0.2);" in qss
         assert "box-shadow" not in qss
         assert "transition" not in qss
 
@@ -168,20 +173,35 @@ class TestRenderer:
         assert "QLineEdit:focus,\nQTextEdit:focus" in qss
         assert "QLineEdit:disabled,\nQTextEdit:disabled" in qss
         assert 'QLineEdit[invalid="true"],\nQTextEdit[invalid="true"]' in qss
-        assert "border-color: rgba(15, 23, 42, 0.5);" in qss
-        assert "background-color: #f1f5f9;" in qss
+        # Focus: border sólido + ring con opacidad 50%
+        assert "border-color: #0f172a;" in qss
+        assert "outline: 3px solid rgba(15, 23, 42, 0.5);" in qss
+        # Disabled: background input con opacidad 50% (light mode)
+        assert "background-color: rgba(226, 232, 240, 0.5);" in qss
         assert "color: rgba(100, 116, 139, 0.5);" in qss
         assert "border-color: rgba(226, 232, 240, 0.5);" in qss
+        # Invalid: texto rojo + border destructivo + ring con opacidad 20%
+        assert "color: #ef4444;" in qss
         assert "border-color: #ef4444;" in qss
-        assert "border-color: rgba(239, 68, 68, 0.5);" in qss
+        assert "outline: 3px solid rgba(239, 68, 68, 0.2);" in qss
 
     def test_text_edit_dark_mode_uses_input_background_alpha(self):
         """Test that dark QTextEdit background maps shadcn input/30 semantics."""
         tokens = _tokens(input="#343434")
         qss = _build_theme(tokens, is_dark=True)
 
-        assert "QTextEdit {" in qss
         assert "background-color: rgba(52, 52, 52, 0.3);" in qss
+
+    def test_text_input_dark_mode_disabled_and_invalid_opacities(self):
+        """Test that dark mode text inputs use correct opacities for disabled and invalid states."""
+        tokens = _tokens(input="#343434", destructive="#ef4444")
+        qss = _build_theme(tokens, is_dark=True)
+
+        # Disabled: background input con opacidad 80% (dark mode)
+        assert "background-color: rgba(52, 52, 52, 0.8);" in qss
+        # Invalid: border al 50% + ring al 40% (dark mode)
+        assert "border-color: rgba(239, 68, 68, 0.5);" in qss
+        assert "outline: 3px solid rgba(239, 68, 68, 0.4);" in qss
 
     def test_checkbox_semantics_are_rendered(self):
         """Test that QCheckBox renders shadcn checkbox semantics."""
@@ -205,6 +225,15 @@ class TestRenderer:
         assert "QCheckBox:disabled" in qss
         assert 'QCheckBox[invalid="true"]' in qss
         assert "#ef4444" in qss
+        assert "rgba(239, 68, 68, 0.2)" in qss  # Light mode ring opacity
+
+    def test_checkbox_invalid_dark_mode_opacities(self):
+        """Test that QCheckBox invalid state uses correct opacities in dark mode."""
+        tokens = _tokens(spacing="4px", destructive="#ef4444")
+        qss = _build_theme(tokens, is_dark=True)
+
+        assert "rgba(239, 68, 68, 0.5)" in qss  # Dark mode border opacity
+        assert "rgba(239, 68, 68, 0.4)" in qss  # Dark mode ring opacity
 
     def test_checkbox_icon_contains_primary_foreground_and_uses_runtime_cache(self):
         """Test that checkbox SVGs use token colors and avoid the package directory."""

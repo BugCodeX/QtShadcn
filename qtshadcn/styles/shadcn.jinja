@@ -446,8 +446,8 @@ QCheckBox[invalid="true"] {
 }
 
 QCheckBox[invalid="true"]::indicator {
-    border-color: {{ tokens.destructive }};
-    border-width: 2px;
+    border: 1px solid {{ tokens.destructive }};
+    outline: 3px solid {{ colors.alpha(tokens.destructive, 0.2) }};
 }
 
 QCheckBox[invalid="true"]::indicator:hover {
@@ -465,6 +465,13 @@ QCheckBox[invalid="true"]::indicator:indeterminate {
     border-color: {{ tokens.destructive }};
     image: url("{{ icons.checkbox_indeterminate(tokens.destructive_foreground) }}");
 }
+
+{% if is_dark %}
+QCheckBox[invalid="true"]::indicator {
+    border: 1px solid {{ colors.alpha(tokens.destructive, 0.5) }};
+    outline: 3px solid {{ colors.alpha(tokens.destructive, 0.4) }};
+}
+{% endif %}
 
 /* ============================================================
    Text input widgets - QtShadcn
@@ -506,13 +513,13 @@ QTextEdit {
 
 QLineEdit:focus,
 QTextEdit:focus {
-    border-color: {{ colors.alpha(tokens.ring, 0.5) }};
-    outline: none;
+    border-color: {{ tokens.ring }};
+    outline: 3px solid {{ colors.alpha(tokens.ring, 0.5) }};
 }
 
 QLineEdit:disabled,
 QTextEdit:disabled {
-    background-color: {{ tokens.muted }};
+    background-color: {{ colors.alpha(tokens.input, 0.5) if not is_dark else colors.alpha(tokens.input, 0.8) }};
     color: {{ colors.alpha(tokens.muted_foreground, 0.5) }};
     border-color: {{ colors.alpha(tokens.input, 0.5) }};
     placeholder-text-color: {{ colors.alpha(tokens.muted_foreground, 0.5) }};
@@ -520,13 +527,26 @@ QTextEdit:disabled {
 
 QLineEdit[invalid="true"],
 QTextEdit[invalid="true"] {
+    color: {{ tokens.destructive }};
     border-color: {{ tokens.destructive }};
+    outline: 3px solid {{ colors.alpha(tokens.destructive, 0.2) }};
 }
 
 QLineEdit[invalid="true"]:focus,
 QTextEdit[invalid="true"]:focus {
-    border-color: {{ colors.alpha(tokens.destructive, 0.5) }};
+    color: {{ tokens.destructive }};
+    border-color: {{ tokens.destructive }};
+    outline: 3px solid {{ colors.alpha(tokens.destructive, 0.2) }};
 }
+
+{% if is_dark %}
+QLineEdit[invalid="true"],
+QTextEdit[invalid="true"] {
+    color: {{ tokens.destructive }};
+    border-color: {{ colors.alpha(tokens.destructive, 0.5) }};
+    outline: 3px solid {{ colors.alpha(tokens.destructive, 0.4) }};
+}
+{% endif %}
 
 /* Typography classes */
 *[class~="h1"] { font-size: 36px; font-weight: 700; }
