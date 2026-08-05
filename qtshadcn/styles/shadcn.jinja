@@ -630,6 +630,7 @@ QComboBox QAbstractItemView::item {
 QComboBox QAbstractItemView::item:selected {
     background-color: {{ tokens.accent }};
     color: {{ tokens.accent_foreground }};
+    border-radius: {{ radius.class_px(tokens.radius, "md") }};
 }
 
 QComboBox QAbstractItemView::item:disabled {
