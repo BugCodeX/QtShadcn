@@ -361,6 +361,18 @@ class TestRenderer:
         assert tokens.muted_foreground in icon_path.read_text(encoding="utf-8")
         assert "M4 6l4 4 4-4" in icon_path.read_text(encoding="utf-8")
 
+    def test_label_semantics_are_rendered(self):
+        """Test that QLabel renders shadcn label semantics."""
+        tokens = _tokens(spacing="4px", foreground="#020617")
+        qss = _build_theme(tokens)
+
+        assert "QLabel {" in qss
+        assert "font-size: 14px;" in qss
+        assert "font-weight: 500;" in qss
+        assert "line-height: 100%;" in qss
+        assert "QLabel:disabled" in qss
+        assert "color: rgba(2, 6, 23, 0.5);" in qss
+
     def test_base_button_focus_preserves_default_variant_style(self):
         """Test that an unvariant button keeps default visual styling on focus."""
         tokens = _tokens()

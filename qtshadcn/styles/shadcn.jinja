@@ -652,6 +652,21 @@ QFontComboBox QAbstractItemView::item:disabled {
 }
 
 /* ============================================================
+   QLabel - QtShadcn
+   ============================================================ */
+
+QLabel {
+    font-size: {{ scale.TEXT_SM }};
+    font-weight: {{ scale.FONT_WEIGHT_MEDIUM }};
+    line-height: 100%;
+    color: {{ tokens.foreground }};
+}
+
+QLabel:disabled {
+    color: {{ colors.alpha(tokens.foreground, 0.5) }};
+}
+
+/* ============================================================
    Text input widgets - QtShadcn
    ============================================================ */
 
