@@ -34,7 +34,7 @@ jobs:
 
           invalid=0
           while IFS= read -r line; do
-            hash="${line%% * }"
+            hash="${line%% *}"
             subject="${line#* }"
             if [[ "$subject" =~ $pattern ]]; then
               echo "  ✓ ${hash:0:8} $subject"
