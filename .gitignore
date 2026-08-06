@@ -41,6 +41,9 @@ Thumbs.db
 .env
 .env.*
 
+# ── uv lockfile (library; consumers generate their own) ─────
+uv.lock
+
 # ── CodeGraph index (regenerated locally) ──────────────────
 .codegraph/
 
