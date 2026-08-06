@@ -7,16 +7,17 @@ from pathlib import Path
 
 import qtshadcn
 from examples.gallery.page_selector import PageSelector
-from examples.gallery.pages import PAGE_REGISTRY, build_pages
+from examples.gallery.pages import PAGE_REGISTRY
+from examples.gallery.pages.overview import OverviewPage
 from examples.gallery.theme_editor import ThemeEditor
 from qtshadcn import ThemeConfig
-from qtshadcn._qt import QtCore, QtWidgets
+from qtshadcn._qt import QtCore, QtGui, QtWidgets
 
 logger = logging.getLogger(__name__)
 
 _PAGE_MARGIN = 24
 _SPACING = 16
-_LEFT_PANEL_MIN_WIDTH = 360
+_LEFT_PANEL_MIN_WIDTH = 420
 _LEFT_PANEL_MARGIN = 16
 
 
@@ -33,6 +34,9 @@ class GalleryWindow(QtWidgets.QMainWindow):
         logger.debug("Initializing GalleryWindow")
         self._app = app
         self.setWindowTitle("QtShadcn Gallery")
+        logo_path = Path(__file__).resolve().parents[2] / "docs" / "source" / "logo.ico"
+        if logo_path.exists():
+            self.setWindowIcon(QtGui.QIcon(str(logo_path)))
         self.resize(1100, 700)
 
         self._current_mode = "light"
@@ -69,8 +73,22 @@ class GalleryWindow(QtWidgets.QMainWindow):
 
     def _setup_pages(self) -> None:
         """Mount every page from the registry into the stacked widget."""
-        for page in build_pages():
+        self._overview_page: OverviewPage | None = None
+        for label, builder in PAGE_REGISTRY:
+            if label == "Overview":
+                self._overview_page = OverviewPage()
+                page = self._overview_page.build()
+                self._overview_page.navigateToPage.connect(self._on_overview_navigate)
+            else:
+                page = builder()
             self._stack.addWidget(page)
+
+    def _on_overview_navigate(self, label: str) -> None:
+        """Switch the page selector to the requested gallery page."""
+        for index, (page_label, _) in enumerate(PAGE_REGISTRY):
+            if page_label == label:
+                self._selector.setCurrentRow(index)
+                return
 
     def _setup_selector(self) -> None:
         """Populate the page selector and wire it to the stack."""
@@ -122,6 +140,11 @@ class GalleryWindow(QtWidgets.QMainWindow):
         self._theme_toggle.toggled.connect(self._on_theme_toggled)
         layout.addWidget(self._theme_toggle)
 
+        self._copy_xml_button = QtWidgets.QPushButton("Copy theme XML")
+        self._copy_xml_button.setProperty("variant", "outline")
+        self._copy_xml_button.clicked.connect(self._on_copy_xml_clicked)
+        layout.addWidget(self._copy_xml_button)
+
         self._editor_scroll.setWidgetResizable(True)
         self._editor_scroll.setFrameShape(QtWidgets.QFrame.Shape.NoFrame)
         self._editor_scroll.setHorizontalScrollBarPolicy(
@@ -156,6 +179,11 @@ class GalleryWindow(QtWidgets.QMainWindow):
         title.setProperty("class", "h2")
         header_layout.addWidget(title, 1)
 
+        docs_button = QtWidgets.QPushButton("Open Docs")
+        docs_button.setProperty("variant", "outline")
+        docs_button.clicked.connect(self._open_docs)
+        header_layout.addWidget(docs_button)
+
         layout.addWidget(header)
         layout.addWidget(self._stack, 1)
 
@@ -166,11 +194,21 @@ class GalleryWindow(QtWidgets.QMainWindow):
         mode = "dark" if checked else "light"
         self.apply_theme(mode)
 
+    def _on_copy_xml_clicked(self) -> None:
+        """Copy the current theme XML to the application clipboard."""
+        xml_bytes = self._editor.to_xml_bytes()
+        QtWidgets.QApplication.clipboard().setText(xml_bytes.decode("utf-8"))
+        logger.info("Copied theme XML to clipboard")
+
     def _on_editor_changed(self) -> None:
         """Persist the editor palette and reapply the theme."""
         path = self._working_xml_path()
         path.write_bytes(self._editor.to_xml_bytes())
         self.apply_theme(self._current_mode)
+
+    def _open_docs(self) -> None:
+        """Open the project documentation in the default browser."""
+        QtGui.QDesktopServices.openUrl(QtCore.QUrl("https://BugCodeX.github.io/QtShadcn/"))
 
     def _update_sidebar_style(self) -> None:
         """Apply the sidebar background/border using the active theme tokens."""
