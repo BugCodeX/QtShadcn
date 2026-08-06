@@ -216,9 +216,7 @@ class ThemeEditor(QtWidgets.QWidget):
 
         return page
 
-    def _create_color_row(
-        self, name: str, label: str, value: str
-    ) -> QtWidgets.QHBoxLayout:
+    def _create_color_row(self, name: str, label: str, value: str) -> QtWidgets.QHBoxLayout:
         """Create a row with a color square, label, hex input, and copy button."""
         row = QtWidgets.QHBoxLayout()
         row.setSpacing(8)

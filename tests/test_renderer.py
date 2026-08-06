@@ -321,7 +321,21 @@ QTextEdit {
 
     def test_combo_box_semantics_are_rendered(self):
         """Test that QComboBox renders shadcn combobox semantics."""
-        tokens = _tokens(spacing="4px", primary="#0f172a", primary_foreground="#f8fafc", destructive="#ef4444", destructive_foreground="#f8fafc", muted_foreground="#64748b", input="#e2e8f0", ring="#0f172a", popover="#ffffff", popover_foreground="#020617", border="#e2e8f0", accent="#f1f5f9", accent_foreground="#0f172a")
+        tokens = _tokens(
+            spacing="4px",
+            primary="#0f172a",
+            primary_foreground="#f8fafc",
+            destructive="#ef4444",
+            destructive_foreground="#f8fafc",
+            muted_foreground="#64748b",
+            input="#e2e8f0",
+            ring="#0f172a",
+            popover="#ffffff",
+            popover_foreground="#020617",
+            border="#e2e8f0",
+            accent="#f1f5f9",
+            accent_foreground="#0f172a",
+        )
         qss = _build_theme(tokens)
 
         assert "QComboBox {" in qss
@@ -477,7 +491,7 @@ QTextEdit {
 
         assert "QProgressBar {" in qss
         assert "QProgressBar::chunk {" in qss
-        assert "QProgressBar[labeled=\"true\"]" in qss
+        assert 'QProgressBar[labeled="true"]' in qss
         assert "QProgressBar:disabled" in qss
         assert "QProgressBar::chunk:disabled" in qss
         assert "background-color: #f1f5f9;" in qss
@@ -493,7 +507,7 @@ QTextEdit {
         tokens = _tokens(spacing="4px")
         qss = _build_theme(tokens)
 
-        assert "QProgressBar[labeled=\"true\"] {" in qss
+        assert 'QProgressBar[labeled="true"] {' in qss
         assert "min-height: 20px;" in qss
         assert "max-height: 20px;" in qss
 
