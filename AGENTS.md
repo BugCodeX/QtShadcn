@@ -102,17 +102,6 @@ make clean         # remove dist/, caches, .coverage
 
 ---
 
-## Skills
-
-These skills are active for this project. Read the corresponding `SKILL.md` before performing the related task.
-
-| Skill              | When to use                                                  | Path                                                         |
-|--------------------|--------------------------------------------------------------|--------------------------------------------------------------|
-| `commit-hygiene`   | Any commit creation, message review, or branch cleanup       | [SKILL.md](.gemini/skills/commit-hygiene/SKILL.md)           |
-| `release-notes`    | Creating or updating release notes for any version tag       | [SKILL.md](.gemini/skills/release-notes/SKILL.md)            |
-
----
-
 ## Versioning
 
 Follows [semver](https://semver.org). Version is defined in `pyproject.toml` and must match the git tag (`vMAJOR.MINOR.PATCH`).
@@ -120,3 +109,46 @@ Follows [semver](https://semver.org). Version is defined in `pyproject.toml` and
 - `feat!:` commits → MAJOR bump
 - `feat:` commits → MINOR bump
 - `fix:` commits → PATCH bump
+
+## Available Skills
+
+Use these skills for detailed patterns on-demand:
+
+### Generic Skills (Any Project)
+
+| Skill            | Description                                                                                                                                            | URL                                        |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------ |
+| `commit-hygiene` | Trigger: commit, git commit, conventional commit, branch cleanup, commit message. Enforce conventional commits and clean history for QtShadcn.         | [SKILL.md](skills/commit-hygiene/SKILL.md) |
+| `pytest`         | Trigger: pytest tests, pytest coverage, fixtures, mocking, markers, parametrize, test discovery. Write idiomatic Python pytest tests and test helpers. | [SKILL.md](skills/pytest/SKILL.md)         |
+| `skill-creator`  | Trigger: new skills, agent instructions, documenting AI usage patterns. Create LLM-first skills with valid frontmatter.                                | [SKILL.md](skills/skill-creator/SKILL.md)  |
+| `skill-improver` | Trigger: improve skills, audit skills, refactor skills, skill quality. Audit and upgrade existing LLM-first skills.                                    | [SKILL.md](skills/skill-improver/SKILL.md) |
+
+### QtShadcn Specific Skills
+
+| Skill           | Description                                                                                                                                                                                                                                                  | URL                                       |
+| --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------- |
+| `release-notes` | Trigger: release, release notes, changelog, tag, version, what's new. Generate structured release notes for QtShadcn versions.                                                                                                                               | [SKILL.md](skills/release-notes/SKILL.md) |
+| `skill-sync`    | Syncs skill metadata to AGENTS.md Available Skills sections. Trigger: When updating skill metadata (metadata.scope/metadata.auto_invoke), regenerating Available Skills tables, or running ./skills/skill-sync/assets/sync.py (including --dry-run/--scope). | [SKILL.md](skills/skill-sync/SKILL.md)    |
+
+### Auto-invoke Skills
+
+When performing these actions, ALWAYS invoke the corresponding skill FIRST:
+
+| Action                                                 | Skill            |
+| ------------------------------------------------------ | ---------------- |
+| After creating/modifying a skill                       | `skill-sync`     |
+| Auditing or improving existing skills                  | `skill-improver` |
+| Checking pytest coverage or test discovery             | `pytest`         |
+| Cleaning up or reorganizing branches                   | `commit-hygiene` |
+| Creating a new skill or AI agent instructions          | `skill-creator`  |
+| Creating or amending a git commit                      | `commit-hygiene` |
+| Creating or updating release notes                     | `release-notes`  |
+| Documenting reusable AI usage patterns                 | `skill-creator`  |
+| Generating a changelog or version tag                  | `release-notes`  |
+| Preparing a QtShadcn release                           | `release-notes`  |
+| Refactoring or normalizing SKILL.md files              | `skill-improver` |
+| Regenerate AGENTS.md Available Skills tables (sync.py) | `skill-sync`     |
+| Troubleshoot why a skill is missing from AGENTS.md     | `skill-sync`     |
+| Working with test fixtures, mocking, or markers        | `pytest`         |
+| Writing a conventional commit message                  | `commit-hygiene` |
+| Writing, reviewing, or running Python pytest tests     | `pytest`         |
