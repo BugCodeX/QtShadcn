@@ -54,3 +54,22 @@ Use Twine only if Trusted Publishing is unavailable and you intentionally choose
 make build
 uv run --extra dev twine upload dist/*
 ```
+
+# QtShadcn v0.0.12
+
+## What's New
+
+- `QProgressBar` styling now matches the shadcn/ui Progress component: a thin 4px track with a rounded primary indicator.
+
+## Fixes
+
+- Fixed QProgressBar default styling so the track is thin and the text is no longer rendered inside the bar.
+- Fixed the gallery page to show labels and percentages outside the progress bar, matching shadcn layout.
+
+## Verification
+
+```bash
+pip install qtshadcn==0.0.12
+python -c "import qtshadcn; print(qtshadcn.__version__)"
+make test
+```
