@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/source/logo.png" alt="QtShadcn logo" width="128">
+  <img src="docs/source/logo.png" alt="QtShadcn logo" width="20%">
 </p>
 
 <h1 align="center">QtShadcn</h1>
@@ -188,7 +188,7 @@ Immutable Pydantic model with one field per design token (`background`, `primary
 
 ## Documentation
 
-- **Docs site**: [https://BugCodeX.github.io/QtShadcn/](https://BugCodeX.github.io/QtShadcn/)
+- **Docs site**: [https://qtshadcn.readthedocs.io/](https://qtshadcn.readthedocs.io/)
 - **Widget gallery**: `examples/gallery/main.py` (run `make gallery`)
 
 ---

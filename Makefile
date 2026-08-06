@@ -69,9 +69,6 @@ docs:
 docs-serve:
 	$(UV) run --extra dev mkdocs serve
 
-docs-deploy:
-	$(UV) run --extra dev mkdocs gh-deploy --remote-branch docs --force
-
 # ---------------------------------------------------------------------------
 # Cleanup
 # ---------------------------------------------------------------------------

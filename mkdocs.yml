@@ -1,6 +1,6 @@
 site_name: QtShadcn
 site_description: Modern styling and theming framework for Qt/PySide and PyQt applications, inspired by shadcn/ui.
-site_url: https://BugCodeX.github.io/QtShadcn/
+site_url: https://qtshadcn.readthedocs.io/
 
 repo_name: BugCodeX/QtShadcn
 repo_url: https://github.com/BugCodeX/QtShadcn
