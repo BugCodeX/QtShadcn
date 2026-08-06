@@ -19,15 +19,15 @@ jobs:
 
     steps:
       - name: Check out repository
-        uses: actions/checkout@v7.0.1
+        uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v7.0.0
+        uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
       - name: Install uv
-        uses: astral-sh/setup-uv@v9.0.0
+        uses: astral-sh/setup-uv@v5
         with:
           version: "latest"
 
@@ -47,25 +47,26 @@ jobs:
         run: uv run --extra dev mkdocs build --strict
 
   tests:
-    name: Tests
+    name: Tests (${{ matrix.os }}, Python ${{ matrix.python-version }})
     strategy:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest]
+        python-version: ["3.11", "3.12", "3.13"]
 
     runs-on: ${{ matrix.os }}
 
     steps:
       - name: Check out repository
-        uses: actions/checkout@v7.0.1
+        uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v7.0.0
+        uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: ${{ matrix.python-version }}
 
       - name: Install uv
-        uses: astral-sh/setup-uv@v9.0.0
+        uses: astral-sh/setup-uv@v5
         with:
           version: "latest"
 
@@ -94,8 +95,8 @@ jobs:
 
       - name: Upload coverage HTML
         if: failure()
-        uses: actions/upload-artifact@v7.0.1
+        uses: actions/upload-artifact@v4
         with:
-          name: coverage-report-${{ matrix.os }}
+          name: coverage-report-${{ matrix.os }}-py${{ matrix.python-version }}
           path: htmlcov/
           if-no-files-found: ignore
