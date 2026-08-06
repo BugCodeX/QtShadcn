@@ -24,7 +24,11 @@ QtShadcn loads a local **XML theme file** with `<light>` and `<dark>` palettes, 
 qtshadcn/
 ├── app.py          # Public API: apply_theme(), get_theme(), ThemeConfig
 ├── models.py       # Pydantic models: ShadcnTheme, ShadcnThemeTokens, ThemeConfig
-├── parser.py       # XML theme parser
+├── parser.py       # XML theme parser (public façade)
+├── _parser.py      # Internal XML parsing implementation
+├── _qt.py          # Binding-neutral Qt shim (PySide6 / PyQt6 / PySide2 / PyQt5)
+├── _icons.py       # Runtime themed SVG icon cache helpers
+├── _shim.py        # Runtime Qt binding selection helpers
 ├── styles/
 │   └── shadcn.jinja  # QSS template — the ONLY file for widget styles
 ├── themes/
@@ -32,15 +36,30 @@ qtshadcn/
 ├── tokens/
 │   ├── colors.py     # alpha(), mix() helpers
 │   ├── radius.py     # class_px() helper
-│   └── scale.py      # spacing_px(), TEXT_*, FONT_WEIGHT_* constants
+│   └── scale.py      # spacing_px(), spacing_int(), TEXT_*, FONT_WEIGHT_* constants
 └── fonts/            # Bundled font files
+examples/
+└── gallery/          # Modular widget gallery with live theme editor
+    ├── main.py
+    ├── window.py
+    ├── theme_editor.py
+    ├── page_selector.py
+    ├── pages/
+    │   ├── _helpers.py
+    │   └── ...       # One page per styled widget
+    └── ...
 tests/
 ├── test_app.py
+├── test_gallery.py
 ├── test_integration.py
 ├── test_models.py
+├── test_page_registry.py
 ├── test_parser.py
 ├── test_renderer.py  # QSS output assertions
-└── test_tokens.py
+├── test_shim.py
+├── test_theme_editor.py
+├── test_tokens.py
+└── test_version.py
 ```
 
 ---
