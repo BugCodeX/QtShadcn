@@ -30,6 +30,22 @@ Do not attach `.whl` or `.tar.gz` files to GitHub Releases once PyPI publishing 
 
 Once the PyPI publish succeeds for the current release, any existing wheel and source distribution assets from earlier releases may be removed from GitHub Releases.
 
+# QtShadcn v0.0.11
+
+## What's New
+
+- Refactored gallery into a modular package with a theme editor.
+- Added `QProgressBar` styling with shadcn progress semantics, including determinate, indeterminate, thin, and disabled states.
+- Added a `QProgressBar` gallery page demonstrating all supported states.
+
+## Verification
+
+```bash
+pip install qtshadcn==0.0.11
+python -c "import qtshadcn; print(qtshadcn.__version__)"
+make test
+```
+
 ## Fallback Only
 
 Use Twine only if Trusted Publishing is unavailable and you intentionally choose a manual fallback:
