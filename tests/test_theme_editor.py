@@ -150,3 +150,83 @@ def test_theme_editor_theme_changed_signal(qtbot):
     editor = ThemeEditor()
     with qtbot.waitSignal(editor.themeChanged, timeout=1000):
         editor.set_token("Primary", "primary", "#654321")
+
+
+@pytest.mark.usefixtures("qapp")
+def test_theme_editor_hex_input_updates_token():
+    """Editing the hex input and confirming updates the active palette token."""
+    editor = ThemeEditor()
+    line = editor._color_inputs["primary"]
+    line.setText("#123abc")
+    line.editingFinished.emit()
+
+    assert editor.current_tokens()["light"]["primary"] == "#123abc"
+
+
+@pytest.mark.usefixtures("qapp")
+def test_theme_editor_hex_input_invalid_reverts():
+    """Invalid hex input is reverted instead of updating the token."""
+    editor = ThemeEditor()
+    original = editor.current_tokens()["light"]["primary"]
+    line = editor._color_inputs["primary"]
+    line.setText("#gggggg")
+    line.editingFinished.emit()
+
+    assert editor.current_tokens()["light"]["primary"] == original
+    assert line.text() == original
+
+
+@pytest.mark.usefixtures("qapp")
+def test_theme_editor_copy_button_copies_hex(qapp: QtWidgets.QApplication):
+    """The copy button copies the current hex value to the clipboard."""
+    editor = ThemeEditor()
+    editor.set_token("Primary", "primary", "#abcdef")
+    editor._color_copy_buttons["primary"].click()
+
+    assert qapp.clipboard().text() == "#abcdef"
+
+
+@pytest.mark.usefixtures("qapp")
+def test_theme_editor_font_family_combo_updates_token():
+    """The font family combo updates the active palette token."""
+    editor = ThemeEditor()
+    editor._font_combo.setCurrentText("Inter")
+
+    assert editor.current_tokens()["light"]["font_family"] == "Inter"
+
+
+@pytest.mark.usefixtures("qapp")
+def test_theme_editor_radius_slider_updates_token():
+    """The radius slider updates the active palette token."""
+    editor = ThemeEditor()
+    editor._radius_slider.setValue(12)
+
+    assert editor.current_tokens()["light"]["radius"] == "12px"
+
+
+@pytest.mark.usefixtures("qapp")
+def test_theme_editor_spacing_slider_updates_token():
+    """The spacing slider updates the active palette token."""
+    editor = ThemeEditor()
+    editor._spacing_slider.setValue(2)
+
+    assert editor.current_tokens()["light"]["spacing"] == "2px"
+
+
+@pytest.mark.usefixtures("qapp")
+def test_theme_editor_active_mode_refreshes_other_tokens():
+    """set_active_mode refreshes font and slider widgets for the active palette."""
+    editor = ThemeEditor()
+    editor._font_combo.setCurrentText("Inter")
+    editor._radius_slider.setValue(12)
+    editor._spacing_slider.setValue(2)
+
+    editor.set_active_mode("dark")
+    assert editor._font_combo.currentText() == "Open Sans"
+    assert editor._radius_slider.value() == 8
+    assert editor._spacing_slider.value() == 4
+
+    editor.set_active_mode("light")
+    assert editor._font_combo.currentText() == "Inter"
+    assert editor._radius_slider.value() == 12
+    assert editor._spacing_slider.value() == 2
