@@ -806,10 +806,10 @@ QSlider::add-page:horizontal {
 QSlider::handle:horizontal {
     background-color: {{ tokens.background }};
     border: 1px solid {{ tokens.ring }};
-    border-radius: {{ radius.class_px(tokens.radius, "full") }};
+    border-radius: {{ radius.half_px(scale.spacing_px(tokens.spacing, 3)) }};
     width: {{ scale.spacing_px(tokens.spacing, 3) }};
     height: {{ scale.spacing_px(tokens.spacing, 3) }};
-    margin: -{{ scale.spacing_px(tokens.spacing, 1) }} 0;
+    margin: -{{ radius.half_px(scale.spacing_px(tokens.spacing, 3)) }} 0;
 }
 
 QSlider::handle:horizontal:hover {
@@ -859,10 +859,10 @@ QSlider::add-page:vertical {
 QSlider::handle:vertical {
     background-color: {{ tokens.background }};
     border: 1px solid {{ tokens.ring }};
-    border-radius: {{ radius.class_px(tokens.radius, "full") }};
+    border-radius: {{ radius.half_px(scale.spacing_px(tokens.spacing, 3)) }};
     width: {{ scale.spacing_px(tokens.spacing, 3) }};
     height: {{ scale.spacing_px(tokens.spacing, 3) }};
-    margin: 0 -{{ scale.spacing_px(tokens.spacing, 1) }};
+    margin: 0 -{{ radius.half_px(scale.spacing_px(tokens.spacing, 3)) }};
 }
 
 QSlider::handle:vertical:hover {

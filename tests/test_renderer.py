@@ -527,8 +527,8 @@ class TestRenderer:
         assert "min-height: 4px;" in qss
         assert "width: 12px;" in qss
         assert "height: 12px;" in qss
-        assert "border-radius: 9999px;" in qss
-        assert "margin: -4px 0;" in qss
+        assert "border-radius: 6px;" in qss
+        assert "margin: -6px 0;" in qss
         assert "rgba(15, 23, 42, 0.8)" in qss
         assert "rgba(15, 23, 42, 0.5)" in qss
 
@@ -544,7 +544,7 @@ class TestRenderer:
         assert "QSlider::handle:vertical:hover" in qss
         assert "QSlider::handle:vertical:focus" in qss
         assert "width: 4px;" in qss
-        assert "margin: 0 -4px;" in qss
+        assert "margin: 0 -6px;" in qss
 
     def test_slider_disabled_opacity(self):
         """Test that QSlider disabled states use 50% opacity."""

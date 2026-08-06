@@ -55,6 +55,11 @@ def sub_px(base_radius: str, name: str, amount: str) -> str:
     return _format_px(max(_px_number(class_px(base_radius, name)) - _px_number(amount), 0))
 
 
+def half_px(value: str) -> str:
+    """Return half of a Qt-safe pixel value."""
+    return _format_px(_px_number(value) / 2)
+
+
 def _px_number(value: str) -> float:
     match = _PX_RE.match(value.strip())
     if match is None:
