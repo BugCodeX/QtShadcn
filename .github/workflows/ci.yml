@@ -37,6 +37,9 @@ jobs:
       - name: Run linter
         run: uv run --extra dev ruff check .
 
+      - name: Check formatting
+        run: uv run --extra dev ruff format --check .
+
       - name: Run type checker
         run: uv run --extra dev ty check
 
@@ -45,7 +48,12 @@ jobs:
 
   tests:
     name: Tests
-    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+
+    runs-on: ${{ matrix.os }}
 
     steps:
       - name: Check out repository
@@ -64,15 +72,23 @@ jobs:
       - name: Install dev dependencies
         run: uv sync --extra dev
 
-      - name: Install Qt platform plugins
+      - name: Install Qt platform plugins (Linux)
+        if: runner.os == 'Linux'
         run: |
           sudo apt-get update
           sudo apt-get install -y libegl1 libxkbcommon-x11-0 libxcb-icccm4 libxcb-image0 \
             libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 libxcb-xinerama0 libxcb-xfixes0 \
             x11-utils
 
-      - name: Run tests under xvfb
+      - name: Run tests (Linux — xvfb)
+        if: runner.os == 'Linux'
         run: xvfb-run -a uv run --extra dev pytest
+        env:
+          QT_QPA_PLATFORM: offscreen
+
+      - name: Run tests (Windows)
+        if: runner.os == 'Windows'
+        run: uv run --extra dev pytest
         env:
           QT_QPA_PLATFORM: offscreen
 
@@ -80,6 +96,6 @@ jobs:
         if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: coverage-report
+          name: coverage-report-${{ matrix.os }}
           path: htmlcov/
           if-no-files-found: ignore
