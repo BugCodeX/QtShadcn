@@ -11,7 +11,6 @@ nav:
   - Theme Format: theme-format.md
   - API Reference: api-reference.md
   - Roadmap: roadmap.md
-  - Release Guide: release.md
 
 docs_dir: docs
 
@@ -21,8 +20,8 @@ theme:
     - content.code.copy
     - navigation.top
     - navigation.footer
-  logo: 'https://res.cloudinary.com/dv5dpinww/image/upload/v1773351424/logo_tcu39w.png'
-  favicon: 'https://res.cloudinary.com/dv5dpinww/image/upload/v1773351424/logo_tcu39w.png'
+  logo: source/logo.png
+  favicon: source/logo.ico
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default

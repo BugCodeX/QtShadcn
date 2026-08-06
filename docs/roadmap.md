@@ -1,45 +1,59 @@
 # Roadmap
 
-QtShadcn is focused on becoming a stable, public theming layer for Qt desktop applications. The current release covers the most common building-block widgets; the next release targets the form and layout widgets that make up real applications.
+QtShadcn is becoming a complete shadcn/ui-inspired theming layer for Qt desktop applications. This roadmap tracks which widgets are already styled, which are being worked on, and which are still pending.
 
 ---
 
-## Release 0.0.6 — Public Readiness
+## Implemented components
 
-The v0.0.6 release ships the foundation and the first set of styled widgets:
-
-- ✅ Multi-binding support: PySide6, PyQt6, PySide2, PyQt5
-- ✅ Binding-neutral internal `_qt` shim
-- ✅ Widget gallery with sidebar and light/dark toggle
-- ✅ QSS for `QWidget`, `QPushButton`, `QToolButton`, `QLineEdit`, `QTextEdit`
-- ✅ Cross-platform CI: lint, type-check, docs, and tests under xvfb on Ubuntu
-- ✅ Updated documentation and README for public install
-
----
-
-## Next Release — Forms and Layout
-
-The next release will add the widgets most applications need to build forms and settings panels:
-
-- `QCheckBox` and `QRadioButton` — toggles and option groups
-- `QComboBox` and `QSpinBox` / `QDoubleSpinBox` — selection and numeric inputs
-- `QSlider` and `QProgressBar` — ranges and progress
-- `QGroupBox` and `QFrame` — layout containers
-- `QTabWidget` and `QStackedWidget` — navigation containers
-- `QMenu`, `QMenuBar`, and `QToolBar` — chrome styling
-- `QScrollBar` and `QScrollArea` — consistent scrolling chrome
+- [x] `QPushButton`
+- [x] `QToolButton`
+- [x] `QRadioButton`
+- [x] `QCheckBox`
+- [x] `QComboBox`
+- [x] `QFontComboBox`
+- [x] `QLineEdit`
+- [x] `QTextEdit`
+- [x] `QLabel`
+- [x] `QGroupBox`
+- [x] `QFrame`
+- [x] `QWidget`
+- [x] `QProgressBar`
+- [x] `QSlider`
 
 ---
 
-## Future Work
+## Work in progress
 
-Longer-term areas under consideration:
+- [ ] `QScrollArea`
 
-- `QTableView`, `QTreeView`, `QListView` — data views
-- `QDialog` and modal chrome
-- Additional bundled themes beyond the default
-- Theme validation and authoring tools
-- Accessibility improvements (focus indicators, color contrast options)
+---
+
+## Not implemented
+
+- [ ] `QSpinBox`
+- [ ] `QDoubleSpinBox`
+- [ ] `QPlainTextEdit`
+- [ ] `QListView`
+- [ ] `QTreeView`
+- [ ] `QTableView`
+- [ ] `QListWidget`
+- [ ] `QTreeWidget`
+- [ ] `QTableWidget`
+- [ ] `QStackedWidget`
+- [ ] `QToolBox`
+- [ ] `QDialogButtonBox`
+- [ ] `QScrollBar`
+- [ ] `QDateEdit`
+- [ ] `QTimeEdit`
+- [ ] `QDateTimeEdit`
+- [ ] `QCalendarWidget`
+- [ ] `QTextBrowser`
+- [ ] `QKeySequenceEdit`
+- [ ] `QCommandLinkButton`
+- [ ] `QColumnView`
+- [ ] `QUndoView`
+- [ ] `QQuickWidget`
 
 ---
 
