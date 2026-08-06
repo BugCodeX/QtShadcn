@@ -1,53 +1,35 @@
 """Integration tests for the gallery example."""
 
+from examples.gallery.pages import PAGE_REGISTRY
+from examples.gallery.window import GalleryWindow
 from qtshadcn._qt import QtWidgets
-from qtshadcn.app import apply_theme
-from qtshadcn.models import ThemeConfig
 
 
 def test_gallery_window_creates_pages(qapp: QtWidgets.QApplication):
-    """Test that the gallery window creates all expected pages."""
-    from examples.gallery.main import GalleryWindow
-
+    """Test that the gallery window mounts all expected pages."""
     window = GalleryWindow(qapp)
     assert window._stack.count() == 9
-    assert window._sidebar.count() == 9
-    labels = [window._sidebar.item(i).text() for i in range(window._sidebar.count())]
-    assert labels == [
-        "Overview",
-        "QPushButton",
-        "QToolButton",
-        "QLineEdit",
-        "QTextEdit",
-        "QCheckBox",
-        "QRadioButton",
-        "QComboBox",
-        "QLabel",
-    ]
+    assert window._selector.count() == 9
+
+    labels = [window._selector._combo.itemText(i) for i in range(window._selector.count())]
+    assert labels == [label for label, _ in PAGE_REGISTRY]
 
 
 def test_gallery_theme_toggle_reapplies_qss(qapp: QtWidgets.QApplication):
-    """Test that the gallery toggle reapplies the theme and refreshes the window."""
-    from examples.gallery.main import GalleryWindow
-
-    apply_theme(qapp, ThemeConfig(theme_mode="light"))
+    """Test that toggling the theme mode applies a different QSS stylesheet."""
+    window = GalleryWindow(qapp)
     light_sheet = qapp.styleSheet()
     assert light_sheet != ""
 
-    window = GalleryWindow(qapp)
-    window._theme_toggle.setChecked(True)
-    window._on_theme_toggled(True)
-
+    window.apply_theme("dark")
     dark_sheet = qapp.styleSheet()
     assert dark_sheet != ""
     assert dark_sheet != light_sheet
     assert window._theme_toggle.text() == "Light mode"
 
 
-def test_gallery_sidebar_switch_changes_page(qapp: QtWidgets.QApplication):
-    """Test that selecting a sidebar item changes the visible page."""
-    from examples.gallery.main import GalleryWindow
-
+def test_gallery_selector_switch_changes_page(qapp: QtWidgets.QApplication):
+    """Test that selecting a page in the selector changes the visible page."""
     window = GalleryWindow(qapp)
-    window._sidebar.setCurrentRow(2)
+    window._selector.setCurrentRow(2)
     assert window._stack.currentIndex() == 2
