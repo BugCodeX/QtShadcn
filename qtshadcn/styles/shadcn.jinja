@@ -12,7 +12,21 @@ QWidget {
 }
 
 /* ============================================================
-   QPushButton - QtShadcn
+   QLabel
+   ============================================================ */
+
+QLabel {
+    font-size: {{ scale.TEXT_SM }};
+    font-weight: {{ scale.FONT_WEIGHT_MEDIUM }};
+    line-height: 100%;
+    color: {{ tokens.foreground }};
+}
+
+QLabel:disabled { color: {{ colors.alpha(tokens.foreground, 0.5) }}; }
+
+
+/* ============================================================
+   QPushButton
    ============================================================ */
 
 QPushButton {
@@ -33,8 +47,8 @@ QPushButton:hover {
 }
 
 QPushButton:pressed {
-    background-color: {{ tokens.secondary }};
     color: {{ tokens.secondary_foreground }};
+    background-color: {{ colors.alpha(tokens.primary, 0.8) }};
 }
 
 QPushButton:focus {
@@ -53,23 +67,6 @@ QPushButton:disabled {
 QPushButton[invalid="true"]:focus {
     border-color: {{ tokens.destructive }};
     color: {{ tokens.destructive }};
-}
-
-QPushButton[variant="default"] {
-    background-color: {{ tokens.primary }};
-    color: {{ tokens.primary_foreground }};
-    border-color: transparent;
-}
-
-QPushButton[variant="default"]:focus {
-    background-color: {{ tokens.primary }};
-    color: {{ tokens.primary_foreground }};
-    border-color: {{ colors.alpha(tokens.ring, 0.5) }};
-}
-
-QPushButton[variant="default"]:hover,
-QPushButton[variant="default"]:pressed {
-    background-color: {{ colors.alpha(tokens.primary, 0.8) }};
 }
 
 QPushButton[variant="outline"] {
@@ -143,24 +140,9 @@ QPushButton[variant="outline"]:disabled {
 
 QPushButton[variant="ghost"]:disabled,
 QPushButton[variant="link"]:disabled {
-    border: none;
+    border: 0px;
     background-color: transparent;
     color: {{ colors.alpha(tokens.foreground, 0.5) }};
-}
-
-QPushButton[size="default"] {
-    padding-left: {{ scale.spacing_px(tokens.spacing, 2.5) }};
-    padding-right: {{ scale.spacing_px(tokens.spacing, 2.5) }};
-    min-height: {{ scale.spacing_px(tokens.spacing, 8) }};
-    font-size: {{ scale.TEXT_SM }};
-}
-
-QPushButton[size="default"][iconPosition="start"] {
-    padding-left: {{ scale.spacing_px(tokens.spacing, 2) }};
-}
-
-QPushButton[size="default"][iconPosition="end"] {
-    padding-right: {{ scale.spacing_px(tokens.spacing, 2) }};
 }
 
 QPushButton[size="xs"] {
@@ -182,8 +164,7 @@ QPushButton[size="lg"] {
     font-size: {{ scale.TEXT_SM }};
 }
 
-QPushButton[size="icon"],
-QToolButton[size="icon"] {
+QPushButton[size="icon"], QToolButton[size="icon"] {
     min-width: {{ scale.spacing_px(tokens.spacing, 8) }};
     max-width: {{ scale.spacing_px(tokens.spacing, 8) }};
     min-height: {{ scale.spacing_px(tokens.spacing, 8) }};
@@ -201,8 +182,7 @@ QPushButton[size="icon-xs"] {
     font-size: {{ scale.TEXT_XS }};
 }
 
-QPushButton[size="icon-sm"],
-QToolButton[size="icon-sm"] {
+QPushButton[size="icon-sm"], QToolButton[size="icon-sm"] {
     border-radius: {{ radius.min_px(tokens.radius, "md", "12px") }};
     min-width: {{ scale.spacing_px(tokens.spacing, 7) }};
     max-width: {{ scale.spacing_px(tokens.spacing, 7) }};
@@ -210,8 +190,7 @@ QToolButton[size="icon-sm"] {
     max-height: {{ scale.spacing_px(tokens.spacing, 7) }};
 }
 
-QPushButton[size="icon-lg"],
-QToolButton[size="icon-lg"] {
+QPushButton[size="icon-lg"], QToolButton[size="icon-lg"] {
     min-width: {{ scale.spacing_px(tokens.spacing, 9) }};
     max-width: {{ scale.spacing_px(tokens.spacing, 9) }};
     min-height: {{ scale.spacing_px(tokens.spacing, 9) }};
@@ -220,7 +199,7 @@ QToolButton[size="icon-lg"] {
 }
 
 /* ============================================================
-   QToolButton - QtShadcn
+   QToolButton
    ============================================================ */
 
 QToolButton {
@@ -238,9 +217,7 @@ QToolButton {
     font-weight: {{ scale.FONT_WEIGHT_MEDIUM }};
 }
 
-QToolButton:hover {
-    background-color: {{ colors.alpha(tokens.primary, 0.8) }};
-}
+QToolButton:hover { background-color: {{ colors.alpha(tokens.primary, 0.8) }}; }
 
 QToolButton:pressed,
 QToolButton:checked {
@@ -259,25 +236,6 @@ QToolButton:disabled {
     background-color: {{ colors.alpha(tokens.primary, 0.5) }};
     color: {{ colors.alpha(tokens.primary_foreground, 0.5) }};
     border-color: transparent;
-}
-
-QToolButton[variant="default"] {
-    background-color: {{ tokens.primary }};
-    color: {{ tokens.primary_foreground }};
-    border-color: transparent;
-}
-
-QToolButton[variant="default"]:focus {
-    background-color: {{ tokens.primary }};
-    color: {{ tokens.primary_foreground }};
-    border-color: {{ colors.alpha(tokens.ring, 0.5) }};
-}
-
-QToolButton[variant="default"]:hover,
-QToolButton[variant="default"]:pressed,
-QToolButton[variant="default"]:checked {
-    background-color: {{ colors.alpha(tokens.primary, 0.8) }};
-    color: {{ tokens.primary_foreground }};
 }
 
 QToolButton[variant="outline"] {
@@ -362,12 +320,6 @@ QToolButton[variant="outline"]:disabled {
     border-color: {{ tokens.border }};
 }
 
-QToolButton[variant="default"]:disabled {
-    background-color: {{ colors.alpha(tokens.primary, 0.5) }};
-    color: {{ colors.alpha(tokens.primary_foreground, 0.5) }};
-    border-color: transparent;
-}
-
 QToolButton[variant="secondary"]:disabled {
     background-color: {{ colors.alpha(tokens.secondary, 0.5) }};
     color: {{ colors.alpha(tokens.secondary_foreground, 0.5) }};
@@ -375,7 +327,7 @@ QToolButton[variant="secondary"]:disabled {
 }
 
 QToolButton[variant="ghost"]:disabled {
-    border: none;
+    border: 0px;
     background-color: transparent;
     color: {{ colors.alpha(tokens.foreground, 0.5) }};
 }
@@ -387,374 +339,293 @@ QToolButton[variant="destructive"]:disabled {
 }
 
 /* ============================================================
-   QCheckBox - QtShadcn
+   QCheckBox
    ============================================================ */
 
+{% set checkbox_bg = colors.alpha(tokens.input, 0.3) if is_dark else "transparent" %}
+{% set invalid_border = colors.alpha(tokens.destructive, 0.5) if is_dark else tokens.destructive %}
+{% set invalid_outline = colors.alpha(tokens.destructive, 0.4 if is_dark else 0.2) %}
+
 QCheckBox {
-    background-color: transparent;
-    color: {{ tokens.foreground }};
-    spacing: {{ scale.spacing_px(tokens.spacing, 2) }};
-    font-size: {{ scale.TEXT_SM }};
-    font-weight: {{ scale.FONT_WEIGHT_MEDIUM }};
+  background: transparent;
+  color: {{ tokens.foreground }};
+  spacing: {{ scale.spacing_px(tokens.spacing, 2) }};
+  font-size: {{ scale.TEXT_SM }};
+  font-weight: {{ scale.FONT_WEIGHT_MEDIUM }};
 }
 
 QCheckBox::indicator {
-    width: {{ scale.spacing_px(tokens.spacing, 4) }};
-    height: {{ scale.spacing_px(tokens.spacing, 4) }};
-    border: 1px solid {{ tokens.input }};
-    border-radius: {{ radius.class_px(tokens.radius, "sm") }};
-    background-color: {{ colors.alpha(tokens.input, 0.3) if is_dark else "transparent" }};
+  width: {{ scale.spacing_px(tokens.spacing, 4) }};
+  height: {{ scale.spacing_px(tokens.spacing, 4) }};
+  border: 1px solid {{ tokens.input }};
+  border-radius: {{ radius.class_px(tokens.radius, "sm") }};
+  background: {{ checkbox_bg }};
 }
 
-QCheckBox::indicator:hover {
-    border-color: {{ colors.alpha(tokens.ring, 0.5) }};
+QCheckBox::indicator:hover { border-color: {{ colors.alpha(tokens.ring, 0.5) }}; }
+
+QCheckBox::indicator:checked,
+QCheckBox::indicator:indeterminate {
+  background: {{ tokens.primary }};
+  border-color: {{ tokens.primary }};
 }
 
 QCheckBox::indicator:checked {
-    background-color: {{ tokens.primary }};
-    border-color: {{ tokens.primary }};
-    image: url("{{ icons.checkbox_check(tokens.primary_foreground) }}");
+  image: url("{{ icons.checkbox_check(tokens.primary_foreground) }}");
 }
 
 QCheckBox::indicator:indeterminate {
-    background-color: {{ tokens.primary }};
-    border-color: {{ tokens.primary }};
-    image: url("{{ icons.checkbox_indeterminate(tokens.primary_foreground) }}");
+  image: url("{{ icons.checkbox_indeterminate(tokens.primary_foreground) }}");
 }
 
 QCheckBox::indicator:disabled {
-    background-color: {{ colors.alpha(tokens.muted, 0.5) }};
-    border-color: {{ colors.alpha(tokens.input, 0.5) }};
+  background: {{ colors.alpha(tokens.muted, 0.5) }};
+  border-color: {{ colors.alpha(tokens.input, 0.5) }};
 }
 
-QCheckBox::indicator:checked:disabled {
-    background-color: {{ colors.alpha(tokens.primary, 0.5) }};
-    border-color: {{ colors.alpha(tokens.primary, 0.5) }};
-}
-
+QCheckBox::indicator:checked:disabled,
 QCheckBox::indicator:indeterminate:disabled {
-    background-color: {{ colors.alpha(tokens.primary, 0.5) }};
-    border-color: {{ colors.alpha(tokens.primary, 0.5) }};
+  background: {{ colors.alpha(tokens.primary, 0.5) }};
+  border-color: {{ colors.alpha(tokens.primary, 0.5) }};
 }
 
 QCheckBox:disabled {
-    color: {{ colors.alpha(tokens.muted_foreground, 0.5) }};
+  color: {{ colors.alpha(tokens.muted_foreground, 0.5) }};
 }
 
 QCheckBox[invalid="true"] {
-    color: {{ tokens.destructive }};
+  color: {{ tokens.destructive }};
 }
 
 QCheckBox[invalid="true"]::indicator {
-    border: 1px solid {{ tokens.destructive }};
-    outline: 3px solid {{ colors.alpha(tokens.destructive, 0.2) }};
+  border-color: {{ invalid_border }};
+  outline: 3px solid {{ invalid_outline }};
 }
 
 QCheckBox[invalid="true"]::indicator:hover {
-    border-color: {{ colors.alpha(tokens.destructive, 0.8) }};
+  border-color: {{ colors.alpha(tokens.destructive, 0.8) }};
+}
+
+QCheckBox[invalid="true"]::indicator:checked,
+QCheckBox[invalid="true"]::indicator:indeterminate {
+  background: {{ tokens.destructive }};
+  border-color: {{ tokens.destructive }};
 }
 
 QCheckBox[invalid="true"]::indicator:checked {
-    background-color: {{ tokens.destructive }};
-    border-color: {{ tokens.destructive }};
-    image: url("{{ icons.checkbox_check(tokens.destructive_foreground) }}");
+  image: url("{{ icons.checkbox_check(tokens.destructive_foreground) }}");
 }
 
 QCheckBox[invalid="true"]::indicator:indeterminate {
-    background-color: {{ tokens.destructive }};
-    border-color: {{ tokens.destructive }};
-    image: url("{{ icons.checkbox_indeterminate(tokens.destructive_foreground) }}");
+  image: url("{{ icons.checkbox_indeterminate(tokens.destructive_foreground) }}");
 }
-
-{% if is_dark %}
-QCheckBox[invalid="true"]::indicator {
-    border: 1px solid {{ colors.alpha(tokens.destructive, 0.5) }};
-    outline: 3px solid {{ colors.alpha(tokens.destructive, 0.4) }};
-}
-{% endif %}
 
 /* ============================================================
-   QRadioButton - QtShadcn
+   QRadioButton
    ============================================================ */
 
+{% set radio_bg = colors.alpha(tokens.input, 0.3) if is_dark else "transparent" %}
+{% set invalid_border = colors.alpha(tokens.destructive, 0.5) if is_dark else tokens.destructive %}
+{% set invalid_outline = colors.alpha(tokens.destructive, 0.4 if is_dark else 0.2) %}
+
 QRadioButton {
-    background-color: transparent;
-    color: {{ tokens.foreground }};
-    spacing: {{ scale.spacing_px(tokens.spacing, 2) }};
-    font-size: {{ scale.TEXT_SM }};
-    font-weight: {{ scale.FONT_WEIGHT_MEDIUM }};
+  background: transparent;
+  color: {{ tokens.foreground }};
+  spacing: {{ scale.spacing_px(tokens.spacing, 2) }};
+  font-size: {{ scale.TEXT_SM }};
+  font-weight: {{ scale.FONT_WEIGHT_MEDIUM }};
 }
 
 QRadioButton::indicator {
-    width: {{ scale.spacing_px(tokens.spacing, 4) }};
-    height: {{ scale.spacing_px(tokens.spacing, 4) }};
-    border-radius: {{ scale.spacing_px(tokens.spacing, 2) }};
-    border: 1px solid {{ tokens.input }};
-    background-color: {{ colors.alpha(tokens.input, 0.3) if is_dark else "transparent" }};
+  width: {{ scale.spacing_px(tokens.spacing, 4) }};
+  height: {{ scale.spacing_px(tokens.spacing, 4) }};
+  border: 1px solid {{ tokens.input }};
+  border-radius: {{ scale.spacing_px(tokens.spacing, 2) }};
+  background: {{ radio_bg }};
 }
 
-QRadioButton::indicator:hover {
-    border-color: {{ colors.alpha(tokens.ring, 0.5) }};
-}
+QRadioButton::indicator:hover { border-color: {{ colors.alpha(tokens.ring, 0.5) }}; }
 
 QRadioButton::indicator:checked {
-    background-color: {{ tokens.primary }};
-    border-color: {{ tokens.primary }};
-    image: url("{{ icons.radio_checked(tokens.primary_foreground) }}");
+  background: {{ tokens.primary }};
+  border-color: {{ tokens.primary }};
+  image: url("{{ icons.radio_checked(tokens.primary_foreground) }}");
 }
 
 QRadioButton::indicator:disabled {
-    background-color: {{ colors.alpha(tokens.muted, 0.5) }};
-    border-color: {{ colors.alpha(tokens.input, 0.5) }};
+  background: {{ colors.alpha(tokens.muted, 0.5) }};
+  border-color: {{ colors.alpha(tokens.input, 0.5) }};
 }
 
 QRadioButton::indicator:checked:disabled {
-    background-color: {{ colors.alpha(tokens.primary, 0.5) }};
-    border-color: {{ colors.alpha(tokens.primary, 0.5) }};
+  background: {{ colors.alpha(tokens.primary, 0.5) }};
+  border-color: {{ colors.alpha(tokens.primary, 0.5) }};
 }
 
 QRadioButton:disabled {
-    color: {{ colors.alpha(tokens.muted_foreground, 0.5) }};
+  color: {{ colors.alpha(tokens.muted_foreground, 0.5) }};
 }
 
-QRadioButton[invalid="true"] {
-    color: {{ tokens.destructive }};
-}
+QRadioButton[invalid="true"] { color: {{ tokens.destructive }}; }
 
 QRadioButton[invalid="true"]::indicator {
-    border: 1px solid {{ tokens.destructive }};
-    outline: 3px solid {{ colors.alpha(tokens.destructive, 0.2) }};
+  border-color: {{ invalid_border }};
+  outline: 3px solid {{ invalid_outline }};
 }
 
 QRadioButton[invalid="true"]::indicator:hover {
-    border-color: {{ colors.alpha(tokens.destructive, 0.8) }};
+  border-color: {{ colors.alpha(tokens.destructive, 0.8) }};
 }
 
 QRadioButton[invalid="true"]::indicator:checked {
-    background-color: {{ tokens.destructive }};
-    border-color: {{ tokens.destructive }};
-    image: url("{{ icons.radio_checked(tokens.destructive_foreground) }}");
-}
-
-{% if is_dark %}
-QRadioButton[invalid="true"]::indicator {
-    border: 1px solid {{ colors.alpha(tokens.destructive, 0.5) }};
-    outline: 3px solid {{ colors.alpha(tokens.destructive, 0.4) }};
-}
-{% endif %}
-
-/* ============================================================
-   QComboBox - QtShadcn
-   ============================================================ */
-
-QComboBox,
-QFontComboBox {
-    background-color: {{ colors.alpha(tokens.input, 0.3) if is_dark else "transparent" }};
-    color: {{ tokens.foreground }};
-    border: 1px solid {{ tokens.input }};
-    border-radius: {{ radius.class_px(tokens.radius, "lg") }};
-    padding-left: {{ scale.spacing_px(tokens.spacing, 2.5) }};
-    padding-right: {{ scale.spacing_px(tokens.spacing, 8) }};
-    min-height: {{ scale.spacing_px(tokens.spacing, 8) }};
-    font-size: {{ scale.TEXT_SM }};
-    selection-background-color: {{ tokens.primary }};
-    selection-color: {{ tokens.primary_foreground }};
-}
-
-QComboBox:focus,
-QFontComboBox:focus {
-    border-color: {{ tokens.ring }};
-    outline: 3px solid {{ colors.alpha(tokens.ring, 0.5) }};
-}
-
-QComboBox:disabled,
-QFontComboBox:disabled {
-    background-color: {{ colors.alpha(tokens.input, 0.5) if not is_dark else colors.alpha(tokens.input, 0.8) }};
-    color: {{ colors.alpha(tokens.muted_foreground, 0.5) }};
-    border-color: {{ colors.alpha(tokens.input, 0.5) }};
-}
-
-QComboBox::drop-down,
-QFontComboBox::drop-down {
-    border: none;
-    width: {{ scale.spacing_px(tokens.spacing, 8) }};
-}
-
-QComboBox::down-arrow,
-QFontComboBox::down-arrow {
-    width: {{ scale.spacing_px(tokens.spacing, 4) }};
-    height: {{ scale.spacing_px(tokens.spacing, 4) }};
-    image: url("{{ icons.chevron_down(tokens.muted_foreground) }}");
-}
-
-QComboBox:disabled::down-arrow,
-QFontComboBox:disabled::down-arrow {
-    image: url("{{ icons.chevron_down(colors.alpha(tokens.muted_foreground, 0.5)) }}");
-}
-
-QComboBox[invalid="true"],
-QFontComboBox[invalid="true"] {
-    color: {{ tokens.destructive }};
-    border-color: {{ tokens.destructive }};
-    outline: 3px solid {{ colors.alpha(tokens.destructive, 0.2) }};
-}
-
-QComboBox[invalid="true"]:focus,
-QFontComboBox[invalid="true"]:focus {
-    color: {{ tokens.destructive }};
-    border-color: {{ tokens.destructive }};
-    outline: 3px solid {{ colors.alpha(tokens.destructive, 0.2) }};
-}
-
-QComboBox[invalid="true"]::down-arrow,
-QFontComboBox[invalid="true"]::down-arrow {
-    image: url("{{ icons.chevron_down(tokens.destructive) }}");
-}
-
-{% if is_dark %}
-QComboBox[invalid="true"],
-QFontComboBox[invalid="true"] {
-    color: {{ tokens.destructive }};
-    border-color: {{ colors.alpha(tokens.destructive, 0.5) }};
-    outline: 3px solid {{ colors.alpha(tokens.destructive, 0.4) }};
-}
-{% endif %}
-
-QComboBox QAbstractItemView,
-QFontComboBox QAbstractItemView {
-    background-color: {{ tokens.popover }};
-    color: {{ tokens.popover_foreground }};
-    border: 1px solid {{ tokens.border }};
-    border-radius: {{ radius.class_px(tokens.radius, "lg") }};
-    padding: {{ scale.spacing_px(tokens.spacing, 1) }};
-    selection-background-color: {{ tokens.accent }};
-    selection-color: {{ tokens.accent_foreground }};
-    font-size: {{ scale.TEXT_SM }};
-    outline: none;
-}
-
-QComboBox QAbstractItemView::item,
-QFontComboBox QAbstractItemView::item {
-    padding: {{ scale.spacing_px(tokens.spacing, 1) }} {{ scale.spacing_px(tokens.spacing, 8) }} {{ scale.spacing_px(tokens.spacing, 1) }} {{ scale.spacing_px(tokens.spacing, 1.5) }};
-    min-height: {{ scale.spacing_px(tokens.spacing, 8) }};
-}
-
-QComboBox QAbstractItemView::item:selected,
-QFontComboBox QAbstractItemView::item:selected {
-    background-color: {{ tokens.accent }};
-    color: {{ tokens.accent_foreground }};
-    border-radius: {{ radius.class_px(tokens.radius, "md") }};
-}
-
-QComboBox QAbstractItemView::item:disabled,
-QFontComboBox QAbstractItemView::item:disabled {
-    color: {{ colors.alpha(tokens.muted_foreground, 0.5) }};
+  background: {{ tokens.destructive }};
+  border-color: {{ tokens.destructive }};
+  image: url("{{ icons.radio_checked(tokens.destructive_foreground) }}");
 }
 
 /* ============================================================
-   QLabel - QtShadcn
+   QComboBox
    ============================================================ */
 
-QLabel {
-    font-size: {{ scale.TEXT_SM }};
-    font-weight: {{ scale.FONT_WEIGHT_MEDIUM }};
-    line-height: 100%;
-    color: {{ tokens.foreground }};
+{% set combo_bg = colors.alpha(tokens.input, 0.3) if is_dark else "transparent" %}
+{% set combo_disabled_bg = colors.alpha(tokens.input, 0.8 if is_dark else 0.5) %}
+{% set invalid_border = colors.alpha(tokens.destructive, 0.5) if is_dark else tokens.destructive %}
+{% set invalid_outline = colors.alpha(tokens.destructive, 0.4 if is_dark else 0.2) %}
+
+QComboBox {
+  background: {{ combo_bg }};
+  color: {{ tokens.foreground }};
+  border: 1px solid {{ tokens.input }};
+  border-radius: {{ radius.class_px(tokens.radius, "lg") }};
+  padding: 0 {{ scale.spacing_px(tokens.spacing, 8) }} 0 {{ scale.spacing_px(tokens.spacing, 2.5) }};
+  min-height: {{ scale.spacing_px(tokens.spacing, 8) }};
+  font-size: {{ scale.TEXT_SM }};
+  selection-background-color: {{ tokens.primary }};
+  selection-color: {{ tokens.primary_foreground }};
 }
 
-QLabel:disabled {
-    color: {{ colors.alpha(tokens.foreground, 0.5) }};
+QComboBox:focus {
+  border-color: {{ tokens.ring }};
+  outline: 3px solid {{ colors.alpha(tokens.ring, 0.5) }};
+}
+
+QComboBox:disabled {
+  background: {{ combo_disabled_bg }};
+  color: {{ colors.alpha(tokens.muted_foreground, 0.5) }};
+  border-color: {{ colors.alpha(tokens.input, 0.5) }};
+}
+
+QComboBox::drop-down {
+  width: {{ scale.spacing_px(tokens.spacing, 8) }};
+  border: 0;
+}
+
+QComboBox::down-arrow {
+  width: {{ scale.spacing_px(tokens.spacing, 4) }};
+  height: {{ scale.spacing_px(tokens.spacing, 4) }};
+  image: url("{{ icons.chevron_down(tokens.muted_foreground) }}");
+}
+
+QComboBox:disabled::down-arrow {
+  image: url("{{ icons.chevron_down(colors.alpha(tokens.muted_foreground, 0.5)) }}");
+}
+
+QComboBox[invalid="true"] {
+  color: {{ tokens.destructive }};
+  border-color: {{ invalid_border }};
+  outline: 3px solid {{ invalid_outline }};
+}
+
+QComboBox[invalid="true"]::down-arrow {
+  image: url("{{ icons.chevron_down(tokens.destructive) }}");
+}
+
+QComboBox QAbstractItemView {
+  background: {{ tokens.popover }};
+  color: {{ tokens.popover_foreground }};
+  border: 1px solid {{ tokens.border }};
+  border-radius: {{ radius.class_px(tokens.radius, "lg") }};
+  padding: {{ scale.spacing_px(tokens.spacing, 1) }};
+  font-size: {{ scale.TEXT_SM }};
+  selection-background-color: {{ tokens.accent }};
+  selection-color: {{ tokens.accent_foreground }};
+  outline: none;
+}
+
+QComboBox QAbstractItemView::item {
+  padding: {{ scale.spacing_px(tokens.spacing, 1) }} {{ scale.spacing_px(tokens.spacing, 8) }} {{ scale.spacing_px(tokens.spacing, 1) }} {{ scale.spacing_px(tokens.spacing, 1.5) }};
+  min-height: {{ scale.spacing_px(tokens.spacing, 8) }};
+}
+
+QComboBox QAbstractItemView::item:selected {
+  background: {{ tokens.accent }};
+  color: {{ tokens.accent_foreground }};
+  border-radius: {{ radius.class_px(tokens.radius, "md") }};
+}
+
+QComboBox QAbstractItemView::item:disabled {
+  color: {{ colors.alpha(tokens.muted_foreground, 0.5) }};
 }
 
 /* ============================================================
-   Text input widgets - QtShadcn
+   QLineEdit and QTextEdit
    ============================================================ */
+
+{% set input_bg = colors.alpha(tokens.input, 0.3) if is_dark else "transparent" %}
+{% set invalid_border = colors.alpha(tokens.destructive, 0.5) if is_dark else tokens.destructive %}
+{% set invalid_outline = colors.alpha(tokens.destructive, 0.4 if is_dark else 0.2) %}
+
+QLineEdit,
+QTextEdit {
+  background: {{ input_bg }};
+  color: {{ tokens.foreground }};
+  border: 1px solid {{ tokens.input }};
+  outline: none;
+  border-radius: {{ radius.class_px(tokens.radius, "lg") }};
+  font-size: {{ scale.TEXT_SM }};
+  placeholder-text-color: {{ tokens.muted_foreground }};
+  selection-background-color: {{ tokens.primary }};
+  selection-color: {{ tokens.primary_foreground }};
+}
 
 QLineEdit {
-    background-color: {{ colors.alpha(tokens.input, 0.3) if is_dark else "transparent" }};
-    color: {{ tokens.foreground }};
-    border: 1px solid {{ tokens.input }};
-    outline: none;
-    border-radius: {{ radius.class_px(tokens.radius, "lg") }};
-    padding-left: {{ scale.spacing_px(tokens.spacing, 2.5) }};
-    padding-right: {{ scale.spacing_px(tokens.spacing, 2.5) }};
-    min-width: {{ scale.spacing_px(tokens.spacing, 0) }};
-    min-height: {{ scale.spacing_px(tokens.spacing, 8) }};
-    font-size: {{ scale.TEXT_SM }};
-    placeholder-text-color: {{ tokens.muted_foreground }};
-    selection-background-color: {{ tokens.primary }};
-    selection-color: {{ tokens.primary_foreground }};
+  padding: 0 {{ scale.spacing_px(tokens.spacing, 2.5) }};
+  min-height: {{ scale.spacing_px(tokens.spacing, 8) }};
 }
 
 QTextEdit {
-    background-color: {{ colors.alpha(tokens.input, 0.3) if is_dark else "transparent" }};
-    color: {{ tokens.foreground }};
-    border: 1px solid {{ tokens.input }};
-    outline: none;
-    border-radius: {{ radius.class_px(tokens.radius, "lg") }};
-    padding-left: {{ scale.spacing_px(tokens.spacing, 2.5) }};
-    padding-right: {{ scale.spacing_px(tokens.spacing, 2.5) }};
-    padding-top: {{ scale.spacing_px(tokens.spacing, 2) }};
-    padding-bottom: {{ scale.spacing_px(tokens.spacing, 2) }};
-    min-width: {{ scale.spacing_px(tokens.spacing, 0) }};
-    min-height: {{ scale.spacing_px(tokens.spacing, 16) }};
-    font-size: {{ scale.TEXT_SM }};
-    placeholder-text-color: {{ tokens.muted_foreground }};
-    selection-background-color: {{ tokens.primary }};
-    selection-color: {{ tokens.primary_foreground }};
+  padding: {{ scale.spacing_px(tokens.spacing, 2) }} {{ scale.spacing_px(tokens.spacing, 2.5) }};
+  min-height: {{ scale.spacing_px(tokens.spacing, 16) }};
 }
 
 QLineEdit:focus,
 QTextEdit:focus {
-    border-color: {{ tokens.ring }};
-    outline: 3px solid {{ colors.alpha(tokens.ring, 0.5) }};
+  border-color: {{ tokens.ring }};
+  outline: 3px solid {{ colors.alpha(tokens.ring, 0.5) }};
 }
 
 QLineEdit:disabled,
 QTextEdit:disabled {
-    background-color: {{ colors.alpha(tokens.input, 0.5) if not is_dark else colors.alpha(tokens.input, 0.8) }};
-    color: {{ colors.alpha(tokens.muted_foreground, 0.5) }};
-    border-color: {{ colors.alpha(tokens.input, 0.5) }};
-    placeholder-text-color: {{ colors.alpha(tokens.muted_foreground, 0.5) }};
+  background: {{ colors.alpha(tokens.input, 0.8 if is_dark else 0.5) }};
+  color: {{ colors.alpha(tokens.muted_foreground, 0.5) }};
+  border-color: {{ colors.alpha(tokens.input, 0.5) }};
+  placeholder-text-color: {{ colors.alpha(tokens.muted_foreground, 0.5) }};
 }
 
 QLineEdit[invalid="true"],
 QTextEdit[invalid="true"] {
-    color: {{ tokens.destructive }};
-    border-color: {{ tokens.destructive }};
-    outline: 3px solid {{ colors.alpha(tokens.destructive, 0.2) }};
+  color: {{ tokens.destructive }};
+  border-color: {{ invalid_border }};
+  outline: 3px solid {{ invalid_outline }};
 }
 
-QLineEdit[invalid="true"]:focus,
-QTextEdit[invalid="true"]:focus {
-    color: {{ tokens.destructive }};
-    border-color: {{ tokens.destructive }};
-    outline: 3px solid {{ colors.alpha(tokens.destructive, 0.2) }};
-}
-
-{% if is_dark %}
-QLineEdit[invalid="true"],
-QTextEdit[invalid="true"] {
-    color: {{ tokens.destructive }};
-    border-color: {{ colors.alpha(tokens.destructive, 0.5) }};
-    outline: 3px solid {{ colors.alpha(tokens.destructive, 0.4) }};
-}
-{% endif %}
-
-/* Typography classes */
-*[class~="h1"] { font-size: 36px; font-weight: 700; }
-*[class~="h2"] { font-size: 30px; font-weight: 600; }
-*[class~="h3"] { font-size: 24px; font-weight: 600; }
-*[class~="h4"] { font-size: 20px; font-weight: 600; }
-*[class~="p"] { font-size: 16px; font-weight: 400; }
-*[class~="small"] { font-size: 14px; font-weight: 400; }
-*[class~="muted"] { color: {{ tokens.muted_foreground }}; }
-
-/* QProgressBar */
+/* ============================================================
+   QProgressBar
+   ============================================================ */
 
 QProgressBar {
     background-color: {{ tokens.muted }};
-    border: none;
+    border: 0px;
     border-radius: {{ radius.class_px(tokens.radius, "full") }};
     min-height: {{ scale.spacing_px(tokens.spacing, 1) }};
     max-height: {{ scale.spacing_px(tokens.spacing, 1) }};
@@ -773,118 +644,74 @@ QProgressBar[labeled="true"] {
     max-height: {{ scale.spacing_px(tokens.spacing, 5) }};
 }
 
-QProgressBar:disabled {
-    background-color: {{ colors.alpha(tokens.muted, 0.5) }};
-}
+QProgressBar:disabled { background-color: {{ colors.alpha(tokens.muted, 0.5) }}; }
 
-QProgressBar::chunk:disabled {
-    background-color: {{ colors.alpha(tokens.primary, 0.5) }};
-}
+QProgressBar::chunk:disabled { background-color: {{ colors.alpha(tokens.primary, 0.5) }}; }
 
-/* QSlider */
+/* ============================================================
+   QSlider
+   ============================================================ */
+
+{% set groove = scale.spacing_int(tokens.spacing, 1) %}
+{% set handle = scale.spacing_int(tokens.spacing, 3) %}
+{% set offset = (handle - groove) // 2 %}
+
+QSlider:horizontal { min-height: {{ handle }}px; }
+QSlider:vertical { min-width: {{ handle }}px; }
 
 QSlider::groove:horizontal {
-    background-color: {{ tokens.muted }};
-    border: none;
-    border-radius: {{ radius.class_px(tokens.radius, "full") }};
-    height: {{ scale.spacing_px(tokens.spacing, 1) }};
-    margin: 0;
-}
-
-QSlider::sub-page:horizontal {
-    background-color: {{ tokens.primary }};
-    border: none;
-    border-radius: {{ radius.class_px(tokens.radius, "full") }};
-}
-
-QSlider::add-page:horizontal {
-    background-color: {{ tokens.muted }};
-    border: none;
-    border-radius: {{ radius.class_px(tokens.radius, "full") }};
-}
-
-QSlider::handle:horizontal {
-    background-color: {{ tokens.background }};
-    border: 1px solid {{ tokens.ring }};
-    border-radius: {{ radius.half_px(scale.spacing_px(tokens.spacing, 3)) }};
-    width: {{ scale.spacing_px(tokens.spacing, 3) }};
-    height: {{ scale.spacing_px(tokens.spacing, 3) }};
-    margin: -{{ radius.half_px(scale.spacing_px(tokens.spacing, 3)) }} 0;
-}
-
-QSlider::handle:horizontal:hover {
-    border-color: {{ colors.alpha(tokens.ring, 0.8) }};
-}
-
-QSlider::handle:horizontal:pressed {
-    border-color: {{ colors.alpha(tokens.ring, 0.8) }};
-    background-color: {{ colors.alpha(tokens.background, 0.8) }};
-}
-
-QSlider::handle:horizontal:focus {
-    outline: 3px solid {{ colors.alpha(tokens.ring, 0.5) }};
-}
-
-QSlider:disabled::groove:horizontal,
-QSlider:disabled::sub-page:horizontal,
-QSlider:disabled::add-page:horizontal {
-    background-color: {{ colors.alpha(tokens.muted, 0.5) }};
-}
-
-QSlider::handle:horizontal:disabled {
-    background-color: {{ colors.alpha(tokens.background, 0.5) }};
-    border-color: {{ colors.alpha(tokens.ring, 0.5) }};
+  height: {{ groove }}px;
+  margin: 0;
+  background: {{ tokens.muted }};
+  border-radius: {{ radius.class_px(tokens.radius, "full") }};
 }
 
 QSlider::groove:vertical {
-    background-color: {{ tokens.muted }};
-    border: none;
-    border-radius: {{ radius.class_px(tokens.radius, "full") }};
-    width: {{ scale.spacing_px(tokens.spacing, 1) }};
-    margin: 0;
+  width: {{ groove }}px;
+  margin: 0;
+  background: {{ tokens.muted }};
+  border-radius: {{ radius.class_px(tokens.radius, "full") }};
 }
 
-QSlider::sub-page:vertical {
-    background-color: {{ tokens.primary }};
-    border: none;
-    border-radius: {{ radius.class_px(tokens.radius, "full") }};
+QSlider::handle {
+  width: {{ handle }}px;
+  height: {{ handle }}px;
+  border: 0;
+  background: transparent;
+  image: url({{ icons.slider_thumb(tokens.primary, tokens.primary, handle) }});
 }
 
-QSlider::add-page:vertical {
-    background-color: {{ tokens.muted }};
-    border: none;
-    border-radius: {{ radius.class_px(tokens.radius, "full") }};
+QSlider::handle:horizontal { margin: -{{ offset }}px 0; }
+QSlider::handle:vertical { margin: 0 -{{ offset }}px; }
+
+QSlider::handle:hover {
+  image: url({{ icons.slider_thumb(tokens.primary, tokens.ring, handle) }});
 }
 
-QSlider::handle:vertical {
-    background-color: {{ tokens.background }};
-    border: 1px solid {{ tokens.ring }};
-    border-radius: {{ radius.half_px(scale.spacing_px(tokens.spacing, 3)) }};
-    width: {{ scale.spacing_px(tokens.spacing, 3) }};
-    height: {{ scale.spacing_px(tokens.spacing, 3) }};
-    margin: 0 -{{ radius.half_px(scale.spacing_px(tokens.spacing, 3)) }};
+QSlider::add-page {
+  background: {{ tokens.muted }};
+  border-radius: {{ radius.class_px(tokens.radius, "full") }};
 }
 
-QSlider::handle:vertical:hover {
-    border-color: {{ colors.alpha(tokens.ring, 0.8) }};
+QSlider::sub-page {
+  background: {{ tokens.primary }};
+  border-radius: {{ radius.class_px(tokens.radius, "full") }};
 }
 
-QSlider::handle:vertical:pressed {
-    border-color: {{ colors.alpha(tokens.ring, 0.8) }};
-    background-color: {{ colors.alpha(tokens.background, 0.8) }};
+QSlider::handle:disabled {
+  image: url({{ icons.slider_thumb(tokens.input, tokens.input, handle) }});
 }
 
-QSlider::handle:vertical:focus {
-    outline: 3px solid {{ colors.alpha(tokens.ring, 0.5) }};
-}
+QSlider::sub-page:disabled { background: {{ colors.alpha(tokens.input, 0.5) }}; }
 
-QSlider:disabled::groove:vertical,
-QSlider:disabled::sub-page:vertical,
-QSlider:disabled::add-page:vertical {
-    background-color: {{ colors.alpha(tokens.muted, 0.5) }};
-}
+/* ============================================================
+   Typography classes
+   ============================================================ */
 
-QSlider::handle:vertical:disabled {
-    background-color: {{ colors.alpha(tokens.background, 0.5) }};
-    border-color: {{ colors.alpha(tokens.ring, 0.5) }};
-}
+*[class~="h1"] { font-size: 36px; font-weight: 700; }
+*[class~="h2"] { font-size: 30px; font-weight: 600; }
+*[class~="h3"] { font-size: 24px; font-weight: 600; }
+*[class~="h4"] { font-size: 20px; font-weight: 600; }
+*[class~="p"] { font-size: 16px; font-weight: 400; }
+*[class~="small"] { font-size: 14px; font-weight: 400; }
+*[class~="muted"] { color: {{ tokens.muted_foreground }}; }

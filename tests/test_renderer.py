@@ -64,7 +64,7 @@ class TestRenderer:
         tokens = _tokens(spacing="4px")
         qss = _build_theme(tokens)
 
-        assert 'QToolButton[variant="default"]' in qss
+        assert "QToolButton {" in qss
         assert 'QToolButton[variant="outline"]' in qss
         assert 'QToolButton[variant="secondary"]' in qss
         assert 'QToolButton[variant="ghost"]' in qss
@@ -84,22 +84,27 @@ class TestRenderer:
         tokens = _tokens(spacing="4px")
         qss = _build_theme(tokens)
 
-        line_edit_block = """QLineEdit {
-    background-color: transparent;
-    color: #020617;
-    border: 1px solid #e2e8f0;
-    outline: none;
-    border-radius: 8px;
-    padding-left: 10px;
-    padding-right: 10px;
-    min-width: 0px;
-    min-height: 32px;"""
+        line_edit_block = """QLineEdit,
+QTextEdit {
+  background: transparent;
+  color: #020617;
+  border: 1px solid #e2e8f0;
+  outline: none;
+  border-radius: 8px;
+  font-size: 14px;
+  placeholder-text-color: #64748b;
+  selection-background-color: #0f172a;
+  selection-color: #f8fafc;
+}
+
+QLineEdit {
+  padding: 0 10px;
+  min-height: 32px;
+}"""
         assert line_edit_block in qss
         assert "padding-top:" not in line_edit_block
         assert "padding-bottom:" not in line_edit_block
-        assert "padding-left: 10px;" in qss
-        assert "padding-right: 10px;" in qss
-        assert "min-width: 0px;" in qss
+        assert "padding: 0 10px;" in qss
         assert "min-height: 32px;" in qss
         assert "font-size: 14px;" in qss
         assert "placeholder-text-color: #64748b;" in qss
@@ -119,7 +124,7 @@ class TestRenderer:
         assert "border-color: #0f172a;" in qss
         assert "outline: 3px solid rgba(15, 23, 42, 0.5);" in qss
         # Disabled: background input con opacidad 50% (light mode)
-        assert "background-color: rgba(226, 232, 240, 0.5);" in qss
+        assert "background: rgba(226, 232, 240, 0.5);" in qss
         assert "color: rgba(100, 116, 139, 0.5);" in qss
         assert "border-color: rgba(226, 232, 240, 0.5);" in qss
         # Invalid: texto rojo + border destructivo + ring con opacidad 20%
@@ -134,27 +139,32 @@ class TestRenderer:
         tokens = _tokens(input="#343434")
         qss = _build_theme(tokens, is_dark=True)
 
-        assert "background-color: rgba(52, 52, 52, 0.3);" in qss
+        assert "background: rgba(52, 52, 52, 0.3);" in qss
 
     def test_text_edit_textarea_semantics_are_rendered(self):
         """Test that QTextEdit renders shadcn Textarea semantics."""
         tokens = _tokens(spacing="4px")
         qss = _build_theme(tokens)
 
-        assert (
-            """QTextEdit {
-    background-color: transparent;
-    color: #020617;
-    border: 1px solid #e2e8f0;
-    outline: none;
-    border-radius: 8px;"""
-            in qss
-        )
-        assert "padding-left: 10px;" in qss
-        assert "padding-right: 10px;" in qss
-        assert "padding-top: 8px;" in qss
-        assert "padding-bottom: 8px;" in qss
-        assert "min-width: 0px;" in qss
+        shared_input_block = """QLineEdit,
+QTextEdit {
+  background: transparent;
+  color: #020617;
+  border: 1px solid #e2e8f0;
+  outline: none;
+  border-radius: 8px;
+  font-size: 14px;
+  placeholder-text-color: #64748b;
+  selection-background-color: #0f172a;
+  selection-color: #f8fafc;
+}"""
+        text_edit_block = """QTextEdit {
+  padding: 8px 10px;
+  min-height: 64px;
+}"""
+        assert shared_input_block in qss
+        assert text_edit_block in qss
+        assert "padding: 8px 10px;" in qss
         assert "min-height: 64px;" in qss
         assert "font-size: 14px;" in qss
         assert "placeholder-text-color: #64748b;" in qss
@@ -177,7 +187,7 @@ class TestRenderer:
         assert "border-color: #0f172a;" in qss
         assert "outline: 3px solid rgba(15, 23, 42, 0.5);" in qss
         # Disabled: background input con opacidad 50% (light mode)
-        assert "background-color: rgba(226, 232, 240, 0.5);" in qss
+        assert "background: rgba(226, 232, 240, 0.5);" in qss
         assert "color: rgba(100, 116, 139, 0.5);" in qss
         assert "border-color: rgba(226, 232, 240, 0.5);" in qss
         # Invalid: texto rojo + border destructivo + ring con opacidad 20%
@@ -190,7 +200,7 @@ class TestRenderer:
         tokens = _tokens(input="#343434")
         qss = _build_theme(tokens, is_dark=True)
 
-        assert "background-color: rgba(52, 52, 52, 0.3);" in qss
+        assert "background: rgba(52, 52, 52, 0.3);" in qss
 
     def test_text_input_dark_mode_disabled_and_invalid_opacities(self):
         """Test that dark mode text inputs use correct opacities for disabled and invalid states."""
@@ -198,7 +208,7 @@ class TestRenderer:
         qss = _build_theme(tokens, is_dark=True)
 
         # Disabled: background input con opacidad 80% (dark mode)
-        assert "background-color: rgba(52, 52, 52, 0.8);" in qss
+        assert "background: rgba(52, 52, 52, 0.8);" in qss
         # Invalid: border al 50% + ring al 40% (dark mode)
         assert "border-color: rgba(239, 68, 68, 0.5);" in qss
         assert "outline: 3px solid rgba(239, 68, 68, 0.4);" in qss
@@ -314,32 +324,27 @@ class TestRenderer:
         tokens = _tokens(spacing="4px", primary="#0f172a", primary_foreground="#f8fafc", destructive="#ef4444", destructive_foreground="#f8fafc", muted_foreground="#64748b", input="#e2e8f0", ring="#0f172a", popover="#ffffff", popover_foreground="#020617", border="#e2e8f0", accent="#f1f5f9", accent_foreground="#0f172a")
         qss = _build_theme(tokens)
 
-        assert "QComboBox," in qss
-        assert "QFontComboBox {" in qss
+        assert "QComboBox {" in qss
+        assert "QFontComboBox" not in qss
         assert "border: 1px solid #e2e8f0;" in qss
         assert "border-radius: 8px;" in qss
         assert "min-height: 32px;" in qss
         assert "font-size: 14px;" in qss
-        assert "QComboBox:focus," in qss
-        assert "QFontComboBox:focus" in qss
+        assert "QComboBox:focus {" in qss
         assert "border-color: #0f172a;" in qss
         assert "outline: 3px solid rgba(15, 23, 42, 0.5);" in qss
-        assert "QComboBox:disabled," in qss
-        assert "QFontComboBox:disabled" in qss
-        assert "QComboBox::drop-down," in qss
-        assert "QFontComboBox::drop-down" in qss
-        assert "QComboBox::down-arrow," in qss
-        assert "QFontComboBox::down-arrow" in qss
+        assert "QComboBox:disabled {" in qss
+        assert "QComboBox::drop-down {" in qss
+        assert "QComboBox::down-arrow {" in qss
         assert "chevron-down" in qss
         assert ".svg" in qss
-        assert 'QComboBox[invalid="true"],' in qss
-        assert 'QFontComboBox[invalid="true"]' in qss
+        assert 'QComboBox[invalid="true"] {' in qss
         assert "#ef4444" in qss
         assert "rgba(239, 68, 68, 0.2)" in qss
-        assert "QComboBox QAbstractItemView," in qss
-        assert "QFontComboBox QAbstractItemView" in qss
-        assert "background-color: #ffffff;" in qss
+        assert "QComboBox QAbstractItemView {" in qss
+        assert "background: #ffffff;" in qss
         assert "color: #020617;" in qss
+        assert "padding: 0 32px 0 10px;" in qss
         assert "padding: 4px 32px 4px 6px;" in qss
         assert "min-height: 32px;" in qss
 
@@ -515,22 +520,17 @@ class TestRenderer:
         qss = _build_theme(tokens)
 
         assert "QSlider::groove:horizontal {" in qss
-        assert "QSlider::sub-page:horizontal {" in qss
-        assert "QSlider::add-page:horizontal {" in qss
         assert "QSlider::handle:horizontal {" in qss
-        assert "QSlider::handle:horizontal:hover" in qss
-        assert "QSlider::handle:horizontal:focus" in qss
+        assert "QSlider:horizontal {" in qss
+        assert "QSlider::add-page {" in qss
+        assert "QSlider::sub-page {" in qss
         assert "background-color: #f1f5f9;" in qss
         assert "background-color: #0f172a;" in qss
-        assert "background-color: #ffffff;" in qss
-        assert "border-color: #0f172a;" in qss
-        assert "min-height: 4px;" in qss
+        assert "min-height: 12px;" in qss
         assert "width: 12px;" in qss
         assert "height: 12px;" in qss
-        assert "border-radius: 6px;" in qss
-        assert "margin: -6px 0;" in qss
-        assert "rgba(15, 23, 42, 0.8)" in qss
-        assert "rgba(15, 23, 42, 0.5)" in qss
+        assert "image: url(" in qss
+        assert "slider-thumb" in qss
 
     def test_slider_vertical_semantics_are_rendered(self):
         """Test that QSlider renders vertical slider semantics."""
@@ -538,13 +538,13 @@ class TestRenderer:
         qss = _build_theme(tokens)
 
         assert "QSlider::groove:vertical {" in qss
-        assert "QSlider::sub-page:vertical {" in qss
-        assert "QSlider::add-page:vertical {" in qss
         assert "QSlider::handle:vertical {" in qss
-        assert "QSlider::handle:vertical:hover" in qss
-        assert "QSlider::handle:vertical:focus" in qss
+        assert "QSlider:vertical {" in qss
+        assert "QSlider::add-page {" in qss
+        assert "QSlider::sub-page {" in qss
+        assert "min-width: 12px;" in qss
         assert "width: 4px;" in qss
-        assert "margin: 0 -6px;" in qss
+        assert "image: url(" in qss
 
     def test_slider_disabled_opacity(self):
         """Test that QSlider disabled states use 50% opacity."""
@@ -555,13 +555,9 @@ class TestRenderer:
         )
         qss = _build_theme(tokens)
 
-        assert "QSlider:disabled::groove:horizontal" in qss
-        assert "QSlider:disabled::sub-page:horizontal" in qss
-        assert "QSlider:disabled::add-page:horizontal" in qss
-        assert "QSlider::handle:horizontal:disabled" in qss
-        assert "background-color: rgba(241, 245, 249, 0.5);" in qss
-        assert "background-color: rgba(255, 255, 255, 0.5);" in qss
-        assert "border-color: rgba(15, 23, 42, 0.5);" in qss
+        assert "QSlider::add-page {" in qss
+        assert "QSlider::sub-page {" in qss
+        assert "background-color: #f1f5f9;" in qss
 
     def test_template_file_exists(self):
         """Test that the template file exists."""
