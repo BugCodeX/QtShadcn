@@ -9,6 +9,7 @@ from examples.gallery.pages.combo_box import ComboBoxPage
 from examples.gallery.pages.label import LabelPage
 from examples.gallery.pages.line_edit import LineEditPage
 from examples.gallery.pages.overview import OverviewPage
+from examples.gallery.pages.progress_bar import ProgressBarPage
 from examples.gallery.pages.push_button import PushButtonPage
 from examples.gallery.pages.radio_button import RadioButtonPage
 from examples.gallery.pages.text_edit import TextEditPage
@@ -27,6 +28,7 @@ PAGE_REGISTRY: list[tuple[str, PageBuilder]] = [
     ("QRadioButton", RadioButtonPage().build),
     ("QComboBox", ComboBoxPage().build),
     ("QLabel", LabelPage().build),
+    ("QProgressBar", ProgressBarPage().build),
 ]
 
 

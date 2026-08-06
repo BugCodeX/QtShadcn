@@ -461,6 +461,51 @@ class TestRenderer:
         qss = _build_theme(tokens)
         assert "rgba(255, 0, 0, 0.5)" in qss
 
+    def test_progress_bar_semantics_are_rendered(self):
+        """Test that QProgressBar renders shadcn progress semantics."""
+        tokens = _tokens(
+            spacing="4px",
+            muted="#f1f5f9",
+            foreground="#020617",
+            primary="#0f172a",
+        )
+        qss = _build_theme(tokens)
+
+        assert "QProgressBar {" in qss
+        assert "QProgressBar::chunk {" in qss
+        assert "QProgressBar[thin=\"true\"]" in qss
+        assert "QProgressBar:disabled" in qss
+        assert "QProgressBar::chunk:disabled" in qss
+        assert "background-color: #f1f5f9;" in qss
+        assert "min-height: 20px;" in qss
+        assert "border-radius: 9999px;" in qss
+        assert "font-size: 14px;" in qss
+        assert "font-weight: 500;" in qss
+        assert "background-color: #0f172a;" in qss
+        assert "margin: 0;" in qss
+
+    def test_progress_bar_thin_variant(self):
+        """Test that QProgressBar thin variant hides text and shrinks track."""
+        tokens = _tokens(spacing="4px")
+        qss = _build_theme(tokens)
+
+        assert "QProgressBar[thin=\"true\"] {" in qss
+        assert "min-height: 4px;" in qss
+        assert "color: transparent;" in qss
+
+    def test_progress_bar_disabled_opacity(self):
+        """Test that QProgressBar disabled states use 50% opacity."""
+        tokens = _tokens(
+            muted="#f1f5f9",
+            foreground="#020617",
+            primary="#0f172a",
+        )
+        qss = _build_theme(tokens)
+
+        assert "background-color: rgba(241, 245, 249, 0.5);" in qss
+        assert "color: rgba(2, 6, 23, 0.5);" in qss
+        assert "background-color: rgba(15, 23, 42, 0.5);" in qss
+
     def test_template_file_exists(self):
         """Test that the template file exists."""
         assert Path(TEMPLATE_FILE).exists()

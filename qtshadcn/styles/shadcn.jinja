@@ -749,3 +749,36 @@ QTextEdit[invalid="true"] {
 *[class~="p"] { font-size: 16px; font-weight: 400; }
 *[class~="small"] { font-size: 14px; font-weight: 400; }
 *[class~="muted"] { color: {{ tokens.muted_foreground }}; }
+
+/* QProgressBar */
+
+QProgressBar {
+    background-color: {{ tokens.muted }};
+    border: none;
+    border-radius: {{ radius.class_px(tokens.radius, "full") }};
+    min-height: {{ scale.spacing_px(tokens.spacing, 5) }};
+    text-align: center;
+    color: {{ tokens.foreground }};
+    font-size: {{ scale.TEXT_SM }};
+    font-weight: {{ scale.FONT_WEIGHT_MEDIUM }};
+}
+
+QProgressBar::chunk {
+    background-color: {{ tokens.primary }};
+    border-radius: {{ radius.class_px(tokens.radius, "full") }};
+    margin: 0;
+}
+
+QProgressBar[thin="true"] {
+    min-height: {{ scale.spacing_px(tokens.spacing, 1) }};
+    color: transparent;
+}
+
+QProgressBar:disabled {
+    background-color: {{ colors.alpha(tokens.muted, 0.5) }};
+    color: {{ colors.alpha(tokens.foreground, 0.5) }};
+}
+
+QProgressBar::chunk:disabled {
+    background-color: {{ colors.alpha(tokens.primary, 0.5) }};
+}
