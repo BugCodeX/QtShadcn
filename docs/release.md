@@ -73,3 +73,23 @@ pip install qtshadcn==0.0.12
 python -c "import qtshadcn; print(qtshadcn.__version__)"
 make test
 ```
+
+# QtShadcn v0.0.13
+
+## What's New
+
+- Added `QSlider` styling with shadcn/ui Slider semantics, including horizontal, vertical, hover, focus, and disabled states.
+- Added a `QSlider` gallery page demonstrating horizontal, vertical, and disabled slider variants.
+
+## Notes
+
+- The focus ring is rendered via `outline`, which is best-effort across Qt platforms.
+- Multi-thumb range sliders are not supported by native `QSlider` and remain out of scope.
+
+## Verification
+
+```bash
+pip install qtshadcn==0.0.13
+python -c "import qtshadcn; print(qtshadcn.__version__)"
+make test
+```
