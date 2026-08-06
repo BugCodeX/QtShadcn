@@ -44,6 +44,21 @@ class ThemedIconManager:
         logger.debug("Generating chevron down icon for color: %s", color)
         return self._write_icon("chevron-down", color, _chevron_down_svg(color))
 
+    def slider_thumb(self, fill: str, border: str, size: int) -> str:
+        """Return a QSS-safe URL for a circular slider thumb icon.
+
+        Args:
+            fill: Fill color for the thumb circle.
+            border: Stroke color for the thumb border.
+            size: Width and height of the generated SVG in pixels.
+
+        """
+        logger.debug("Generating slider thumb icon for fill: %s border: %s", fill, border)
+        name = f"slider-thumb-{size}"
+        key = f"{fill}-{border}-{size}"
+        svg = _slider_thumb_svg(fill, border, size)
+        return self._write_icon(name, key, svg)
+
     def _write_icon(self, name: str, color: str, svg: str) -> str:
         self.cache_dir.mkdir(parents=True, exist_ok=True)
         color_key = _safe_name(color)
@@ -117,5 +132,21 @@ def _chevron_down_svg(color: str) -> str:
         'viewBox="0 0 16 16" fill="none">'
         f'<path d="M4 6l4 4 4-4" stroke="{safe_color}" '
         'stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'
+        "</svg>"
+    )
+
+
+def _slider_thumb_svg(fill: str, border: str, size: int) -> str:
+    safe_fill = escape(fill, quote=True)
+    safe_border = escape(border, quote=True)
+    radius = size / 2
+    stroke_width = radius / 5
+    # Inset the circle so the stroke stays fully inside the viewBox.
+    r = radius - stroke_width / 2
+    return (
+        f'<svg xmlns="http://www.w3.org/2000/svg" width="{size}" height="{size}" '
+        f'viewBox="0 0 {size} {size}" fill="none">'
+        f'<circle cx="{radius}" cy="{radius}" r="{r}" fill="{safe_fill}" '
+        f'stroke="{safe_border}" stroke-width="{stroke_width}"/>'
         "</svg>"
     )

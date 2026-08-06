@@ -53,3 +53,10 @@ def test_radius_helpers_reject_non_px_values():
 def test_spacing_px_matches_scale_px():
     """Test spacing multiples keep the existing scale behavior."""
     assert scale.spacing_px("4px", 1.5) == "6px"
+
+
+def test_spacing_int_returns_integer_pixels():
+    """Test spacing multiples can be returned as integer pixel values."""
+    assert scale.spacing_int("4px", 1) == 4
+    assert scale.spacing_int("4px", 3) == 12
+    assert scale.spacing_int("6px", 1.5) == 9

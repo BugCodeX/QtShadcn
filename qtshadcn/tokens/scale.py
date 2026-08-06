@@ -81,3 +81,11 @@ def scale_px(value: str, factor: float) -> str:
 def spacing_px(value: str, multiple: float) -> str:
     """Return a Qt-safe spacing multiple."""
     return scale_px(value, multiple)
+
+
+def spacing_int(value: str, multiple: float) -> int:
+    """Return a spacing multiple as an integer pixel value."""
+    match = _PX_RE.match(scale_px(value, multiple).strip())
+    if match is None:
+        return 0
+    return int(float(match.group(1)))
