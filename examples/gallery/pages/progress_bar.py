@@ -11,7 +11,7 @@ from examples.gallery.pages._helpers import (
     page_title,
     separator,
 )
-from qtshadcn._qt import QtWidgets
+from qtshadcn._qt import QtCore, QtWidgets
 
 
 class ProgressBarPage:
@@ -30,48 +30,46 @@ class ProgressBarPage:
         layout.addWidget(
             muted_label(
                 "Displays the progress of an operation, including determinate, "
-                "indeterminate, thin, and disabled states."
+                "indeterminate, and disabled states."
             )
         )
         layout.addWidget(separator())
 
-        form = QtWidgets.QFormLayout()
-        form.setSpacing(_SPACING)
-        form.setVerticalSpacing(_SPACING)
+        rows: list[tuple[str, int | None, bool, bool]] = [
+            ("Default (50%)", 50, True, True),
+            ("Complete (100%)", 100, True, True),
+            ("Indeterminate", None, False, True),
+            ("Disabled", 30, True, False),
+        ]
 
-        default = QtWidgets.QProgressBar()
-        default.setValue(50)
-        form.addRow("Default (50%)", default)
+        for label_text, value, show_value, enabled in rows:
+            row = QtWidgets.QHBoxLayout()
+            row.setSpacing(_SPACING)
 
-        complete = QtWidgets.QProgressBar()
-        complete.setValue(100)
-        form.addRow("Complete (100%)", complete)
+            label = QtWidgets.QLabel(label_text)
+            label.setMinimumWidth(140)
+            row.addWidget(label)
 
-        indeterminate = QtWidgets.QProgressBar()
-        indeterminate.setRange(0, 0)
-        form.addRow("Indeterminate", indeterminate)
+            bar = QtWidgets.QProgressBar()
+            bar.setTextVisible(False)
+            bar.setEnabled(enabled)
+            if value is None:
+                bar.setRange(0, 0)
+            else:
+                bar.setValue(value)
+            row.addWidget(bar, 1)
 
-        thin = QtWidgets.QProgressBar()
-        thin.setProperty("thin", "true")
-        thin.setValue(75)
-        form.addRow("Thin variant", thin)
+            if show_value:
+                value_text = f"{value}%" if value is not None else ""
+                value_label = QtWidgets.QLabel(value_text)
+                value_label.setProperty("class", "muted")
+                value_label.setMinimumWidth(40)
+                value_label.setAlignment(
+                    QtCore.Qt.AlignmentFlag.AlignRight | QtCore.Qt.AlignmentFlag.AlignVCenter
+                )
+                row.addWidget(value_label)
 
-        disabled = QtWidgets.QProgressBar()
-        disabled.setValue(30)
-        disabled.setEnabled(False)
-        form.addRow("Disabled", disabled)
-
-        layout.addLayout(form)
-
-        labeled_row = QtWidgets.QHBoxLayout()
-        labeled_row.setSpacing(_SPACING)
-        labeled_value = QtWidgets.QProgressBar()
-        labeled_value.setValue(65)
-        labeled_value.setTextVisible(True)
-        label = QtWidgets.QLabel("Upload progress")
-        labeled_row.addWidget(label)
-        labeled_row.addWidget(labeled_value, 1)
-        layout.addLayout(labeled_row)
+            layout.addLayout(row)
 
         layout.addStretch(1)
         return page

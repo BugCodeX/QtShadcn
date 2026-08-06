@@ -756,11 +756,10 @@ QProgressBar {
     background-color: {{ tokens.muted }};
     border: none;
     border-radius: {{ radius.class_px(tokens.radius, "full") }};
-    min-height: {{ scale.spacing_px(tokens.spacing, 5) }};
+    min-height: {{ scale.spacing_px(tokens.spacing, 1) }};
+    max-height: {{ scale.spacing_px(tokens.spacing, 1) }};
     text-align: center;
-    color: {{ tokens.foreground }};
-    font-size: {{ scale.TEXT_SM }};
-    font-weight: {{ scale.FONT_WEIGHT_MEDIUM }};
+    color: transparent;
 }
 
 QProgressBar::chunk {
@@ -769,14 +768,13 @@ QProgressBar::chunk {
     margin: 0;
 }
 
-QProgressBar[thin="true"] {
-    min-height: {{ scale.spacing_px(tokens.spacing, 1) }};
-    color: transparent;
+QProgressBar[labeled="true"] {
+    min-height: {{ scale.spacing_px(tokens.spacing, 5) }};
+    max-height: {{ scale.spacing_px(tokens.spacing, 5) }};
 }
 
 QProgressBar:disabled {
     background-color: {{ colors.alpha(tokens.muted, 0.5) }};
-    color: {{ colors.alpha(tokens.foreground, 0.5) }};
 }
 
 QProgressBar::chunk:disabled {
