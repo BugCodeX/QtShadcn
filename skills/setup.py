@@ -74,8 +74,14 @@ def is_windows_junction(path: Path) -> bool:
     return bool(attrs & 0x400)
 
 
-def add_to_gitignore(repo_root: Path, pattern: str) -> None:
-    """Add *pattern* to the root .gitignore if it is not already present."""
+def add_to_gitignore(repo_root: Path, pattern: str, *, update_gitignore: bool = True) -> None:
+    """Add *pattern* to the root .gitignore if it is not already present.
+
+    When *update_gitignore* is False the function is a no-op.
+    """
+    if not update_gitignore:
+        return
+
     gitignore = repo_root / ".gitignore"
     if not gitignore.exists():
         gitignore.touch()
@@ -172,6 +178,32 @@ def create_file_link(source: Path, target: Path) -> None:
         os.link(resolved, target)
 
 
+def create_skill_links(skills_source: Path, target_dir: Path) -> int:
+    """Populate *target_dir* with individual links for each skill subdirectory.
+
+    Only subdirectories that contain a ``SKILL.md`` file are linked, so
+    tooling files like ``setup.py``, ``setup.sh``, and ``README.md`` that
+    live at the root of the skills source are never exposed.
+
+    Returns the number of skill directories linked.
+    """
+    target_dir.mkdir(parents=True, exist_ok=True)
+    linked = 0
+    for child in sorted(skills_source.iterdir()):
+        if not child.is_dir():
+            continue
+        if not (child / "SKILL.md").exists():
+            continue
+        link_target = target_dir / child.name
+        remove_or_backup(link_target)
+        if sys.platform == "win32":
+            create_windows_junction(child, link_target)
+        else:
+            os.symlink(child, link_target, target_is_directory=True)
+        linked += 1
+    return linked
+
+
 def link_agents_md(repo_root: Path, target_name: str) -> int:
     """Create *target_name* symlinks next to every AGENTS.md in the repo."""
     count = 0
@@ -190,40 +222,48 @@ def link_agents_md(repo_root: Path, target_name: str) -> int:
     return count
 
 
-def setup_claude(repo_root: Path, skills_source: Path, created: set[Path]) -> None:
+def setup_claude(
+    repo_root: Path, skills_source: Path, created: set[Path], *, update_gitignore: bool
+) -> None:
     """Configure Claude Code skills and CLAUDE.md links."""
     target = repo_root / ".claude" / "skills"
-    add_to_gitignore(repo_root, ".claude/skills")
-    create_link(skills_source, target, is_directory=True, created=created)
+    add_to_gitignore(repo_root, ".claude/skills", update_gitignore=update_gitignore)
+    create_skill_links(skills_source, target)
     console.print("[green]  [OK] .claude/skills -> skills/[/green]")
-    add_to_gitignore(repo_root, "CLAUDE.md")
+    add_to_gitignore(repo_root, "CLAUDE.md", update_gitignore=update_gitignore)
     link_agents_md(repo_root, "CLAUDE.md")
 
 
-def setup_gemini(repo_root: Path, skills_source: Path, created: set[Path]) -> None:
+def setup_gemini(
+    repo_root: Path, skills_source: Path, created: set[Path], *, update_gitignore: bool
+) -> None:
     """Configure Gemini CLI skills and GEMINI.md links."""
     target = repo_root / ".gemini" / "skills"
-    add_to_gitignore(repo_root, ".gemini/skills")
-    create_link(skills_source, target, is_directory=True, created=created)
+    add_to_gitignore(repo_root, ".gemini/skills", update_gitignore=update_gitignore)
+    create_skill_links(skills_source, target)
     console.print("[green]  [OK] .gemini/skills -> skills/[/green]")
-    add_to_gitignore(repo_root, "GEMINI.md")
+    add_to_gitignore(repo_root, "GEMINI.md", update_gitignore=update_gitignore)
     link_agents_md(repo_root, "GEMINI.md")
 
 
-def setup_codex(repo_root: Path, skills_source: Path, created: set[Path]) -> None:
+def setup_codex(
+    repo_root: Path, skills_source: Path, created: set[Path], *, update_gitignore: bool
+) -> None:
     """Configure Codex (OpenAI) skills. Codex uses AGENTS.md natively."""
     target = repo_root / ".codex" / "skills"
-    add_to_gitignore(repo_root, ".codex/skills")
-    create_link(skills_source, target, is_directory=True, created=created)
+    add_to_gitignore(repo_root, ".codex/skills", update_gitignore=update_gitignore)
+    create_skill_links(skills_source, target)
     console.print("[green]  [OK] .codex/skills -> skills/[/green]")
     console.print("[green]  [OK] Codex uses AGENTS.md natively[/green]")
 
 
-def setup_copilot(repo_root: Path, skills_source: Path, created: set[Path]) -> None:
+def setup_copilot(
+    repo_root: Path, skills_source: Path, created: set[Path], *, update_gitignore: bool
+) -> None:
     """Configure GitHub Copilot skills and instructions via a symlink to AGENTS.md."""
     target = repo_root / ".github" / "skills"
-    add_to_gitignore(repo_root, ".github/skills")
-    create_link(skills_source, target, is_directory=True, created=created)
+    add_to_gitignore(repo_root, ".github/skills", update_gitignore=update_gitignore)
+    create_skill_links(skills_source, target)
     console.print("[green]  [OK] .github/skills -> skills/[/green]")
 
     agents_file = repo_root / "AGENTS.md"
@@ -231,34 +271,42 @@ def setup_copilot(repo_root: Path, skills_source: Path, created: set[Path]) -> N
         return
 
     target = repo_root / ".github" / "copilot-instructions.md"
-    add_to_gitignore(repo_root, ".github/copilot-instructions.md")
+    add_to_gitignore(
+        repo_root, ".github/copilot-instructions.md", update_gitignore=update_gitignore
+    )
     create_file_link(Path("../AGENTS.md"), target)
     console.print("[green]  [OK] AGENTS.md -> .github/copilot-instructions.md[/green]")
 
 
-def setup_opencode(repo_root: Path, skills_source: Path, created: set[Path]) -> None:
+def setup_opencode(
+    repo_root: Path, skills_source: Path, created: set[Path], *, update_gitignore: bool
+) -> None:
     """Configure OpenCode skills directory link (uses AGENTS.md)."""
     target = repo_root / ".opencode" / "skills"
-    add_to_gitignore(repo_root, ".opencode/skills")
-    create_link(skills_source, target, is_directory=True, created=created)
+    add_to_gitignore(repo_root, ".opencode/skills", update_gitignore=update_gitignore)
+    create_skill_links(skills_source, target)
     console.print("[green]  [OK] .opencode/skills -> skills/[/green]")
     console.print("[green]  [OK] OpenCode uses AGENTS.md natively[/green]")
 
 
-def setup_native(repo_root: Path, skills_source: Path, created: set[Path]) -> None:
+def setup_native(
+    repo_root: Path, skills_source: Path, created: set[Path], *, update_gitignore: bool
+) -> None:
     """Configure Native skills directory link (uses AGENTS.md)."""
     target = repo_root / ".agents" / "skills"
-    add_to_gitignore(repo_root, ".agents/skills")
-    create_link(skills_source, target, is_directory=True, created=created)
+    add_to_gitignore(repo_root, ".agents/skills", update_gitignore=update_gitignore)
+    create_skill_links(skills_source, target)
     console.print("[green]  [OK] .agents/skills -> skills/[/green]")
     console.print("[green]  [OK] Native uses AGENTS.md natively[/green]")
 
 
-def setup_cursor(repo_root: Path, skills_source: Path, created: set[Path]) -> None:
+def setup_cursor(
+    repo_root: Path, skills_source: Path, created: set[Path], *, update_gitignore: bool
+) -> None:
     """Configure Cursor skills directory link."""
     target = repo_root / ".cursor" / "skills"
-    add_to_gitignore(repo_root, ".cursor/skills")
-    create_link(skills_source, target, is_directory=True, created=created)
+    add_to_gitignore(repo_root, ".cursor/skills", update_gitignore=update_gitignore)
+    create_skill_links(skills_source, target)
     console.print("[green]  [OK] .cursor/skills -> skills/[/green]")
 
 
@@ -281,11 +329,52 @@ def show_interactive_menu() -> list[str]:
     return selected if selected is not None else []
 
 
+def ask_update_gitignore(repo_root: Path, selected: dict[str, bool]) -> bool:
+    """Ask the user whether to update .gitignore, listing the patterns that would be added."""
+    gitignore = repo_root / ".gitignore"
+    existing: set[str] = set()
+    if gitignore.exists():
+        existing = {line.strip() for line in gitignore.read_text(encoding="utf-8").splitlines()}
+
+    patterns_by_key: dict[str, list[str]] = {
+        "claude": [".claude/skills/", "CLAUDE.md"],
+        "gemini": [".gemini/skills/", "GEMINI.md"],
+        "codex": [".codex/skills/"],
+        "copilot": [".github/skills/", ".github/copilot-instructions.md"],
+        "opencode": [".opencode/skills/"],
+        "native": [".agents/skills/"],
+        "cursor": [".cursor/skills/"],
+    }
+
+    new_patterns = [
+        p
+        for key, flag in selected.items()
+        if flag
+        for p in patterns_by_key.get(key, [])
+        if p not in existing
+    ]
+
+    if not new_patterns:
+        return False  # nothing to add anyway
+
+    console.print("\n[blue]The following entries would be added to .gitignore:[/blue]")
+    for p in new_patterns:
+        console.print(f"  {p}")
+
+    answer = questionary.confirm(
+        "Update .gitignore with these entries?",
+        default=False,
+    ).ask()
+    return bool(answer)
+
+
 def run_setup(
     repo_root: Path,
     skills_source: Path,
     selected: dict[str, bool],
     skill_count: int,
+    *,
+    update_gitignore: bool,
 ) -> None:
     """Run the selected setup steps and print a summary."""
     chosen = [key for key, flag in selected.items() if flag]
@@ -298,31 +387,31 @@ def run_setup(
     step = 1
     if selected["claude"]:
         console.print(f"\n[yellow][{step}/{total}] Setting up Claude Code...[/yellow]")
-        setup_claude(repo_root, skills_source, created)
+        setup_claude(repo_root, skills_source, created, update_gitignore=update_gitignore)
         step += 1
     if selected["gemini"]:
         console.print(f"\n[yellow][{step}/{total}] Setting up Gemini CLI...[/yellow]")
-        setup_gemini(repo_root, skills_source, created)
+        setup_gemini(repo_root, skills_source, created, update_gitignore=update_gitignore)
         step += 1
     if selected["codex"]:
         console.print(f"\n[yellow][{step}/{total}] Setting up Codex (OpenAI)...[/yellow]")
-        setup_codex(repo_root, skills_source, created)
+        setup_codex(repo_root, skills_source, created, update_gitignore=update_gitignore)
         step += 1
     if selected["copilot"]:
         console.print(f"\n[yellow][{step}/{total}] Setting up GitHub Copilot...[/yellow]")
-        setup_copilot(repo_root, skills_source, created)
+        setup_copilot(repo_root, skills_source, created, update_gitignore=update_gitignore)
         step += 1
     if selected["opencode"]:
         console.print(f"\n[yellow][{step}/{total}] Setting up OpenCode...[/yellow]")
-        setup_opencode(repo_root, skills_source, created)
+        setup_opencode(repo_root, skills_source, created, update_gitignore=update_gitignore)
         step += 1
     if selected["native"]:
         console.print(f"\n[yellow][{step}/{total}] Setting up Native...[/yellow]")
-        setup_native(repo_root, skills_source, created)
+        setup_native(repo_root, skills_source, created, update_gitignore=update_gitignore)
         step += 1
     if selected["cursor"]:
         console.print(f"\n[yellow][{step}/{total}] Setting up Cursor...[/yellow]")
-        setup_cursor(repo_root, skills_source, created)
+        setup_cursor(repo_root, skills_source, created, update_gitignore=update_gitignore)
 
     console.print(f"\n[green][DONE] Successfully configured {skill_count} AI skills![/green]\n")
     console.print("Configured:")
@@ -346,6 +435,11 @@ def main(
     opencode: bool = typer.Option(False, "--opencode", help="Configure OpenCode"),
     native: bool = typer.Option(False, "--native", help="Configure Native assistants"),
     cursor: bool = typer.Option(False, "--cursor", help="Configure Cursor"),
+    update_gitignore: bool = typer.Option(
+        False,
+        "--update-gitignore",
+        help="Add generated symlink paths to .gitignore without prompting",
+    ),
 ) -> Any:
     """Configure AI coding assistants for QtShadcn development."""
     repo_root = get_repo_root()
@@ -377,7 +471,10 @@ def main(
         selected_keys = show_interactive_menu()
         selected = {key: key in selected_keys for key, _label, _detail in AI_ASSISTANTS}
 
-    run_setup(repo_root, skills_source, selected, skill_count)
+    if not update_gitignore:
+        update_gitignore = ask_update_gitignore(repo_root, selected)
+
+    run_setup(repo_root, skills_source, selected, skill_count, update_gitignore=update_gitignore)
     return None
 
 
