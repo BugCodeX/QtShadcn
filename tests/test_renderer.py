@@ -503,6 +503,66 @@ class TestRenderer:
         assert "background-color: rgba(241, 245, 249, 0.5);" in qss
         assert "background-color: rgba(15, 23, 42, 0.5);" in qss
 
+    def test_slider_semantics_are_rendered(self):
+        """Test that QSlider renders shadcn slider semantics."""
+        tokens = _tokens(
+            spacing="4px",
+            muted="#f1f5f9",
+            primary="#0f172a",
+            background="#ffffff",
+            ring="#0f172a",
+        )
+        qss = _build_theme(tokens)
+
+        assert "QSlider::groove:horizontal {" in qss
+        assert "QSlider::sub-page:horizontal {" in qss
+        assert "QSlider::add-page:horizontal {" in qss
+        assert "QSlider::handle:horizontal {" in qss
+        assert "QSlider::handle:horizontal:hover" in qss
+        assert "QSlider::handle:horizontal:focus" in qss
+        assert "background-color: #f1f5f9;" in qss
+        assert "background-color: #0f172a;" in qss
+        assert "background-color: #ffffff;" in qss
+        assert "border-color: #0f172a;" in qss
+        assert "min-height: 4px;" in qss
+        assert "width: 12px;" in qss
+        assert "height: 12px;" in qss
+        assert "border-radius: 9999px;" in qss
+        assert "margin: -4px 0;" in qss
+        assert "rgba(15, 23, 42, 0.8)" in qss
+        assert "rgba(15, 23, 42, 0.5)" in qss
+
+    def test_slider_vertical_semantics_are_rendered(self):
+        """Test that QSlider renders vertical slider semantics."""
+        tokens = _tokens(spacing="4px")
+        qss = _build_theme(tokens)
+
+        assert "QSlider::groove:vertical {" in qss
+        assert "QSlider::sub-page:vertical {" in qss
+        assert "QSlider::add-page:vertical {" in qss
+        assert "QSlider::handle:vertical {" in qss
+        assert "QSlider::handle:vertical:hover" in qss
+        assert "QSlider::handle:vertical:focus" in qss
+        assert "width: 4px;" in qss
+        assert "margin: 0 -4px;" in qss
+
+    def test_slider_disabled_opacity(self):
+        """Test that QSlider disabled states use 50% opacity."""
+        tokens = _tokens(
+            muted="#f1f5f9",
+            background="#ffffff",
+            ring="#0f172a",
+        )
+        qss = _build_theme(tokens)
+
+        assert "QSlider:disabled::groove:horizontal" in qss
+        assert "QSlider:disabled::sub-page:horizontal" in qss
+        assert "QSlider:disabled::add-page:horizontal" in qss
+        assert "QSlider::handle:horizontal:disabled" in qss
+        assert "background-color: rgba(241, 245, 249, 0.5);" in qss
+        assert "background-color: rgba(255, 255, 255, 0.5);" in qss
+        assert "border-color: rgba(15, 23, 42, 0.5);" in qss
+
     def test_template_file_exists(self):
         """Test that the template file exists."""
         assert Path(TEMPLATE_FILE).exists()

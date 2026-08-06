@@ -780,3 +780,111 @@ QProgressBar:disabled {
 QProgressBar::chunk:disabled {
     background-color: {{ colors.alpha(tokens.primary, 0.5) }};
 }
+
+/* QSlider */
+
+QSlider::groove:horizontal {
+    background-color: {{ tokens.muted }};
+    border: none;
+    border-radius: {{ radius.class_px(tokens.radius, "full") }};
+    height: {{ scale.spacing_px(tokens.spacing, 1) }};
+    margin: 0;
+}
+
+QSlider::sub-page:horizontal {
+    background-color: {{ tokens.primary }};
+    border: none;
+    border-radius: {{ radius.class_px(tokens.radius, "full") }};
+}
+
+QSlider::add-page:horizontal {
+    background-color: {{ tokens.muted }};
+    border: none;
+    border-radius: {{ radius.class_px(tokens.radius, "full") }};
+}
+
+QSlider::handle:horizontal {
+    background-color: {{ tokens.background }};
+    border: 1px solid {{ tokens.ring }};
+    border-radius: {{ radius.class_px(tokens.radius, "full") }};
+    width: {{ scale.spacing_px(tokens.spacing, 3) }};
+    height: {{ scale.spacing_px(tokens.spacing, 3) }};
+    margin: -{{ scale.spacing_px(tokens.spacing, 1) }} 0;
+}
+
+QSlider::handle:horizontal:hover {
+    border-color: {{ colors.alpha(tokens.ring, 0.8) }};
+}
+
+QSlider::handle:horizontal:pressed {
+    border-color: {{ colors.alpha(tokens.ring, 0.8) }};
+    background-color: {{ colors.alpha(tokens.background, 0.8) }};
+}
+
+QSlider::handle:horizontal:focus {
+    outline: 3px solid {{ colors.alpha(tokens.ring, 0.5) }};
+}
+
+QSlider:disabled::groove:horizontal,
+QSlider:disabled::sub-page:horizontal,
+QSlider:disabled::add-page:horizontal {
+    background-color: {{ colors.alpha(tokens.muted, 0.5) }};
+}
+
+QSlider::handle:horizontal:disabled {
+    background-color: {{ colors.alpha(tokens.background, 0.5) }};
+    border-color: {{ colors.alpha(tokens.ring, 0.5) }};
+}
+
+QSlider::groove:vertical {
+    background-color: {{ tokens.muted }};
+    border: none;
+    border-radius: {{ radius.class_px(tokens.radius, "full") }};
+    width: {{ scale.spacing_px(tokens.spacing, 1) }};
+    margin: 0;
+}
+
+QSlider::sub-page:vertical {
+    background-color: {{ tokens.primary }};
+    border: none;
+    border-radius: {{ radius.class_px(tokens.radius, "full") }};
+}
+
+QSlider::add-page:vertical {
+    background-color: {{ tokens.muted }};
+    border: none;
+    border-radius: {{ radius.class_px(tokens.radius, "full") }};
+}
+
+QSlider::handle:vertical {
+    background-color: {{ tokens.background }};
+    border: 1px solid {{ tokens.ring }};
+    border-radius: {{ radius.class_px(tokens.radius, "full") }};
+    width: {{ scale.spacing_px(tokens.spacing, 3) }};
+    height: {{ scale.spacing_px(tokens.spacing, 3) }};
+    margin: 0 -{{ scale.spacing_px(tokens.spacing, 1) }};
+}
+
+QSlider::handle:vertical:hover {
+    border-color: {{ colors.alpha(tokens.ring, 0.8) }};
+}
+
+QSlider::handle:vertical:pressed {
+    border-color: {{ colors.alpha(tokens.ring, 0.8) }};
+    background-color: {{ colors.alpha(tokens.background, 0.8) }};
+}
+
+QSlider::handle:vertical:focus {
+    outline: 3px solid {{ colors.alpha(tokens.ring, 0.5) }};
+}
+
+QSlider:disabled::groove:vertical,
+QSlider:disabled::sub-page:vertical,
+QSlider:disabled::add-page:vertical {
+    background-color: {{ colors.alpha(tokens.muted, 0.5) }};
+}
+
+QSlider::handle:vertical:disabled {
+    background-color: {{ colors.alpha(tokens.background, 0.5) }};
+    border-color: {{ colors.alpha(tokens.ring, 0.5) }};
+}
