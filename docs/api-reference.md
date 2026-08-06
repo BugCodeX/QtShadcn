@@ -94,7 +94,7 @@ Supported `QToolButton` dynamic properties:
 
 ## Supported Widgets
 
-QtShadcn v0.0.7 ships QSS for these widgets:
+QtShadcn v0.0.16 ships QSS for these widgets:
 
 - `QWidget` — base background, foreground, and typography classes
 - `QPushButton` — variants, sizes, and disabled states
