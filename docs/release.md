@@ -93,3 +93,17 @@ pip install qtshadcn==0.0.13
 python -c "import qtshadcn; print(qtshadcn.__version__)"
 make test
 ```
+
+# QtShadcn v0.0.14
+
+## Fixes
+
+- Fixed `QSlider` handle rendering to be a perfect circle using a token-derived `border-radius` and margin.
+
+## Verification
+
+```bash
+pip install qtshadcn==0.0.14
+python -c "import qtshadcn; print(qtshadcn.__version__)"
+make test
+```
