@@ -94,6 +94,27 @@ python -c "import qtshadcn; print(qtshadcn.__version__)"
 make test
 ```
 
+# QtShadcn v0.0.15
+
+## What's New
+
+- `QSlider` thumb is now rendered as a generated SVG circle, producing a perfect circle regardless of the theme radius.
+- The `QSlider` thumb fill matches the primary color of the filled track for a cohesive shadcn/ui look.
+- Expanded the `QSlider` gallery page with horizontal, vertical, tick, disabled, and live-value variants.
+
+## Changes
+
+- Refactored base widget styles for `QPushButton`, `QToolButton`, `QLineEdit`, `QTextEdit`, `QComboBox`, and `QCheckBox` for cleaner, more compact QSS output.
+- Increased the dark-mode `spacing` token to `8px` for more open dark layouts.
+
+## Verification
+
+```bash
+pip install qtshadcn==0.0.15
+python -c "import qtshadcn; print(qtshadcn.__version__)"
+make test
+```
+
 # QtShadcn v0.0.14
 
 ## Fixes
