@@ -85,6 +85,7 @@ dev = [
   "build>=1.2",  # package builder
   "pytest>=9.1.1",  # test runner
   "pytest-cov>=7.1.0",  # coverage plugin
+  "pytest-mock>=3.14.0",  # mocking support for pytest
   "pytest-qt>=4.2.0",  # Qt widget testing (qtbot fixture)
   "ruff>=0.9",  # linter and formatter
   "ty>=0.0.66",  # type checker
