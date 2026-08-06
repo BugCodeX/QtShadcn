@@ -30,9 +30,7 @@ AVAILABLE_SKILLS_INTRO = "Use these skills for detailed patterns on-demand:"
 GENERIC_SKILLS_HEADER = "### Generic Skills (Any Project)"
 PROJECT_SPECIFIC_SKILLS_HEADER = "### QtShadcn Specific Skills"
 AUTO_INVOKE_HEADER = "### Auto-invoke Skills"
-AUTO_INVOKE_INTRO = (
-    "When performing these actions, ALWAYS invoke the corresponding skill FIRST:"
-)
+AUTO_INVOKE_INTRO = "When performing these actions, ALWAYS invoke the corresponding skill FIRST:"
 
 app = typer.Typer(help="Sync skill metadata to AGENTS.md Available Skills sections.")
 
