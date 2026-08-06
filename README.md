@@ -1,4 +1,16 @@
-# QtShadcn
+<p align="center">
+  <img src="docs/source/logo.png" alt="QtShadcn logo" width="128">
+</p>
+
+<h1 align="center">QtShadcn</h1>
+
+<p align="center">
+  <a href="https://pypi.org/project/qtshadcn/"><img src="https://img.shields.io/pypi/v/qtshadcn" alt="PyPI version"></a>
+  <a href="https://pypi.org/project/qtshadcn/"><img src="https://img.shields.io/pypi/dm/qtshadcn" alt="PyPI downloads"></a>
+  <a href="https://github.com/BugCodeX/QtShadcn/blob/master/LICENSE"><img src="https://img.shields.io/github/license/BugCodeX/QtShadcn" alt="License"></a>
+  <a href="https://pypi.org/project/qtshadcn/"><img src="https://img.shields.io/pypi/pyversions/qtshadcn" alt="Python versions"></a>
+  <img src="https://img.shields.io/badge/Platform-Win%20%7C%20Linux%20%7C%20macOS-blue" alt="Platform">
+</p>
 
 > Modern styling and theming framework for Qt/PySide and PyQt applications, inspired by [shadcn/ui](https://ui.shadcn.com).
 
@@ -125,11 +137,17 @@ sys.exit(app.exec())
 QtShadcn currently ships QSS for:
 
 - `QWidget` — base background, foreground, and typography classes
+- `QLabel` — typography and disabled state
 - `QPushButton` — variants, sizes, and disabled states
 - `QToolButton` — compact icon/action variants
+- `QCheckBox` — toggle controls with themed check icons and disabled states
+- `QRadioButton` — radio controls with themed checked icons
 - `QLineEdit` — input states including focus, disabled, and invalid
 - `QTextEdit` — textarea states including focus, disabled, and invalid
-- `QCheckBox` — toggle controls with themed check icons and disabled states
+- `QComboBox` and `QFontComboBox` — dropdowns, popups, and invalid states
+- `QProgressBar` — determinate, thin, and disabled states
+- `QSlider` — horizontal, vertical, tick, and disabled states
+- `QGroupBox` and `QFrame` — layout containers
 
 See the [gallery](examples/gallery/main.py) and the [roadmap](docs/roadmap.md) for what is planned next.
 
