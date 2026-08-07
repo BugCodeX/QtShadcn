@@ -744,11 +744,15 @@ QDoubleSpinBox {
         )
         qss = _build_theme(tokens)
 
-        assert """QTabWidget::pane {
+        assert (
+            """QTabWidget::pane {
     border: none;
-}""" in qss
+}"""
+            in qss
+        )
 
-        assert """QTabBar::tab {
+        assert (
+            """QTabBar::tab {
     background: transparent;
     color: #64748b;
     border: 1px solid transparent;
@@ -757,14 +761,19 @@ QDoubleSpinBox {
     padding: 2px 12px;
     min-height: 28px;
     font-size: 14px;
-}""" in qss
+}"""
+            in qss
+        )
 
-        assert """QTabBar::tab:selected {
+        assert (
+            """QTabBar::tab:selected {
     background: #ffffff;
     color: #020617;
     border-color: #f1f5f9;
     font-weight: 700;
-}""" in qss
+}"""
+            in qss
+        )
 
     def test_tab_widget_line_vertical_indicator_is_rendered(self):
         """Test that line variant vertical tabs use a right-side indicator."""
