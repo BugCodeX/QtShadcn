@@ -1,3 +1,27 @@
+# QtShadcn v0.0.20
+
+## What's New
+
+- Added `QTabWidget` styling support with default pill tabs on a muted background and a `variant="line"` style with bottom/right indicators.
+- Added a gallery page demonstrating default, line, vertical line, and disabled tab widgets.
+
+## Changes
+
+- Improved the default `QTabWidget` pane background, padding, and margin in `qtshadcn/styles/shadcn.jinja`.
+- Updated the documentation link in the gallery window from `https://BugCodeX.github.io/QtShadcn/` to `https://qtshadcn.readthedocs.io/`.
+
+## Fixes
+
+- Resolved `ruff format --check` failure by reformatting multiline assert strings in `tests/test_renderer.py`.
+
+## Verification
+
+```bash
+pip install qtshadcn==0.0.20
+python -c "import qtshadcn; print(qtshadcn.__version__)"
+make test
+```
+
 # QtShadcn v0.0.19
 
 ## What's New
