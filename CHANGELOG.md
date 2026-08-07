@@ -5,6 +5,11 @@
 - Added `QTabWidget` styling support with default pill tabs on a muted background and a `variant="line"` style with bottom/right indicators.
 - Added a gallery page demonstrating default, line, vertical line, and disabled tab widgets.
 
+## Fixes
+
+- Improved the default `QTabWidget` pane background, padding, and margin in `qtshadcn/styles/shadcn.jinja`.
+- Updated the documentation link in the gallery window from `https://BugCodeX.github.io/QtShadcn/` to `https://qtshadcn.readthedocs.io/`.
+
 ## Verification
 
 ```bash
