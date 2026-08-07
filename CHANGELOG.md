@@ -1,3 +1,24 @@
+# QtShadcn v0.0.18
+
+## Fixes
+
+- Split the `QDoubleSpinBox` gallery page out from `QSpinBox` for clearer examples.
+- Rounded the hover state of spin-box step buttons.
+- Restored the PyPI logo in the README/package metadata.
+
+## Documentation
+
+- Updated the roadmap and switched status markers to emoji checkmarks.
+- Removed obsolete `make build` references from the docs.
+
+## Verification
+
+```bash
+pip install qtshadcn==0.0.18
+python -c "import qtshadcn; print(qtshadcn.__version__)"
+make test
+```
+
 # QtShadcn v0.0.17
 
 ## What's New
