@@ -706,6 +706,54 @@ QDoubleSpinBox {
         assert "QSlider::sub-page {" in qss
         assert "background-color: #f1f5f9;" in qss
 
+    def test_tab_widget_semantics_are_rendered(self):
+        """Test that QTabWidget renders shadcn tabs semantics."""
+        tokens = _tokens(
+            spacing="4px",
+            muted="#f1f5f9",
+            background="#ffffff",
+            foreground="#020617",
+            muted_foreground="#64748b",
+        )
+        qss = _build_theme(tokens)
+
+        assert "QTabWidget::pane {" in qss
+        assert "QTabBar {" in qss
+        assert "QTabBar::tab {" in qss
+        assert "QTabBar::tab:selected {" in qss
+        assert "QTabBar::tab:hover {" in qss
+        assert "QTabBar::tab:disabled {" in qss
+        assert "background: #f1f5f9;" in qss
+        assert "background: #ffffff;" in qss
+        assert "color: #020617;" in qss
+        assert "color: #64748b;" in qss
+        assert 'QTabWidget[variant="line"] QTabBar {' in qss
+        assert 'QTabWidget[variant="line"] QTabBar::tab:selected {' in qss
+        assert "border-bottom: 2px solid transparent;" in qss
+        assert "border-bottom-color: #020617;" in qss
+        assert "padding: 4px 12px;" in qss
+        assert "min-height: 28px;" in qss
+
+    def test_tab_widget_line_vertical_indicator_is_rendered(self):
+        """Test that line variant vertical tabs use a right-side indicator."""
+        tokens = _tokens(
+            spacing="4px",
+            foreground="#020617",
+        )
+        qss = _build_theme(tokens)
+
+        assert 'QTabWidget[variant="line"] QTabBar::tab:left {' in qss
+        assert 'QTabWidget[variant="line"] QTabBar::tab:left:selected {' in qss
+        assert "border-right: 2px solid transparent;" in qss
+        assert "border-right-color: #020617;" in qss
+
+    def test_tab_widget_disabled_opacity(self):
+        """Test that QTabWidget disabled tabs use 50% opacity."""
+        tokens = _tokens(muted_foreground="#64748b")
+        qss = _build_theme(tokens)
+
+        assert "color: rgba(100, 116, 139, 0.5);" in qss
+
     def test_template_file_exists(self):
         """Test that the template file exists."""
         assert Path(TEMPLATE_FILE).exists()

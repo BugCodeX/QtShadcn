@@ -1,3 +1,18 @@
+# QtShadcn v0.0.19
+
+## What's New
+
+- Added `QTabWidget` styling support with default pill tabs on a muted background and a `variant="line"` style with bottom/right indicators.
+- Added a gallery page demonstrating default, line, vertical line, and disabled tab widgets.
+
+## Verification
+
+```bash
+pip install qtshadcn==0.0.19
+python -c "import qtshadcn; print(qtshadcn.__version__)"
+make test
+```
+
 # QtShadcn v0.0.18
 
 ## Fixes

@@ -15,6 +15,7 @@ from examples.gallery.pages.push_button import PushButtonPage
 from examples.gallery.pages.radio_button import RadioButtonPage
 from examples.gallery.pages.slider import SliderPage
 from examples.gallery.pages.spin_box import SpinBoxPage
+from examples.gallery.pages.tab_widget import TabWidgetPage
 from examples.gallery.pages.text_edit import TextEditPage
 from examples.gallery.pages.tool_button import ToolButtonPage
 from qtshadcn._qt import QtWidgets
@@ -35,6 +36,7 @@ PAGE_REGISTRY: list[tuple[str, PageBuilder]] = [
     ("QLabel", LabelPage().build),
     ("QProgressBar", ProgressBarPage().build),
     ("QSlider", SliderPage().build),
+    ("QTabWidget", TabWidgetPage().build),
 ]
 
 

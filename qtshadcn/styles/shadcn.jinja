@@ -834,6 +834,82 @@ QSlider::handle:disabled {
 QSlider::sub-page:disabled { background: {{ colors.alpha(tokens.input, 0.5) }}; }
 
 /* ============================================================
+   QTabWidget
+   ============================================================ */
+
+QTabWidget::pane {
+    border: none;
+}
+
+QTabBar {
+    background: {{ tokens.muted }};
+    border-radius: {{ radius.class_px(tokens.radius, "lg") }};
+    padding: {{ scale.spacing_px(tokens.spacing, 1) }};
+}
+
+QTabBar::tab {
+    background: transparent;
+    color: {{ tokens.muted_foreground }};
+    border: none;
+    border-radius: {{ radius.class_px(tokens.radius, "md") }};
+    padding: {{ scale.spacing_px(tokens.spacing, 1) }} {{ scale.spacing_px(tokens.spacing, 3) }};
+    min-height: {{ scale.spacing_px(tokens.spacing, 7) }};
+    font-size: {{ scale.TEXT_SM }};
+    font-weight: {{ scale.FONT_WEIGHT_MEDIUM }};
+}
+
+QTabBar::tab:selected {
+    background: {{ tokens.background }};
+    color: {{ tokens.foreground }};
+}
+
+QTabBar::tab:hover {
+    color: {{ tokens.foreground }};
+}
+
+QTabBar::tab:disabled {
+    color: {{ colors.alpha(tokens.muted_foreground, 0.5) }};
+}
+
+QTabWidget[variant="line"] QTabBar {
+    background: transparent;
+    border-radius: 0px;
+    padding: 0px;
+}
+
+QTabWidget[variant="line"] QTabBar::tab {
+    background: transparent;
+    color: {{ tokens.muted_foreground }};
+    border: none;
+    border-bottom: 2px solid transparent;
+    border-radius: 0px;
+    padding: {{ scale.spacing_px(tokens.spacing, 1) }} {{ scale.spacing_px(tokens.spacing, 3) }};
+}
+
+QTabWidget[variant="line"] QTabBar::tab:selected {
+    background: transparent;
+    color: {{ tokens.foreground }};
+    border-bottom-color: {{ tokens.foreground }};
+}
+
+QTabWidget[variant="line"] QTabBar::tab:hover {
+    color: {{ tokens.foreground }};
+}
+
+QTabWidget[variant="line"] QTabBar::tab:disabled {
+    color: {{ colors.alpha(tokens.muted_foreground, 0.5) }};
+}
+
+QTabWidget[variant="line"] QTabBar::tab:left {
+    border: none;
+    border-right: 2px solid transparent;
+}
+
+QTabWidget[variant="line"] QTabBar::tab:left:selected {
+    border-right-color: {{ tokens.foreground }};
+}
+
+/* ============================================================
    Typography classes
    ============================================================ */
 
