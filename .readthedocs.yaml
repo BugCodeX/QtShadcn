@@ -11,7 +11,7 @@ build:
   jobs:
     post_install:
       - pip install uv
-      - uv pip install --system mkdocs-material pymdown-extensions
+      - uv pip install mkdocs-material pymdown-extensions
 
 mkdocs:
   configuration: mkdocs.yml
