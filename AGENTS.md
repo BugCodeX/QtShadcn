@@ -68,6 +68,7 @@ tests/
 
 ```bash
 make install-dev   # set up the virtual environment (uv sync --extra dev)
+make setup-hooks   # install pre-commit git hooks
 make lint          # ruff check (report only)
 make format        # ruff format + ruff check --fix
 make type-check    # ty check
@@ -75,6 +76,12 @@ make test          # pytest
 make test-cov      # pytest with HTML coverage report
 make docs-serve    # live-reload docs at http://127.0.0.1:8000
 make clean         # remove dist/, caches, .coverage
+
+pre-commit install                      # install git hooks
+pre-commit run --all-files              # run hooks manually
+pre-commit run pytest --hook-stage pre-push  # run pytest hook manually
+pre-commit run uv-lock                  # validate uv.lock is up to date
+pre-commit run renovate-config-validator # validate Renovate config
 ```
 
 ---

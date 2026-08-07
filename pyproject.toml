@@ -88,6 +88,7 @@ dev = [
   "pytest-mock>=3.14.0",  # mocking support for pytest
   "pytest-qt>=4.2.0",  # Qt widget testing (qtbot fixture)
   "ruff>=0.9",  # linter and formatter
+  "pre-commit>=3.7",  # git hooks
   "ty>=0.0.66",  # type checker
   "typer>=0.12.0",  # CLI framework (skills setup script; Rich is bundled)
   "pyyaml>=6.0",  # YAML frontmatter parser for skills metadata sync
