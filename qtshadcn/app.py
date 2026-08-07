@@ -15,6 +15,7 @@ import jinja2
 from ._icons import ThemedIconManager
 from ._parser import ThemeParseError, parse_theme_source
 from ._qt import QtCore, QtGui, QtWidgets
+from .exceptions import ThemeRenderError
 from .models import ShadcnTheme, ShadcnThemeTokens, ThemeConfig
 from .tokens import colors, radius, scale
 
@@ -92,25 +93,28 @@ def _build_theme(
     except Exception as e:
         logger.warning("Error loading fonts: %s", e)
 
-    template_path = Path(template)
-    if template_path.exists():
-        parent = str(template_path.parent)
-        template_name = template_path.name
-        loader = jinja2.FileSystemLoader(parent)
-        env = jinja2.Environment(autoescape=False, loader=loader)
-        stylesheet = env.get_template(template_name)
-    else:
-        env = jinja2.Environment(autoescape=False, loader=jinja2.BaseLoader())
-        stylesheet = env.from_string(template)
+    try:
+        template_path = Path(template)
+        if template_path.exists():
+            parent = str(template_path.parent)
+            template_name = template_path.name
+            loader = jinja2.FileSystemLoader(parent)
+            env = jinja2.Environment(autoescape=False, loader=loader)
+            stylesheet = env.get_template(template_name)
+        else:
+            env = jinja2.Environment(autoescape=False, loader=jinja2.BaseLoader())
+            stylesheet = env.from_string(template)
 
-    return stylesheet.render(
-        tokens=tokens,
-        colors=colors,
-        icons=ThemedIconManager(),
-        radius=radius,
-        scale=scale,
-        is_dark=is_dark,
-    )
+        return stylesheet.render(
+            tokens=tokens,
+            colors=colors,
+            icons=ThemedIconManager(),
+            radius=radius,
+            scale=scale,
+            is_dark=is_dark,
+        )
+    except jinja2.TemplateError as e:
+        raise ThemeRenderError(f"Failed to render QSS theme template: {e}") from e
 
 
 def _resolve_theme_source_path(config: ThemeConfig) -> Path:

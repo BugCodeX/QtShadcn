@@ -14,6 +14,8 @@ import importlib
 import os
 from types import ModuleType
 
+from .exceptions import QtBindingError
+
 _DEFAULT_BINDING_ORDER = ("PySide6", "PyQt6", "PySide2", "PyQt5")
 _REQUIRED_MODULES = ("QtCore", "QtGui", "QtWidgets")
 
@@ -61,7 +63,7 @@ def _select_binding() -> tuple[str, dict[str, ModuleType]]:
         mapping ``QtCore``/``QtGui``/``QtWidgets`` to the selected modules.
 
     Raises:
-        ImportError: If no supported binding provides all required modules.
+        QtBindingError: If no supported binding provides all required modules.
 
     """
     for binding in _binding_order():
@@ -72,7 +74,7 @@ def _select_binding() -> tuple[str, dict[str, ModuleType]]:
         return binding, modules
 
     supported = ", ".join(_DEFAULT_BINDING_ORDER)
-    raise ImportError(f"No supported Qt binding found. Install one of: {supported}.")
+    raise QtBindingError(f"No supported Qt binding found. Install one of: {supported}.")
 
 
 binding_name, _modules = _select_binding()

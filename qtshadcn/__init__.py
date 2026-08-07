@@ -3,7 +3,7 @@ from importlib.metadata import PackageNotFoundError, version
 from pathlib import Path
 from typing import Any
 
-from .exceptions import ThemeParseError
+from .exceptions import QtBindingError, QtShadcnError, ThemeParseError, ThemeRenderError
 from .models import ShadcnTheme, ShadcnThemeTokens, ThemeConfig, ThemeMode
 
 
@@ -45,5 +45,8 @@ __all__ = [
     "get_theme",
     "__version__",
     # Errors
+    "QtShadcnError",
     "ThemeParseError",
+    "ThemeRenderError",
+    "QtBindingError",
 ]
