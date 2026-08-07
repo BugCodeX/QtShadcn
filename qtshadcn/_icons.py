@@ -44,6 +44,11 @@ class ThemedIconManager:
         logger.debug("Generating chevron down icon for color: %s", color)
         return self._write_icon("chevron-down", color, _chevron_down_svg(color))
 
+    def chevron_up(self, color: str) -> str:
+        """Return a QSS-safe URL for a chevron up icon using ``color``."""
+        logger.debug("Generating chevron up icon for color: %s", color)
+        return self._write_icon("chevron-up", color, _chevron_up_svg(color))
+
     def slider_thumb(self, fill: str, border: str, size: int) -> str:
         """Return a QSS-safe URL for a circular slider thumb icon.
 
@@ -131,6 +136,17 @@ def _chevron_down_svg(color: str) -> str:
         '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" '
         'viewBox="0 0 16 16" fill="none">'
         f'<path d="M4 6l4 4 4-4" stroke="{safe_color}" '
+        'stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'
+        "</svg>"
+    )
+
+
+def _chevron_up_svg(color: str) -> str:
+    safe_color = escape(color, quote=True)
+    return (
+        '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" '
+        'viewBox="0 0 16 16" fill="none">'
+        f'<path d="M4 10l4-4 4 4" stroke="{safe_color}" '
         'stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'
         "</svg>"
     )

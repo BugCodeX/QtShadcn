@@ -213,6 +213,109 @@ QTextEdit {
         assert "border-color: rgba(239, 68, 68, 0.5);" in qss
         assert "outline: 3px solid rgba(239, 68, 68, 0.4);" in qss
 
+    def test_spin_box_selectors_are_present(self):
+        """Test that QSpinBox and QDoubleSpinBox selectors are rendered."""
+        tokens = _tokens(spacing="4px")
+        qss = _build_theme(tokens)
+
+        assert "QSpinBox,\nQDoubleSpinBox {" in qss
+        assert "QSpinBox::up-button,\nQDoubleSpinBox::up-button {" in qss
+        assert "QSpinBox::down-button,\nQDoubleSpinBox::down-button {" in qss
+        assert "QSpinBox::up-arrow,\nQDoubleSpinBox::up-arrow {" in qss
+        assert "QSpinBox::down-arrow,\nQDoubleSpinBox::down-arrow {" in qss
+
+    def test_spin_box_input_semantics_are_rendered(self):
+        """Test that QSpinBox shares QLineEdit input semantics."""
+        tokens = _tokens(
+            spacing="4px",
+            input="#e2e8f0",
+            foreground="#020617",
+            muted_foreground="#64748b",
+            primary="#0f172a",
+            primary_foreground="#f8fafc",
+        )
+        qss = _build_theme(tokens)
+
+        spin_box_block = """QSpinBox,
+QDoubleSpinBox {
+  background: transparent;
+  color: #020617;
+  border: 1px solid #e2e8f0;
+  outline: none;
+  border-radius: 8px;
+  font-size: 14px;
+  placeholder-text-color: #64748b;
+  selection-background-color: #0f172a;
+  selection-color: #f8fafc;
+  padding: 0 32px 0 10px;
+  min-height: 32px;
+}"""
+        assert spin_box_block in qss
+        assert "padding: 0 32px 0 10px;" in qss
+        assert "min-height: 32px;" in qss
+        assert "font-size: 14px;" in qss
+        assert "placeholder-text-color: #64748b;" in qss
+
+    def test_spin_box_state_colors_are_qss_safe(self):
+        """Test that QSpinBox focus, disabled, and invalid states use static colors."""
+        tokens = _tokens(
+            input="#e2e8f0",
+            muted="#f1f5f9",
+            muted_foreground="#64748b",
+            destructive="#ef4444",
+            ring="#0f172a",
+        )
+        qss = _build_theme(tokens)
+
+        assert "QSpinBox:focus,\nQDoubleSpinBox:focus" in qss
+        assert "QSpinBox:disabled,\nQDoubleSpinBox:disabled" in qss
+        assert 'QSpinBox[invalid="true"],\nQDoubleSpinBox[invalid="true"]' in qss
+        # Focus: solid border + 50% opacity ring
+        assert "border-color: #0f172a;" in qss
+        assert "outline: 3px solid rgba(15, 23, 42, 0.5);" in qss
+        # Disabled: 50% opacity input background (light mode)
+        assert "background: rgba(226, 232, 240, 0.5);" in qss
+        assert "color: rgba(100, 116, 139, 0.5);" in qss
+        assert "border-color: rgba(226, 232, 240, 0.5);" in qss
+        # Invalid: destructive text + border + 20% opacity ring
+        assert "color: #ef4444;" in qss
+        assert "border-color: #ef4444;" in qss
+        assert "outline: 3px solid rgba(239, 68, 68, 0.2);" in qss
+        assert "box-shadow" not in qss
+        assert "transition" not in qss
+
+    def test_spin_box_arrows_use_cached_svgs(self):
+        """Test that spin box arrows use cached chevron SVGs."""
+        tokens = _tokens(muted_foreground="#64748b", foreground="#020617", destructive="#ef4444")
+        qss = _build_theme(tokens)
+
+        assert "chevron-up" in qss
+        assert "chevron-down" in qss
+        assert ".svg" in qss
+        assert "QSpinBox::up-arrow,\nQDoubleSpinBox::up-arrow {" in qss
+        assert "QSpinBox::down-arrow,\nQDoubleSpinBox::down-arrow {" in qss
+        assert "QSpinBox::up-arrow:hover,\nQDoubleSpinBox::up-arrow:hover" in qss
+        assert "QSpinBox::down-arrow:hover,\nQDoubleSpinBox::down-arrow:hover" in qss
+
+    def test_spin_box_invalid_and_disabled_arrow_colors_are_rendered(self):
+        """Test that spin box arrow colors react to invalid and disabled states."""
+        tokens = _tokens(muted_foreground="#64748b", destructive="#ef4444")
+        qss = _build_theme(tokens)
+
+        assert 'QSpinBox[invalid="true"]::up-arrow' in qss
+        assert 'QSpinBox[invalid="true"]::down-arrow' in qss
+        assert "rgba(100, 116, 139, 0.5)" in qss  # disabled arrow muted foreground alpha
+
+    def test_chevron_up_icon_uses_runtime_cache(self):
+        """Test that chevron up SVGs are generated and cached."""
+        tokens = _tokens(muted_foreground="#64748b")
+        manager = ThemedIconManager()
+        icon_path = Path(manager.chevron_up(tokens.muted_foreground))
+
+        assert icon_path.exists()
+        assert tokens.muted_foreground in icon_path.read_text(encoding="utf-8")
+        assert "M4 10l4-4 4 4" in icon_path.read_text(encoding="utf-8")
+
     def test_checkbox_semantics_are_rendered(self):
         """Test that QCheckBox renders shadcn checkbox semantics."""
         tokens = _tokens(

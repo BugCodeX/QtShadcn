@@ -31,8 +31,8 @@ QtShadcn is becoming a complete shadcn/ui-inspired theming layer for Qt desktop 
 
 ## Not implemented
 
-- [ ] `QSpinBox`
-- [ ] `QDoubleSpinBox`
+- [x] `QSpinBox`
+- [x] `QDoubleSpinBox`
 - [ ] `QPlainTextEdit`
 - [ ] `QListView`
 - [ ] `QTreeView`

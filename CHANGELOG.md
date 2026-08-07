@@ -1,3 +1,21 @@
+# QtShadcn v0.0.17
+
+## What's New
+
+- Added QSpinBox and QDoubleSpinBox styling support with themed step buttons and validation states.
+
+## Fixes
+
+- Installed `mkdocs-material` into the Read the Docs virtualenv to restore documentation builds.
+
+## Verification
+
+```bash
+pip install qtshadcn==0.0.17
+python -c "import qtshadcn; print(qtshadcn.__version__)"
+make test
+```
+
 # QtShadcn v0.0.16
 
 ## What's New

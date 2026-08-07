@@ -620,6 +620,130 @@ QTextEdit[invalid="true"] {
 }
 
 /* ============================================================
+   QSpinBox and QDoubleSpinBox
+   ============================================================ */
+
+QSpinBox,
+QDoubleSpinBox {
+  background: {{ input_bg }};
+  color: {{ tokens.foreground }};
+  border: 1px solid {{ tokens.input }};
+  outline: none;
+  border-radius: {{ radius.class_px(tokens.radius, "lg") }};
+  font-size: {{ scale.TEXT_SM }};
+  placeholder-text-color: {{ tokens.muted_foreground }};
+  selection-background-color: {{ tokens.primary }};
+  selection-color: {{ tokens.primary_foreground }};
+  padding: 0 {{ scale.spacing_px(tokens.spacing, 8) }} 0 {{ scale.spacing_px(tokens.spacing, 2.5) }};
+  min-height: {{ scale.spacing_px(tokens.spacing, 8) }};
+}
+
+QSpinBox:focus,
+QDoubleSpinBox:focus {
+  border-color: {{ tokens.ring }};
+  outline: 3px solid {{ colors.alpha(tokens.ring, 0.5) }};
+}
+
+QSpinBox:disabled,
+QDoubleSpinBox:disabled {
+  background: {{ colors.alpha(tokens.input, 0.8 if is_dark else 0.5) }};
+  color: {{ colors.alpha(tokens.muted_foreground, 0.5) }};
+  border-color: {{ colors.alpha(tokens.input, 0.5) }};
+  placeholder-text-color: {{ colors.alpha(tokens.muted_foreground, 0.5) }};
+}
+
+QSpinBox[invalid="true"],
+QDoubleSpinBox[invalid="true"] {
+  color: {{ tokens.destructive }};
+  border-color: {{ invalid_border }};
+  outline: 3px solid {{ invalid_outline }};
+}
+
+QSpinBox::up-button,
+QDoubleSpinBox::up-button,
+QSpinBox::down-button,
+QDoubleSpinBox::down-button {
+  width: {{ scale.spacing_px(tokens.spacing, 8) }};
+  border: none;
+  background: transparent;
+}
+
+QSpinBox::up-button,
+QDoubleSpinBox::up-button {
+  subcontrol-position: top right;
+}
+
+QSpinBox::down-button,
+QDoubleSpinBox::down-button {
+  subcontrol-position: bottom right;
+}
+
+QSpinBox::up-button:hover,
+QDoubleSpinBox::up-button:hover,
+QSpinBox::down-button:hover,
+QDoubleSpinBox::down-button:hover {
+  background: {{ tokens.muted }};
+}
+
+QSpinBox::up-button:pressed,
+QDoubleSpinBox::up-button:pressed,
+QSpinBox::down-button:pressed,
+QDoubleSpinBox::down-button:pressed {
+  background: {{ tokens.accent }};
+}
+
+QSpinBox::up-button:disabled,
+QDoubleSpinBox::up-button:disabled,
+QSpinBox::down-button:disabled,
+QDoubleSpinBox::down-button:disabled {
+  background: {{ colors.alpha(tokens.muted, 0.5) }};
+}
+
+QSpinBox::up-arrow,
+QDoubleSpinBox::up-arrow {
+  width: {{ scale.spacing_px(tokens.spacing, 4) }};
+  height: {{ scale.spacing_px(tokens.spacing, 4) }};
+  image: url("{{ icons.chevron_up(tokens.muted_foreground) }}");
+}
+
+QSpinBox::down-arrow,
+QDoubleSpinBox::down-arrow {
+  width: {{ scale.spacing_px(tokens.spacing, 4) }};
+  height: {{ scale.spacing_px(tokens.spacing, 4) }};
+  image: url("{{ icons.chevron_down(tokens.muted_foreground) }}");
+}
+
+QSpinBox::up-arrow:hover,
+QDoubleSpinBox::up-arrow:hover {
+  image: url("{{ icons.chevron_up(tokens.foreground) }}");
+}
+
+QSpinBox::down-arrow:hover,
+QDoubleSpinBox::down-arrow:hover {
+  image: url("{{ icons.chevron_down(tokens.foreground) }}");
+}
+
+QSpinBox::up-arrow:disabled,
+QDoubleSpinBox::up-arrow:disabled {
+  image: url("{{ icons.chevron_up(colors.alpha(tokens.muted_foreground, 0.5)) }}");
+}
+
+QSpinBox::down-arrow:disabled,
+QDoubleSpinBox::down-arrow:disabled {
+  image: url("{{ icons.chevron_down(colors.alpha(tokens.muted_foreground, 0.5)) }}");
+}
+
+QSpinBox[invalid="true"]::up-arrow,
+QDoubleSpinBox[invalid="true"]::up-arrow {
+  image: url("{{ icons.chevron_up(tokens.destructive) }}");
+}
+
+QSpinBox[invalid="true"]::down-arrow,
+QDoubleSpinBox[invalid="true"]::down-arrow {
+  image: url("{{ icons.chevron_down(tokens.destructive) }}");
+}
+
+/* ============================================================
    QProgressBar
    ============================================================ */
 
