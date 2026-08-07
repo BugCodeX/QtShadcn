@@ -1,8 +1,17 @@
 """Integration tests for the gallery example."""
 
-from examples.gallery.pages import PAGE_REGISTRY
+from examples.gallery.pages import PAGE_REGISTRY, build_pages
 from examples.gallery.window import GalleryWindow
 from qtshadcn._qt import QtWidgets
+
+
+def test_build_pages_returns_fourteen_qwidgets(qapp: QtWidgets.QApplication):
+    """Test that build_pages returns 14 QWidget instances."""
+    pages = build_pages()
+    assert len(pages) == 14
+    for page in pages:
+        assert page is not None
+        assert isinstance(page, QtWidgets.QWidget)
 
 
 def test_gallery_window_creates_pages(qapp: QtWidgets.QApplication):

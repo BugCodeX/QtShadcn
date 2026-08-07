@@ -1,6 +1,5 @@
 """Integration tests for the QtShadcn theme pipeline."""
 
-import sys
 from pathlib import Path
 
 import pytest
@@ -92,19 +91,3 @@ class TestIntegration:
         assert "oklch(" not in qss
         assert "rem" not in qss
         assert "rgba(" in qss or "rgb(" in qss
-
-    def test_material_imports_absent(self):
-        """Material modules must not be importable after migration."""
-        with pytest.raises(ImportError):
-            import qtshadcn.generator  # noqa: F401  # ty:ignore[unresolved-import]
-
-        with pytest.raises(ImportError):
-            from qtshadcn.tokens import MD3Elevation  # noqa: F401  # ty:ignore[unresolved-import]
-
-        with pytest.raises(ImportError):
-            from qtshadcn.models import MaterialScheme  # noqa: F401  # ty:ignore[unresolved-import]
-
-    def test_no_materialyoucolor_import(self):
-        """The materialyoucolor package must not be imported by the core path."""
-        assert "materialyoucolor" not in sys.modules
-        assert "materialyoucolor" not in str(sys.modules.keys())

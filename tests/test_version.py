@@ -1,11 +1,13 @@
 """Tests for package version exports."""
 
+import importlib
+import importlib.abc
 import importlib.metadata
-import subprocess
 import sys
 import tomllib
 from pathlib import Path
 
+import pytest
 import qtshadcn
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
@@ -31,44 +33,23 @@ def test_version_matches_available_project_version():
     assert qtshadcn.__version__ == _expected_version()
 
 
-def test_import_succeeds_without_qt_binding():
-    """Test that importing the package does not require a Qt binding."""
-    script = """
-import importlib.abc
-import sys
+class _BlockQtBindings(importlib.abc.MetaPathFinder):
+    """Meta path finder that blocks Qt binding imports."""
 
-
-class BlockQtBindings(importlib.abc.MetaPathFinder):
-    def find_spec(self, fullname, path=None, target=None):
+    def find_spec(
+        self, fullname: str, path: object = None, target: object = None
+    ) -> None:
         if fullname.split(".", 1)[0] in {"PySide6", "PyQt6", "PySide2", "PyQt5"}:
             raise ImportError(fullname)
         return None
 
 
-sys.meta_path.insert(0, BlockQtBindings())
-import qtshadcn
-print(qtshadcn.__version__)
-assert "qtshadcn._qt" not in sys.modules
-"""
-    command = [
-        sys.executable,
-        "-c",
-        script,
-    ]
-    result = subprocess.run(command, check=True, capture_output=True, text=True)
-    assert result.stdout.strip() == _expected_version()
+class _BlockQtShimsAndBindings(importlib.abc.MetaPathFinder):
+    """Meta path finder that blocks Qt bindings and the qtshadcn._qt shim."""
 
-
-def test_version_falls_back_to_pyproject_without_metadata_or_qt_import():
-    """Test that source checkout imports still expose a version without Qt imports."""
-    script = """
-import importlib.abc
-import importlib.metadata
-import sys
-
-
-class BlockQtShimsAndBindings(importlib.abc.MetaPathFinder):
-    def find_spec(self, fullname, path=None, target=None):
+    def find_spec(
+        self, fullname: str, path: object = None, target: object = None
+    ) -> None:
         if fullname == "qtshadcn._qt":
             raise ImportError(fullname)
         if fullname.split(".", 1)[0] in {"PySide6", "PyQt6", "PySide2", "PyQt5"}:
@@ -76,26 +57,49 @@ class BlockQtShimsAndBindings(importlib.abc.MetaPathFinder):
         return None
 
 
-def missing_metadata(name):
-    if name == "qtshadcn":
-        raise importlib.metadata.PackageNotFoundError(name)
-    return original_version(name)
+@pytest.fixture
+def isolated_qtshadcn_import():
+    """Remove qtshadcn modules from sys.modules and restore state after the test."""
+    original_meta_path = sys.meta_path.copy()
+    original_modules = dict(sys.modules)
+
+    for name in list(sys.modules):
+        if name == "qtshadcn" or name.startswith("qtshadcn."):
+            del sys.modules[name]
+
+    try:
+        yield
+    finally:
+        sys.meta_path[:] = original_meta_path
+        sys.modules.clear()
+        sys.modules.update(original_modules)
 
 
-original_version = importlib.metadata.version
-importlib.metadata.version = missing_metadata
-sys.meta_path.insert(0, BlockQtShimsAndBindings())
+def test_import_succeeds_without_qt_binding(isolated_qtshadcn_import: None):
+    """Test that importing the package does not require a Qt binding."""
+    sys.meta_path.insert(0, _BlockQtBindings())
 
-import qtshadcn
+    import qtshadcn
 
-print(qtshadcn.__version__)
-assert "qtshadcn._qt" not in sys.modules
-"""
-    result = subprocess.run(
-        [sys.executable, "-c", script],
-        check=True,
-        capture_output=True,
-        text=True,
-        cwd=PROJECT_ROOT,
-    )
-    assert result.stdout.strip() == _pyproject_version()
+    assert qtshadcn.__version__ == _expected_version()
+    assert "qtshadcn._qt" not in sys.modules
+
+
+def test_version_falls_back_to_pyproject_without_metadata_or_qt_import(
+    isolated_qtshadcn_import: None, monkeypatch: pytest.MonkeyPatch
+):
+    """Test that source checkout imports still expose a version without Qt imports."""
+    original_version = importlib.metadata.version
+
+    def missing_metadata(name: str) -> str:
+        if name == "qtshadcn":
+            raise importlib.metadata.PackageNotFoundError(name)
+        return original_version(name)
+
+    monkeypatch.setattr(importlib.metadata, "version", missing_metadata)
+    sys.meta_path.insert(0, _BlockQtShimsAndBindings())
+
+    import qtshadcn
+
+    assert qtshadcn.__version__ == _pyproject_version()
+    assert "qtshadcn._qt" not in sys.modules
