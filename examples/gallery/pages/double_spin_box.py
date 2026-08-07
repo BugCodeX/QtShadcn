@@ -1,4 +1,4 @@
-"""QSpinBox page for the gallery."""
+"""QDoubleSpinBox page for the gallery."""
 
 from __future__ import annotations
 
@@ -14,19 +14,19 @@ from examples.gallery.pages._helpers import (
 from qtshadcn._qt import QtWidgets
 
 
-class SpinBoxPage:
-    """QSpinBox page for the gallery."""
+class DoubleSpinBoxPage:
+    """QDoubleSpinBox page for the gallery."""
 
-    label: ClassVar[str] = "QSpinBox"
+    label: ClassVar[str] = "QDoubleSpinBox"
 
     def build(self) -> QtWidgets.QWidget:
-        """Build the spin box page covering common input states."""
+        """Build the double spin box page covering common input states."""
         page = QtWidgets.QWidget()
         layout = QtWidgets.QVBoxLayout(page)
         layout.setContentsMargins(_PAGE_MARGIN, _PAGE_MARGIN, _PAGE_MARGIN, _PAGE_MARGIN)
         layout.setSpacing(_SPACING)
 
-        layout.addWidget(page_title("QSpinBox"))
+        layout.addWidget(page_title("QDoubleSpinBox"))
         layout.addWidget(
             muted_label(
                 "Numeric input fields with step buttons, including validation and disabled states."
@@ -38,24 +38,28 @@ class SpinBoxPage:
         form.setSpacing(_SPACING)
         form.setVerticalSpacing(_SPACING)
 
-        default = QtWidgets.QSpinBox()
-        default.setRange(0, 100)
+        default = QtWidgets.QDoubleSpinBox()
+        default.setRange(0.0, 1.0)
+        default.setSingleStep(0.05)
         form.addRow("Default", default)
 
-        prefilled = QtWidgets.QSpinBox()
-        prefilled.setRange(0, 100)
-        prefilled.setValue(42)
+        prefilled = QtWidgets.QDoubleSpinBox()
+        prefilled.setRange(0.0, 1.0)
+        prefilled.setSingleStep(0.05)
+        prefilled.setValue(0.42)
         form.addRow("Prefilled", prefilled)
 
-        disabled = QtWidgets.QSpinBox()
-        disabled.setRange(0, 100)
-        disabled.setValue(10)
+        disabled = QtWidgets.QDoubleSpinBox()
+        disabled.setRange(0.0, 1.0)
+        disabled.setSingleStep(0.05)
+        disabled.setValue(0.1)
         disabled.setEnabled(False)
         form.addRow("Disabled", disabled)
 
-        invalid = QtWidgets.QSpinBox()
-        invalid.setRange(0, 100)
-        invalid.setValue(200)
+        invalid = QtWidgets.QDoubleSpinBox()
+        invalid.setRange(0.0, 1.0)
+        invalid.setSingleStep(0.05)
+        invalid.setValue(2.0)
         invalid.setProperty("invalid", "true")
         form.addRow("Invalid", invalid)
 

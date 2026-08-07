@@ -6,6 +6,7 @@ from collections.abc import Callable
 
 from examples.gallery.pages.checkbox import CheckboxPage
 from examples.gallery.pages.combo_box import ComboBoxPage
+from examples.gallery.pages.double_spin_box import DoubleSpinBoxPage
 from examples.gallery.pages.label import LabelPage
 from examples.gallery.pages.line_edit import LineEditPage
 from examples.gallery.pages.overview import OverviewPage
@@ -26,6 +27,7 @@ PAGE_REGISTRY: list[tuple[str, PageBuilder]] = [
     ("QToolButton", ToolButtonPage().build),
     ("QLineEdit", LineEditPage().build),
     ("QSpinBox", SpinBoxPage().build),
+    ("QDoubleSpinBox", DoubleSpinBoxPage().build),
     ("QTextEdit", TextEditPage().build),
     ("QCheckBox", CheckboxPage().build),
     ("QRadioButton", RadioButtonPage().build),

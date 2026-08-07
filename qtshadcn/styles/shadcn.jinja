@@ -660,21 +660,26 @@ QDoubleSpinBox[invalid="true"] {
 }
 
 QSpinBox::up-button,
-QDoubleSpinBox::up-button,
-QSpinBox::down-button,
-QDoubleSpinBox::down-button {
+QDoubleSpinBox::up-button {
   width: {{ scale.spacing_px(tokens.spacing, 8) }};
   border: none;
   background: transparent;
-}
-
-QSpinBox::up-button,
-QDoubleSpinBox::up-button {
+  border-top-right-radius: {{ radius.class_px(tokens.radius, "lg") }};
+  border-top-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0px;
   subcontrol-position: top right;
 }
 
 QSpinBox::down-button,
 QDoubleSpinBox::down-button {
+  width: {{ scale.spacing_px(tokens.spacing, 8) }};
+  border: none;
+  background: transparent;
+  border-bottom-right-radius: {{ radius.class_px(tokens.radius, "lg") }};
+  border-top-right-radius: 0px;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
   subcontrol-position: bottom right;
 }
 

@@ -224,6 +224,36 @@ QTextEdit {
         assert "QSpinBox::up-arrow,\nQDoubleSpinBox::up-arrow {" in qss
         assert "QSpinBox::down-arrow,\nQDoubleSpinBox::down-arrow {" in qss
 
+    def test_spin_box_step_buttons_have_corner_radius(self):
+        """Test that step buttons are rounded only at the input's right corners."""
+        tokens = _tokens(spacing="4px")
+        qss = _build_theme(tokens)
+
+        up_block = """QSpinBox::up-button,
+QDoubleSpinBox::up-button {
+  width: 32px;
+  border: none;
+  background: transparent;
+  border-top-right-radius: 8px;
+  border-top-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0px;
+  subcontrol-position: top right;
+}"""
+        down_block = """QSpinBox::down-button,
+QDoubleSpinBox::down-button {
+  width: 32px;
+  border: none;
+  background: transparent;
+  border-bottom-right-radius: 8px;
+  border-top-right-radius: 0px;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+  subcontrol-position: bottom right;
+}"""
+        assert up_block in qss
+        assert down_block in qss
+
     def test_spin_box_input_semantics_are_rendered(self):
         """Test that QSpinBox shares QLineEdit input semantics."""
         tokens = _tokens(

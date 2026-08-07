@@ -8,8 +8,8 @@ from qtshadcn._qt import QtWidgets
 def test_gallery_window_creates_pages(qapp: QtWidgets.QApplication):
     """Test that the gallery window mounts all expected pages."""
     window = GalleryWindow(qapp)
-    assert window._stack.count() == 12
-    assert window._selector.count() == 12
+    assert window._stack.count() == 13
+    assert window._selector.count() == 13
 
     labels = [window._selector._combo.itemText(i) for i in range(window._selector.count())]
     assert labels == [label for label, _ in PAGE_REGISTRY]

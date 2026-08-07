@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/source/logo.png" alt="QtShadcn logo" width="20%">
+  <img src="https://raw.githubusercontent.com/BugCodeX/QtShadcn/master/docs/source/logo.png" alt="QtShadcn logo" width="20%">
 </p>
 
 <h1 align="center">QtShadcn</h1>
