@@ -9,7 +9,7 @@ on:
 
 jobs:
   quality:
-    name: Quality checks
+    name: Quality checks (${{ matrix.os }})
     strategy:
       fail-fast: false
       matrix:
@@ -47,7 +47,7 @@ jobs:
         run: uv run --extra dev mkdocs build --strict
 
   tests:
-    name: Tests (${{ matrix.os }}, Python ${{ matrix.python-version }})
+    name: Tests with PySide6 (${{ matrix.os }}, Python ${{ matrix.python-version }})
     strategy:
       fail-fast: false
       matrix:
@@ -100,3 +100,46 @@ jobs:
           name: coverage-report-${{ matrix.os }}-py${{ matrix.python-version }}
           path: htmlcov/
           if-no-files-found: ignore
+
+  binding-matrix:
+    name: Tests with ${{ matrix.binding }} (${{ matrix.os }}, Python ${{ matrix.python-version }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
+        python-version: ["3.12"]
+        binding: [PyQt6]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          version: "latest"
+
+      - name: Install package and ${{ matrix.binding }} test dependencies
+        run: |
+          uv venv
+          uv pip install -e .
+          uv pip install ${{ matrix.binding }} pytest pytest-qt pytest-mock
+
+      - name: Install Qt platform plugins (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libegl1 libxkbcommon-x11-0 libxcb-icccm4 libxcb-image0 \
+            libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 libxcb-xinerama0 libxcb-xfixes0 \
+            x11-utils
+
+      - name: Run tests with ${{ matrix.binding }}
+        run: uv run pytest
+        env:
+          QT_QPA_PLATFORM: offscreen
+          QTSHADCN_BINDING: ${{ matrix.binding }}

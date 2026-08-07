@@ -11,10 +11,24 @@ Preferred order: ``PySide6`` -> ``PyQt6`` -> ``PySide2`` -> ``PyQt5``.
 """
 
 import importlib
+import os
 from types import ModuleType
 
-_BINDING_ORDER = ("PySide6", "PyQt6", "PySide2", "PyQt5")
+_DEFAULT_BINDING_ORDER = ("PySide6", "PyQt6", "PySide2", "PyQt5")
 _REQUIRED_MODULES = ("QtCore", "QtGui", "QtWidgets")
+
+
+def _binding_order() -> tuple[str, ...]:
+    """Return the ordered list of bindings to try.
+
+    The ``QTSHADCN_BINDING`` environment variable overrides the default order.
+    When set, it should contain a comma-separated list of binding package names
+    (e.g., ``PyQt6`` or ``PySide2,PyQt5``). Whitespace around names is ignored.
+    """
+    env = os.environ.get("QTSHADCN_BINDING", "")
+    if env:
+        return tuple(name.strip() for name in env.split(",") if name.strip())
+    return _DEFAULT_BINDING_ORDER
 
 
 def _load_binding(binding: str) -> dict[str, ModuleType]:
@@ -50,14 +64,14 @@ def _select_binding() -> tuple[str, dict[str, ModuleType]]:
         ImportError: If no supported binding provides all required modules.
 
     """
-    for binding in _BINDING_ORDER:
+    for binding in _binding_order():
         try:
             modules = _load_binding(binding)
         except ImportError:
             continue
         return binding, modules
 
-    supported = ", ".join(_BINDING_ORDER)
+    supported = ", ".join(_DEFAULT_BINDING_ORDER)
     raise ImportError(f"No supported Qt binding found. Install one of: {supported}.")
 
 
