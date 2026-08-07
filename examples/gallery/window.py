@@ -208,7 +208,7 @@ class GalleryWindow(QtWidgets.QMainWindow):
 
     def _open_docs(self) -> None:
         """Open the project documentation in the default browser."""
-        QtGui.QDesktopServices.openUrl(QtCore.QUrl("https://BugCodeX.github.io/QtShadcn/"))
+        QtGui.QDesktopServices.openUrl(QtCore.QUrl("https://qtshadcn.readthedocs.io/"))
 
     def _update_sidebar_style(self) -> None:
         """Apply the sidebar background/border using the active theme tokens."""
