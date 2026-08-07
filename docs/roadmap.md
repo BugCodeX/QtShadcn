@@ -6,54 +6,54 @@ QtShadcn is becoming a complete shadcn/ui-inspired theming layer for Qt desktop 
 
 ## Implemented components
 
-- [x] `QPushButton`
-- [x] `QToolButton`
-- [x] `QRadioButton`
-- [x] `QCheckBox`
-- [x] `QComboBox`
-- [x] `QFontComboBox`
-- [x] `QLineEdit`
-- [x] `QTextEdit`
-- [x] `QLabel`
-- [x] `QGroupBox`
-- [x] `QFrame`
-- [x] `QWidget`
-- [x] `QProgressBar`
-- [x] `QSlider`
+- ✅ `QPushButton`
+- ✅ `QToolButton`
+- ✅ `QRadioButton`
+- ✅ `QCheckBox`
+- ✅ `QComboBox`
+- ✅ `QFontComboBox`
+- ✅ `QLineEdit`
+- ✅ `QTextEdit`
+- ✅ `QLabel`
+- ✅ `QGroupBox`
+- ✅ `QFrame`
+- ✅ `QWidget`
+- ✅ `QProgressBar`
+- ✅ `QSlider`
+- ✅ `QDoubleSpinBox`
+- ✅ `QSpinBox`
 
 ---
 
 ## Work in progress
 
-- [ ] `QScrollArea`
+- ⬜ `QScrollArea`
 
 ---
 
 ## Not implemented
 
-- [x] `QSpinBox`
-- [x] `QDoubleSpinBox`
-- [ ] `QPlainTextEdit`
-- [ ] `QListView`
-- [ ] `QTreeView`
-- [ ] `QTableView`
-- [ ] `QListWidget`
-- [ ] `QTreeWidget`
-- [ ] `QTableWidget`
-- [ ] `QStackedWidget`
-- [ ] `QToolBox`
-- [ ] `QDialogButtonBox`
-- [ ] `QScrollBar`
-- [ ] `QDateEdit`
-- [ ] `QTimeEdit`
-- [ ] `QDateTimeEdit`
-- [ ] `QCalendarWidget`
-- [ ] `QTextBrowser`
-- [ ] `QKeySequenceEdit`
-- [ ] `QCommandLinkButton`
-- [ ] `QColumnView`
-- [ ] `QUndoView`
-- [ ] `QQuickWidget`
+- ⬜ `QPlainTextEdit`
+- ⬜ `QListView`
+- ⬜ `QTreeView`
+- ⬜ `QTableView`
+- ⬜ `QListWidget`
+- ⬜ `QTreeWidget`
+- ⬜ `QTableWidget`
+- ⬜ `QStackedWidget`
+- ⬜ `QToolBox`
+- ⬜ `QDialogButtonBox`
+- ⬜ `QScrollBar`
+- ⬜ `QDateEdit`
+- ⬜ `QTimeEdit`
+- ⬜ `QDateTimeEdit`
+- ⬜ `QCalendarWidget`
+- ⬜ `QTextBrowser`
+- ⬜ `QKeySequenceEdit`
+- ⬜ `QCommandLinkButton`
+- ⬜ `QColumnView`
+- ⬜ `QUndoView`
+- ⬜ `QQuickWidget`
 
 ---
 

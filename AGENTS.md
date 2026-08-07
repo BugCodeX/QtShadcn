@@ -74,7 +74,6 @@ make type-check    # ty check
 make test          # pytest
 make test-cov      # pytest with HTML coverage report
 make docs-serve    # live-reload docs at http://127.0.0.1:8000
-make build         # wheel + sdist
 make clean         # remove dist/, caches, .coverage
 ```
 
