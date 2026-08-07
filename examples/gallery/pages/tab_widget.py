@@ -53,8 +53,8 @@ class TabWidgetPage:
     def _default_tab_widget(self) -> QtWidgets.QTabWidget:
         """Return a default pill-style tab widget."""
         tabs = QtWidgets.QTabWidget()
-        tabs.addTab(self._placeholder("Account content"), "Account")
-        tabs.addTab(self._placeholder("Password content"), "Password")
+        tabs.addTab(self._placeholder("Account content", padded=True), "Account")
+        tabs.addTab(self._placeholder("Password content", padded=True), "Password")
         return tabs
 
     def _line_tab_widget(self) -> QtWidgets.QTabWidget:
@@ -82,10 +82,12 @@ class TabWidgetPage:
         tabs.addTab(self._placeholder("Tab two content"), "Tab two")
         return tabs
 
-    def _placeholder(self, text: str) -> QtWidgets.QWidget:
+    def _placeholder(self, text: str, padded: bool = False) -> QtWidgets.QWidget:
         """Return a placeholder page with the given description text."""
         widget = QtWidgets.QWidget()
         layout = QtWidgets.QVBoxLayout(widget)
+        if padded:
+            layout.setContentsMargins(_SPACING, _SPACING, _SPACING, _SPACING)
         layout.addWidget(QtWidgets.QLabel(text))
         layout.addStretch(1)
         return widget

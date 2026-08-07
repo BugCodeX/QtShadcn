@@ -734,6 +734,32 @@ QDoubleSpinBox {
         assert "padding: 4px 12px;" in qss
         assert "min-height: 28px;" in qss
 
+    def test_tab_widget_default_pane_is_rendered(self):
+        """Test that the default QTabWidget pane is visually separated."""
+        tokens = _tokens(
+            spacing="4px",
+            background="#ffffff",
+            border="#e2e8f0",
+            radius="8px",
+        )
+        qss = _build_theme(tokens)
+
+        assert """QTabWidget::pane {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 16px;
+    margin-top: 8px;
+}""" in qss
+
+        assert """QTabWidget[variant="line"]::pane {
+    background: transparent;
+    border: none;
+    border-radius: 0px;
+    padding: 0px;
+    margin-top: 0px;
+}""" in qss
+
     def test_tab_widget_line_vertical_indicator_is_rendered(self):
         """Test that line variant vertical tabs use a right-side indicator."""
         tokens = _tokens(
