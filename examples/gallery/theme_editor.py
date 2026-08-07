@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import ClassVar
 from xml.etree import ElementTree as ET
 
-from qtshadcn._qt import QtCore, QtWidgets
+from qtshadcn._qt import QtCore, QtWidgets, Signal
 from qtshadcn.app import DEFAULT_THEME_FILE
 
 logger = logging.getLogger(__name__)
@@ -22,7 +22,7 @@ class ThemeEditor(QtWidgets.QWidget):
     serializing the palette and applying it.
     """
 
-    themeChanged = QtCore.Signal()
+    themeChanged = Signal()
 
     _CATEGORIES: ClassVar[list[tuple[str, list[str]]]] = [
         ("Primary", ["primary", "primary_foreground"]),

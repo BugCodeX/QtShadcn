@@ -2,13 +2,13 @@
 
 from __future__ import annotations
 
-from qtshadcn._qt import QtCore, QtWidgets
+from qtshadcn._qt import QtWidgets, Signal
 
 
 class PageSelector(QtWidgets.QWidget):
     """Compact selector that wraps a QComboBox for choosing gallery pages."""
 
-    currentIndexChanged = QtCore.Signal(int)
+    currentIndexChanged = Signal(int)
 
     def __init__(self, parent: QtWidgets.QWidget | None = None) -> None:
         """Create a page selector with a drop-down of page labels."""

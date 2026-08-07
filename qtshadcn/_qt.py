@@ -80,4 +80,13 @@ QtCore = _modules["QtCore"]
 QtGui = _modules["QtGui"]
 QtWidgets = _modules["QtWidgets"]
 
-__all__ = ["QtCore", "QtGui", "QtWidgets", "binding_name"]
+if binding_name in {"PySide6", "PySide2"}:
+    Signal = QtCore.Signal
+elif binding_name in {"PyQt6", "PyQt5"}:
+    Signal = QtCore.pyqtSignal
+else:
+    raise RuntimeError(
+        f"Unsupported Qt binding {binding_name!r}; cannot expose binding-neutral Signal alias."
+    )
+
+__all__ = ["QtCore", "QtGui", "QtWidgets", "binding_name", "Signal"]

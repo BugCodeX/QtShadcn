@@ -11,14 +11,14 @@ from examples.gallery.pages._helpers import (
     section_label,
     separator,
 )
-from qtshadcn._qt import QtCore, QtGui, QtWidgets
+from qtshadcn._qt import QtCore, QtGui, QtWidgets, Signal
 
 
 class OverviewPage(QtCore.QObject):
     """Overview page for the gallery."""
 
     label: ClassVar[str] = "Overview"
-    navigateToPage = QtCore.Signal(str)
+    navigateToPage = Signal(str)
 
     def build(self) -> QtWidgets.QWidget:
         """Build the overview page."""

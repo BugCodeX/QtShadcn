@@ -196,3 +196,15 @@ class TestBindingOrderEnv:
             binding, _ = shim._select_binding()
             assert binding == "PySide6"
             assert mock_import.call_args_list[0].args[0] == "PySide6.QtCore"
+
+
+class TestSignalAlias:
+    """Tests for the binding-neutral Signal alias."""
+
+    def test_signal_alias_matches_binding(self):
+        """Signal is exposed and points to the binding-specific signal type."""
+        assert hasattr(shim, "Signal")
+        if shim.binding_name.startswith("PySide"):
+            assert shim.Signal is shim.QtCore.Signal
+        else:
+            assert shim.Signal is shim.QtCore.pyqtSignal
