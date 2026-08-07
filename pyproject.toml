@@ -82,6 +82,7 @@ Repository = "https://github.com/BugCodeX/QtShadcn"
 [project.optional-dependencies]
 dev = [
   "pyside6>=6.11.1",  # Qt bindings
+  "PyQt6>=6.11",  # Qt bindings (alternative for local tests)
   "build>=1.2",  # package builder
   "pytest>=9.1.1",  # test runner
   "pytest-cov>=7.1.0",  # coverage plugin

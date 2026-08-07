@@ -59,7 +59,7 @@ class LabelPage:
         password_label = QtWidgets.QLabel("Password")
         password_input = QtWidgets.QLineEdit()
         password_input.setPlaceholderText("Enter your password")
-        password_input.setEchoMode(QtWidgets.QLineEdit.Password)
+        password_input.setEchoMode(QtWidgets.QLineEdit.EchoMode.Password)
         form.addRow(password_label, password_input)
 
         layout.addLayout(form)

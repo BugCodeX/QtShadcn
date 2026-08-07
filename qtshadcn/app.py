@@ -124,7 +124,7 @@ def _save_theme(config: ThemeConfig, theme: ShadcnTheme, mtime: float) -> None:
     """Persist configuration, resolved theme, and source mtime to AppData."""
     try:
         app_data_path = QtCore.QStandardPaths.writableLocation(
-            QtCore.QStandardPaths.AppDataLocation
+            QtCore.QStandardPaths.StandardLocation.AppDataLocation
         )
         dir_path = Path(app_data_path)
         dir_path.mkdir(parents=True, exist_ok=True)
@@ -148,7 +148,7 @@ def _load_theme_cache() -> tuple[ThemeConfig | None, ShadcnTheme | None, float |
     """Load the cached theme, configuration, and source mtime from disk."""
     try:
         app_data_path = QtCore.QStandardPaths.writableLocation(
-            QtCore.QStandardPaths.AppDataLocation
+            QtCore.QStandardPaths.StandardLocation.AppDataLocation
         )
         file_path = Path(app_data_path) / "theme.json"
 

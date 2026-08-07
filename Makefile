@@ -8,7 +8,7 @@ SHELL        := pwsh.exe
 
 .DEFAULT_GOAL := help
 .PHONY: help install install-dev setup-hooks setup-skills lint format type-check test test-cov \
-        publish docs docs-serve docs-deploy clean gallery
+        test-pyqt6 publish docs docs-serve docs-deploy clean gallery
 
 UV := uv
 
@@ -52,6 +52,9 @@ test:
 test-cov:
 	$(UV) run --extra dev pytest --cov=qtshadcn --cov-report=term-missing --cov-report=html
 
+test-pyqt6:
+	$$env:QTSHADCN_BINDING='PyQt6'; $(UV) run --extra dev pytest
+
 # ---------------------------------------------------------------------------
 # Build & Release
 # ---------------------------------------------------------------------------
@@ -88,4 +91,4 @@ gallery:
 # ---------------------------------------------------------------------------
 
 help:
-	@$(UV) run python -c "targets=[('install','Install production dependencies only'),('install-dev','Install all dev dependencies'),('setup-hooks','Install pre-commit git hooks'),('setup-skills','Configure AI assistant skills for this repo'),('lint','Run ruff linter (check only)'),('format','Auto-format and fix lint issues with ruff'),('type-check','Run ty type checker'),('test','Run test suite'),('test-cov','Run tests with coverage report'),('publish','Show PyPI Trusted Publishing guidance'),('docs','Build static documentation site'),('docs-serve','Serve docs locally at http://127.0.0.1:8000'),('docs-deploy','Deploy docs to the docs branch (GitHub Pages)'),('gallery','Run the widget gallery example'),('clean','Remove build artifacts and caches')]; print('\nUsage: make <target>\n'); [print(f'  {t:<16} {d}') for t,d in targets]; print()"
+	@$(UV) run python -c "targets=[('install','Install production dependencies only'),('install-dev','Install all dev dependencies'),('setup-hooks','Install pre-commit git hooks'),('setup-skills','Configure AI assistant skills for this repo'),('lint','Run ruff linter (check only)'),('format','Auto-format and fix lint issues with ruff'),('type-check','Run ty type checker'),('test','Run test suite'),('test-cov','Run tests with coverage report'),('test-pyqt6','Run tests with PyQt6 binding'),('publish','Show PyPI Trusted Publishing guidance'),('docs','Build static documentation site'),('docs-serve','Serve docs locally at http://127.0.0.1:8000'),('docs-deploy','Deploy docs to the docs branch (GitHub Pages)'),('gallery','Run the widget gallery example'),('clean','Remove build artifacts and caches')]; print('\nUsage: make <target>\n'); [print(f'  {t:<16} {d}') for t,d in targets]; print()"

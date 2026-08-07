@@ -83,8 +83,8 @@ class ThemedIconManager:
 
 def _runtime_icon_cache_dir() -> Path:
     for location in (
-        QtCore.QStandardPaths.CacheLocation,
-        QtCore.QStandardPaths.AppDataLocation,
+        QtCore.QStandardPaths.StandardLocation.CacheLocation,
+        QtCore.QStandardPaths.StandardLocation.AppDataLocation,
     ):
         base = QtCore.QStandardPaths.writableLocation(location)
         if base:

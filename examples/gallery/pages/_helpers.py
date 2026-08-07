@@ -33,7 +33,7 @@ def muted_label(text: str) -> QtWidgets.QLabel:
 def separator() -> QtWidgets.QFrame:
     """Return a horizontal separator line."""
     line = QtWidgets.QFrame()
-    line.setFrameShape(QtWidgets.QFrame.HLine)
+    line.setFrameShape(QtWidgets.QFrame.Shape.HLine)
     line.setProperty("class", "separator")
     return line
 

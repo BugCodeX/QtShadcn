@@ -169,7 +169,9 @@ class ThemeEditor(QtWidgets.QWidget):
     @staticmethod
     def _gallery_data_dir() -> Path:
         """Return the gallery-specific AppData directory, creating it if needed."""
-        app_data = QtCore.QStandardPaths.writableLocation(QtCore.QStandardPaths.AppDataLocation)
+        app_data = QtCore.QStandardPaths.writableLocation(
+            QtCore.QStandardPaths.StandardLocation.AppDataLocation
+        )
         path = Path(app_data) / "qtshadcn" / "gallery"
         path.mkdir(parents=True, exist_ok=True)
         return path

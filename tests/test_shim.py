@@ -45,8 +45,9 @@ class TestAtomicBindingSelection:
         prefix = shim.QtCore.__name__.split(".")[0]
         assert shim.binding_name == prefix
 
-    def test_select_binding_prefers_first_complete_binding(self):
+    def test_select_binding_prefers_first_complete_binding(self, monkeypatch):
         """Test that the preferred binding order starts with PySide6."""
+        monkeypatch.delenv("QTSHADCN_BINDING", raising=False)
         with patch("importlib.import_module") as mock_import:
             modules = {
                 "QtCore": _make_module("PySide6.QtCore"),
@@ -97,8 +98,9 @@ class TestAtomicBindingSelection:
             # Do not keep partially imported modules from the failed candidate
             assert "PySide6.QtWidgets" not in calls
 
-    def test_select_binding_pyqt5_only(self):
+    def test_select_binding_pyqt5_only(self, monkeypatch):
         """Test that PyQt5 is selected when it is the only complete binding."""
+        monkeypatch.delenv("QTSHADCN_BINDING", raising=False)
         pyqt5_modules = {
             "QtCore": _make_module("PyQt5.QtCore"),
             "QtGui": _make_module("PyQt5.QtGui"),

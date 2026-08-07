@@ -223,7 +223,9 @@ class GalleryWindow(QtWidgets.QMainWindow):
 
     def _working_xml_path(self) -> Path:
         """Return the deterministic working theme path under AppData."""
-        app_data = QtCore.QStandardPaths.writableLocation(QtCore.QStandardPaths.AppDataLocation)
+        app_data = QtCore.QStandardPaths.writableLocation(
+            QtCore.QStandardPaths.StandardLocation.AppDataLocation
+        )
         path = Path(app_data) / "qtshadcn" / "gallery"
         path.mkdir(parents=True, exist_ok=True)
         return path / "working.xml"

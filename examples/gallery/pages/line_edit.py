@@ -58,7 +58,7 @@ class LineEditPage:
 
         password = QtWidgets.QLineEdit("correct-horse-battery-staple")
         password.setPlaceholderText("Password")
-        password.setEchoMode(QtWidgets.QLineEdit.Password)
+        password.setEchoMode(QtWidgets.QLineEdit.EchoMode.Password)
         form.addRow("Password", password)
 
         layout.addLayout(form)
