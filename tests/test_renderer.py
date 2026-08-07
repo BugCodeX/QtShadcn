@@ -745,19 +745,25 @@ QDoubleSpinBox {
         qss = _build_theme(tokens)
 
         assert """QTabWidget::pane {
-    background: #ffffff;
-    border: 1px solid #e2e8f0;
-    border-radius: 8px;
-    padding: 16px;
-    margin-top: 8px;
+    border: none;
 }""" in qss
 
-        assert """QTabWidget[variant="line"]::pane {
+        assert """QTabBar::tab {
     background: transparent;
-    border: none;
-    border-radius: 0px;
-    padding: 0px;
-    margin-top: 0px;
+    color: #64748b;
+    border: 1px solid transparent;
+    border-radius: 6.4px;
+    margin: 2.8px;
+    padding: 2px 12px;
+    min-height: 28px;
+    font-size: 14px;
+}""" in qss
+
+        assert """QTabBar::tab:selected {
+    background: #ffffff;
+    color: #020617;
+    border-color: #f1f5f9;
+    font-weight: 700;
 }""" in qss
 
     def test_tab_widget_line_vertical_indicator_is_rendered(self):

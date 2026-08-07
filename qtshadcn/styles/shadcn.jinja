@@ -838,19 +838,7 @@ QSlider::sub-page:disabled { background: {{ colors.alpha(tokens.input, 0.5) }}; 
    ============================================================ */
 
 QTabWidget::pane {
-    background: {{ tokens.background }};
-    border: 1px solid {{ tokens.border }};
-    border-radius: {{ radius.class_px(tokens.radius, "lg") }};
-    padding: {{ scale.spacing_px(tokens.spacing, 4) }};
-    margin-top: {{ scale.spacing_px(tokens.spacing, 2) }};
-}
-
-QTabWidget[variant="line"]::pane {
-    background: transparent;
     border: none;
-    border-radius: 0px;
-    padding: 0px;
-    margin-top: 0px;
 }
 
 QTabBar {
@@ -864,16 +852,17 @@ QTabBar::tab {
     color: {{ tokens.muted_foreground }};
     border: 1px solid transparent;
     border-radius: {{ radius.class_px(tokens.radius, "md") }};
-    padding: {{ scale.spacing_px(tokens.spacing, 1) }} {{ scale.spacing_px(tokens.spacing, 3) }};
+    margin: {{ scale.spacing_px(tokens.spacing, 0.7) }};
+    padding: {{ scale.spacing_px(tokens.spacing, 0.5) }} {{ scale.spacing_px(tokens.spacing, 3) }};
     min-height: {{ scale.spacing_px(tokens.spacing, 7) }};
     font-size: {{ scale.TEXT_SM }};
-    font-weight: {{ scale.FONT_WEIGHT_MEDIUM }};
 }
 
 QTabBar::tab:selected {
     background: {{ tokens.background }};
     color: {{ tokens.foreground }};
-    border-color: {{ tokens.border }};
+    border-color: {{ tokens.muted }};
+    font-weight: {{ scale.FONT_WEIGHT_BOLD }};
 }
 
 QTabBar::tab:hover {
