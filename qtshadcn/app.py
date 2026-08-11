@@ -66,7 +66,7 @@ def apply_theme(
     active_tokens = theme.dark if is_dark else theme.light
     mode_label = "dark" if is_dark else "light"
 
-    stylesheet = _build_theme(active_tokens, is_dark=is_dark)
+    stylesheet = _build_theme(active_tokens, is_dark=is_dark, custom=config.theme_custom)
 
     # test export css
     # with open("debug_theme.qss", "w", encoding="utf-8") as f:
@@ -85,13 +85,32 @@ def get_theme() -> ShadcnTheme | None:
 
 
 def _build_theme(
-    tokens: ShadcnThemeTokens, template: str = TEMPLATE_FILE, *, is_dark: bool = False
+    tokens: ShadcnThemeTokens,
+    template: str = TEMPLATE_FILE,
+    *,
+    is_dark: bool = False,
+    custom: str | None = None,
 ) -> str:
-    """Render the QSS stylesheet from resolved tokens."""
+    """Render the QSS stylesheet from resolved tokens.
+
+    If ``custom`` is provided it is treated as a Jinja template string and
+    rendered with the same token context, then appended to the base stylesheet.
+    ``custom`` may also be a path to a ``.jinja`` or ``.qss`` file, in which
+    case its content is loaded from disk before rendering.
+    """
     try:
         _add_fonts()
     except Exception as e:
         logger.warning("Error loading fonts: %s", e)
+
+    render_context = {
+        "tokens": tokens,
+        "colors": colors,
+        "icons": ThemedIconManager(),
+        "radius": radius,
+        "scale": scale,
+        "is_dark": is_dark,
+    }
 
     try:
         template_path = Path(template)
@@ -100,21 +119,52 @@ def _build_theme(
             template_name = template_path.name
             loader = jinja2.FileSystemLoader(parent)
             env = jinja2.Environment(autoescape=False, loader=loader)
-            stylesheet = env.get_template(template_name)
+            base_tpl = env.get_template(template_name)
         else:
             env = jinja2.Environment(autoescape=False, loader=jinja2.BaseLoader())
-            stylesheet = env.from_string(template)
+            base_tpl = env.from_string(template)
 
-        return stylesheet.render(
-            tokens=tokens,
-            colors=colors,
-            icons=ThemedIconManager(),
-            radius=radius,
-            scale=scale,
-            is_dark=is_dark,
-        )
+        stylesheet = base_tpl.render(**render_context)
     except jinja2.TemplateError as e:
         raise ThemeRenderError(f"Failed to render QSS theme template: {e}") from e
+
+    if custom:
+        stylesheet += "\n" + _render_custom_snippet(custom, render_context)
+
+    return stylesheet
+
+
+def _render_custom_snippet(custom: str, context: dict) -> str:
+    """Render a custom QSS Jinja snippet and return the resulting string.
+
+    ``custom`` may be:
+
+    * A path to a ``.jinja`` or ``.qss`` file — its content is loaded from
+      disk and rendered as a Jinja template.
+    * A raw Jinja template string — rendered directly.
+
+    Raises :class:`~qtshadcn.exceptions.ThemeRenderError` on any Jinja error.
+    """
+    custom_path = Path(custom)
+    if custom_path.suffix.lower() in {".jinja", ".qss"} and custom_path.exists():
+        logger.debug("Loading custom theme snippet from file: %s", custom_path)
+        try:
+            loader = jinja2.FileSystemLoader(str(custom_path.parent))
+            env = jinja2.Environment(autoescape=False, loader=loader)
+            tpl = env.get_template(custom_path.name)
+        except jinja2.TemplateError as e:
+            raise ThemeRenderError(f"Failed to load custom theme file '{custom_path}': {e}") from e
+    else:
+        env = jinja2.Environment(autoescape=False, loader=jinja2.BaseLoader())
+        try:
+            tpl = env.from_string(custom)
+        except jinja2.TemplateError as e:
+            raise ThemeRenderError(f"Failed to parse custom theme snippet: {e}") from e
+
+    try:
+        return tpl.render(**context)
+    except jinja2.TemplateError as e:
+        raise ThemeRenderError(f"Failed to render custom theme snippet: {e}") from e
 
 
 def _resolve_theme_source_path(config: ThemeConfig) -> Path:

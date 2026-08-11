@@ -26,8 +26,9 @@ class ThemeConfig(BaseModel):
 
     model_config = ConfigDict(frozen=True, use_enum_values=True)
 
-    theme_source_path: str | None = None
     theme_mode: ThemeMode = ThemeMode.AUTO
+    theme_custom: str | None = None
+    theme_source_path: str | None = None
 
 
 class ShadcnThemeTokens(BaseModel):
