@@ -7,7 +7,7 @@ import Qt objects without hardcoding a binding. A candidate binding is only
 chosen if it provides all required modules; otherwise the shim falls back to the
 next candidate as a complete unit.
 
-Preferred order: ``PySide6`` -> ``PyQt6`` -> ``PySide2`` -> ``PyQt5``.
+Preferred order: ``PySide6`` -> ``PyQt6``.
 """
 
 import importlib
@@ -16,7 +16,7 @@ from types import ModuleType
 
 from .exceptions import QtBindingError
 
-_DEFAULT_BINDING_ORDER = ("PySide6", "PyQt6", "PySide2", "PyQt5")
+_DEFAULT_BINDING_ORDER = ("PySide6", "PyQt6")
 _REQUIRED_MODULES = ("QtCore", "QtGui", "QtWidgets")
 
 
@@ -25,7 +25,7 @@ def _binding_order() -> tuple[str, ...]:
 
     The ``QTSHADCN_BINDING`` environment variable overrides the default order.
     When set, it should contain a comma-separated list of binding package names
-    (e.g., ``PyQt6`` or ``PySide2,PyQt5``). Whitespace around names is ignored.
+    (e.g., ``PyQt6`` or ``PySide6,PyQt6``). Whitespace around names is ignored.
     """
     env = os.environ.get("QTSHADCN_BINDING", "")
     if env:
@@ -82,13 +82,6 @@ QtCore = _modules["QtCore"]
 QtGui = _modules["QtGui"]
 QtWidgets = _modules["QtWidgets"]
 
-if binding_name in {"PySide6", "PySide2"}:
-    Signal = QtCore.Signal
-elif binding_name in {"PyQt6", "PyQt5"}:
-    Signal = QtCore.pyqtSignal
-else:
-    raise RuntimeError(
-        f"Unsupported Qt binding {binding_name!r}; cannot expose binding-neutral Signal alias."
-    )
+Signal = QtCore.Signal if binding_name == "PySide6" else QtCore.pyqtSignal
 
 __all__ = ["QtCore", "QtGui", "QtWidgets", "binding_name", "Signal"]

@@ -22,7 +22,7 @@ QtShadcn loads a local **XML theme file** containing `<light>` and `<dark>` pale
 
 - **Light & dark palettes** — single XML file, both modes
 - **Auto mode** — follows the OS theme via `darkdetect`
-- **Binding neutral** — works with PySide6, PyQt6, PySide2, or PyQt5
+- **Binding neutral** — works with PySide6 or PyQt6
 - **Custom fonts** — drop font files in the package `fonts/` directory
 - **Disk cache** — theme is re-rendered only when the source file changes
 - **App-provided Qt runtime** — install the Qt binding your app already uses
@@ -33,7 +33,7 @@ QtShadcn loads a local **XML theme file** containing `<light>` and `<dark>` pale
 ## Requirements
 
 - Python >= 3.11
-- One of: PySide6, PyQt6, PySide2, or PyQt5 (provided by your application environment)
+- One of: PySide6 or PyQt6 (provided by your application environment)
 
 ---
 
@@ -53,7 +53,7 @@ QtShadcn does not bundle a Qt binding. Install the binding your application alre
 # PySide6 (recommended)
 pip install PySide6
 
-# Or PyQt6, PySide2, PyQt5
+# Or PyQt6
 pip install PyQt6
 ```
 

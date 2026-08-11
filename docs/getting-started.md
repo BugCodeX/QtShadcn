@@ -3,7 +3,7 @@
 ## Requirements
 
 - Python ≥ 3.11
-- One of the supported Qt bindings: **PySide6**, **PyQt6**, **PySide2**, or **PyQt5**
+- One of the supported Qt bindings: **PySide6** or **PyQt6**
 
 ## Installation
 
@@ -13,7 +13,7 @@ QtShadcn is published on PyPI. A Qt binding is intentionally not bundled; instal
 
 ```bash
 pip install qtshadcn
-pip install PySide6  # or PyQt6, PySide2, PyQt5
+pip install PySide6  # or PyQt6
 ```
 
 ///
@@ -22,7 +22,7 @@ pip install PySide6  # or PyQt6, PySide2, PyQt5
 
 ```bash
 uv add qtshadcn
-uv add PySide6  # or PyQt6, PySide2, PyQt5
+uv add PySide6  # or PyQt6
 ```
 
 ///
@@ -180,8 +180,6 @@ QtShadcn detects and uses the first available binding in this order:
 
 1. PySide6
 2. PyQt6
-3. PySide2
-4. PyQt5
 
 Import `qtshadcn._qt` if you need to use the same Qt classes in your application:
 

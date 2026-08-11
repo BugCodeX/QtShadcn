@@ -37,7 +37,7 @@ class _BlockQtBindings(importlib.abc.MetaPathFinder):
     """Meta path finder that blocks Qt binding imports."""
 
     def find_spec(self, fullname: str, path: object = None, target: object = None) -> None:
-        if fullname.split(".", 1)[0] in {"PySide6", "PyQt6", "PySide2", "PyQt5"}:
+        if fullname.split(".", 1)[0] in {"PySide6", "PyQt6"}:
             raise ImportError(fullname)
         return None
 
@@ -48,7 +48,7 @@ class _BlockQtShimsAndBindings(importlib.abc.MetaPathFinder):
     def find_spec(self, fullname: str, path: object = None, target: object = None) -> None:
         if fullname == "qtshadcn._qt":
             raise ImportError(fullname)
-        if fullname.split(".", 1)[0] in {"PySide6", "PyQt6", "PySide2", "PyQt5"}:
+        if fullname.split(".", 1)[0] in {"PySide6", "PyQt6"}:
             raise ImportError(fullname)
         return None
 

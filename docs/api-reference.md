@@ -22,7 +22,7 @@ from qtshadcn._qt import QtWidgets
 app = QtWidgets.QApplication([])
 ```
 
-Supported bindings, in detection order: **PySide6**, **PyQt6**, **PySide2**, **PyQt5**.
+Supported bindings, in detection order: **PySide6**, **PyQt6**.
 
 ---
 

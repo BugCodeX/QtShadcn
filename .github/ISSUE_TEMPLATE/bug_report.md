@@ -15,7 +15,7 @@ A clear and concise description of the bug, including any error messages or unex
 | Field | Value |
 | --- | --- |
 | QtShadcn version | e.g. `0.3.0` |
-| Qt binding | PySide6 / PyQt6 / PySide2 / PyQt5 |
+| Qt binding | PySide6 / PyQt6 |
 | Python version | e.g. `3.11.9` |
 | OS | e.g. Windows 11, Ubuntu 24.04, macOS 14 |
 

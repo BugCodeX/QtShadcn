@@ -98,33 +98,11 @@ class TestAtomicBindingSelection:
             # Do not keep partially imported modules from the failed candidate
             assert "PySide6.QtWidgets" not in calls
 
-    def test_select_binding_pyqt5_only(self, monkeypatch):
-        """Test that PyQt5 is selected when it is the only complete binding."""
-        monkeypatch.delenv("QTSHADCN_BINDING", raising=False)
-        pyqt5_modules = {
-            "QtCore": _make_module("PyQt5.QtCore"),
-            "QtGui": _make_module("PyQt5.QtGui"),
-            "QtWidgets": _make_module("PyQt5.QtWidgets"),
-        }
-
-        with patch("importlib.import_module") as mock_import:
-
-            def fake_import(name: str):
-                if name.startswith("PyQt5"):
-                    return pyqt5_modules[name.split(".", 1)[1]]
-                raise ImportError(name)
-
-            mock_import.side_effect = fake_import
-            binding, selected = shim._select_binding()
-            assert binding == "PyQt5"
-            assert selected["QtWidgets"].__name__ == "PyQt5.QtWidgets"
-            assert mock_import.call_args_list[-1].args[0] == "PyQt5.QtWidgets"
-
     def test_select_binding_raises_actionable_error(self):
         """Test that the shim raises a clear error when no binding exists."""
         with (
             patch("importlib.import_module", side_effect=ImportError("not installed")),
-            pytest.raises(ImportError, match="PySide6, PyQt6, PySide2, PyQt5"),
+            pytest.raises(ImportError, match="PySide6, PyQt6"),
         ):
             shim._select_binding()
 
@@ -156,27 +134,27 @@ class TestBindingOrderEnv:
 
     def test_qtshadcn_binding_accepts_comma_separated_list(self, monkeypatch):
         """QTSHADCN_BINDING accepts a comma-separated list tried in order."""
-        monkeypatch.setenv("QTSHADCN_BINDING", "PySide2,PyQt5")
-        pyqt5_modules = {
-            "QtCore": _make_module("PyQt5.QtCore"),
-            "QtGui": _make_module("PyQt5.QtGui"),
-            "QtWidgets": _make_module("PyQt5.QtWidgets"),
+        monkeypatch.setenv("QTSHADCN_BINDING", "PySide6,PyQt6")
+        pyqt6_modules = {
+            "QtCore": _make_module("PyQt6.QtCore"),
+            "QtGui": _make_module("PyQt6.QtGui"),
+            "QtWidgets": _make_module("PyQt6.QtWidgets"),
         }
 
         with patch("importlib.import_module") as mock_import:
 
             def fake_import(name: str):
-                if name.startswith("PySide2"):
+                if name.startswith("PySide6"):
                     raise ImportError(name)
-                if name.startswith("PyQt5"):
-                    return pyqt5_modules[name.split(".", 1)[1]]
+                if name.startswith("PyQt6"):
+                    return pyqt6_modules[name.split(".", 1)[1]]
                 raise ImportError(name)
 
             mock_import.side_effect = fake_import
             binding, selected = shim._select_binding()
-            assert binding == "PyQt5"
-            assert selected["QtCore"].__name__ == "PyQt5.QtCore"
-            assert mock_import.call_args_list[0].args[0].startswith("PySide2")
+            assert binding == "PyQt6"
+            assert selected["QtCore"].__name__ == "PyQt6.QtCore"
+            assert mock_import.call_args_list[0].args[0].startswith("PySide6")
 
     def test_qtshadcn_binding_unset_uses_default_order(self, monkeypatch):
         """When QTSHADCN_BINDING is unset, the default binding order is used."""

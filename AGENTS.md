@@ -26,9 +26,8 @@ qtshadcn/
 ├── models.py       # Pydantic models: ShadcnTheme, ShadcnThemeTokens, ThemeConfig
 ├── parser.py       # XML theme parser (public façade)
 ├── _parser.py      # Internal XML parsing implementation
-├── _qt.py          # Binding-neutral Qt shim (PySide6 / PyQt6 / PySide2 / PyQt5)
+├── _qt.py          # Binding-neutral Qt shim (PySide6 / PyQt6)
 ├── _icons.py       # Runtime themed SVG icon cache helpers
-├── _shim.py        # Runtime Qt binding selection helpers
 ├── styles/
 │   └── shadcn.jinja  # QSS template — the ONLY file for widget styles
 ├── themes/
@@ -50,14 +49,12 @@ examples/
     └── ...
 tests/
 ├── test_app.py
-├── test_gallery.py
+├── test_exceptions.py
 ├── test_integration.py
 ├── test_models.py
-├── test_page_registry.py
 ├── test_parser.py
 ├── test_renderer.py  # QSS output assertions
 ├── test_shim.py
-├── test_theme_editor.py
 ├── test_tokens.py
 └── test_version.py
 ```
@@ -125,7 +122,7 @@ Use these skills for detailed patterns on-demand:
 
 | Skill            | Description                                                                                                                                            | URL                                        |
 | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------ |
-| `commit-hygiene` | Trigger: commit, git commit, conventional commit, branch cleanup. Enforce conventional commits and publishing approval for QtShadcn.                      | [SKILL.md](skills/commit-hygiene/SKILL.md) |
+| `commit-hygiene` | Trigger: commit, git commit, conventional commit, branch cleanup. Enforce conventional commits and publishing approval for QtShadcn.                   | [SKILL.md](skills/commit-hygiene/SKILL.md) |
 | `pytest`         | Trigger: pytest tests, pytest coverage, fixtures, mocking, markers, parametrize, test discovery. Write idiomatic Python pytest tests and test helpers. | [SKILL.md](skills/pytest/SKILL.md)         |
 | `skill-creator`  | Trigger: new skills, agent instructions, documenting AI usage patterns. Create LLM-first skills with valid frontmatter.                                | [SKILL.md](skills/skill-creator/SKILL.md)  |
 | `skill-improver` | Trigger: improve skills, audit skills, refactor skills, skill quality. Audit and upgrade existing LLM-first skills.                                    | [SKILL.md](skills/skill-improver/SKILL.md) |
@@ -134,7 +131,7 @@ Use these skills for detailed patterns on-demand:
 
 | Skill           | Description                                                                                                                                                                                                                                                  | URL                                       |
 | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------- |
-| `release-notes` | Trigger: release, release notes, changelog, tag, version. Run the QtShadcn release process: draft notes, verify version, create tag and GitHub Release.                                       | [SKILL.md](skills/release-notes/SKILL.md) |
+| `release-notes` | Trigger: release, release notes, changelog, tag, version. Run the QtShadcn release process: draft notes, verify version, create tag and GitHub Release.                                                                                                      | [SKILL.md](skills/release-notes/SKILL.md) |
 | `skill-sync`    | Syncs skill metadata to AGENTS.md Available Skills sections. Trigger: When updating skill metadata (metadata.scope/metadata.auto_invoke), regenerating Available Skills tables, or running ./skills/skill-sync/assets/sync.py (including --dry-run/--scope). | [SKILL.md](skills/skill-sync/SKILL.md)    |
 
 ### Auto-invoke Skills
