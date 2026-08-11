@@ -40,11 +40,12 @@ Apply this skill when preparing, drafting, or publishing a QtShadcn version rele
 
 1. Read commits since the previous tag and group them by conventional type.
 2. Check whether `README.md` or docs need updating for this release. If so, update them in a separate commit before the release tag when possible.
-3. Verify `pyproject.toml` version matches the intended tag (e.g., `0.0.17` for `v0.0.17`).
+3. Verify `pyproject.toml` version matches the intended tag (e.g., `0.0.17` for `v0.0.17`) and that `qtshadcn/__init__.py` hardcodes the same version in `__version__`.
 4. Pause for explicit user approval before creating the tag or release.
 5. Create an annotated local tag: `git tag -a vX.Y.Z -m "QtShadcn vX.Y.Z"`.
 6. Push the relevant branch and tag: `git push origin <branch>` then `git push origin vX.Y.Z`.
-7. Create the GitHub Release page: `gh release create vX.Y.Z --title "QtShadcn vX.Y.Z" --notes-file <file>`.
+7. Update `CHANGELOG.md` by prepending a new section for `vX.Y.Z` with the same content used for the release notes.
+8. Create the GitHub Release page: `gh release create vX.Y.Z --title "QtShadcn vX.Y.Z" --notes-file <file>`.
 8. Always include the Verification section in the release notes.
 
 ## Output Format
