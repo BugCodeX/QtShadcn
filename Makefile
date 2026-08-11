@@ -83,8 +83,11 @@ clean:
 # Examples
 # ---------------------------------------------------------------------------
 
-gallery:
-	$(UV) run python examples/gallery/main.py
+gallery-pyside6:
+	$(UV) run python examples/gallery/main.py --pyside6
+
+gallery-pyqt6:
+	$(UV) run python examples/gallery/main.py --pyqt6
 
 # ---------------------------------------------------------------------------
 # Help

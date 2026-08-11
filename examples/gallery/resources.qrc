@@ -1,0 +1,10 @@
+<RCC>
+  <qresource prefix="resources">
+    <file>assets/github.svg</file>
+    <file>assets/docs.svg</file>
+    <file>assets/docs.png</file>
+    <file>assets/close.png</file>
+    <file>assets/logo.png</file>
+    <file>assets/minimize.png</file>
+  </qresource>
+</RCC>
