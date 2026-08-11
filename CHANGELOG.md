@@ -1,3 +1,38 @@
+# QtShadcn v0.2.0
+
+## Breaking Changes
+
+- Migrated the Qt binding layer from the internal `qtshadcn/common/binding.py` shim to `qtpy>=2.4.0`.
+- Added support for `PySide2` and `PyQt5` alongside `PySide6` and `PyQt6`.
+- Removed the `QTSHADCN_BINDING` environment variable; use `QT_API` (`pyside6`, `pyqt6`, `pyside2`, `pyqt5`) instead.
+- Removed `qtshadcn.common.binding` and `qtshadcn.binding_name`; use `qtpy.API_NAME` if needed.
+
+## What's New
+
+- `qtpy` is now a mandatory runtime dependency.
+- CI runs a four-binding matrix (`pyside6`, `pyqt6`, `pyside2`, `pyqt5`) plus a no-binding error-path job.
+- Gallery example uses a per-binding `loadUi` helper (PySide `QUiLoader`, PyQt `uic.loadUi`).
+
+## Changes
+
+- Internal Qt imports now come from `qtpy` instead of `qtshadcn.common.binding`.
+- `QtBindingError` messages now reference `QT_API` and all four supported bindings.
+- README and `docs/getting-started.md` document the new binding model.
+
+## Fixes
+
+- Fixed RCC binary lookup casing for capitalized `qtpy.API_NAME` values.
+- Fixed Qt6-only mouse-event APIs so the gallery window drag works on Qt5 bindings.
+- Narrowed `ImportError` handling in `qtshadcn.__init__` to qtpy-specific binding errors.
+
+## Verification
+
+```bash
+pip install qtshadcn==0.2.0
+python -c "import qtshadcn; print(qtshadcn.__version__)"
+make test
+```
+
 # QtShadcn v0.1.1
 
 ## Changes

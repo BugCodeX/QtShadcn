@@ -7,9 +7,10 @@ local XML themes.
 
 import logging
 
+from qtpy import QtWidgets
+
 from ..exceptions import QtShadcnError
 from ..models import ShadcnTheme, ShadcnThemeTokens, ThemeConfig
-from .binding import QtWidgets
 from .cache import _cache_hit, _load_theme_cache, _save_theme
 from .helpers import _apply_custom_tokens, _get_mtime, _resolve_application, _resolve_theme_file
 from .renderer import _build_theme
@@ -74,7 +75,8 @@ def apply_theme(
         _save_theme(config, theme, current_mtime)
 
     is_dark = _resolve_is_dark(mode, default_theme)
-    assert theme is not None
+    if theme is None:
+        raise QtShadcnError("Theme could not be loaded from cache or source")
     active_tokens = theme.dark if is_dark else theme.light
     mode_label = "dark" if is_dark else "light"
 

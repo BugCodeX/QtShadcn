@@ -2,11 +2,12 @@
 
 import logging
 from pathlib import Path
-from typing import Any
+from typing import Any, cast
+
+from qtpy import QtGui, QtWidgets
 
 from ..exceptions import QtShadcnError, ThemeParseError
 from ..models import ShadcnTheme, ShadcnThemeTokens
-from .binding import QtGui, QtWidgets
 from .theme_parser import resolve_value
 
 logger = logging.getLogger(__name__)
@@ -24,7 +25,7 @@ def _resolve_theme_file(theme_file: str | None) -> Path:
 def _resolve_application(app: QtWidgets.QApplication | None) -> QtWidgets.QApplication:
     """Return the provided app or the existing QApplication instance."""
     if app is None:
-        app = QtWidgets.QApplication.instance()  # type: ignore[assignment]
+        app = cast(Any, QtWidgets.QApplication.instance())
     if app is None:
         raise QtShadcnError("No QApplication instance found")
     return app
@@ -52,6 +53,7 @@ def _add_fonts() -> None:
         if not font_dir.is_dir():
             continue
 
+        # The glob "*.[to]tf" matches both .otf and .ttf font files.
         for font_file in font_dir.glob("*.[to]tf"):
             font_id = QtGui.QFontDatabase.addApplicationFont(str(font_file))
             if font_id == -1:
@@ -66,7 +68,7 @@ def _apply_custom_tokens(
     if not custom_tokens:
         return theme
 
-    if set(custom_tokens.keys()) <= {"light", "dark"}:
+    if all(key in {"light", "dark"} for key in custom_tokens):
         light_overrides = _as_token_overrides(custom_tokens.get("light"))
         dark_overrides = _as_token_overrides(custom_tokens.get("dark"))
     else:

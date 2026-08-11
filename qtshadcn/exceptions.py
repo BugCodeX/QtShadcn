@@ -14,4 +14,9 @@ class ThemeRenderError(QtShadcnError, RuntimeError):
 
 
 class QtBindingError(QtShadcnError, ImportError):
-    """Raised when no supported Qt binding (PySide6, PyQt6) can be loaded."""
+    """Raised when no supported Qt binding can be loaded.
+
+    QtShadcn supports PySide6, PyQt6, PySide2, and PyQt5 via ``qtpy``.
+    Set the ``QT_API`` environment variable to choose a specific binding
+    (``pyside6``, ``pyqt6``, ``pyside2``, or ``pyqt5``) before importing.
+    """

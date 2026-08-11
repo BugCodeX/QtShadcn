@@ -1,18 +1,21 @@
 """QtShadcn .ui Gallery example application.
 
-Demonstrates loading a Qt Designer .ui file using PySide6 or PyQt6.
+Demonstrates loading a Qt Designer .ui file using qtpy with a per-binding
+loadUi helper (PySide uses QUiLoader, PyQt uses uic.loadUi).
 """
 
 from __future__ import annotations
 
 import logging
 import re
+import shutil
 import subprocess
 import sys
 import tempfile
 from pathlib import Path
 from xml.etree import ElementTree as ET
 
+from qtpy import API_NAME, QtCore, QtGui, QtWidgets
 from qtshadcn import apply_theme, get_theme
 from rich.logging import RichHandler
 
@@ -30,6 +33,15 @@ THEME_FILE = str(Path(__file__).resolve().parent / "theme.xml")
 CUSTOM_PATH = str(Path(__file__).resolve().parent / "custom.jinja")
 QRC_FILE = Path(__file__).resolve().parent / "resources.qrc"
 RCC_FILE = Path(__file__).resolve().parent / "resources.rcc"
+
+# Maps the qtpy rcc binary selection to the per-binding tool name.
+# Keys are lower-cased because qtpy.API_NAME is capitalized (e.g. "PySide6").
+_RCC_BINARIES = {
+    "pyside6": "pyside6-rcc",
+    "pyside2": "pyside2-rcc",
+    "pyqt6": "pyrcc6",
+    "pyqt5": "pyrcc5",
+}
 
 # Maps the label shown in select_component to the objectName of each page
 # inside the QStackedWidget. Add or reorder entries freely here.
@@ -82,6 +94,22 @@ _TOKEN_WIDGETS: list[tuple[str, str, str]] = [
 # ---------------------------------------------------------------------------
 
 
+def _event_position(event: QtGui.QMouseEvent) -> QtCore.QPoint:
+    """Return the local mouse position as a QPoint, compatible with Qt5 and Qt6."""
+    position = getattr(event, "position", None)
+    if position is not None:
+        return position().toPoint()
+    return event.pos()
+
+
+def _event_global_position(event: QtGui.QMouseEvent) -> QtCore.QPoint:
+    """Return the global mouse position as a QPoint, compatible with Qt5 and Qt6."""
+    global_pos = getattr(event, "globalPosition", None)
+    if global_pos is not None:
+        return global_pos().toPoint()
+    return event.globalPos()
+
+
 def _load_xml_tokens(path: str | Path) -> dict[str, dict[str, str]]:
     """Parse a QtShadcn XML theme into ``{mode: {token: value}}``."""
     root = ET.parse(path).getroot()
@@ -121,52 +149,50 @@ def _color_square_style(widget_name: str, color: str) -> str:
     )
 
 
+def _load_ui(ui_file: str | Path, base_instance: QtWidgets.QWidget) -> QtWidgets.QWidget:
+    """Load a Qt Designer ``.ui`` file for the active binding.
+
+    PySide bindings provide ``QUiLoader``; PyQt bindings provide ``uic.loadUi``.
+    qtpy does not expose a unified ``loadUi`` across all four bindings, so we
+    dispatch locally.
+    """
+    path = str(ui_file)
+    if API_NAME in ("PySide6", "PySide2"):
+        from qtpy.QtUiTools import QUiLoader
+
+        return QUiLoader().load(path, base_instance)
+    if API_NAME == "PyQt6":
+        from PyQt6.uic import loadUi as _loadUi
+
+        return _loadUi(path, base_instance)
+    if API_NAME == "PyQt5":
+        from PyQt5.uic import loadUi as _loadUi
+
+        return _loadUi(path, base_instance)
+    raise RuntimeError(f"Unsupported Qt binding: {API_NAME}")
+
+
 def compile_qrc_if_needed():
-    """Recompila resources.qrc -> resources.rcc si cambió."""
+    """Recompile resources.qrc -> resources.rcc if the source changed."""
     if not RCC_FILE.exists() or QRC_FILE.stat().st_mtime > RCC_FILE.stat().st_mtime:
-        logging.info("Compilando resources.qrc...")
-        subprocess.run(["pyside6-rcc", "--binary", QRC_FILE, "-o", str(RCC_FILE)], check=True)
+        rcc_binary = _RCC_BINARIES.get(API_NAME.lower())
+        if rcc_binary is None:
+            logger.warning("No rcc binary known for binding %s; skipping qrc compile", API_NAME)
+            return
+
+        rcc_path = shutil.which(rcc_binary)
+        if rcc_path is None:
+            logger.warning("Could not find %s in PATH; skipping qrc compile", rcc_binary)
+            return
+
+        logger.info("Compiling resources.qrc with %s...", rcc_binary)
+        subprocess.run([rcc_path, "--binary", QRC_FILE, "-o", str(RCC_FILE)], check=True)
 
 
-if "--pyside6" in sys.argv:
-    from PySide6 import QtCore
-    from PySide6.QtCore import QPoint, QResource, QSize, Qt
-    from PySide6.QtGui import QColor, QCursor, QIcon
-    from PySide6.QtUiTools import QUiLoader
-    from PySide6.QtWidgets import QApplication, QColorDialog, QFileDialog, QMainWindow, QToolTip
-
-    uic = None
-
-elif "--pyqt6" in sys.argv:
-    from PyQt6 import QtCore, uic
-    from PyQt6.QtCore import QPoint, QResource, QSize, Qt
-    from PyQt6.QtGui import QColor, QCursor, QIcon
-    from PyQt6.QtWidgets import QApplication, QColorDialog, QFileDialog, QMainWindow, QToolTip
-
-    QUiLoader = None
-
-else:
-    try:
-        from PySide6 import QtCore
-        from PySide6.QtCore import QPoint, QResource, QSize, Qt
-        from PySide6.QtGui import QColor, QCursor, QIcon
-        from PySide6.QtUiTools import QUiLoader
-        from PySide6.QtWidgets import QApplication, QColorDialog, QFileDialog, QMainWindow, QToolTip
-
-        uic = None
-    except ImportError:
-        from PyQt6 import QtCore, uic
-        from PyQt6.QtCore import QPoint, QResource, QSize, Qt
-        from PyQt6.QtGui import QColor, QCursor, QIcon
-        from PyQt6.QtWidgets import QApplication, QColorDialog, QFileDialog, QMainWindow, QToolTip
-
-        QUiLoader = None
-
-
-class GalleryUiWindow(QMainWindow):
+class GalleryUiWindow(QtWidgets.QMainWindow):
     """Main window class for the .ui gallery example."""
 
-    def __init__(self, app: QApplication):
+    def __init__(self, app: QtWidgets.QApplication):
         """Initialize the gallery UI window and load main_window.ui."""
         super().__init__()
         self.app = app
@@ -175,26 +201,19 @@ class GalleryUiWindow(QMainWindow):
         # In-memory token store: {mode: {token: value}}
         self._tokens: dict[str, dict[str, str]] = _load_xml_tokens(THEME_FILE)
 
-        icon = QIcon()
-        icon.addFile(":/resources/assets/logo.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        icon = QtGui.QIcon()
+        icon.addFile(
+            ":/resources/assets/logo.png",
+            QtCore.QSize(),
+            QtGui.QIcon.Mode.Normal,
+            QtGui.QIcon.State.Off,
+        )
         self.setWindowIcon(icon)
         self.setWindowTitle("QtShadcn Gallery")
 
-        if "--pyside6" in sys.argv:
-            self.ui = QUiLoader().load(UI_FILE)
-            self.setWindowFlag(QtCore.Qt.WindowType.FramelessWindowHint)
-            self.setAttribute(QtCore.Qt.WidgetAttribute.WA_TranslucentBackground)
-            self.setCentralWidget(self.ui)
-
-        elif "--pyqt6" in sys.argv:
-            self.ui = uic.loadUi(UI_FILE)
-            self.setWindowFlag(QtCore.Qt.WindowType.FramelessWindowHint)
-            self.setAttribute(QtCore.Qt.WidgetAttribute.WA_TranslucentBackground)
-            self.setCentralWidget(self.ui)
-
-        else:
-            logging.error("Please include --pyside6 or --pyqt6 in arguments.")
-            sys.exit()
+        self.ui = _load_ui(UI_FILE, self)
+        self.setWindowFlag(QtCore.Qt.WindowType.FramelessWindowHint)
+        self.setAttribute(QtCore.Qt.WidgetAttribute.WA_TranslucentBackground)
 
         self._connect_signals()
 
@@ -295,22 +314,25 @@ class GalleryUiWindow(QMainWindow):
 
     def _apply_editor_theme(self) -> None:
         """Write current tokens to a temp XML file and apply the theme."""
-        tmp = Path(tempfile.mktemp(suffix=".xml"))
-        tmp.write_bytes(_tokens_to_xml_bytes(self._tokens))
-        apply_theme(
-            self.app,
-            theme_file=str(tmp),
-            theme_mode=self._active_mode,
-            additional_qss=CUSTOM_PATH,
-        )
-        tmp.unlink(missing_ok=True)
+        with tempfile.NamedTemporaryFile(suffix=".xml", delete=False) as tmp_file:
+            tmp_file.write(_tokens_to_xml_bytes(self._tokens))
+            tmp_path = tmp_file.name
+        try:
+            apply_theme(
+                self.app,
+                theme_file=tmp_path,
+                theme_mode=self._active_mode,
+                additional_qss=CUSTOM_PATH,
+            )
+        finally:
+            Path(tmp_path).unlink(missing_ok=True)
         # Re-apply color squares AFTER app.setStyleSheet so they survive re-polish
         self._refresh_editor_widgets()
 
     def _on_color_square_clicked(self, token: str) -> None:
         """Open color picker and commit the chosen color."""
         current = self._tokens[self._active_mode].get(token, "#000000")
-        color = QColorDialog.getColor(QColor(current), self, f"Edit {token}")
+        color = QtWidgets.QColorDialog.getColor(QtGui.QColor(current), self, f"Edit {token}")
         if color.isValid():
             self._tokens[self._active_mode][token] = color.name()
             self._refresh_editor_widgets()
@@ -349,7 +371,7 @@ class GalleryUiWindow(QMainWindow):
 
     def _on_import_theme(self) -> None:
         """Import a theme XML file and apply it."""
-        path, _ = QFileDialog.getOpenFileName(
+        path, _ = QtWidgets.QFileDialog.getOpenFileName(
             self, "Import Theme", "", "Theme files (*.xml);;All files (*)"
         )
         if path:
@@ -359,7 +381,7 @@ class GalleryUiWindow(QMainWindow):
 
     def _on_export_theme(self) -> None:
         """Export the current theme tokens to an XML file."""
-        path, _ = QFileDialog.getSaveFileName(
+        path, _ = QtWidgets.QFileDialog.getSaveFileName(
             self, "Export Theme", "theme.xml", "Theme files (*.xml);;All files (*)"
         )
         if path:
@@ -394,28 +416,32 @@ class GalleryUiWindow(QMainWindow):
     # ------------------------------------------------------------------
 
     def mousePressEvent(self, event):
-        """Maneja el evento de clic del ratón pa' mover la ventana."""
-        if event.button() == Qt.MouseButton.LeftButton and self.ui.topBarFrame.geometry().contains(
-            event.position().toPoint()
+        """Handle mouse press to start dragging the frameless window."""
+        if (
+            event.button() == QtCore.Qt.MouseButton.LeftButton
+            and self.ui.topBarFrame.geometry().contains(_event_position(event))
         ):
-            self.oldPos = event.globalPosition().toPoint()
+            self.oldPos = _event_global_position(event)
 
     def mouseMoveEvent(self, event):
-        """Maneja el evento de movimiento del ratón pa' arrastrar la ventana."""
-        if event.buttons() == Qt.MouseButton.LeftButton and self.ui.topBarFrame.geometry().contains(
-            self.mapFromGlobal(event.globalPosition().toPoint())
+        """Handle mouse move to drag the frameless window."""
+        if (
+            event.buttons() == QtCore.Qt.MouseButton.LeftButton
+            and self.ui.topBarFrame.geometry().contains(
+                self.mapFromGlobal(_event_global_position(event))
+            )
         ):
-            delta = QPoint(event.globalPosition().toPoint() - self.oldPos)
+            delta = QtCore.QPoint(_event_global_position(event) - self.oldPos)
             self.move(self.x() + delta.x(), self.y() + delta.y())
-            self.oldPos = event.globalPosition().toPoint()
+            self.oldPos = _event_global_position(event)
 
     def enterEvent(self, event):
-        """Muestra un tooltip cuando el cursor entra en la ventana."""
-        QToolTip.showText(QCursor.pos(), self.toolTip(), self)
+        """Show a tooltip when the cursor enters the window."""
+        QtWidgets.QToolTip.showText(QtGui.QCursor.pos(), self.toolTip(), self)
         super().enterEvent(event)
 
     def closeEvent(self, event):
-        """Limpia vistas externas antes de cerrar la aplicación."""
+        """Clean up external views before closing the application."""
         logging.shutdown()
         super().closeEvent(event)
 
@@ -423,10 +449,15 @@ class GalleryUiWindow(QMainWindow):
 if __name__ == "__main__":
     """Run the .ui gallery application."""
     logger.info("Starting QtShadcn Gallery (.ui example)")
-    app = QApplication(sys.argv)
+
+    # Legacy binding flags are no longer required; qtpy uses QT_API. Strip them
+    # so they are not passed to QApplication.
+    legacy_flags = {"--pyside6", "--pyqt6"}
+    filtered_argv = [arg for arg in sys.argv if arg not in legacy_flags]
+    app = QtWidgets.QApplication(filtered_argv)
 
     compile_qrc_if_needed()
-    QResource.registerResource(str(RCC_FILE))
+    QtCore.QResource.registerResource(str(RCC_FILE))
 
     window = GalleryUiWindow(app)
 

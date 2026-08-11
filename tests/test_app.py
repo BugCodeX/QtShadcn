@@ -4,7 +4,7 @@ from pathlib import Path
 from unittest.mock import patch
 
 import pytest
-from qtshadcn.common.binding import QtWidgets
+from qtpy import QtWidgets
 from qtshadcn.common.cache import _load_theme_cache
 from qtshadcn.common.theme import apply_theme
 from qtshadcn.exceptions import QtShadcnError, ThemeParseError

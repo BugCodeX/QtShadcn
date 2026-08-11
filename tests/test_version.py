@@ -34,33 +34,25 @@ def test_version_matches_available_project_version():
 
 
 class _BlockQtBindings(importlib.abc.MetaPathFinder):
-    """Meta path finder that blocks Qt binding imports."""
+    """Meta path finder that blocks qtpy and all supported Qt bindings."""
 
     def find_spec(self, fullname: str, path: object = None, target: object = None) -> None:
-        if fullname.split(".", 1)[0] in {"PySide6", "PyQt6"}:
-            raise ImportError(fullname)
-        return None
-
-
-class _BlockQtShimsAndBindings(importlib.abc.MetaPathFinder):
-    """Meta path finder that blocks Qt bindings and the qtshadcn.common.binding shim."""
-
-    def find_spec(self, fullname: str, path: object = None, target: object = None) -> None:
-        if fullname == "qtshadcn.common.binding":
-            raise ImportError(fullname)
-        if fullname.split(".", 1)[0] in {"PySide6", "PyQt6"}:
+        if fullname.split(".", 1)[0] in {"qtpy", "PySide6", "PyQt6", "PySide2", "PyQt5"}:
             raise ImportError(fullname)
         return None
 
 
 @pytest.fixture
 def isolated_qtshadcn_import():
-    """Remove qtshadcn modules from sys.modules and restore state after the test."""
+    """Remove qtshadcn, qtpy, and Qt binding modules before importing."""
     original_meta_path = sys.meta_path.copy()
     original_modules = dict(sys.modules)
 
+    blocked_roots = {"qtpy", "PySide6", "PyQt6", "PySide2", "PyQt5"}
     for name in list(sys.modules):
         if name == "qtshadcn" or name.startswith("qtshadcn."):
+            del sys.modules[name]
+        if name.split(".", 1)[0] in blocked_roots:
             del sys.modules[name]
 
     try:
@@ -71,14 +63,16 @@ def isolated_qtshadcn_import():
         sys.modules.update(original_modules)
 
 
-def test_import_succeeds_without_qt_binding(isolated_qtshadcn_import: None):
-    """Test that importing the package does not require a Qt binding."""
+def test_import_raises_qt_binding_error_without_qt_binding(
+    isolated_qtshadcn_import: None,
+):
+    """Importing apply_theme without a Qt binding raises QtBindingError."""
     sys.meta_path.insert(0, _BlockQtBindings())
 
-    import qtshadcn
+    from qtshadcn import QtBindingError
 
-    assert qtshadcn.__version__ == _expected_version()
-    assert "qtshadcn.common.binding" not in sys.modules
+    with pytest.raises(QtBindingError):
+        from qtshadcn import apply_theme  # noqa: F401
 
 
 def test_version_falls_back_to_pyproject_without_metadata_or_qt_import(
@@ -93,9 +87,8 @@ def test_version_falls_back_to_pyproject_without_metadata_or_qt_import(
         return original_version(name)
 
     monkeypatch.setattr(importlib.metadata, "version", missing_metadata)
-    sys.meta_path.insert(0, _BlockQtShimsAndBindings())
+    sys.meta_path.insert(0, _BlockQtBindings())
 
     import qtshadcn
 
     assert qtshadcn.__version__ == _pyproject_version()
-    assert "qtshadcn.common.binding" not in sys.modules

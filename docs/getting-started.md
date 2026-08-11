@@ -3,7 +3,7 @@
 ## Requirements
 
 - Python ≥ 3.11
-- One of the supported Qt bindings: **PySide6** or **PyQt6**
+- One of the supported Qt bindings: **PySide6**, **PyQt6**, **PySide2**, or **PyQt5**
 
 ## Installation
 
@@ -13,7 +13,7 @@ QtShadcn is published on PyPI. A Qt binding is intentionally not bundled; instal
 
 ```bash
 pip install qtshadcn
-pip install PySide6  # or PyQt6
+pip install PySide6  # or PyQt6, PySide2, PyQt5
 ```
 
 ///
@@ -22,7 +22,7 @@ pip install PySide6  # or PyQt6
 
 ```bash
 uv add qtshadcn
-uv add PySide6  # or PyQt6
+uv add PySide6  # or PyQt6, PySide2, PyQt5
 ```
 
 ///
@@ -103,7 +103,7 @@ Save this as `my_theme.xml` next to your script:
 
 ```python
 import sys
-from qtshadcn.common.binding import QtWidgets
+from qtpy import QtWidgets
 from qtshadcn import ThemeParseError, apply_theme
 
 app = QtWidgets.QApplication(sys.argv)
@@ -171,15 +171,26 @@ apply_theme(app, theme_file="my_theme.xml", theme_mode="dark")
 
 ## Supported Qt Bindings
 
-QtShadcn detects and uses the first available binding in this order:
+QtShadcn supports four Qt bindings through [qtpy](https://github.com/spyder-ide/qtpy):
 
-1. PySide6
-2. PyQt6
+1. PySide6 (`QT_API=pyside6`)
+2. PyQt6 (`QT_API=pyqt6`)
+3. PySide2 (`QT_API=pyside2`)
+4. PyQt5 (`QT_API=pyqt5`)
 
-Import `qtshadcn.common.binding` if you need to use the same Qt classes in your application:
+### Choosing a binding
+
+If only one supported binding is installed, qtpy uses it automatically. When
+multiple bindings are installed, set `QT_API` before importing QtShadcn:
+
+```bash
+export QT_API=pyside6
+```
+
+Import Qt classes directly from qtpy in your application code:
 
 ```python
-from qtshadcn.common.binding import QtWidgets
+from qtpy import QtWidgets
 
 app = QtWidgets.QApplication([])
 ```

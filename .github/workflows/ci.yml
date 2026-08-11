@@ -10,6 +10,7 @@ on:
 jobs:
   quality:
     name: Quality checks (${{ matrix.os }})
+    timeout-minutes: 15
     strategy:
       fail-fast: false
       matrix:
@@ -19,7 +20,7 @@ jobs:
 
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
       - name: Set up Python and uv
         uses: ./.github/actions/setup-python-uv
@@ -43,6 +44,7 @@ jobs:
 
   tests:
     name: Tests with PySide6 (${{ matrix.os }}, Python ${{ matrix.python-version }})
+    timeout-minutes: 20
     strategy:
       fail-fast: false
       matrix:
@@ -53,7 +55,7 @@ jobs:
 
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
       - name: Set up Python and uv
         uses: ./.github/actions/setup-python-uv
@@ -85,7 +87,7 @@ jobs:
 
       - name: Upload coverage HTML
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: coverage-report-${{ matrix.os }}-py${{ matrix.python-version }}
           path: htmlcov/
@@ -93,16 +95,24 @@ jobs:
 
   binding-matrix:
     name: Tests with ${{ matrix.binding }} (${{ matrix.os }}, Python ${{ matrix.python-version }})
+    timeout-minutes: 20
     strategy:
       fail-fast: false
       matrix:
         os: [ubuntu-latest]
-        python-version: ["3.12"]
-        binding: [PyQt6]
+        python-version: ["3.12", "3.13"]
+        binding: [pyside6, pyqt6]
+        include:
+          - os: ubuntu-latest
+            python-version: "3.12"
+            binding: pyside2
+          - os: ubuntu-latest
+            python-version: "3.12"
+            binding: pyqt5
     runs-on: ${{ matrix.os }}
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
       - name: Set up Python and uv
         uses: ./.github/actions/setup-python-uv
@@ -127,4 +137,34 @@ jobs:
         run: uv run pytest
         env:
           QT_QPA_PLATFORM: offscreen
-          QTSHADCN_BINDING: ${{ matrix.binding }}
+          QT_API: ${{ matrix.binding }}
+
+  no-binding:
+    name: No-binding error path
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Set up Python and uv
+        uses: ./.github/actions/setup-python-uv
+        with:
+          python-version: "3.12"
+
+      - name: Install package without Qt binding
+        run: |
+          uv venv
+          uv pip install -e .
+
+      - name: Assert QtBindingError without binding
+        run: |
+          uv run python - <<'PY'
+          from qtshadcn import QtBindingError
+          try:
+              from qtshadcn import apply_theme  # noqa: F401
+          except QtBindingError as exc:
+              print("OK: QtBindingError raised:", exc)
+          else:
+              raise SystemExit("Expected QtBindingError when no binding is installed")
+          PY

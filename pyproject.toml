@@ -4,7 +4,7 @@
 
 [project]
 name = "qtshadcn"
-version = "0.1.1"
+version = "0.2.0"
 description = "Modern styling and theming framework for Qt/PyQt/PySide applications."
 readme = "README.md"
 requires-python = ">=3.11"
@@ -61,6 +61,7 @@ dependencies = [
   "Jinja2>=3.1.6",  # template engine
   "darkdetect>=0.8.0",  # OS dark-mode detection
   "pydantic>=2.13.4",  # data validation
+  "qtpy>=2.4.0",  # Qt binding abstraction
 ]
 
 # ============================================================

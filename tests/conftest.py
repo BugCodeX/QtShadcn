@@ -1,7 +1,7 @@
 """Shared pytest fixtures."""
 
 import pytest
-from qtshadcn.common.binding import QtWidgets
+from qtpy import QtGui, QtWidgets
 
 
 @pytest.fixture(scope="session")
@@ -12,3 +12,11 @@ def qapp():
         app = QtWidgets.QApplication([])
     yield app
     app.deleteLater()
+
+
+@pytest.fixture(autouse=True)
+def _reset_qapp_state(qapp):
+    """Reset global QApplication state after each test to avoid leakage."""
+    yield
+    qapp.setStyleSheet("")
+    qapp.setPalette(QtGui.QPalette())

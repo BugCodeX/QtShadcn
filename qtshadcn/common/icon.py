@@ -8,8 +8,9 @@ import re
 import tempfile
 from html import escape
 from pathlib import Path
+from typing import Any, cast
 
-from .binding import QtCore
+from qtpy import QtCore
 
 logger = logging.getLogger(__name__)
 
@@ -64,10 +65,10 @@ class ThemedIconManager:
         svg = _slider_thumb_svg(fill, border, size)
         return self._write_icon(name, key, svg)
 
-    def _write_icon(self, name: str, color: str, svg: str) -> str:
+    def _write_icon(self, name: str, key: str, svg: str) -> str:
         self.cache_dir.mkdir(parents=True, exist_ok=True)
-        color_key = _safe_name(color)
-        digest = hashlib.sha256(color.encode("utf-8")).hexdigest()[:12]
+        color_key = _safe_name(key)
+        digest = hashlib.sha256(key.encode("utf-8")).hexdigest()[:12]
         path = self.cache_dir / f"{name}-{color_key}-{digest}.svg"
 
         if not path.exists() or path.read_text(encoding="utf-8") != svg:
@@ -86,7 +87,7 @@ def _runtime_icon_cache_dir() -> Path:
         QtCore.QStandardPaths.StandardLocation.CacheLocation,
         QtCore.QStandardPaths.StandardLocation.AppDataLocation,
     ):
-        base = QtCore.QStandardPaths.writableLocation(location)
+        base = QtCore.QStandardPaths.writableLocation(cast(Any, location))
         if base:
             return Path(base) / "icons"
 

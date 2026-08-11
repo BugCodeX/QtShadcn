@@ -22,7 +22,7 @@ QtShadcn loads a local **XML theme file** containing `<light>` and `<dark>` pale
 
 - **Light & dark palettes** — single XML file, both modes
 - **Auto mode** — follows the OS theme via `darkdetect`
-- **Binding neutral** — works with PySide6 or PyQt6
+- **Binding neutral** — works with PySide6, PyQt6, PySide2, or PyQt5 via qtpy
 - **Custom fonts** — drop font files in the package `fonts/` directory
 - **Disk cache** — theme is re-rendered only when the source file changes
 - **App-provided Qt runtime** — install the Qt binding your app already uses
@@ -33,7 +33,7 @@ QtShadcn loads a local **XML theme file** containing `<light>` and `<dark>` pale
 ## Requirements
 
 - Python >= 3.11
-- One of: PySide6 or PyQt6 (provided by your application environment)
+- One of: PySide6, PyQt6, PySide2, or PyQt5 (provided by your application environment)
 
 ---
 
@@ -47,14 +47,25 @@ pip install qtshadcn
 uv add qtshadcn
 ```
 
-QtShadcn does not bundle a Qt binding. Install the binding your application already uses:
+QtShadcn does not bundle a Qt binding. Install the binding your application already uses and
+optionally set ``QT_API`` to select one when multiple bindings are present:
 
 ```bash
 # PySide6 (recommended)
 pip install PySide6
+export QT_API=pyside6
 
 # Or PyQt6
 pip install PyQt6
+export QT_API=pyqt6
+
+# Or PySide2
+pip install PySide2
+export QT_API=pyside2
+
+# Or PyQt5
+pip install PyQt5
+export QT_API=pyqt5
 ```
 
 ---
@@ -63,7 +74,7 @@ pip install PyQt6
 
 ```python
 import sys
-from qtshadcn.common.binding import QtWidgets
+from qtpy import QtWidgets
 from qtshadcn import apply_theme
 
 app = QtWidgets.QApplication(sys.argv)

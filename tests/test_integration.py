@@ -3,7 +3,7 @@
 from pathlib import Path
 
 import pytest
-from qtshadcn.common.binding import QtWidgets
+from qtpy import QtWidgets
 from qtshadcn.common.renderer import _build_theme
 from qtshadcn.common.theme import apply_theme
 from qtshadcn.models import ShadcnThemeTokens

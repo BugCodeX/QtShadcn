@@ -1,6 +1,12 @@
 # =============================================================
 # Makefile — qtshadcn
-# Requires: make, uv, PowerShell (pwsh)
+# Requires: make, uv
+#
+# Note: This Makefile is written for PowerShell on Windows. Most targets
+# use uv and are therefore cross-platform, but the SHELL and any target
+# that manipulates environment variables assumes Windows PowerShell syntax.
+# Running on Linux/macOS may require invoking the equivalent uv commands
+# directly or using a POSIX-compatible shell override.
 # =============================================================
 
 SHELL        := pwsh.exe
@@ -53,7 +59,11 @@ test-cov:
 	$(UV) run --extra dev pytest --cov=qtshadcn --cov-report=term-missing --cov-report=html
 
 test-pyqt6:
-	$$env:QTSHADCN_BINDING='PyQt6'; $(UV) run --extra dev pytest
+ifeq ($(OS),Windows_NT)
+	$$env:QT_API='pyqt6'; $(UV) run --extra dev pytest
+else
+	QT_API=pyqt6 $(UV) run --extra dev pytest
+endif
 
 # ---------------------------------------------------------------------------
 # Build & Release
@@ -83,11 +93,8 @@ clean:
 # Examples
 # ---------------------------------------------------------------------------
 
-gallery-pyside6:
-	$(UV) run python examples/gallery/main.py --pyside6
-
-gallery-pyqt6:
-	$(UV) run python examples/gallery/main.py --pyqt6
+gallery:
+	$(UV) run python examples/gallery/main.py
 
 # ---------------------------------------------------------------------------
 # Help

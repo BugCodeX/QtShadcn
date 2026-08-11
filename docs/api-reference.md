@@ -12,15 +12,18 @@ from qtshadcn import (
 )
 ```
 
-If you want your application to use the same Qt binding that QtShadcn detected, import from `qtshadcn.common.binding`:
+Qt classes should be imported directly from qtpy so your application uses the
+same binding QtShadcn is using:
 
 ```python
-from qtshadcn.common.binding import QtWidgets
+from qtpy import QtWidgets
 
 app = QtWidgets.QApplication([])
 ```
 
-Supported bindings, in detection order: **PySide6**, **PyQt6**.
+Supported bindings: **PySide6**, **PyQt6**, **PySide2**, **PyQt5**. Set
+`QT_API` (for example, `QT_API=pyside6`) to choose a binding when multiple are
+installed.
 
 ---
 
