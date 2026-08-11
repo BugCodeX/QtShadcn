@@ -1,3 +1,18 @@
+# QtShadcn v0.1.1
+
+## Changes
+
+- Reorganize internal implementation modules into `qtshadcn/common/` and split `app.py` into focused modules (`theme.py`, `renderer.py`, `cache.py`, `theme_mode.py`, `helpers.py`). Rename `_qt.py`, `_parser.py`, and `_icons.py` to `common/binding.py`, `common/theme_parser.py`, and `common/icon.py`.
+- Public API remains unchanged; `from qtshadcn import apply_theme, get_theme` continues to work.
+
+## Verification
+
+```bash
+pip install qtshadcn==0.1.1
+python -c "import qtshadcn; print(qtshadcn.__version__)"
+make test
+```
+
 # QtShadcn v0.1.0
 
 ## Breaking Changes
