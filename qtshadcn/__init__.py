@@ -1,27 +1,9 @@
-import tomllib
-from importlib.metadata import PackageNotFoundError, version
-from pathlib import Path
 from typing import Any
 
 from .exceptions import QtBindingError, QtShadcnError, ThemeParseError, ThemeRenderError
 from .models import ShadcnTheme, ShadcnThemeTokens, ThemeConfig, ThemeMode
 
-
-def _resolve_version() -> str:
-    """Return the installed package version or a source checkout fallback."""
-    try:
-        return version("qtshadcn")
-    except PackageNotFoundError:
-        pyproject_path = Path(__file__).resolve().parent.parent / "pyproject.toml"
-        try:
-            with pyproject_path.open("rb") as pyproject_file:
-                pyproject = tomllib.load(pyproject_file)
-        except OSError:
-            return "0+unknown"
-        return str(pyproject.get("project", {}).get("version", "0+unknown"))
-
-
-__version__ = _resolve_version()
+__version__ = "0.0.22"
 
 
 def __getattr__(name: str) -> Any:
