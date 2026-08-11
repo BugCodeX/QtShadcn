@@ -4,7 +4,7 @@
 
 [project]
 name = "qtshadcn"
-version = "0.0.21"
+version = "0.0.22"
 description = "Modern styling and theming framework for Qt/PyQt/PySide applications."
 readme = "README.md"
 requires-python = ">=3.11"
@@ -21,10 +21,8 @@ keywords = [
   "desktop",
   "gui",
   "pyqt",
-  "pyqt5",
   "pyqt6",
   "pyside",
-  "pyside2",
   "pyside6",
   "qss",
   "qt",
@@ -88,9 +86,9 @@ dev = [
   "pytest-cov>=7.1.0",  # coverage plugin
   "pytest-mock>=3.14.0",  # mocking support for pytest
   "pytest-qt>=4.2.0",  # Qt widget testing (qtbot fixture)
-  "ruff>=0.9",  # linter and formatter
+  "ruff>=0.16.2",  # linter and formatter
   "pre-commit>=3.7",  # git hooks
-  "ty>=0.0.66",  # type checker
+  "ty>=0.0.69",  # type checker
   "typer>=0.12.0",  # CLI framework (skills setup script; Rich is bundled)
   "pyyaml>=6.0",  # YAML frontmatter parser for skills metadata sync
   "questionary>=2.1.0",  # interactive multi-select prompts for skills setup
@@ -109,7 +107,14 @@ requires = ["hatchling>=1.27"]
 build-backend = "hatchling.build"
 
 # ============================================================
-# Hatchling — wheel contents
+# Coverage
+# ============================================================
+[tool.coverage.run]
+source = ["qtshadcn"]
+omit = ["examples/*", "tests/*"]
+
+# ============================================================
+# ruff — linter and formatter
 # ============================================================
 
 [tool.hatch.build.targets.wheel]
@@ -120,14 +125,10 @@ packages = ["qtshadcn"]
 # ============================================================
 
 [tool.pytest.ini_options]
+addopts = ["-ra", "--strict-markers", "--strict-config"]
+norecursedirs = ["examples", "build", "dist", "htmlcov", ".git"]
 python_files = ["test_*.py"]
 testpaths = ["tests"]
-
-addopts = ["-ra", "--strict-markers", "--strict-config"]
-
-# ============================================================
-# ruff — linter and formatter
-# ============================================================
 
 [tool.ruff]
 target-version = "py311"
@@ -165,10 +166,6 @@ ignore = [
   "D102",  # missing method docstring
   "D103",  # missing function docstring
 ]
-"examples/**" = [
-  "D100",  # missing module docstring
-  "D103",  # missing function docstring
-]
 
 [tool.ruff.format]
 quote-style = "double"
@@ -183,3 +180,6 @@ python-version = "3.11"
 
 [tool.ty.terminal]
 error-on-warning = true
+
+[tool.ty.src]
+exclude = ["examples"]
