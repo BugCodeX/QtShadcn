@@ -6,8 +6,6 @@ All public symbols are importable directly from `qtshadcn`:
 from qtshadcn import (
     apply_theme,
     get_theme,
-    ThemeConfig,
-    ThemeMode,
     ShadcnTheme,
     ShadcnThemeTokens,
     ThemeParseError,
@@ -32,8 +30,13 @@ Supported bindings, in detection order: **PySide6**, **PyQt6**.
 
 ```python
 def apply_theme(
-    app: QApplication,
-    config: ThemeConfig | None = None,
+    app: QApplication | None = None,
+    theme_file: str | None = None,
+    *,
+    theme_mode: str = "auto",
+    custom_tokens: dict[str, dict[str, str] | str] | None = None,
+    additional_qss: str | None = None,
+    default_theme: str = "dark",
 ) -> ShadcnThemeTokens
 ```
 
@@ -41,23 +44,27 @@ Applies a QtShadcn XML theme to the running `QApplication`.
 
 **Pipeline:**
 
-1. Resolves the theme source path from `config` (or from disk cache if `config` is `None`)
-2. Detects light/dark mode based on `config.theme_mode`
-3. Checks disk cache — skips re-parsing if the source file is unchanged
-4. Parses the XML, resolves all color tokens, renders QSS via Jinja2
-5. Calls `app.setStyleSheet(qss)`
+1. Resolves the theme source path from `theme_file` (or the packaged default theme)
+2. Detects light/dark mode based on `theme_mode`
+3. Checks disk cache — skips re-parsing if inputs and source file are unchanged
+4. Parses the XML, applies `custom_tokens`, resolves all color tokens, renders QSS via Jinja2
+5. Appends `additional_qss` and calls `app.setStyleSheet(qss)`
 6. Returns the active `ShadcnThemeTokens`
 
 **Parameters:**
 
 | Name | Type | Description |
 | --- | --- | --- |
-| `app` | `QApplication` | The running Qt application |
-| `config` | `ThemeConfig \| None` | Theme configuration. Pass `None` to reload from cache. |
+| `app` | `QApplication \| None` | The running Qt application. If `None`, `QApplication.instance()` is used. |
+| `theme_file` | `str \| None` | Path to the `.xml` theme file. `None` loads the built-in default theme. |
+| `theme_mode` | `str` | `"auto"`, `"light"`, or `"dark"`. Default: `"auto"`. |
+| `custom_tokens` | `dict[str, dict[str, str] \| str] \| None` | Token overrides. Mode-specific when top-level keys are `"light"` and/or `"dark"`. |
+| `additional_qss` | `str \| None` | Inline Jinja snippet, `.qss` file path, or `.jinja` file path to append. |
+| `default_theme` | `str` | Fallback mode when `theme_mode="auto"` and OS detection fails. `"light"` or `"dark"`. |
 
 **Returns:** `ShadcnThemeTokens` — the resolved palette for the active mode.
 
-**Raises:** `ThemeParseError` — if the file is missing, malformed, or has missing tokens.
+**Raises:** `ThemeParseError` — if the file is missing, malformed, or has missing tokens. `QtShadcnError` — if no `QApplication` instance is available or an argument is invalid.
 
 ---
 
@@ -107,47 +114,17 @@ See the [Roadmap](roadmap.md) for planned widget coverage.
 
 ---
 
-## Configuration
+## Theme Mode
 
-### `ThemeConfig`
-
-Immutable Pydantic model. All fields have defaults.
-
-```python
-config = ThemeConfig(
-    theme_source_path="path/to/theme.xml",
-    theme_mode="auto",
-)
-```
-
-| Field | Type | Default | Description |
-| --- | --- | --- | --- |
-| `theme_source_path` | `str \| None` | `None` | Absolute or relative path to the XML theme file. `None` loads the built-in default theme. |
-| `theme_mode` | `ThemeMode \| str` | `"auto"` | Palette selection strategy. |
-
----
-
-### `ThemeMode`
-
-```python
-class ThemeMode(StrEnum):
-    AUTO = "auto"
-    LIGHT = "light"
-    DARK = "dark"
-```
+`theme_mode` accepts the following string values:
 
 | Value | Behavior |
 | --- | --- |
-| `AUTO` | Detects OS light/dark preference via `darkdetect` |
-| `LIGHT` | Always uses the `<light>` palette |
-| `DARK` | Always uses the `<dark>` palette |
+| `"auto"` | Detects OS light/dark preference via `darkdetect` (default) |
+| `"light"` | Always uses the `<light>` palette |
+| `"dark"` | Always uses the `<dark>` palette |
 
-`ThemeConfig` accepts both the enum and its string values:
-
-```python
-ThemeConfig(theme_mode=ThemeMode.DARK)  # enum
-ThemeConfig(theme_mode="dark")  # string — equivalent
-```
+When `theme_mode="auto"` and the OS preference cannot be detected, `default_theme` is used.
 
 ---
 
@@ -220,7 +197,7 @@ Common causes:
 from qtshadcn import apply_theme, ThemeParseError
 
 try:
-    apply_theme(app, config)
+    apply_theme(app, theme_file="my_theme.xml", theme_mode="auto")
 except ThemeParseError as e:
     print(f"Theme error: {e}")
 ```

@@ -18,17 +18,20 @@ class ThemeMode(StrEnum):
 
 
 class ThemeConfig(BaseModel):
-    """Central theme configuration.
+    """Internal theme configuration used for cache keys and persistence.
 
-    The runtime loads a local QtShadcn XML theme from ``theme_source_path``.
-    JSON registries and raw CSS are not accepted by the core application path.
+    The public :func:`~qtshadcn.app.apply_theme` signature exposes these values
+    as keyword arguments. This frozen model is kept internal so the cache can be
+    keyed by every input that affects the rendered stylesheet.
     """
 
     model_config = ConfigDict(frozen=True, use_enum_values=True)
 
     theme_mode: ThemeMode = ThemeMode.AUTO
-    theme_custom: str | None = None
-    theme_source_path: str | None = None
+    theme_file: str | None = None
+    custom_tokens: dict[str, dict[str, str] | str] | None = None
+    additional_qss: str | None = None
+    default_theme: str = "dark"
 
 
 class ShadcnThemeTokens(BaseModel):

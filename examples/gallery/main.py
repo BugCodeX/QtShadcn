@@ -13,7 +13,7 @@ import tempfile
 from pathlib import Path
 from xml.etree import ElementTree as ET
 
-from qtshadcn import ThemeConfig, ThemeMode, apply_theme, get_theme
+from qtshadcn import apply_theme, get_theme
 from rich.logging import RichHandler
 
 logging.basicConfig(
@@ -297,11 +297,11 @@ class GalleryUiWindow(QMainWindow):
         """Write current tokens to a temp XML file and apply the theme."""
         tmp = Path(tempfile.mktemp(suffix=".xml"))
         tmp.write_bytes(_tokens_to_xml_bytes(self._tokens))
-        mode_map = {"light": ThemeMode.LIGHT, "dark": ThemeMode.DARK, "auto": ThemeMode.AUTO}
-        mode = mode_map.get(self._active_mode, ThemeMode.DARK)
         apply_theme(
             self.app,
-            ThemeConfig(theme_mode=mode, theme_custom=CUSTOM_PATH, theme_source_path=str(tmp)),
+            theme_file=str(tmp),
+            theme_mode=self._active_mode,
+            additional_qss=CUSTOM_PATH,
         )
         tmp.unlink(missing_ok=True)
         # Re-apply color squares AFTER app.setStyleSheet so they survive re-polish
@@ -378,13 +378,13 @@ class GalleryUiWindow(QMainWindow):
 
     def _on_theme_changed(self, index: int) -> None:
         """Apply the selected theme mode (0=Auto, 1=Light, 2=Dark)."""
-        _modes = [ThemeMode.AUTO, ThemeMode.LIGHT, ThemeMode.DARK]
         _mode_keys = ["auto", "light", "dark"]
-        mode = _modes[index]
         self._active_mode = _mode_keys[index] if _mode_keys[index] != "auto" else "dark"
         apply_theme(
             self.app,
-            ThemeConfig(theme_mode=mode, theme_custom=CUSTOM_PATH, theme_source_path=THEME_FILE),
+            theme_file=THEME_FILE,
+            theme_mode=_mode_keys[index],
+            additional_qss=CUSTOM_PATH,
         )
         # Re-apply color squares after app stylesheet update
         self._refresh_editor_widgets()
@@ -435,9 +435,9 @@ if __name__ == "__main__":
     get_theme()
     apply_theme(
         window.app,
-        ThemeConfig(
-            theme_mode=ThemeMode.DARK, theme_custom=CUSTOM_PATH, theme_source_path=THEME_FILE
-        ),
+        theme_file=THEME_FILE,
+        theme_mode="dark",
+        additional_qss=CUSTOM_PATH,
     )
 
     window.show()

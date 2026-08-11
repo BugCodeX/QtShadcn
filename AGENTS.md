@@ -22,8 +22,8 @@ QtShadcn loads a local **XML theme file** with `<light>` and `<dark>` palettes, 
 
 ```text
 qtshadcn/
-├── app.py          # Public API: apply_theme(), get_theme(), ThemeConfig
-├── models.py       # Pydantic models: ShadcnTheme, ShadcnThemeTokens, ThemeConfig
+├── app.py          # Public API: apply_theme(), get_theme()
+├── models.py       # Pydantic models: ShadcnTheme, ShadcnThemeTokens (ThemeConfig is internal)
 ├── parser.py       # XML theme parser (public façade)
 ├── _parser.py      # Internal XML parsing implementation
 ├── _qt.py          # Binding-neutral Qt shim (PySide6 / PyQt6)
@@ -102,7 +102,7 @@ pre-commit run renovate-config-validator # validate Renovate config
 - **No hardcoded colors or pixel values in the Jinja template** — use tokens and helpers exclusively
 - **Token helpers** (`colors.alpha`, `colors.mix`, `radius.class_px`, `scale.spacing_px`) are the only way to transform token values
 - **Theme tokens are defined in XML** (`themes/default.xml`) — do not add Python-level color constants
-- **Public API surface**: `apply_theme()`, `get_theme()`, `ThemeConfig`, `ShadcnThemeTokens` — keep it minimal
+- **Public API surface**: `apply_theme()`, `get_theme()`, `ShadcnThemeTokens` — keep it minimal
 
 ---
 

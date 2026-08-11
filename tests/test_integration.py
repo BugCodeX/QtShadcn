@@ -5,7 +5,7 @@ from pathlib import Path
 import pytest
 from qtshadcn._qt import QtWidgets
 from qtshadcn.app import _build_theme, apply_theme
-from qtshadcn.models import ShadcnThemeTokens, ThemeConfig
+from qtshadcn.models import ShadcnThemeTokens
 
 FULL_THEME = """\
 <theme>
@@ -74,8 +74,7 @@ class TestIntegration:
 
     def test_full_pipeline(self, qapp: QtWidgets.QApplication, full_theme_path: Path):
         """Test the full theme application pipeline."""
-        config = ThemeConfig(theme_source_path=str(full_theme_path), theme_mode="light")
-        tokens = apply_theme(qapp, config)
+        tokens = apply_theme(qapp, theme_file=str(full_theme_path), theme_mode="light")
         assert isinstance(tokens, ShadcnThemeTokens)
         assert tokens.background == "#ffffff"
         assert "rgb(" in tokens.primary
@@ -85,8 +84,7 @@ class TestIntegration:
 
     def test_qss_output_is_qt_safe(self, qapp: QtWidgets.QApplication, full_theme_path: Path):
         """Test that the QSS output is safe for Qt."""
-        config = ThemeConfig(theme_source_path=str(full_theme_path), theme_mode="light")
-        tokens = apply_theme(qapp, config)
+        tokens = apply_theme(qapp, theme_file=str(full_theme_path), theme_mode="light")
         qss = _build_theme(tokens)
         assert "oklch(" not in qss
         assert "rem" not in qss

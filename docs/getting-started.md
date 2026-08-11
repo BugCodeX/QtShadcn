@@ -104,17 +104,16 @@ Save this as `my_theme.xml` next to your script:
 ```python
 import sys
 from qtshadcn._qt import QtWidgets
-from qtshadcn import ThemeConfig, ThemeParseError, apply_theme
+from qtshadcn import ThemeParseError, apply_theme
 
 app = QtWidgets.QApplication(sys.argv)
 
-config = ThemeConfig(
-    theme_source_path="my_theme.xml",
-    theme_mode="auto",  # follows the OS — or use "light" / "dark"
-)
-
 try:
-    tokens = apply_theme(app, config)
+    tokens = apply_theme(
+        app,
+        theme_file="my_theme.xml",
+        theme_mode="auto",  # follows the OS — or use "light" / "dark"
+    )
 except ThemeParseError as e:
     print(f"Could not load theme: {e}")
     sys.exit(1)
@@ -130,13 +129,12 @@ sys.exit(app.exec())
 
 ## Using the Default Theme
 
-QtShadcn ships with a default theme. Pass no `theme_source_path` and it loads automatically:
+QtShadcn ships with a default theme. Pass no `theme_file` and it loads automatically:
 
 ```python
-from qtshadcn import ThemeConfig, apply_theme
+from qtshadcn import apply_theme
 
-config = ThemeConfig(theme_mode="dark")
-apply_theme(app, config)
+apply_theme(app, theme_mode="dark")
 ```
 
 ---
@@ -161,15 +159,12 @@ The fonts are registered automatically by `apply_theme` before the stylesheet is
 | `"light"` | Always use the `<light>` palette |
 | `"dark"` | Always use the `<dark>` palette |
 
-You can also use the `ThemeMode` enum:
+The `theme_mode` argument accepts the string values `"auto"`, `"light"`, and `"dark"`:
 
 ```python
-from qtshadcn import ThemeConfig, ThemeMode
+from qtshadcn import apply_theme
 
-config = ThemeConfig(
-    theme_source_path="my_theme.xml",
-    theme_mode=ThemeMode.DARK,
-)
+apply_theme(app, theme_file="my_theme.xml", theme_mode="dark")
 ```
 
 ---

@@ -64,16 +64,15 @@ pip install PyQt6
 ```python
 import sys
 from qtshadcn._qt import QtWidgets
-from qtshadcn import ThemeConfig, apply_theme
+from qtshadcn import apply_theme
 
 app = QtWidgets.QApplication(sys.argv)
 
-config = ThemeConfig(
-    theme_source_path="path/to/my_theme.xml",
+tokens = apply_theme(
+    app,
+    theme_file="path/to/my_theme.xml",
     theme_mode="auto",  # "auto" | "light" | "dark"
 )
-
-tokens = apply_theme(app, config)
 print(tokens.primary)  # resolved hex color
 
 label = QtWidgets.QLabel("Hello, QtShadcn!")
@@ -158,27 +157,24 @@ Unknown tokens are silently ignored so you can extend the format freely.
 
 ## API Reference
 
-### `apply_theme(app, config) -> ShadcnThemeTokens`
+### `apply_theme(app, theme_file, *, theme_mode, custom_tokens, additional_qss, default_theme) -> ShadcnThemeTokens`
 
 Parses the XML theme, renders the QSS stylesheet, and calls `app.setStyleSheet()`.
 
-| Parameter | Type | Description |
-| --- | --- | --- |
-| `app` | `QApplication` | The running Qt application instance |
-| `config` | `ThemeConfig | None` | Theme configuration; `None` reloads from cache |
+| Parameter | Type | Default | Description |
+| --- | --- | --- | --- |
+| `app` | `QApplication \| None` | `None` | The running Qt application instance |
+| `theme_file` | `str \| None` | `None` | Path to the `.xml` theme file; `None` loads the default |
+| `theme_mode` | `str` | `"auto"` | `"auto"`, `"light"`, or `"dark"` |
+| `custom_tokens` | `dict[str, dict[str, str] \| str] \| None` | `None` | Token overrides (mode-specific when keys are `"light"`/`"dark"`) |
+| `additional_qss` | `str \| None` | `None` | Inline Jinja snippet, `.qss` file path, or `.jinja` file path to append |
+| `default_theme` | `str` | `"dark"` | Fallback mode when `theme_mode="auto"` and OS detection fails |
 
 Returns the active `ShadcnThemeTokens` (light or dark, resolved).
 
 ### `get_theme() -> ShadcnTheme | None`
 
 Returns the full resolved theme (both palettes) from disk cache, or `None` if no theme has been applied yet.
-
-### `ThemeConfig`
-
-| Field | Type | Default | Description |
-| --- | --- | --- | --- |
-| `theme_source_path` | `str | None` | `None` | Path to the `.xml` theme file |
-| `theme_mode` | `"auto" | "light" | "dark"` | `"auto"` | Palette selection strategy |
 
 ### `ShadcnThemeTokens`
 

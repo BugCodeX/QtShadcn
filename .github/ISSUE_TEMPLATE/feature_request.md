@@ -16,7 +16,7 @@ Describe what you'd like to see added or changed.
 
 - Is this a **new widget style** in `shadcn.jinja`?
 - A **new design token** in the XML theme?
-- A **new public API** (`apply_theme`, `ThemeConfig`, etc.)?
+- A **new public API** (`apply_theme`, `ShadcnThemeTokens`, etc.)?
 - Something else?
 
 ## Reference design

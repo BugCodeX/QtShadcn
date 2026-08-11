@@ -1,7 +1,7 @@
 from typing import Any
 
 from .exceptions import QtBindingError, QtShadcnError, ThemeParseError, ThemeRenderError
-from .models import ShadcnTheme, ShadcnThemeTokens, ThemeConfig, ThemeMode
+from .models import ShadcnTheme, ShadcnThemeTokens
 
 __version__ = "0.0.22"
 
@@ -16,9 +16,6 @@ def __getattr__(name: str) -> Any:
 
 
 __all__ = [
-    # Config
-    "ThemeConfig",
-    "ThemeMode",
     # Models
     "ShadcnTheme",
     "ShadcnThemeTokens",

@@ -1,4 +1,16 @@
-# QtShadcn v0.0.22
+# QtShadcn v0.0.23
+
+## Breaking Changes
+
+- Refactor `apply_theme()` to a keyword-driven signature. `ThemeConfig` is no longer part of the public API.
+  - New signature: `apply_theme(app=None, theme_file=None, *, theme_mode="auto", custom_tokens=None, additional_qss=None, default_theme="dark")`.
+  - `app` is now optional and falls back to `QApplication.instance()`; raises `QtShadcnError` when no instance exists.
+  - `theme_file` replaces `ThemeConfig.theme_source_path`; `None` loads the packaged default theme.
+  - `theme_mode` accepts `"auto"`, `"light"`, or `"dark"` as strings.
+  - `custom_tokens` replaces per-palette overrides; mode-specific when top-level keys are `"light"`/`"dark"`.
+  - `additional_qss` replaces `theme_custom`; appended to the base stylesheet as an inline string, `.qss` file, or `.jinja` file.
+  - `default_theme` is used when `theme_mode="auto"` and `darkdetect.theme()` returns `None`.
+  - The disk cache key now includes `custom_tokens` and `additional_qss`.
 
 ## What's New
 
