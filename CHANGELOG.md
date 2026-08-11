@@ -1,3 +1,24 @@
+# QtShadcn v0.0.22
+
+## What's New
+
+- Add `theme_custom` field to `ThemeConfig` for custom Jinja/QSS snippets appended to the base stylesheet.
+- Extend the shadcn QSS template with `QGroupBox` styling, `QPlainTextEdit` support, `QFontComboBox` grouping, rounded-full scale variants, and progress-bar labeled fixes. Button sizing now uses `scale=` instead of `size=`.
+- Support only PySide6 and PyQt6 bindings; PySide2 and PyQt5 are no longer selected.
+
+## Changes
+
+- Rewrite the gallery example as a single-file application with embedded pages and new UI assets.
+- Hardcode `__version__` in `qtshadcn/__init__.py` and synchronize it with `pyproject.toml` on every release.
+
+## Verification
+
+```bash
+pip install qtshadcn==0.0.22
+python -c "import qtshadcn; print(qtshadcn.__version__)"
+make test
+```
+
 # QtShadcn v0.0.20
 
 ## What's New
