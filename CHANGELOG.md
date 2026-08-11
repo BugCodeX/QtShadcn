@@ -1,4 +1,4 @@
-# QtShadcn v0.0.23
+# QtShadcn v0.1.0
 
 ## Breaking Changes
 
@@ -26,7 +26,7 @@
 ## Verification
 
 ```bash
-pip install qtshadcn==0.0.22
+pip install qtshadcn==0.1.0
 python -c "import qtshadcn; print(qtshadcn.__version__)"
 make test
 ```
