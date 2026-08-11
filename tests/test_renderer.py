@@ -2,8 +2,8 @@
 
 from pathlib import Path
 
-from qtshadcn._icons import ThemedIconManager
-from qtshadcn.app import _build_theme
+from qtshadcn.common.icon import ThemedIconManager
+from qtshadcn.common.renderer import _build_theme
 from qtshadcn.models import ShadcnThemeTokens
 
 TEMPLATE_FILE = str(Path(__file__).resolve().parent.parent / "qtshadcn" / "styles" / "shadcn.jinja")

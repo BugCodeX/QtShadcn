@@ -12,8 +12,8 @@ import re
 from pathlib import Path
 from xml.etree import ElementTree as ET
 
-from .exceptions import ThemeParseError
-from .models import ShadcnTheme, ShadcnThemeTokens
+from ..exceptions import ThemeParseError
+from ..models import ShadcnTheme, ShadcnThemeTokens
 
 logger = logging.getLogger(__name__)
 

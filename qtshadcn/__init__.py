@@ -9,7 +9,7 @@ __version__ = "0.1.0"
 def __getattr__(name: str) -> Any:
     """Lazily resolve Qt-dependent package exports."""
     if name in {"apply_theme", "get_theme"}:
-        from .app import apply_theme, get_theme
+        from .common.theme import apply_theme, get_theme
 
         return {"apply_theme": apply_theme, "get_theme": get_theme}[name]
     raise AttributeError(f"module {__name__!r} has no attribute {name!r}")

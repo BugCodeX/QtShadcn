@@ -4,7 +4,7 @@ from types import ModuleType
 from unittest.mock import patch
 
 import pytest
-import qtshadcn._qt as shim
+import qtshadcn.common.binding as shim
 
 
 def _make_module(full_name: str) -> ModuleType:

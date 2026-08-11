@@ -63,7 +63,7 @@ pip install PyQt6
 
 ```python
 import sys
-from qtshadcn._qt import QtWidgets
+from qtshadcn.common.binding import QtWidgets
 from qtshadcn import apply_theme
 
 app = QtWidgets.QApplication(sys.argv)

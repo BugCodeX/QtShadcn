@@ -20,7 +20,7 @@ class ThemeMode(StrEnum):
 class ThemeConfig(BaseModel):
     """Internal theme configuration used for cache keys and persistence.
 
-    The public :func:`~qtshadcn.app.apply_theme` signature exposes these values
+    The public :func:`~qtshadcn.common.theme.apply_theme` signature exposes these values
     as keyword arguments. This frozen model is kept internal so the cache can be
     keyed by every input that affects the rendered stylesheet.
     """

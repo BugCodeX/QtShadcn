@@ -43,10 +43,10 @@ class _BlockQtBindings(importlib.abc.MetaPathFinder):
 
 
 class _BlockQtShimsAndBindings(importlib.abc.MetaPathFinder):
-    """Meta path finder that blocks Qt bindings and the qtshadcn._qt shim."""
+    """Meta path finder that blocks Qt bindings and the qtshadcn.common.binding shim."""
 
     def find_spec(self, fullname: str, path: object = None, target: object = None) -> None:
-        if fullname == "qtshadcn._qt":
+        if fullname == "qtshadcn.common.binding":
             raise ImportError(fullname)
         if fullname.split(".", 1)[0] in {"PySide6", "PyQt6"}:
             raise ImportError(fullname)
@@ -78,7 +78,7 @@ def test_import_succeeds_without_qt_binding(isolated_qtshadcn_import: None):
     import qtshadcn
 
     assert qtshadcn.__version__ == _expected_version()
-    assert "qtshadcn._qt" not in sys.modules
+    assert "qtshadcn.common.binding" not in sys.modules
 
 
 def test_version_falls_back_to_pyproject_without_metadata_or_qt_import(
@@ -98,4 +98,4 @@ def test_version_falls_back_to_pyproject_without_metadata_or_qt_import(
     import qtshadcn
 
     assert qtshadcn.__version__ == _pyproject_version()
-    assert "qtshadcn._qt" not in sys.modules
+    assert "qtshadcn.common.binding" not in sys.modules

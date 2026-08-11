@@ -4,8 +4,9 @@ from pathlib import Path
 from unittest.mock import patch
 
 import pytest
-from qtshadcn._qt import QtWidgets
-from qtshadcn.app import _load_theme_cache, apply_theme
+from qtshadcn.common.binding import QtWidgets
+from qtshadcn.common.cache import _load_theme_cache
+from qtshadcn.common.theme import apply_theme
 from qtshadcn.exceptions import QtShadcnError, ThemeParseError
 
 SAMPLE_XML = """\
@@ -117,7 +118,7 @@ class TestApplyTheme:
         self, qapp: QtWidgets.QApplication, sample_xml: Path
     ):
         """Test that the auto mode selects dark when detected."""
-        with patch("qtshadcn.app.darkdetect.theme", return_value="Dark"):
+        with patch("qtshadcn.common.theme_mode.darkdetect.theme", return_value="Dark"):
             tokens = apply_theme(qapp, theme_file=str(sample_xml), theme_mode="auto")
         assert tokens.background == "#020617"
 
@@ -125,7 +126,7 @@ class TestApplyTheme:
         self, qapp: QtWidgets.QApplication, sample_xml: Path
     ):
         """Test that the auto mode selects light when detected."""
-        with patch("qtshadcn.app.darkdetect.theme", return_value="Light"):
+        with patch("qtshadcn.common.theme_mode.darkdetect.theme", return_value="Light"):
             tokens = apply_theme(qapp, theme_file=str(sample_xml), theme_mode="auto")
         assert tokens.background == "#ffffff"
 
@@ -133,7 +134,7 @@ class TestApplyTheme:
         self, qapp: QtWidgets.QApplication, sample_xml: Path
     ):
         """Test that auto mode falls back to default_theme when detection fails."""
-        with patch("qtshadcn.app.darkdetect.theme", return_value=None):
+        with patch("qtshadcn.common.theme_mode.darkdetect.theme", return_value=None):
             tokens = apply_theme(
                 qapp,
                 theme_file=str(sample_xml),
@@ -273,7 +274,7 @@ class TestCache:
         """Test that the cache is reused on the same mtime."""
         apply_theme(qapp, theme_file=str(sample_xml), theme_mode="light")
 
-        with patch("qtshadcn.app.parse_theme_source") as mock_parse:
+        with patch("qtshadcn.common.theme.parse_theme_source") as mock_parse:
             apply_theme(qapp, theme_file=str(sample_xml), theme_mode="light")
             mock_parse.assert_not_called()
 
@@ -284,7 +285,7 @@ class TestCache:
         # Modify the source file to change its mtime.
         sample_xml.write_text(SAMPLE_XML + "\n<!-- changed -->\n", encoding="utf-8")
 
-        with patch("qtshadcn.app.parse_theme_source") as mock_parse:
+        with patch("qtshadcn.common.theme.parse_theme_source") as mock_parse:
             mock_parse.return_value = _load_theme_cache()[1]  # cached theme
             apply_theme(qapp, theme_file=str(sample_xml), theme_mode="light")
             mock_parse.assert_called_once()
@@ -294,7 +295,7 @@ class TestCache:
         apply_theme(qapp, theme_file=str(sample_xml), theme_mode="light")
         cached_theme = _load_theme_cache()[1]
 
-        with patch("qtshadcn.app.parse_theme_source") as mock_parse:
+        with patch("qtshadcn.common.theme.parse_theme_source") as mock_parse:
             mock_parse.return_value = cached_theme
             apply_theme(
                 qapp,
@@ -309,7 +310,7 @@ class TestCache:
         apply_theme(qapp, theme_file=str(sample_xml), theme_mode="light")
         cached_theme = _load_theme_cache()[1]
 
-        with patch("qtshadcn.app.parse_theme_source") as mock_parse:
+        with patch("qtshadcn.common.theme.parse_theme_source") as mock_parse:
             mock_parse.return_value = cached_theme
             apply_theme(
                 qapp,

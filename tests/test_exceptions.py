@@ -1,7 +1,7 @@
 """Tests for QtShadcn custom exception hierarchy."""
 
 import pytest
-from qtshadcn.app import _build_theme
+from qtshadcn.common.renderer import _build_theme
 from qtshadcn.exceptions import (
     QtBindingError,
     QtShadcnError,

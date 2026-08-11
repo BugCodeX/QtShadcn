@@ -1,7 +1,7 @@
 """Shared pytest fixtures."""
 
 import pytest
-from qtshadcn._qt import QtWidgets
+from qtshadcn.common.binding import QtWidgets
 
 
 @pytest.fixture(scope="session")

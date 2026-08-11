@@ -22,12 +22,18 @@ QtShadcn loads a local **XML theme file** with `<light>` and `<dark>` palettes, 
 
 ```text
 qtshadcn/
-├── app.py          # Public API: apply_theme(), get_theme()
+├── __init__.py     # Public package exports
 ├── models.py       # Pydantic models: ShadcnTheme, ShadcnThemeTokens (ThemeConfig is internal)
-├── parser.py       # XML theme parser (public façade)
-├── _parser.py      # Internal XML parsing implementation
-├── _qt.py          # Binding-neutral Qt shim (PySide6 / PyQt6)
-├── _icons.py       # Runtime themed SVG icon cache helpers
+├── exceptions.py   # QtShadcnError, ThemeParseError, ThemeRenderError, QtBindingError
+├── common/         # Internal runtime modules
+│   ├── binding.py      # Binding-neutral Qt shim (PySide6 / PyQt6)
+│   ├── cache.py        # Theme cache persistence
+│   ├── helpers.py      # Application, file, mtime, font, and token-override helpers
+│   ├── icon.py         # Runtime themed SVG icon cache helpers
+│   ├── renderer.py     # QSS stylesheet renderer
+│   ├── theme.py        # Public API: apply_theme(), get_theme()
+│   ├── theme_mode.py   # Theme mode normalization and dark/light resolution
+│   └── theme_parser.py # Internal XML parsing implementation
 ├── styles/
 │   └── shadcn.jinja  # QSS template — the ONLY file for widget styles
 ├── themes/

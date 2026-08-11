@@ -22,7 +22,7 @@ QtShadcn applies a design-token–based QSS stylesheet to your `QApplication` in
 
 ```python
 import sys
-from qtshadcn._qt import QtWidgets
+from qtshadcn.common.binding import QtWidgets
 from qtshadcn import apply_theme
 
 app = QtWidgets.QApplication(sys.argv)

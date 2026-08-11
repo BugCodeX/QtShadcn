@@ -9,7 +9,7 @@ import tempfile
 from html import escape
 from pathlib import Path
 
-from ._qt import QtCore
+from .binding import QtCore
 
 logger = logging.getLogger(__name__)
 

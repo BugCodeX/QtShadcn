@@ -103,7 +103,7 @@ Save this as `my_theme.xml` next to your script:
 
 ```python
 import sys
-from qtshadcn._qt import QtWidgets
+from qtshadcn.common.binding import QtWidgets
 from qtshadcn import ThemeParseError, apply_theme
 
 app = QtWidgets.QApplication(sys.argv)
@@ -176,10 +176,10 @@ QtShadcn detects and uses the first available binding in this order:
 1. PySide6
 2. PyQt6
 
-Import `qtshadcn._qt` if you need to use the same Qt classes in your application:
+Import `qtshadcn.common.binding` if you need to use the same Qt classes in your application:
 
 ```python
-from qtshadcn._qt import QtWidgets
+from qtshadcn.common.binding import QtWidgets
 
 app = QtWidgets.QApplication([])
 ```

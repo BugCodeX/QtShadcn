@@ -14,7 +14,7 @@ import importlib
 import os
 from types import ModuleType
 
-from .exceptions import QtBindingError
+from ..exceptions import QtBindingError
 
 _DEFAULT_BINDING_ORDER = ("PySide6", "PyQt6")
 _REQUIRED_MODULES = ("QtCore", "QtGui", "QtWidgets")

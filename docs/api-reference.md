@@ -12,10 +12,10 @@ from qtshadcn import (
 )
 ```
 
-If you want your application to use the same Qt binding that QtShadcn detected, import from `qtshadcn._qt`:
+If you want your application to use the same Qt binding that QtShadcn detected, import from `qtshadcn.common.binding`:
 
 ```python
-from qtshadcn._qt import QtWidgets
+from qtshadcn.common.binding import QtWidgets
 
 app = QtWidgets.QApplication([])
 ```

@@ -3,8 +3,9 @@
 from pathlib import Path
 
 import pytest
-from qtshadcn._qt import QtWidgets
-from qtshadcn.app import _build_theme, apply_theme
+from qtshadcn.common.binding import QtWidgets
+from qtshadcn.common.renderer import _build_theme
+from qtshadcn.common.theme import apply_theme
 from qtshadcn.models import ShadcnThemeTokens
 
 FULL_THEME = """\
