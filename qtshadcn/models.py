@@ -1,44 +1,17 @@
 """QtShadcn theme models.
 
-Native XML-loaded theme tokens. Material models have been removed; the core
-runtime only accepts local QtShadcn XML theme files.
+Native XML/JSON-loaded theme tokens. Material models have been removed; the
+runtime accepts local QtShadcn XML themes and JSON palettes.
 """
-
-from enum import StrEnum
 
 from pydantic import BaseModel, ConfigDict
 
 
-class ThemeMode(StrEnum):
-    """Theme mode selection."""
-
-    AUTO = "auto"
-    LIGHT = "light"
-    DARK = "dark"
-
-
-class ThemeConfig(BaseModel):
-    """Internal theme configuration used for cache keys and persistence.
-
-    The public :func:`~qtshadcn.common.theme.apply_theme` signature exposes these values
-    as keyword arguments. This frozen model is kept internal so the cache can be
-    keyed by every input that affects the rendered stylesheet.
-    """
-
-    model_config = ConfigDict(frozen=True, use_enum_values=True)
-
-    theme_mode: ThemeMode = ThemeMode.AUTO
-    theme_file: str | None = None
-    custom_tokens: dict[str, dict[str, str] | str] | None = None
-    additional_qss: str | None = None
-    default_theme: str = "dark"
-
-
 class ShadcnThemeTokens(BaseModel):
-    """Resolved tokens for a single XML palette (light or dark).
+    """Resolved tokens for a single palette (light or dark).
 
-    Extra XML tokens are ignored so manually authored themes do not fail when
-    they contain additional variables.
+    Extra tokens are ignored so manually authored themes do not fail when they
+    contain additional variables.
     """
 
     model_config = ConfigDict(extra="ignore", frozen=True)
@@ -68,7 +41,7 @@ class ShadcnThemeTokens(BaseModel):
 
 
 class ShadcnTheme(BaseModel):
-    """Resolved light and dark palettes loaded from one QtShadcn XML document."""
+    """Resolved light and dark palettes loaded from one QtShadcn theme document."""
 
     model_config = ConfigDict(frozen=True)
 
