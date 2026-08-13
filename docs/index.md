@@ -23,15 +23,12 @@ QtShadcn applies a design-token–based QSS stylesheet to your `QApplication` in
 ```python
 import sys
 from qtpy import QtWidgets
-from qtshadcn import apply_theme
+from qtshadcn import setTheme, setThemeMode
 
 app = QtWidgets.QApplication(sys.argv)
 
-apply_theme(
-    app,
-    theme_file="my_theme.xml",
-    theme_mode="auto",
-)
+setThemeMode("auto", save=False)
+setTheme("my_theme.xml", save=False)
 
 btn = QtWidgets.QPushButton("Hello, QtShadcn!")
 btn.show()
@@ -69,5 +66,5 @@ See [Getting Started](getting-started.md) for the full setup guide.
 ## What's Next
 
 - See the [Theme Format](theme-format.md) for every supported token and color syntax.
-- See [API Reference](api-reference.md) for `apply_theme`, `ShadcnThemeTokens`, and the supported widget list.
+- See [API Reference](api-reference.md) for `setTheme`, `setThemeMode`, `ShadcnThemeTokens`, and the supported widget list.
 - See [Roadmap](roadmap.md) for planned widget coverage and release milestones.

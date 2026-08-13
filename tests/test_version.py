@@ -4,20 +4,14 @@ import importlib
 import importlib.abc
 import importlib.metadata
 import sys
-import tomllib
-from pathlib import Path
 
 import pytest
 import qtshadcn
 
-PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
-
-def _pyproject_version() -> str:
-    """Return the project version declared in pyproject.toml."""
-    with (PROJECT_ROOT / "pyproject.toml").open("rb") as pyproject_file:
-        pyproject = tomllib.load(pyproject_file)
-    return str(pyproject["project"]["version"])
+def _source_version() -> str:
+    """Return the package version from the source module."""
+    return str(qtshadcn.__version__)
 
 
 def _expected_version() -> str:
@@ -25,7 +19,7 @@ def _expected_version() -> str:
     try:
         return importlib.metadata.version("qtshadcn")
     except importlib.metadata.PackageNotFoundError:
-        return _pyproject_version()
+        return _source_version()
 
 
 def test_version_matches_available_project_version():
@@ -66,29 +60,8 @@ def isolated_qtshadcn_import():
 def test_import_raises_qt_binding_error_without_qt_binding(
     isolated_qtshadcn_import: None,
 ):
-    """Importing apply_theme without a Qt binding raises QtBindingError."""
+    """Importing qtshadcn without a Qt binding raises QtBindingError."""
     sys.meta_path.insert(0, _BlockQtBindings())
 
-    from qtshadcn import QtBindingError
-
-    with pytest.raises(QtBindingError):
-        from qtshadcn import apply_theme  # noqa: F401
-
-
-def test_version_falls_back_to_pyproject_without_metadata_or_qt_import(
-    isolated_qtshadcn_import: None, monkeypatch: pytest.MonkeyPatch
-):
-    """Test that source checkout imports still expose a version without Qt imports."""
-    original_version = importlib.metadata.version
-
-    def missing_metadata(name: str) -> str:
-        if name == "qtshadcn":
-            raise importlib.metadata.PackageNotFoundError(name)
-        return original_version(name)
-
-    monkeypatch.setattr(importlib.metadata, "version", missing_metadata)
-    sys.meta_path.insert(0, _BlockQtBindings())
-
-    import qtshadcn
-
-    assert qtshadcn.__version__ == _pyproject_version()
+    with pytest.raises(ImportError, match="No supported Qt binding found"):
+        import qtshadcn  # noqa: F401

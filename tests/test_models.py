@@ -1,35 +1,7 @@
 """Tests for QtShadcn theme models."""
 
 import pytest
-from qtshadcn.models import ShadcnTheme, ShadcnThemeTokens, ThemeConfig
-
-
-class TestThemeConfig:
-    """Tests for the internal theme config model."""
-
-    def test_default_config_has_no_source_path(self):
-        """Test that the default config has no source path."""
-        config = ThemeConfig()
-        assert config.theme_file is None
-        assert config.theme_mode == "auto"
-        assert config.custom_tokens is None
-        assert config.additional_qss is None
-        assert config.default_theme == "dark"
-
-    def test_config_stores_theme_file(self):
-        """Test that the config stores the theme file path."""
-        config = ThemeConfig(theme_file="/tmp/theme.xml")
-        assert config.theme_file == "/tmp/theme.xml"
-
-    def test_config_stores_custom_tokens(self):
-        """Test that the config stores custom token overrides."""
-        config = ThemeConfig(custom_tokens={"background": "#000000"})
-        assert config.custom_tokens == {"background": "#000000"}
-
-    def test_config_stores_additional_qss(self):
-        """Test that the config stores additional QSS."""
-        config = ThemeConfig(additional_qss="QWidget { color: red; }")
-        assert config.additional_qss == "QWidget { color: red; }"
+from qtshadcn.models import ShadcnTheme, ShadcnThemeTokens
 
 
 class TestShadcnThemeTokens:

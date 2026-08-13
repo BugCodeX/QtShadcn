@@ -16,7 +16,7 @@ from pathlib import Path
 from xml.etree import ElementTree as ET
 
 from qtpy import API_NAME, QtCore, QtGui, QtWidgets
-from qtshadcn import apply_theme, get_theme
+from qtshadcn import qsettings, setStyleSheet, setTheme, setThemeMode
 from rich.logging import RichHandler
 
 logging.basicConfig(
@@ -318,12 +318,9 @@ class GalleryUiWindow(QtWidgets.QMainWindow):
             tmp_file.write(_tokens_to_xml_bytes(self._tokens))
             tmp_path = tmp_file.name
         try:
-            apply_theme(
-                self.app,
-                theme_file=tmp_path,
-                theme_mode=self._active_mode,
-                additional_qss=CUSTOM_PATH,
-            )
+            setThemeMode(self._active_mode, save=False)
+            setTheme(tmp_path, save=False)
+            setStyleSheet(CUSTOM_PATH, save=False)
         finally:
             Path(tmp_path).unlink(missing_ok=True)
         # Re-apply color squares AFTER app.setStyleSheet so they survive re-polish
@@ -402,12 +399,9 @@ class GalleryUiWindow(QtWidgets.QMainWindow):
         """Apply the selected theme mode (0=Auto, 1=Light, 2=Dark)."""
         _mode_keys = ["auto", "light", "dark"]
         self._active_mode = _mode_keys[index] if _mode_keys[index] != "auto" else "dark"
-        apply_theme(
-            self.app,
-            theme_file=THEME_FILE,
-            theme_mode=_mode_keys[index],
-            additional_qss=CUSTOM_PATH,
-        )
+        setThemeMode(_mode_keys[index], save=False)
+        setTheme(THEME_FILE, save=False)
+        setStyleSheet(CUSTOM_PATH, save=False)
         # Re-apply color squares after app stylesheet update
         self._refresh_editor_widgets()
 
@@ -441,7 +435,8 @@ class GalleryUiWindow(QtWidgets.QMainWindow):
         super().enterEvent(event)
 
     def closeEvent(self, event):
-        """Clean up external views before closing the application."""
+        """Persist current theme preferences before closing the application."""
+        qsettings.save()
         logging.shutdown()
         super().closeEvent(event)
 
@@ -463,13 +458,9 @@ if __name__ == "__main__":
 
     # Apply initial theme
     logger.info("Applying initial theme (Dark)")
-    get_theme()
-    apply_theme(
-        window.app,
-        theme_file=THEME_FILE,
-        theme_mode="dark",
-        additional_qss=CUSTOM_PATH,
-    )
+    setThemeMode("dark", save=False)
+    setTheme(THEME_FILE, save=False)
+    setStyleSheet(CUSTOM_PATH, save=False)
 
     window.show()
     logger.info("Gallery .ui window displayed")

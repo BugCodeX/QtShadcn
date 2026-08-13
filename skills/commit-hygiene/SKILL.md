@@ -82,7 +82,7 @@ Validated by regex:
 
 ```text
 feat: add border-radius scale to design tokens
-feat!: rename apply_theme() to load_theme() — breaking API change
+feat!: remove deprecated apply_theme()/get_theme() wrappers
 fix: handle missing token fallback in QSS output
 refactor: extract token resolver to separate method
 docs: document token naming convention

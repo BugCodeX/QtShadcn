@@ -6,7 +6,7 @@ from typing import Any, cast
 
 from qtpy import QtGui, QtWidgets
 
-from ..exceptions import QtShadcnError, ThemeParseError
+from ..exceptions import QtShadcnError
 from ..models import ShadcnTheme, ShadcnThemeTokens
 from .theme_parser import resolve_value
 
@@ -16,7 +16,7 @@ DEFAULT_THEME_FILE = Path(__file__).resolve().parents[1] / "themes" / "default.x
 
 
 def _resolve_theme_file(theme_file: str | None) -> Path:
-    """Return the configured XML path or the packaged default theme path."""
+    """Return the configured theme path or the packaged default theme path."""
     if theme_file:
         return Path(theme_file)
     return DEFAULT_THEME_FILE
@@ -29,14 +29,6 @@ def _resolve_application(app: QtWidgets.QApplication | None) -> QtWidgets.QAppli
     if app is None:
         raise QtShadcnError("No QApplication instance found")
     return app
-
-
-def _get_mtime(path: Path) -> float:
-    """Return the modification time of the theme source file."""
-    try:
-        return path.stat().st_mtime
-    except OSError as e:
-        raise ThemeParseError(f"Could not read theme source: {path}") from e
 
 
 def _add_fonts() -> None:
@@ -99,3 +91,8 @@ def _override_tokens(tokens: ShadcnThemeTokens, overrides: dict[str, str]) -> Sh
             continue
         data[key] = resolve_value(raw_value)
     return ShadcnThemeTokens(**data)
+
+
+def _looks_like_jinja(content: str) -> bool:
+    """Return True when ``content`` contains Jinja delimiters."""
+    return "{{" in content or "{%" in content

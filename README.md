@@ -75,15 +75,13 @@ export QT_API=pyqt5
 ```python
 import sys
 from qtpy import QtWidgets
-from qtshadcn import apply_theme
+from qtshadcn import setTheme, setThemeMode, getTheme
 
 app = QtWidgets.QApplication(sys.argv)
 
-tokens = apply_theme(
-    app,
-    theme_file="path/to/my_theme.xml",
-    theme_mode="auto",  # "auto" | "light" | "dark"
-)
+setThemeMode("auto", save=False)  # "auto" | "light" | "dark"
+setTheme("path/to/my_theme.xml", save=False)
+tokens = getTheme()
 print(tokens.primary)  # resolved hex color
 
 label = QtWidgets.QLabel("Hello, QtShadcn!")
@@ -168,24 +166,55 @@ Unknown tokens are silently ignored so you can extend the format freely.
 
 ## API Reference
 
-### `apply_theme(app, theme_file, *, theme_mode, custom_tokens, additional_qss, default_theme) -> ShadcnThemeTokens`
+QtShadcn exposes a small, composable public API directly from the package root:
 
-Parses the XML theme, renders the QSS stylesheet, and calls `app.setStyleSheet()`.
+```python
+from qtshadcn import (
+    qsettings,
+    ThemeMode,
+    setThemeMode,
+    toggleThemeMode,
+    themeMode,
+    isDarkTheme,
+    setTheme,
+    getTheme,
+    setStyleSheet,
+    getStyleSheet,
+    SystemThemeListener,
+)
+```
 
-| Parameter | Type | Default | Description |
-| --- | --- | --- | --- |
-| `app` | `QApplication \| None` | `None` | The running Qt application instance |
-| `theme_file` | `str \| None` | `None` | Path to the `.xml` theme file; `None` loads the default |
-| `theme_mode` | `str` | `"auto"` | `"auto"`, `"light"`, or `"dark"` |
-| `custom_tokens` | `dict[str, dict[str, str] \| str] \| None` | `None` | Token overrides (mode-specific when keys are `"light"`/`"dark"`) |
-| `additional_qss` | `str \| None` | `None` | Inline Jinja snippet, `.qss` file path, or `.jinja` file path to append |
-| `default_theme` | `str` | `"dark"` | Fallback mode when `theme_mode="auto"` and OS detection fails |
+### `setThemeMode(mode, *, save=True)`
 
-Returns the active `ShadcnThemeTokens` (light or dark, resolved).
+Set the active theme mode (`"auto"`, `"light"`, or `"dark"`) and re-render the stylesheet.
 
-### `get_theme() -> ShadcnTheme | None`
+### `toggleThemeMode(*, save=True)`
 
-Returns the full resolved theme (both palettes) from disk cache, or `None` if no theme has been applied yet.
+Cycle the theme mode: auto → light → dark → auto.
+
+### `themeMode() -> ThemeMode`
+
+Return the current `ThemeMode`.
+
+### `isDarkTheme() -> bool`
+
+Return whether the resolved active palette is dark.
+
+### `setTheme(source, *, custom_tokens=None, save=True)`
+
+Load a QtShadcn `.xml` or `.json` theme, apply optional token overrides, and re-render the stylesheet.
+
+### `getTheme() -> ShadcnThemeTokens`
+
+Return the resolved tokens for the active mode.
+
+### `setStyleSheet(source, *, save=True)`
+
+Set an additional stylesheet (inline QSS/Jinja string or `.qss`/`.jinja` file path) layered on top of the base QSS.
+
+### `getStyleSheet() -> str`
+
+Return the current additional stylesheet content.
 
 ### `ShadcnThemeTokens`
 

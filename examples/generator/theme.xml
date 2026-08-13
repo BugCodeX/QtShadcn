@@ -1,0 +1,50 @@
+<theme>
+  <light>
+    <background>#faf9f5</background>
+    <foreground>#3d3929</foreground>
+    <card>#faf9f5</card>
+    <card_foreground>#141413</card_foreground>
+    <popover>#ffffff</popover>
+    <popover_foreground>#28261b</popover_foreground>
+    <primary>#c96442</primary>
+    <primary_foreground>#ffffff</primary_foreground>
+    <secondary>#e9e6dc</secondary>
+    <secondary_foreground>#535146</secondary_foreground>
+    <muted>#ede9de</muted>
+    <muted_foreground>#83827d</muted_foreground>
+    <accent>#e9e6dc</accent>
+    <accent_foreground>#28261b</accent_foreground>
+    <destructive>#141413</destructive>
+    <destructive_foreground>#ffffff</destructive_foreground>
+    <border>#dad9d4</border>
+    <input>#b4b2a7</input>
+    <ring>#c96442</ring>
+    <spacing>0.25rem</spacing>
+    <radius>0.5rem</radius>
+    <font_family>ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'</font_family>
+  </light>
+  <dark>
+    <background>#262624</background>
+    <foreground>#c3c0b6</foreground>
+    <card>#262624</card>
+    <card_foreground>#faf9f5</card_foreground>
+    <popover>#30302e</popover>
+    <popover_foreground>#e5e5e2</popover_foreground>
+    <primary>#d97757</primary>
+    <primary_foreground>#ffffff</primary_foreground>
+    <secondary>#faf9f5</secondary>
+    <secondary_foreground>#30302e</secondary_foreground>
+    <muted>#1b1b19</muted>
+    <muted_foreground>#b7b5a9</muted_foreground>
+    <accent>#1a1915</accent>
+    <accent_foreground>#f5f4ee</accent_foreground>
+    <destructive>#ef4444</destructive>
+    <destructive_foreground>#ffffff</destructive_foreground>
+    <border>#3e3e38</border>
+    <input>#52514a</input>
+    <ring>#d97757</ring>
+    <spacing>0.25rem</spacing>
+    <radius>0.5rem</radius>
+    <font_family>ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'</font_family>
+  </dark>
+</theme>

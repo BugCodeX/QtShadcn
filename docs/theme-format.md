@@ -19,7 +19,7 @@ Both sections are required. Unknown tokens are silently ignored, so you can add 
 
 ## Required Tokens
 
-Every palette section must contain **all 22 tokens** listed below. If any are missing, `apply_theme` raises a `ThemeParseError`.
+Every palette section must contain **all 22 tokens** listed below. If any are missing, `setTheme` raises a `ThemeParseError`.
 
 | Token | Description | Example |
 | --- | --- | --- |
@@ -99,7 +99,7 @@ Converted to `px` using `1rem = 16px`. `0.5rem` becomes `8px`.
 
 ## Fonts
 
-QtShadcn ships with **Open Sans** and **Roboto** under `qtshadcn/fonts/`. They are registered automatically by `apply_theme`.
+QtShadcn ships with **Open Sans** and **Roboto** under `qtshadcn/fonts/`. They are registered automatically when the stylesheet is rendered.
 
 To use them, reference the family name in your theme:
 

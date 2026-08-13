@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry"><rect><x>0</x><y>0</y><width>880</width><height>620</height></rect></property>
+  <property name="windowTitle"><string>QtShadcn — Basic Example</string></property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="rootLayout">
+    <property name="spacing"><number>0</number></property>
+    <property name="leftMargin"><number>0</number></property>
+    <property name="topMargin"><number>0</number></property>
+    <property name="rightMargin"><number>0</number></property>
+    <property name="bottomMargin"><number>0</number></property>
+    <item>
+     <widget class="QWidget" name="headerBar">
+      <layout class="QHBoxLayout" name="headerLayout">
+       <property name="leftMargin"><number>24</number></property>
+       <property name="topMargin"><number>12</number></property>
+       <property name="rightMargin"><number>24</number></property>
+       <property name="bottomMargin"><number>12</number></property>
+       <item><widget class="QLabel" name="headerTitle"><property name="text"><string>QtShadcn Basic Example</string></property></widget></item>
+       <item><spacer name="headerSpacer"><property name="orientation"><enum>Qt::Horizontal</enum></property><property name="sizeHint" stdset="0"><size><width>40</width><height>20</height></size></property></spacer></item>
+       <item><widget class="QPushButton" name="themeToggle"><property name="maximumWidth"><number>120</number></property><property name="text"><string>☾ Dark</string></property></widget></item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QScrollArea" name="scrollArea">
+      <property name="widgetResizable"><bool>true</bool></property>
+      <property name="frameShape"><enum>QFrame::NoFrame</enum></property>
+      <widget class="QWidget" name="scrollAreaContents">
+       <property name="geometry"><rect><x>0</x><y>0</y><width>832</width><height>540</height></rect></property>
+       <layout class="QVBoxLayout" name="contentLayout">
+        <property name="spacing"><number>20</number></property>
+        <property name="leftMargin"><number>24</number></property>
+        <property name="topMargin"><number>20</number></property>
+        <property name="rightMargin"><number>24</number></property>
+        <property name="bottomMargin"><number>28</number></property>
+        <item>
+         <widget class="QWidget" name="sectionButtons">
+          <layout class="QVBoxLayout" name="sectionButtonsLayout">
+           <property name="spacing"><number>8</number></property>
+           <property name="leftMargin"><number>0</number></property><property name="topMargin"><number>0</number></property><property name="rightMargin"><number>0</number></property><property name="bottomMargin"><number>0</number></property>
+           <item><widget class="QLabel" name="labelButtons"><property name="text"><string>Buttons</string></property><property name="font"><font><bold>true</bold></font></property></widget></item>
+           <item><widget class="QFrame" name="sepButtons"><property name="frameShape"><enum>QFrame::HLine</enum></property><property name="frameShadow"><enum>QFrame::Sunken</enum></property></widget></item>
+           <item>
+            <layout class="QHBoxLayout" name="buttonsRow">
+             <property name="spacing"><number>8</number></property>
+             <item><widget class="QPushButton" name="btnPrimary"><property name="text"><string>Primary</string></property></widget></item>
+             <item><widget class="QPushButton" name="btnSecondary"><property name="text"><string>Secondary</string></property></widget></item>
+             <item><widget class="QPushButton" name="btnOutline"><property name="text"><string>Outline</string></property></widget></item>
+             <item><widget class="QPushButton" name="btnDestructive"><property name="text"><string>Destructive</string></property></widget></item>
+             <item><widget class="QPushButton" name="btnDisabled"><property name="enabled"><bool>false</bool></property><property name="text"><string>Disabled</string></property></widget></item>
+             <item><spacer name="buttonsRowSpacer"><property name="orientation"><enum>Qt::Horizontal</enum></property><property name="sizeHint" stdset="0"><size><width>40</width><height>20</height></size></property></spacer></item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QWidget" name="sectionInputs">
+          <layout class="QVBoxLayout" name="sectionInputsLayout">
+           <property name="spacing"><number>8</number></property>
+           <property name="leftMargin"><number>0</number></property><property name="topMargin"><number>0</number></property><property name="rightMargin"><number>0</number></property><property name="bottomMargin"><number>0</number></property>
+           <item><widget class="QLabel" name="labelInputs"><property name="text"><string>Line Inputs</string></property><property name="font"><font><bold>true</bold></font></property></widget></item>
+           <item><widget class="QFrame" name="sepInputs"><property name="frameShape"><enum>QFrame::HLine</enum></property><property name="frameShadow"><enum>QFrame::Sunken</enum></property></widget></item>
+           <item>
+            <layout class="QFormLayout" name="inputsForm">
+             <property name="verticalSpacing"><number>8</number></property>
+             <item row="0" column="0"><widget class="QLabel" name="labelUsername"><property name="text"><string>Username:</string></property></widget></item>
+             <item row="0" column="1"><widget class="QLineEdit" name="inputUsername"><property name="placeholderText"><string>Enter username…</string></property></widget></item>
+             <item row="1" column="0"><widget class="QLabel" name="labelPassword"><property name="text"><string>Password:</string></property></widget></item>
+             <item row="1" column="1"><widget class="QLineEdit" name="inputPassword"><property name="echoMode"><enum>QLineEdit::Password</enum></property><property name="placeholderText"><string>Enter password…</string></property></widget></item>
+             <item row="2" column="0"><widget class="QLabel" name="labelReadOnly"><property name="text"><string>Read-only:</string></property></widget></item>
+             <item row="2" column="1"><widget class="QLineEdit" name="inputReadOnly"><property name="text"><string>Read-only value</string></property><property name="readOnly"><bool>true</bool></property></widget></item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QWidget" name="sectionCheckboxes">
+          <layout class="QVBoxLayout" name="sectionCheckboxesLayout">
+           <property name="spacing"><number>8</number></property>
+           <property name="leftMargin"><number>0</number></property><property name="topMargin"><number>0</number></property><property name="rightMargin"><number>0</number></property><property name="bottomMargin"><number>0</number></property>
+           <item><widget class="QLabel" name="labelCheckboxes"><property name="text"><string>Checkboxes</string></property><property name="font"><font><bold>true</bold></font></property></widget></item>
+           <item><widget class="QFrame" name="sepCheckboxes"><property name="frameShape"><enum>QFrame::HLine</enum></property><property name="frameShadow"><enum>QFrame::Sunken</enum></property></widget></item>
+           <item>
+            <layout class="QVBoxLayout" name="checkboxesCol">
+             <property name="spacing"><number>6</number></property>
+             <item><widget class="QCheckBox" name="checkTerms"><property name="text"><string>Accept terms and conditions</string></property><property name="checked"><bool>true</bool></property></widget></item>
+             <item><widget class="QCheckBox" name="checkNewsletter"><property name="text"><string>Subscribe to newsletter</string></property><property name="checked"><bool>false</bool></property></widget></item>
+             <item><widget class="QCheckBox" name="checkNotifications"><property name="text"><string>Enable notifications</string></property><property name="checked"><bool>true</bool></property></widget></item>
+             <item><widget class="QCheckBox" name="checkDisabled"><property name="enabled"><bool>false</bool></property><property name="text"><string>Disabled option</string></property></widget></item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QWidget" name="sectionRadio">
+          <layout class="QVBoxLayout" name="sectionRadioLayout">
+           <property name="spacing"><number>8</number></property>
+           <property name="leftMargin"><number>0</number></property><property name="topMargin"><number>0</number></property><property name="rightMargin"><number>0</number></property><property name="bottomMargin"><number>0</number></property>
+           <item><widget class="QLabel" name="labelRadio"><property name="text"><string>Radio Buttons</string></property><property name="font"><font><bold>true</bold></font></property></widget></item>
+           <item><widget class="QFrame" name="sepRadio"><property name="frameShape"><enum>QFrame::HLine</enum></property><property name="frameShadow"><enum>QFrame::Sunken</enum></property></widget></item>
+           <item>
+            <widget class="QGroupBox" name="groupRadio">
+             <property name="title"><string>Select an option</string></property>
+             <layout class="QVBoxLayout" name="groupRadioLayout">
+              <property name="spacing"><number>6</number></property>
+              <item><widget class="QRadioButton" name="radioA"><property name="text"><string>Option A</string></property><property name="checked"><bool>true</bool></property></widget></item>
+              <item><widget class="QRadioButton" name="radioB"><property name="text"><string>Option B</string></property></widget></item>
+              <item><widget class="QRadioButton" name="radioC"><property name="enabled"><bool>false</bool></property><property name="text"><string>Option C (disabled)</string></property></widget></item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QWidget" name="sectionSlider">
+          <layout class="QVBoxLayout" name="sectionSliderLayout">
+           <property name="spacing"><number>8</number></property>
+           <property name="leftMargin"><number>0</number></property><property name="topMargin"><number>0</number></property><property name="rightMargin"><number>0</number></property><property name="bottomMargin"><number>0</number></property>
+           <item><widget class="QLabel" name="labelSliderSection"><property name="text"><string>Slider</string></property><property name="font"><font><bold>true</bold></font></property></widget></item>
+           <item><widget class="QFrame" name="sepSlider"><property name="frameShape"><enum>QFrame::HLine</enum></property><property name="frameShadow"><enum>QFrame::Sunken</enum></property></widget></item>
+           <item>
+            <layout class="QHBoxLayout" name="sliderRow">
+             <property name="spacing"><number>12</number></property>
+             <item><widget class="QSlider" name="slider"><property name="minimum"><number>0</number></property><property name="maximum"><number>100</number></property><property name="value"><number>42</number></property><property name="orientation"><enum>Qt::Horizontal</enum></property></widget></item>
+             <item><widget class="QLabel" name="sliderValueLabel"><property name="minimumWidth"><number>30</number></property><property name="text"><string>42</string></property></widget></item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QWidget" name="sectionProgress">
+          <layout class="QVBoxLayout" name="sectionProgressLayout">
+           <property name="spacing"><number>8</number></property>
+           <property name="leftMargin"><number>0</number></property><property name="topMargin"><number>0</number></property><property name="rightMargin"><number>0</number></property><property name="bottomMargin"><number>0</number></property>
+           <item><widget class="QLabel" name="labelProgress"><property name="text"><string>Progress Bar</string></property><property name="font"><font><bold>true</bold></font></property></widget></item>
+           <item><widget class="QFrame" name="sepProgress"><property name="frameShape"><enum>QFrame::HLine</enum></property><property name="frameShadow"><enum>QFrame::Sunken</enum></property></widget></item>
+           <item>
+            <layout class="QVBoxLayout" name="progressBarsCol">
+             <property name="spacing"><number>8</number></property>
+             <item><widget class="QProgressBar" name="progressBar1"><property name="minimum"><number>0</number></property><property name="maximum"><number>100</number></property><property name="value"><number>25</number></property></widget></item>
+             <item><widget class="QProgressBar" name="progressBar2"><property name="minimum"><number>0</number></property><property name="maximum"><number>100</number></property><property name="value"><number>60</number></property></widget></item>
+             <item><widget class="QProgressBar" name="progressBar3"><property name="minimum"><number>0</number></property><property name="maximum"><number>100</number></property><property name="value"><number>90</number></property></widget></item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QWidget" name="sectionCombo">
+          <layout class="QVBoxLayout" name="sectionComboLayout">
+           <property name="spacing"><number>8</number></property>
+           <property name="leftMargin"><number>0</number></property><property name="topMargin"><number>0</number></property><property name="rightMargin"><number>0</number></property><property name="bottomMargin"><number>0</number></property>
+           <item><widget class="QLabel" name="labelCombo"><property name="text"><string>ComboBox</string></property><property name="font"><font><bold>true</bold></font></property></widget></item>
+           <item><widget class="QFrame" name="sepCombo"><property name="frameShape"><enum>QFrame::HLine</enum></property><property name="frameShadow"><enum>QFrame::Sunken</enum></property></widget></item>
+           <item>
+            <widget class="QComboBox" name="comboTheme">
+             <property name="maximumWidth"><number>220</number></property>
+             <item><property name="text"><string>System Default</string></property></item>
+             <item><property name="text"><string>Light Theme</string></property></item>
+             <item><property name="text"><string>Dark Theme</string></property></item>
+             <item><property name="text"><string>High Contrast</string></property></item>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QWidget" name="sectionTextEdit">
+          <layout class="QVBoxLayout" name="sectionTextEditLayout">
+           <property name="spacing"><number>8</number></property>
+           <property name="leftMargin"><number>0</number></property><property name="topMargin"><number>0</number></property><property name="rightMargin"><number>0</number></property><property name="bottomMargin"><number>0</number></property>
+           <item><widget class="QLabel" name="labelTextEdit"><property name="text"><string>Multi-line Text</string></property><property name="font"><font><bold>true</bold></font></property></widget></item>
+           <item><widget class="QFrame" name="sepTextEdit"><property name="frameShape"><enum>QFrame::HLine</enum></property><property name="frameShadow"><enum>QFrame::Sunken</enum></property></widget></item>
+           <item><widget class="QTextEdit" name="textEditor"><property name="maximumHeight"><number>100</number></property><property name="placeholderText"><string>Type something here…</string></property></widget></item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QWidget" name="sectionTabs">
+          <layout class="QVBoxLayout" name="sectionTabsLayout">
+           <property name="spacing"><number>8</number></property>
+           <property name="leftMargin"><number>0</number></property><property name="topMargin"><number>0</number></property><property name="rightMargin"><number>0</number></property><property name="bottomMargin"><number>0</number></property>
+           <item><widget class="QLabel" name="labelTabs"><property name="text"><string>Tab Widget</string></property><property name="font"><font><bold>true</bold></font></property></widget></item>
+           <item><widget class="QFrame" name="sepTabs"><property name="frameShape"><enum>QFrame::HLine</enum></property><property name="frameShadow"><enum>QFrame::Sunken</enum></property></widget></item>
+           <item>
+            <widget class="QTabWidget" name="tabWidget">
+             <property name="maximumHeight"><number>140</number></property>
+             <property name="currentIndex"><number>0</number></property>
+             <widget class="QWidget" name="tabOverview">
+              <attribute name="title"><string>Overview</string></attribute>
+              <layout class="QVBoxLayout" name="tabOverviewLayout">
+               <item><widget class="QLabel" name="tabOverviewLabel"><property name="text"><string>This is the Overview tab.
+Summary information goes here.</string></property><property name="wordWrap"><bool>true</bool></property></widget></item>
+               <item><spacer name="tabOverviewSpacer"><property name="orientation"><enum>Qt::Vertical</enum></property><property name="sizeHint" stdset="0"><size><width>20</width><height>40</height></size></property></spacer></item>
+              </layout>
+             </widget>
+             <widget class="QWidget" name="tabDetails">
+              <attribute name="title"><string>Details</string></attribute>
+              <layout class="QVBoxLayout" name="tabDetailsLayout">
+               <item><widget class="QLabel" name="tabDetailsLabel"><property name="text"><string>This is the Details tab.
+More granular content lives here.</string></property><property name="wordWrap"><bool>true</bool></property></widget></item>
+               <item><spacer name="tabDetailsSpacer"><property name="orientation"><enum>Qt::Vertical</enum></property><property name="sizeHint" stdset="0"><size><width>20</width><height>40</height></size></property></spacer></item>
+              </layout>
+             </widget>
+             <widget class="QWidget" name="tabSettings">
+              <attribute name="title"><string>Settings</string></attribute>
+              <layout class="QVBoxLayout" name="tabSettingsLayout">
+               <item><widget class="QLabel" name="tabSettingsLabel"><property name="text"><string>This is the Settings tab.
+Configuration options go here.</string></property><property name="wordWrap"><bool>true</bool></property></widget></item>
+               <item><spacer name="tabSettingsSpacer"><property name="orientation"><enum>Qt::Vertical</enum></property><property name="sizeHint" stdset="0"><size><width>20</width><height>40</height></size></property></spacer></item>
+              </layout>
+             </widget>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item><spacer name="contentBottomSpacer"><property name="orientation"><enum>Qt::Vertical</enum></property><property name="sizeHint" stdset="0"><size><width>20</width><height>40</height></size></property></spacer></item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
