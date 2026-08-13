@@ -166,6 +166,7 @@ class TestThemeMode:
 
 class TestSetTheme:
     def test_set_xml_theme(self, qapp, sample_xml, tmp_path):
+        setThemeMode(ThemeMode.LIGHT)
         setTheme(sample_xml, save=True)
         tokens = getTheme()
         assert tokens.background == "#ffffff"
