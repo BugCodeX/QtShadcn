@@ -1,4 +1,34 @@
+# QtShadcn v0.3.0
+
+## Breaking Changes
+
+- Removed `apply_theme()` and `get_theme()` from the public API; use `setTheme()` and `getTheme()` instead.
+- Removed the internal `cache.py` module; theme caching is no longer part of the public contract.
+
+## What's New
+
+- Added a persistent config system via a `qsettings` singleton for storing theme preferences across sessions.
+- Added a 3-concept stylesheet API with a full rendering pipeline (`setStyleSheet`, `getStyleSheet`, `setTheme`, `getTheme`).
+- Added `SystemThemeListener` for automatic OS-level light/dark theme reactivity.
+- Exported all new public symbols from the package root.
+
+## Fixes
+
+- Made `toggleThemeMode()` deterministic when no mode is set.
+- Set light mode explicitly in XML theme tests to avoid environment-dependent failures.
+
+## Verification
+
+```bash
+pip install qtshadcn==0.3.0
+python -c "import qtshadcn; print(qtshadcn.__version__)"
+make test
+```
+
+---
+
 # QtShadcn v0.2.0
+
 
 ## Breaking Changes
 
