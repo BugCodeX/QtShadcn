@@ -104,7 +104,7 @@ jobs:
         binding: [pyside6, pyqt6]
         include:
           - os: ubuntu-latest
-            python-version: "3.12"
+            python-version: "3.11"
             binding: pyside2
           - os: ubuntu-latest
             python-version: "3.12"
