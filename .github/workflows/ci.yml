@@ -160,10 +160,11 @@ jobs:
       - name: Assert QtBindingError without binding
         run: |
           uv run python - <<'PY'
-          from qtshadcn import QtBindingError
           try:
-              from qtshadcn import apply_theme  # noqa: F401
-          except QtBindingError as exc:
+              import qtshadcn  # noqa: F401
+          except ImportError as exc:
+              if "No supported Qt binding found" not in str(exc):
+                  raise
               print("OK: QtBindingError raised:", exc)
           else:
               raise SystemExit("Expected QtBindingError when no binding is installed")

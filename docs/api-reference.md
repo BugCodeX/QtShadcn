@@ -4,8 +4,17 @@ All public symbols are importable directly from `qtshadcn`:
 
 ```python
 from qtshadcn import (
-    apply_theme,
-    get_theme,
+    qsettings,
+    ThemeMode,
+    setThemeMode,
+    toggleThemeMode,
+    themeMode,
+    isDarkTheme,
+    setTheme,
+    getTheme,
+    setStyleSheet,
+    getStyleSheet,
+    SystemThemeListener,
     ShadcnTheme,
     ShadcnThemeTokens,
     ThemeParseError,
@@ -29,57 +38,116 @@ installed.
 
 ## Functions
 
-### `apply_theme`
+### `setThemeMode`
 
 ```python
-def apply_theme(
-    app: QApplication | None = None,
-    theme_file: str | None = None,
-    *,
-    theme_mode: str = "auto",
-    custom_tokens: dict[str, dict[str, str] | str] | None = None,
-    additional_qss: str | None = None,
-    default_theme: str = "dark",
-) -> ShadcnThemeTokens
+def setThemeMode(mode: ThemeMode | str, *, save: bool = True) -> None
 ```
 
-Applies a QtShadcn XML theme to the running `QApplication`.
-
-**Pipeline:**
-
-1. Resolves the theme source path from `theme_file` (or the packaged default theme)
-2. Detects light/dark mode based on `theme_mode`
-3. Checks disk cache — skips re-parsing if inputs and source file are unchanged
-4. Parses the XML, applies `custom_tokens`, resolves all color tokens, renders QSS via Jinja2
-5. Appends `additional_qss` and calls `app.setStyleSheet(qss)`
-6. Returns the active `ShadcnThemeTokens`
+Set the active theme mode and re-render the stylesheet.
 
 **Parameters:**
 
 | Name | Type | Description |
 | --- | --- | --- |
-| `app` | `QApplication \| None` | The running Qt application. If `None`, `QApplication.instance()` is used. |
-| `theme_file` | `str \| None` | Path to the `.xml` theme file. `None` loads the built-in default theme. |
-| `theme_mode` | `str` | `"auto"`, `"light"`, or `"dark"`. Default: `"auto"`. |
-| `custom_tokens` | `dict[str, dict[str, str] \| str] \| None` | Token overrides. Mode-specific when top-level keys are `"light"` and/or `"dark"`. |
-| `additional_qss` | `str \| None` | Inline Jinja snippet, `.qss` file path, or `.jinja` file path to append. |
-| `default_theme` | `str` | Fallback mode when `theme_mode="auto"` and OS detection fails. `"light"` or `"dark"`. |
-
-**Returns:** `ShadcnThemeTokens` — the resolved palette for the active mode.
-
-**Raises:** `ThemeParseError` — if the file is missing, malformed, or has missing tokens. `QtShadcnError` — if no `QApplication` instance is available or an argument is invalid.
+| `mode` | `ThemeMode \| str` | `ThemeMode.AUTO`, `ThemeMode.LIGHT`, `ThemeMode.DARK`, or `"auto"`, `"light"`, `"dark"`. |
+| `save` | `bool` | When `True` (default), persist the mode to `config/theme_mode.json`. |
 
 ---
 
-### `get_theme`
+### `toggleThemeMode`
 
 ```python
-def get_theme() -> ShadcnTheme | None
+def toggleThemeMode(*, save: bool = True) -> None
 ```
 
-Returns the full resolved theme (both light and dark palettes) from disk cache.
+Cycle the theme mode: auto → light → dark → auto.
 
-Returns `None` if `apply_theme` has never been called or the cache is absent.
+---
+
+### `themeMode`
+
+```python
+def themeMode() -> ThemeMode
+```
+
+Return the active theme mode.
+
+---
+
+### `isDarkTheme`
+
+```python
+def isDarkTheme() -> bool
+```
+
+Return whether the resolved active palette is dark.
+
+---
+
+### `setTheme`
+
+```python
+def setTheme(
+    source: str | Path,
+    *,
+    custom_tokens: dict[str, Any] | None = None,
+    save: bool = True,
+) -> None
+```
+
+Load a QtShadcn XML or JSON theme, apply optional token overrides, and re-render the stylesheet.
+
+**Pipeline:**
+
+1. Resolves the theme source path
+2. Parses the XML/JSON, applies `custom_tokens`, resolves all color tokens
+3. Persists the palette when `save=True`
+4. Renders QSS via Jinja2 and calls `app.setStyleSheet(qss)`
+
+**Parameters:**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `source` | `str \| Path` | Path to the `.xml` or `.json` theme file. |
+| `custom_tokens` | `dict[str, Any] \| None` | Token overrides. Mode-specific when top-level keys are `"light"` and/or `"dark"`. |
+| `save` | `bool` | When `True` (default), persist the palette to `config/`. |
+
+**Raises:** `ThemeParseError` — if the file is missing, malformed, or has missing tokens.
+
+---
+
+### `getTheme`
+
+```python
+def getTheme() -> ShadcnThemeTokens
+```
+
+Return the active palette tokens for the current mode.
+
+---
+
+### `setStyleSheet`
+
+```python
+def setStyleSheet(source: str | Path, *, save: bool = True) -> None
+```
+
+Set the additional stylesheet layered on top of the base QSS.
+
+`source` can be an inline QSS/Jinja string or a path to a `.qss`/`.jinja` file.
+When `save=True`, the content is persisted to `config/style.qss` or
+`config/style.jinja`.
+
+---
+
+### `getStyleSheet`
+
+```python
+def getStyleSheet() -> str
+```
+
+Return the current additional stylesheet content.
 
 ---
 
@@ -119,7 +187,7 @@ See the [Roadmap](roadmap.md) for planned widget coverage.
 
 ## Theme Mode
 
-`theme_mode` accepts the following string values:
+`ThemeMode` accepts the following values:
 
 | Value | Behavior |
 | --- | --- |
@@ -127,7 +195,8 @@ See the [Roadmap](roadmap.md) for planned widget coverage.
 | `"light"` | Always uses the `<light>` palette |
 | `"dark"` | Always uses the `<dark>` palette |
 
-When `theme_mode="auto"` and the OS preference cannot be detected, `default_theme` is used.
+When the mode is `"auto"` and the OS preference cannot be detected, the internal
+default of `"dark"` is used.
 
 ---
 
@@ -135,7 +204,7 @@ When `theme_mode="auto"` and the OS preference cannot be detected, `default_them
 
 ### `ShadcnThemeTokens`
 
-Immutable Pydantic model holding the resolved tokens for a single palette (light **or** dark). Returned by `apply_theme`.
+Immutable Pydantic model holding the resolved tokens for a single palette (light **or** dark). Returned by `getTheme`.
 
 All fields are `str` and required. Unknown XML tokens are ignored (`extra="ignore"`).
 
@@ -170,7 +239,7 @@ The example values below come from the packaged `default.xml` light palette. The
 
 ### `ShadcnTheme`
 
-Immutable Pydantic model holding both palettes. Returned by `get_theme`.
+Immutable Pydantic model holding both palettes.
 
 | Field | Type |
 | --- | --- |
@@ -187,7 +256,7 @@ Immutable Pydantic model holding both palettes. Returned by `get_theme`.
 class ThemeParseError(ValueError): ...
 ```
 
-Raised by `apply_theme` and `parse_theme_source` when the theme file cannot be loaded or is invalid.
+Raised by `setTheme` and `parse_theme_source` when the theme file cannot be loaded or is invalid.
 
 Common causes:
 
@@ -197,10 +266,10 @@ Common causes:
 - Token value is empty
 
 ```python
-from qtshadcn import apply_theme, ThemeParseError
+from qtshadcn import setTheme, ThemeParseError
 
 try:
-    apply_theme(app, theme_file="my_theme.xml", theme_mode="auto")
+    setTheme("my_theme.xml")
 except ThemeParseError as e:
     print(f"Theme error: {e}")
 ```

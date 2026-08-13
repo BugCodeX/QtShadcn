@@ -104,20 +104,18 @@ Save this as `my_theme.xml` next to your script:
 ```python
 import sys
 from qtpy import QtWidgets
-from qtshadcn import ThemeParseError, apply_theme
+from qtshadcn import ThemeParseError, setTheme, setThemeMode, getTheme
 
 app = QtWidgets.QApplication(sys.argv)
 
 try:
-    tokens = apply_theme(
-        app,
-        theme_file="my_theme.xml",
-        theme_mode="auto",  # follows the OS — or use "light" / "dark"
-    )
+    setThemeMode("auto", save=False)  # follows the OS — or use "light" / "dark"
+    setTheme("my_theme.xml", save=False)
 except ThemeParseError as e:
     print(f"Could not load theme: {e}")
     sys.exit(1)
 
+tokens = getTheme()
 print(f"Active primary color: {tokens.primary}")
 
 btn = QtWidgets.QPushButton("Hello, QtShadcn!")
@@ -129,12 +127,13 @@ sys.exit(app.exec())
 
 ## Using the Default Theme
 
-QtShadcn ships with a default theme. Pass no `theme_file` and it loads automatically:
+QtShadcn ships with a default theme. Load it by calling `setTheme` with no argument, or simply query the active tokens after setting the mode:
 
 ```python
-from qtshadcn import apply_theme
+from qtshadcn import getTheme, setThemeMode
 
-apply_theme(app, theme_mode="dark")
+setThemeMode("dark", save=False)
+tokens = getTheme()
 ```
 
 ---
@@ -147,7 +146,7 @@ QtShadcn includes **Open Sans** and **Roboto** under `qtshadcn/fonts/`. To activ
 <font_family>Open Sans, system-ui, sans-serif</font_family>
 ```
 
-The fonts are registered automatically by `apply_theme` before the stylesheet is applied.
+The fonts are registered automatically when the stylesheet is rendered.
 
 ---
 
@@ -159,12 +158,13 @@ The fonts are registered automatically by `apply_theme` before the stylesheet is
 | `"light"` | Always use the `<light>` palette |
 | `"dark"` | Always use the `<dark>` palette |
 
-The `theme_mode` argument accepts the string values `"auto"`, `"light"`, and `"dark"`:
+`setThemeMode` accepts the string values `"auto"`, `"light"`, and `"dark"`:
 
 ```python
-from qtshadcn import apply_theme
+from qtshadcn import setTheme, setThemeMode
 
-apply_theme(app, theme_file="my_theme.xml", theme_mode="dark")
+setThemeMode("dark", save=False)
+setTheme("my_theme.xml", save=False)
 ```
 
 ---
