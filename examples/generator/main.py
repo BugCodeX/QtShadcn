@@ -64,9 +64,7 @@ def parse_css_block(css_content: str, selector: str) -> dict[str, str]:
         return {}
     block = match.group(1)
     var_pattern = r"--([a-zA-Z0-9-]+)\s*:\s*([^;]+);"
-    return {
-        name.strip(): value.strip() for name, value in re.findall(var_pattern, block)
-    }
+    return {name.strip(): value.strip() for name, value in re.findall(var_pattern, block)}
 
 
 def tokens_to_xml_str(light: dict[str, str], dark: dict[str, str]) -> str:

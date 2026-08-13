@@ -145,10 +145,12 @@ def setThemeMode(mode: ThemeMode | str, *, save: bool = True) -> None:
     _set_theme_mode(mode, save=save)
 
 
-def toggleThemeMode(save: bool = True) -> None:
+def toggleThemeMode(*, save: bool = True) -> None:
     """Cycle the theme mode: auto → light → dark → auto."""
-    theme = ThemeMode.LIGHT if isDarkTheme() else ThemeMode.DARK
-    setThemeMode(theme, save=save)
+    current = ThemeMode(qsettings.theme_mode.value)
+    order = [ThemeMode.AUTO, ThemeMode.LIGHT, ThemeMode.DARK]
+    next_mode = order[(order.index(current) + 1) % len(order)]
+    setThemeMode(next_mode, save=save)
 
 
 def themeMode() -> ThemeMode:

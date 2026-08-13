@@ -36,12 +36,15 @@ def _listener_raises(_callback):
 class TestLifecycle:
     def test_manual_start_stop(self):
         listener = SystemThemeListener(poll_interval_ms=50)
-        with patch(
-            "qtshadcn.common.theme_watcher.darkdetect.listener",
-            side_effect=_listener_raises,
-        ), patch(
-            "qtshadcn.common.theme_watcher.darkdetect.theme",
-            return_value="Light",
+        with (
+            patch(
+                "qtshadcn.common.theme_watcher.darkdetect.listener",
+                side_effect=_listener_raises,
+            ),
+            patch(
+                "qtshadcn.common.theme_watcher.darkdetect.theme",
+                return_value="Light",
+            ),
         ):
             listener.start()
             listener.wait(1000)
@@ -50,12 +53,15 @@ class TestLifecycle:
 
     def test_stop_exits_polling_loop(self):
         listener = SystemThemeListener(poll_interval_ms=50)
-        with patch(
-            "qtshadcn.common.theme_watcher.darkdetect.listener",
-            side_effect=_listener_raises,
-        ), patch(
-            "qtshadcn.common.theme_watcher.darkdetect.theme",
-            return_value="Light",
+        with (
+            patch(
+                "qtshadcn.common.theme_watcher.darkdetect.listener",
+                side_effect=_listener_raises,
+            ),
+            patch(
+                "qtshadcn.common.theme_watcher.darkdetect.theme",
+                return_value="Light",
+            ),
         ):
             listener.start()
             listener.wait(1000)
@@ -69,12 +75,15 @@ class TestSignalEmission:
         collected = []
         listener.themeChanged.connect(collected.append)
 
-        with patch(
-            "qtshadcn.common.theme_watcher.darkdetect.listener",
-            side_effect=_listener_raises,
-        ), patch(
-            "qtshadcn.common.theme_watcher.darkdetect.theme",
-            side_effect=_theme_sequence("Light", "Dark"),
+        with (
+            patch(
+                "qtshadcn.common.theme_watcher.darkdetect.listener",
+                side_effect=_listener_raises,
+            ),
+            patch(
+                "qtshadcn.common.theme_watcher.darkdetect.theme",
+                side_effect=_theme_sequence("Light", "Dark"),
+            ),
         ):
             listener.start()
             qtbot.wait(1000)
@@ -87,12 +96,15 @@ class TestSignalEmission:
         collected = []
         listener.themeChanged.connect(collected.append)
 
-        with patch(
-            "qtshadcn.common.theme_watcher.darkdetect.listener",
-            side_effect=_listener_raises,
-        ), patch(
-            "qtshadcn.common.theme_watcher.darkdetect.theme",
-            side_effect=_theme_sequence("Light", "Light", "Dark"),
+        with (
+            patch(
+                "qtshadcn.common.theme_watcher.darkdetect.listener",
+                side_effect=_listener_raises,
+            ),
+            patch(
+                "qtshadcn.common.theme_watcher.darkdetect.theme",
+                side_effect=_theme_sequence("Light", "Light", "Dark"),
+            ),
         ):
             listener.start()
             qtbot.wait(1000)
@@ -105,12 +117,15 @@ class TestSignalEmission:
         collected = []
         listener.themeChanged.connect(collected.append)
 
-        with patch(
-            "qtshadcn.common.theme_watcher.sys.platform",
-            "darwin",
-        ), patch(
-            "qtshadcn.common.theme_watcher.darkdetect.theme",
-            side_effect=_theme_sequence("Light", "Dark"),
+        with (
+            patch(
+                "qtshadcn.common.theme_watcher.sys.platform",
+                "darwin",
+            ),
+            patch(
+                "qtshadcn.common.theme_watcher.darkdetect.theme",
+                side_effect=_theme_sequence("Light", "Dark"),
+            ),
         ):
             listener.start()
             qtbot.wait(1000)
