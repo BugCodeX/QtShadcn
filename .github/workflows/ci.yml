@@ -99,13 +99,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest]
-        python-version: ["3.12", "3.13"]
+        os: [ubuntu-latest, windows-latest]
+        python-version: ["3.11", "3.12", "3.13"]
         binding: [pyside6, pyqt6]
         include:
-          - os: ubuntu-latest
-            python-version: "3.11"
-            binding: pyside2
           - os: ubuntu-latest
             python-version: "3.12"
             binding: pyqt5
