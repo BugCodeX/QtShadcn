@@ -48,52 +48,33 @@ Every palette section must contain **all 22 tokens** listed below. If any are mi
 
 ---
 
-## Supported Color Formats
+## Supported Token Values
 
-Token values can be expressed in any of the following formats. The runtime resolves them to `rgb()` or `rgba()` before injecting into QSS.
+Color and size values are used directly in the generated QSS, so they must be Qt-compatible.
 
-### Hex
+### Colors
+
+Use HEX colors:
 
 ```xml
 <primary>#0f172a</primary>
 ```
 
-### RGB / RGBA
+`rgb()` and `rgba()` values are accepted as QSS-compatible passthrough values:
 
 ```xml
 <primary>rgb(15, 23, 42)</primary>
 <primary>rgba(15, 23, 42, 0.8)</primary>
 ```
 
-### HSL
+### Sizes
+
+Use pixel values for `radius` and `spacing`:
 
 ```xml
-<primary>hsl(222 47% 11%)</primary>
-<primary>hsl(222 47% 11% / 0.5)</primary>
-<!-- alpha as percentage -->
-<primary>hsl(222 47% 11% / 50%)</primary>
+<radius>8px</radius>
+<spacing>4px</spacing>
 ```
-
-### OKLCH
-
-```xml
-<primary>oklch(13% 0.03 264)</primary>
-<!-- with alpha -->
-<primary>oklch(13% 0.03 264 / 0.8)</primary>
-<!-- lightness as raw value (0–1) -->
-<primary>oklch(0.13 0.03 264)</primary>
-```
-
-!!! note
-    OKLCH is converted to `rgb()` at parse time. QSS never sees the raw `oklch()` value.
-
-### rem
-
-```xml
-<radius>0.5rem</radius>
-```
-
-Converted to `px` using `1rem = 16px`. `0.5rem` becomes `8px`.
 
 ---
 
@@ -104,14 +85,14 @@ QtShadcn ships with **Open Sans** and **Roboto** under `qtshadcn/fonts/`. They a
 To use them, reference the family name in your theme:
 
 ```xml
-<font_family>Open Sans, system-ui, sans-serif</font_family>
+<font_family>Open Sans</font_family>
 ```
 
 ```xml
-<font_family>Roboto, system-ui, sans-serif</font_family>
+<font_family>Open Sans</font_family>
 ```
 
-The fallback chain (`system-ui, sans-serif`) ensures the app works even on systems where the fonts can't be loaded.
+The fallback chain (`sans-serif`) ensures the app works even on systems where the fonts can't be loaded.
 
 ---
 
@@ -126,20 +107,20 @@ The fallback chain (`system-ui, sans-serif`) ensures the app works even on syste
     <card_foreground>#020617</card_foreground>
     <popover>#ffffff</popover>
     <popover_foreground>#020617</popover_foreground>
-    <primary>oklch(13% 0.03 264)</primary>
+    <primary>#0f172a</primary>
     <primary_foreground>#f8fafc</primary_foreground>
     <secondary>#f1f5f9</secondary>
     <secondary_foreground>#0f172a</secondary_foreground>
     <accent>#f1f5f9</accent>
     <accent_foreground>#0f172a</accent_foreground>
     <muted>#f1f5f9</muted>
-    <muted_foreground>hsl(215 16% 47%)</muted_foreground>
+    <muted_foreground>#64748b</muted_foreground>
     <destructive>#ef4444</destructive>
     <destructive_foreground>#f8fafc</destructive_foreground>
     <border>#e2e8f0</border>
     <input>#e2e8f0</input>
     <ring>#0f172a</ring>
-    <radius>0.5rem</radius>
+    <radius>8px</radius>
     <font_family>Open Sans, system-ui, sans-serif</font_family>
     <spacing>4px</spacing>
   </light>

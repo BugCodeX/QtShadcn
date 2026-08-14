@@ -66,7 +66,7 @@ To keep the project maintainable, follow these rules when making changes:
 
 - **Widget styles belong in `qtshadcn/styles/shadcn.jinja` only** — do not create new QSS files.
 - **No hardcoded colors or pixel values in the Jinja template** — use tokens and helpers exclusively.
-- **Token helpers** (`colors.alpha`, `colors.mix`, `radius.class_px`, `scale.spacing_px`) are the only way to transform token values.
+- **Token helpers** (`Colors.withAlpha`, `Colors.blendColors`, `radius.resolveRadius`, `Scale.resolveSpacing`) are the only way to transform token values.
 - **Theme tokens are defined in XML** (`themes/default.xml`) — do not add Python-level color constants.
 - **Public API surface**: `qsettings`, `ThemeMode`, `setThemeMode()`, `toggleThemeMode()`,
   `themeMode()`, `isDarkTheme()`, `setTheme()`, `getTheme()`, `setStyleSheet()`,

@@ -20,9 +20,9 @@
     <border>#e0e0f0</border>
     <input>#e0e0f0</input>
     <ring>#6e56cf</ring>
-    <spacing>0.25rem</spacing>
-    <radius>0.5rem</radius>
-    <font_family>Open Sans, ui-sans-serif, sans-serif, system-ui</font_family>
+    <spacing>4px</spacing>
+    <radius>8px</radius>
+    <font_family>Open Sans</font_family>
   </light>
   <dark>
     <background>#0f0f1a</background>
@@ -44,8 +44,8 @@
     <border>#303052</border>
     <input>#303052</input>
     <ring>#a48fff</ring>
-    <spacing>0.25rem</spacing>
-    <radius>0.5rem</radius>
-    <font_family>Open Sans, ui-sans-serif, sans-serif, system-ui</font_family>
+    <spacing>4px</spacing>
+    <radius>8px</radius>
+    <font_family>Open Sans</font_family>
   </dark>
 </theme>

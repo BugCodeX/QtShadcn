@@ -232,7 +232,7 @@ The example values below come from the packaged `default.xml` light palette. The
 | `input` | `#e2e8f0` |
 | `ring` | `#0f172a` |
 | `radius` | `8px` |
-| `font_family` | `system-ui, sans-serif` |
+| `font_family` | `Open Sans` |
 | `spacing` | `4px` |
 
 ---

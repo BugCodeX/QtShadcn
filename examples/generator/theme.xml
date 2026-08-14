@@ -19,9 +19,9 @@
     <border>#dad9d4</border>
     <input>#b4b2a7</input>
     <ring>#c96442</ring>
-    <spacing>0.25rem</spacing>
-    <radius>0.5rem</radius>
-    <font_family>ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'</font_family>
+    <spacing>4px</spacing>
+    <radius>8px</radius>
+    <font_family>Open Sans</font_family>
   </light>
   <dark>
     <background>#262624</background>
@@ -43,8 +43,8 @@
     <border>#3e3e38</border>
     <input>#52514a</input>
     <ring>#d97757</ring>
-    <spacing>0.25rem</spacing>
-    <radius>0.5rem</radius>
-    <font_family>ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'</font_family>
+    <spacing>4px</spacing>
+    <radius>8px</radius>
+    <font_family>Open Sans</font_family>
   </dark>
 </theme>
