@@ -88,8 +88,8 @@ dev = [
   "pytest-mock>=3.14.0",  # mocking support for pytest
   "pytest-qt>=4.2.0",  # Qt widget testing (qtbot fixture)
   "ruff>=0.16.2",  # linter and formatter
-  "pre-commit>=3.7",  # git hooks
-  "ty>=0.0.69",  # type checker
+  "pre-commit>=4.6.2",  # git hooks
+  "ty>=0.0.71",  # type checker
   "typer>=0.12.0",  # CLI framework (skills setup script; Rich is bundled)
   "pyyaml>=6.0",  # YAML frontmatter parser for skills metadata sync
   "questionary>=2.1.0",  # interactive multi-select prompts for skills setup
@@ -137,10 +137,11 @@ testpaths = ["tests"]
 [tool.ruff]
 target-version = "py311"
 line-length = 100
-
+exclude = [".venv"]
 src = ["qtshadcn", "tests"]
 
 [tool.ruff.lint]
+extend-select = ["D400"]
 select = [
   "D",  # pydocstyle
   "F",  # Pyflakes
@@ -171,13 +172,16 @@ ignore = [
   "D103",  # missing function docstring
 ]
 
-[tool.ruff.format]
-quote-style = "double"
-indent-style = "space"
+[tool.ruff.lint.pydocstyle]
+convention = "google"
 
 # ============================================================
 # ty — type checker
 # ============================================================
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
 
 [tool.ty.environment]
 python-version = "3.11"
