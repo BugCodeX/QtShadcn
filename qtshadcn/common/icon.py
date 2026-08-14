@@ -12,6 +12,8 @@ from typing import Any, cast
 
 from qtpy import QtCore
 
+from ..exceptions import QtShadcnError
+
 logger = logging.getLogger(__name__)
 
 _SAFE_NAME_RE = re.compile(r"[^a-zA-Z0-9_.-]+")
@@ -77,7 +79,7 @@ class ThemedIconManager:
                 logger.debug("Wrote icon: %s", path)
             except OSError as e:
                 logger.error("Failed to write icon %s: %s", path, e)
-                raise
+                raise QtShadcnError(f"Failed to write icon {path}: {e}") from e
 
         return str(path.resolve()).replace("\\", "/")
 

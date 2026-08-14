@@ -1,6 +1,7 @@
 """QtShadcn theme application helpers."""
 
 import logging
+import os
 from pathlib import Path
 from typing import Any, cast
 
@@ -8,7 +9,6 @@ from qtpy import QtGui, QtWidgets
 
 from ..exceptions import QtShadcnError
 from ..models import ShadcnTheme, ShadcnThemeTokens
-from .theme_parser import resolve_value
 
 logger = logging.getLogger(__name__)
 
@@ -82,17 +82,24 @@ def _as_token_overrides(value: dict[str, Any] | str | None) -> dict[str, str]:
 
 
 def _override_tokens(tokens: ShadcnThemeTokens, overrides: dict[str, str]) -> ShadcnThemeTokens:
-    """Return a new token set with resolved overrides applied."""
+    """Return a new token set with overrides applied."""
     if not overrides:
         return tokens
     data = tokens.model_dump()
     for key, raw_value in overrides.items():
         if key not in data:
             continue
-        data[key] = resolve_value(raw_value)
+        data[key] = raw_value
     return ShadcnThemeTokens(**data)
 
 
 def _looks_like_jinja(content: str) -> bool:
     """Return True when ``content`` contains Jinja delimiters."""
     return "{{" in content or "{%" in content
+
+
+def _atomic_write(path: Path, content: str) -> None:
+    """Write ``content`` to ``path`` atomically via a temporary file."""
+    tmp = path.with_suffix(path.suffix + ".tmp")
+    tmp.write_text(content, encoding="utf-8")
+    os.replace(tmp, path)

@@ -6,10 +6,9 @@ backs the three-concept theme API in :mod:`~qtshadcn.common.stylesheet`.
 
 from __future__ import annotations
 
+import copy
 import json
 import logging
-import os
-import warnings
 from collections.abc import Callable
 from enum import StrEnum
 from pathlib import Path
@@ -18,7 +17,7 @@ from typing import Any, cast
 from qtpy import QtCore
 
 from ..models import ShadcnTheme
-from .helpers import _looks_like_jinja
+from .helpers import _atomic_write, _looks_like_jinja
 
 logger = logging.getLogger(__name__)
 
@@ -58,7 +57,7 @@ class ConfigItem(_QObject):
         super().__init__(parent)
         self._key = key
         self._default = default
-        self._value = default
+        self._value = copy.deepcopy(default)
         self._validator = validator
 
     @property
@@ -70,13 +69,15 @@ class ConfigItem(_QObject):
         """Set the item value and emit ``valueChanged`` unless blocked."""
         if self._validator is not None and not self._validator(value):
             return
+        if value == self._value:
+            return
         self._value = value
         if not block_signal:
             self.valueChanged.emit(value)
 
-    def reset(self) -> None:
-        """Reset the value to the configured default."""
-        self._value = self._default
+    def reset(self, *, block_signal: bool = False) -> None:
+        """Reset the value to the configured default and notify listeners."""
+        self.set(self._default, block_signal=block_signal)
 
     def serialize(self) -> Any:
         """Return a JSON-serializable representation of the value."""
@@ -129,7 +130,7 @@ class QtShadcnSettings(_QObject):
 
     @staticmethod
     def _validate_mode(value: Any) -> bool:
-        return isinstance(value, str) and value in {m.value for m in ThemeMode}
+        return isinstance(value, str) and value in set(ThemeMode)
 
     @staticmethod
     def _validate_theme_source(value: Any) -> bool:
@@ -193,50 +194,24 @@ class QtShadcnSettings(_QObject):
                 data = json.loads(mode_path.read_text(encoding="utf-8"))
                 mode = data.get("mode", ThemeMode.AUTO.value)
             except (json.JSONDecodeError, OSError) as e:
-                warnings.warn(
-                    f"Corrupt theme_mode.json, resetting to auto: {e}",
-                    stacklevel=2,
-                )
-        if not self._validate_mode(mode):
-            mode = ThemeMode.AUTO.value
-        target.theme_mode.set(mode, block_signal=True)
+                logger.warning("Corrupt theme_mode.json, resetting to auto: %s", e)
+        if not target.theme_mode.deserialize(mode):
+            target.theme_mode.reset(block_signal=True)
 
     def _load_theme(self, target: QtShadcnSettings, cfg_dir: Path) -> None:
-        theme_json = cfg_dir / "theme.json"
-        theme_xml = cfg_dir / "theme.xml"
-        source = ""
-        theme: ShadcnTheme | None = None
-
-        if theme_json.exists():
-            try:
-                data = json.loads(theme_json.read_text(encoding="utf-8"))
-                data.pop("version", None)
-                theme = ShadcnTheme.model_validate(data)
-                source = str(theme_json)
-            except (json.JSONDecodeError, OSError) as e:
-                warnings.warn(f"Corrupt theme.json, ignoring: {e}", stacklevel=2)
-
-        if theme is None and theme_xml.exists():
-            try:
-                from .theme_parser import parse_theme_source
-
-                theme = parse_theme_source(theme_xml)
-                source = str(theme_xml)
-            except Exception as e:  # pragma: no cover
-                warnings.warn(f"Corrupt theme.xml, ignoring: {e}", stacklevel=2)
-
+        theme, source = _load_theme_from_dir(cfg_dir)
         target._theme = theme
-        target.theme.set(source, block_signal=True)
+        target.theme.deserialize(source)
 
     def _load_style_sheet(self, target: QtShadcnSettings, cfg_dir: Path) -> None:
         style_jinja = cfg_dir / "style.jinja"
         style_qss = cfg_dir / "style.qss"
-        source = ""
+        content = ""
         if style_jinja.exists():
-            source = str(style_jinja)
+            content = style_jinja.read_text(encoding="utf-8")
         elif style_qss.exists():
-            source = str(style_qss)
-        target.additional_style_sheet.set(source, block_signal=True)
+            content = style_qss.read_text(encoding="utf-8")
+        target.additional_style_sheet.deserialize(content)
 
     def save(self, *, only: set[str] | None = None) -> None:
         """Persist current state to ``config_dir``.
@@ -254,16 +229,16 @@ class QtShadcnSettings(_QObject):
         if "theme_mode" in keys:
             _atomic_write(
                 cfg_dir / "theme_mode.json",
-                json.dumps({"mode": self.theme_mode.value}, indent=2),
+                json.dumps({"mode": self.theme_mode.serialize()}, indent=2),
             )
         if "theme" in keys and self._theme is not None:
-            data = {"version": 1, **self._theme.model_dump()}
+            data = self._theme.model_dump()
             _atomic_write(cfg_dir / "theme.json", json.dumps(data, indent=2))
         if "additional_style_sheet" in keys:
             self._save_style_sheet(cfg_dir)
 
     def _save_style_sheet(self, cfg_dir: Path) -> None:
-        content = self.additional_style_sheet.value
+        content = self.additional_style_sheet.serialize()
         if _looks_like_jinja(content):
             _atomic_write(cfg_dir / "style.jinja", content)
             (cfg_dir / "style.qss").unlink(missing_ok=True)
@@ -280,15 +255,30 @@ class QtShadcnSettings(_QObject):
         self._config_dir = None
 
 
-def _atomic_write(path: Path, content: str) -> None:
-    """Write ``content`` to ``path`` atomically via a temporary file."""
-    tmp = path.with_suffix(path.suffix + ".tmp")
-    tmp.write_text(content, encoding="utf-8")
-    os.replace(tmp, path)
+def _load_theme_from_dir(cfg_dir: Path) -> tuple[ShadcnTheme | None, str]:
+    """Load a persisted theme from ``cfg_dir`` (JSON primary, XML fallback).
+
+    Returns:
+        A tuple of the parsed theme (or ``None`` if no valid theme was found)
+        and the source file path (empty string if no theme was found).
+
+    """
+    theme_json = cfg_dir / "theme.json"
+    if theme_json.exists():
+        try:
+            data = json.loads(theme_json.read_text(encoding="utf-8"))
+            return ShadcnTheme.model_validate(data), str(theme_json)
+        except (json.JSONDecodeError, OSError) as e:
+            logger.warning("Could not load theme.json from %s: %s", cfg_dir, e)
+    theme_xml = cfg_dir / "theme.xml"
+    if theme_xml.exists():
+        try:
+            from .theme_parser import parse_theme_source
+
+            return parse_theme_source(theme_xml), str(theme_xml)
+        except Exception as e:
+            logger.warning("Could not load theme.xml from %s: %s", cfg_dir, e)
+    return None, ""
 
 
-def _settings_singleton() -> QtShadcnSettings:
-    return QtShadcnSettings()
-
-
-qsettings: QtShadcnSettings = _settings_singleton()
+qsettings: QtShadcnSettings = QtShadcnSettings()
