@@ -14,7 +14,7 @@ from qtshadcn import (
     getTheme,
     setStyleSheet,
     getStyleSheet,
-    SystemThemeListener,
+    SystemThemeWatcher,
     ShadcnTheme,
     ShadcnThemeTokens,
     ThemeParseError,

@@ -1,6 +1,6 @@
-"""QtShadcn OS theme change listener.
+"""QtShadcn OS theme change watcher.
 
-The listener runs in its own ``QThread`` and polls ``darkdetect.theme()``
+The watcher runs in its own ``QThread`` and polls ``darkdetect.theme()``
 to detect light/dark switches. After emitting a change it sleeps for two
 seconds to avoid repeated signals from short-lived transitions.
 """
@@ -20,7 +20,7 @@ _BaseThread: Any = QtCore.QThread
 logger = logging.getLogger(__name__)
 
 
-class SystemThemeListener(_BaseThread):
+class SystemThemeWatcher(_BaseThread):
     """Emit ``themeChanged("Dark"|"Light")`` when the OS theme changes."""
 
     themeChanged = QtCore.Signal(str)
@@ -29,28 +29,34 @@ class SystemThemeListener(_BaseThread):
         self,
         parent: QtCore.QObject | None = None,
         *,
-        poll_interval_ms: int = 1000,
+        pollIntervalMs: int = 1000,
     ) -> None:
-        """Set up the polling thread."""
+        """Initialize the thread.
+
+        Args:
+            parent (QtCore.QObject, optional): Standard Qt parent.
+            pollIntervalMs (int, optional): How often to check the OS theme (default: 1000).
+                A lower value reacts faster but wakes the thread more frequently.
+        """
         super().__init__(parent)
-        self._poll_interval_ms = poll_interval_ms
+        self._pollIntervalMs = pollIntervalMs
 
     def run(self) -> None:
         """Poll the OS theme and emit ``themeChanged`` on transitions."""
-        last_theme = darkdetect.theme()
+        lastTheme = darkdetect.theme()
         while not self.isInterruptionRequested():
-            current = darkdetect.theme()
-            if current != last_theme and current in {"Dark", "Light"}:
-                logger.debug("OS theme changed to %s", current)
-                self.themeChanged.emit(current)
-                last_theme = current
+            currentTheme = darkdetect.theme()
+            if currentTheme != lastTheme and currentTheme in {"Dark", "Light"}:
+                logger.debug("OS theme changed to %s", currentTheme)
+                self.themeChanged.emit(currentTheme)
+                lastTheme = currentTheme
                 # Polling interval is ignored here on purpose: a longer sleep
                 # after a change suppresses rapid repeated OS transitions.
                 self.msleep(2000)
             else:
-                self.msleep(self._poll_interval_ms)
+                self.msleep(self._pollIntervalMs)
 
     def stop(self) -> None:
-        """Request a clean thread shutdown."""
+        """Request interruption and wait for the polling loop to exit cleanly."""
         self.requestInterruption()
         self.wait(5000)

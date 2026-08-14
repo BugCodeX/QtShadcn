@@ -26,7 +26,7 @@ try:
         themeMode,
         toggleThemeMode,
     )
-    from .common.theme_watcher import SystemThemeListener
+    from .common.theme_watcher import SystemThemeWatcher
 except (QtBindingsNotFoundError, QtModuleNotInstalledError) as exc:
     raise QtBindingError(
         "No supported Qt binding found. Install one of: PySide6, PyQt6, "
@@ -51,7 +51,7 @@ __all__ = [
     "setStyleSheet",
     "getStyleSheet",
     "ThemeMode",
-    "SystemThemeListener",
+    "SystemThemeWatcher",
     # Errors
     "QtShadcnError",
     "ThemeParseError",

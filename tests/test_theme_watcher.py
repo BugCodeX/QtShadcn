@@ -1,11 +1,11 @@
-"""Tests for the QtShadcn OS theme listener."""
+"""Tests for the QtShadcn OS theme watcher."""
 
 from unittest.mock import patch
 
 import pytest
 from qtshadcn.common.config import ThemeMode, qsettings
 from qtshadcn.common.stylesheet import setThemeMode, themeMode
-from qtshadcn.common.theme_watcher import SystemThemeListener
+from qtshadcn.common.theme_watcher import SystemThemeWatcher
 
 
 @pytest.fixture(autouse=True)
@@ -30,7 +30,7 @@ def _theme_sequence(*values):
 
 class TestLifecycle:
     def test_manual_start_stop(self):
-        listener = SystemThemeListener(poll_interval_ms=50)
+        listener = SystemThemeWatcher(pollIntervalMs=50)
         with patch(
             "qtshadcn.common.theme_watcher.darkdetect.theme",
             return_value="Light",
@@ -41,7 +41,7 @@ class TestLifecycle:
             assert listener.isRunning() is False
 
     def test_stop_exits_polling_loop(self):
-        listener = SystemThemeListener(poll_interval_ms=50)
+        listener = SystemThemeWatcher(pollIntervalMs=50)
         with patch(
             "qtshadcn.common.theme_watcher.darkdetect.theme",
             return_value="Light",
@@ -54,7 +54,7 @@ class TestLifecycle:
 
 class TestSignalEmission:
     def test_signal_emitted_on_theme_change(self, qtbot):
-        listener = SystemThemeListener(poll_interval_ms=50)
+        listener = SystemThemeWatcher(pollIntervalMs=50)
         collected = []
         listener.themeChanged.connect(collected.append)
 
@@ -69,7 +69,7 @@ class TestSignalEmission:
         assert "Dark" in collected
 
     def test_polling_detects_theme_change(self, qtbot):
-        listener = SystemThemeListener(poll_interval_ms=50)
+        listener = SystemThemeWatcher(pollIntervalMs=50)
         collected = []
         listener.themeChanged.connect(collected.append)
 
@@ -87,7 +87,7 @@ class TestSignalEmission:
 class TestAutoModeOnly:
     def test_mode_flips_only_when_auto(self, qapp):
         setThemeMode(ThemeMode.AUTO)
-        listener = SystemThemeListener()
+        listener = SystemThemeWatcher()
         received = []
 
         def on_change(theme):
@@ -106,7 +106,7 @@ class TestAutoModeOnly:
 
     def test_mode_does_not_flip_when_manual(self, qapp):
         setThemeMode(ThemeMode.LIGHT)
-        listener = SystemThemeListener()
+        listener = SystemThemeWatcher()
         received = []
 
         def on_change(theme):

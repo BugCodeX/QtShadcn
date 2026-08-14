@@ -180,7 +180,7 @@ from qtshadcn import (
     getTheme,
     setStyleSheet,
     getStyleSheet,
-    SystemThemeListener,
+    SystemThemeWatcher,
 )
 ```
 

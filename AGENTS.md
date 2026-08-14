@@ -204,7 +204,7 @@ class TrainingModel:
 - **Theme tokens are defined in XML** (`themes/default.xml`) — do not add Python-level color constants
 - **Public API surface**: `qsettings`, `ThemeMode`, `setThemeMode()`, `toggleThemeMode()`,
   `themeMode()`, `isDarkTheme()`, `setTheme()`, `getTheme()`, `setStyleSheet()`,
-  `getStyleSheet()`, `SystemThemeListener`, `ShadcnThemeTokens` — keep it minimal
+  `getStyleSheet()`, `SystemThemeWatcher`, `ShadcnThemeTokens` — keep it minimal
 
 ---
 
