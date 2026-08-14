@@ -1,3 +1,23 @@
+# QtShadcn v0.4.0
+
+## Changes
+
+- Modernized theme engine internals.
+- Modernized token helpers and added typography tokens.
+- Updated default theme and QSS template.
+- Consolidated font bundles with Inter, updated Roboto, and removed italic/condensed variants.
+- Updated guides and examples.
+
+## Verification
+
+```bash
+pip install qtshadcn==0.4.0
+python -c "import qtshadcn; print(qtshadcn.__version__)"
+make test
+```
+
+---
+
 # QtShadcn v0.3.0
 
 ## Breaking Changes
