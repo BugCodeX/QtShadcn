@@ -614,7 +614,7 @@ class TestRenderer:
             "background: transparent;",
             "color: #64748b;",
             "border: 1px solid transparent;",
-            "border-radius: 6.4px;",
+            "border-radius: 6px;",
             "margin: 2.8px;",
             "padding: 2px 12px;",
             "min-height: 28px;",

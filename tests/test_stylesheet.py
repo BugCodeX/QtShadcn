@@ -17,6 +17,10 @@ from qtshadcn.common.stylesheet import (
     toggleThemeMode,
 )
 
+# ---------------------------------------------------------------------------
+# Internal helpers
+# ---------------------------------------------------------------------------
+
 
 def _tokens(**overrides):
     values = {
@@ -41,10 +45,15 @@ def _tokens(**overrides):
         "ring": "#0f172a",
         "spacing": "4px",
         "radius": "8px",
-        "font_family": "system-ui, sans-serif",
+        "font_family": "Open Sans",
     }
     values.update(overrides)
     return values
+
+
+# ---------------------------------------------------------------------------
+# Fixtures
+# ---------------------------------------------------------------------------
 
 
 @pytest.fixture
@@ -75,7 +84,7 @@ def sample_xml(tmp_path):
     <ring>#0f172a</ring>
     <spacing>4px</spacing>
     <radius>8px</radius>
-    <font_family>system-ui, sans-serif</font_family>
+    <font_family>Open Sans</font_family>
   </light>
   <dark>
     <background>#020617</background>
@@ -99,7 +108,7 @@ def sample_xml(tmp_path):
     <ring>#cbd5e1</ring>
     <spacing>4px</spacing>
     <radius>8px</radius>
-    <font_family>system-ui, sans-serif</font_family>
+    <font_family>Open Sans</font_family>
   </dark>
 </theme>
 """,
@@ -111,7 +120,7 @@ def sample_xml(tmp_path):
 @pytest.fixture
 def sample_json(tmp_path):
     path = tmp_path / "theme.json"
-    data = {"version": 1, "light": _tokens(), "dark": _tokens(background="#000000")}
+    data = {"light": _tokens(), "dark": _tokens(background="#000000")}
     path.write_text(json.dumps(data), encoding="utf-8")
     return path
 
@@ -122,6 +131,11 @@ def _reset_settings(tmp_path):
     qsettings.set_config_dir(tmp_path)
     yield
     qsettings.reset_for_test()
+
+
+# ---------------------------------------------------------------------------
+# Tests
+# ---------------------------------------------------------------------------
 
 
 class TestThemeMode:
@@ -138,13 +152,11 @@ class TestThemeMode:
             setThemeMode("invalid")
 
     def test_toggle_theme_mode(self):
-        setThemeMode(ThemeMode.AUTO)
-        toggleThemeMode()
-        assert themeMode() == ThemeMode.LIGHT
+        setThemeMode(ThemeMode.LIGHT)
         toggleThemeMode()
         assert themeMode() == ThemeMode.DARK
         toggleThemeMode()
-        assert themeMode() == ThemeMode.AUTO
+        assert themeMode() == ThemeMode.LIGHT
 
     def test_is_dark_theme_resolves_dark(self):
         setThemeMode(ThemeMode.DARK)

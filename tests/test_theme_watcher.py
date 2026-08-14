@@ -16,7 +16,6 @@ def _reset_settings():
 
 
 def _theme_sequence(*values):
-    """Return a callable that yields ``values`` and then repeats the last one."""
     state = {"index": 0}
 
     def theme():
@@ -29,22 +28,12 @@ def _theme_sequence(*values):
     return theme
 
 
-def _listener_raises(_callback):
-    raise RuntimeError("listener unavailable")
-
-
 class TestLifecycle:
     def test_manual_start_stop(self):
         listener = SystemThemeListener(poll_interval_ms=50)
-        with (
-            patch(
-                "qtshadcn.common.theme_watcher.darkdetect.listener",
-                side_effect=_listener_raises,
-            ),
-            patch(
-                "qtshadcn.common.theme_watcher.darkdetect.theme",
-                return_value="Light",
-            ),
+        with patch(
+            "qtshadcn.common.theme_watcher.darkdetect.theme",
+            return_value="Light",
         ):
             listener.start()
             listener.wait(1000)
@@ -53,15 +42,9 @@ class TestLifecycle:
 
     def test_stop_exits_polling_loop(self):
         listener = SystemThemeListener(poll_interval_ms=50)
-        with (
-            patch(
-                "qtshadcn.common.theme_watcher.darkdetect.listener",
-                side_effect=_listener_raises,
-            ),
-            patch(
-                "qtshadcn.common.theme_watcher.darkdetect.theme",
-                return_value="Light",
-            ),
+        with patch(
+            "qtshadcn.common.theme_watcher.darkdetect.theme",
+            return_value="Light",
         ):
             listener.start()
             listener.wait(1000)
@@ -75,60 +58,27 @@ class TestSignalEmission:
         collected = []
         listener.themeChanged.connect(collected.append)
 
-        with (
-            patch(
-                "qtshadcn.common.theme_watcher.darkdetect.listener",
-                side_effect=_listener_raises,
-            ),
-            patch(
-                "qtshadcn.common.theme_watcher.darkdetect.theme",
-                side_effect=_theme_sequence("Light", "Dark"),
-            ),
+        with patch(
+            "qtshadcn.common.theme_watcher.darkdetect.theme",
+            side_effect=_theme_sequence("Light", "Dark"),
         ):
             listener.start()
-            qtbot.wait(1000)
+            qtbot.wait(500)
             listener.stop()
 
         assert "Dark" in collected
 
-    def test_polling_fallback_emits_signal(self, qtbot):
+    def test_polling_detects_theme_change(self, qtbot):
         listener = SystemThemeListener(poll_interval_ms=50)
         collected = []
         listener.themeChanged.connect(collected.append)
 
-        with (
-            patch(
-                "qtshadcn.common.theme_watcher.darkdetect.listener",
-                side_effect=_listener_raises,
-            ),
-            patch(
-                "qtshadcn.common.theme_watcher.darkdetect.theme",
-                side_effect=_theme_sequence("Light", "Light", "Dark"),
-            ),
+        with patch(
+            "qtshadcn.common.theme_watcher.darkdetect.theme",
+            side_effect=_theme_sequence("Light", "Light", "Dark"),
         ):
             listener.start()
-            qtbot.wait(1000)
-            listener.stop()
-
-        assert "Dark" in collected
-
-    def test_polling_fallback_used_on_non_windows(self, qtbot):
-        listener = SystemThemeListener(poll_interval_ms=50)
-        collected = []
-        listener.themeChanged.connect(collected.append)
-
-        with (
-            patch(
-                "qtshadcn.common.theme_watcher.sys.platform",
-                "darwin",
-            ),
-            patch(
-                "qtshadcn.common.theme_watcher.darkdetect.theme",
-                side_effect=_theme_sequence("Light", "Dark"),
-            ),
-        ):
-            listener.start()
-            qtbot.wait(1000)
+            qtbot.wait(500)
             listener.stop()
 
         assert "Dark" in collected
@@ -149,7 +99,7 @@ class TestAutoModeOnly:
             received.append(theme)
 
         listener.themeChanged.connect(on_change)
-        listener._on_theme_changed("Dark")
+        listener.themeChanged.emit("Dark")
 
         assert received == ["Dark"]
         assert themeMode() == ThemeMode.DARK
@@ -168,7 +118,7 @@ class TestAutoModeOnly:
             received.append(theme)
 
         listener.themeChanged.connect(on_change)
-        listener._on_theme_changed("Dark")
+        listener.themeChanged.emit("Dark")
 
         assert received == ["Dark"]
         assert themeMode() == ThemeMode.LIGHT

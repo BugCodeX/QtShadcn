@@ -46,7 +46,7 @@ def test_theme_render_error_raised():
         input="#cccccc",
         ring="#000000",
         spacing="4px",
-        radius="0.5rem",
+        radius="8px",
         font_family="Inter",
     )
     invalid_template = "{% if unclosed_tag %}"

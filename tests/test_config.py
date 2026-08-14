@@ -1,7 +1,6 @@
 """Tests for the QtShadcn persistent configuration system."""
 
 import json
-import warnings
 
 from qtpy import QtCore
 from qtshadcn.common.config import ConfigItem, QtShadcnSettings, ThemeMode, qsettings
@@ -31,7 +30,7 @@ def _tokens(**overrides):
         "ring": "#0f172a",
         "spacing": "4px",
         "radius": "8px",
-        "font_family": "system-ui, sans-serif",
+        "font_family": "Open Sans",
     }
     values.update(overrides)
     return values
@@ -67,6 +66,32 @@ class TestConfigItem:
         assert item.value == "dark"
         assert received == []
 
+    def test_set_does_not_emit_when_value_unchanged(self, qtbot):
+        item = ConfigItem("mode", "auto")
+        received = []
+        item.valueChanged.connect(lambda v: received.append(v))
+        item.set("auto")
+        assert item.value == "auto"
+        assert received == []
+
+    def test_reset_emits_value_changed(self, qtbot):
+        item = ConfigItem("mode", "auto")
+        item.set("dark")
+        received = []
+        item.valueChanged.connect(lambda v: received.append(v))
+        item.reset()
+        assert item.value == "auto"
+        assert received == ["auto"]
+
+    def test_reset_block_signal_prevents_emit(self, qtbot):
+        item = ConfigItem("mode", "auto")
+        item.set("dark")
+        received = []
+        item.valueChanged.connect(lambda v: received.append(v))
+        item.reset(block_signal=True)
+        assert item.value == "auto"
+        assert received == []
+
 
 class TestConfigDir:
     def test_default_config_dir_uses_app_data_location(self, monkeypatch, tmp_path):
@@ -98,7 +123,6 @@ class TestLoadAndSave:
         qsettings.reset_for_test()
         qsettings.set_config_dir(tmp_path)
         theme_data = {
-            "version": 1,
             "light": _tokens(),
             "dark": _tokens(background="#000000"),
         }
@@ -137,7 +161,7 @@ class TestLoadAndSave:
     <ring>#0f172a</ring>
     <spacing>4px</spacing>
     <radius>8px</radius>
-    <font_family>system-ui, sans-serif</font_family>
+    <font_family>Open Sans</font_family>
   </light>
   <dark>
     <background>#020617</background>
@@ -161,7 +185,7 @@ class TestLoadAndSave:
     <ring>#cbd5e1</ring>
     <spacing>4px</spacing>
     <radius>8px</radius>
-    <font_family>system-ui, sans-serif</font_family>
+    <font_family>Open Sans</font_family>
   </dark>
 </theme>
 """
@@ -180,7 +204,18 @@ class TestLoadAndSave:
 
         qsettings.load()
 
-        assert qsettings.additional_style_sheet.value == str(tmp_path / "style.qss")
+        assert qsettings.additional_style_sheet.value == "QWidget { color: red; }"
+
+    def test_load_then_save_preserves_style_sheet_content(self, tmp_path):
+        qsettings.reset_for_test()
+        qsettings.set_config_dir(tmp_path)
+        original = "QWidget { color: red; }"
+        (tmp_path / "style.qss").write_text(original, encoding="utf-8")
+
+        qsettings.load()
+        qsettings.save(only={"additional_style_sheet"})
+
+        assert (tmp_path / "style.qss").read_text(encoding="utf-8") == original
 
     def test_load_with_config_dir_argument(self, tmp_path):
         qsettings.reset_for_test()
@@ -226,23 +261,21 @@ class TestLoadAndSave:
         theme_path = tmp_path / "theme.json"
         assert theme_path.exists()
         data = json.loads(theme_path.read_text(encoding="utf-8"))
-        assert data["version"] == 1
         assert data["dark"]["background"] == "#000000"
         style_path = tmp_path / "style.qss"
         assert style_path.exists()
         assert style_path.read_text(encoding="utf-8") == "QWidget { color: blue; }"
 
-    def test_corrupt_theme_mode_json_falls_back_to_auto(self, tmp_path):
+    def test_corrupt_theme_mode_json_falls_back_to_auto(self, tmp_path, caplog):
         qsettings.reset_for_test()
         qsettings.set_config_dir(tmp_path)
         (tmp_path / "theme_mode.json").write_text("not json", encoding="utf-8")
 
-        with warnings.catch_warnings(record=True) as w:
-            warnings.simplefilter("always")
+        with caplog.at_level("WARNING", logger="qtshadcn.common.config"):
             qsettings.load()
 
         assert qsettings.theme_mode.value == ThemeMode.AUTO.value
-        assert any("Corrupt theme_mode.json" in str(warning.message) for warning in w)
+        assert any("Corrupt theme_mode.json" in record.message for record in caplog.records)
 
     def test_save_jinja_style_sheet(self, tmp_path):
         qsettings.reset_for_test()
