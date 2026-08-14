@@ -21,7 +21,7 @@
     <ring>#a1a1a1</ring>
     <spacing>4px</spacing>
     <radius>8px</radius>
-    <font_family>Open Sans, ui-sans-serif, sans-serif, system-ui</font_family>
+    <font_family>Open Sans</font_family>
   </light>
   <dark>
     <background>#0a0a0a</background>
@@ -45,6 +45,6 @@
     <ring>#737373</ring>
     <spacing>4px</spacing>
     <radius>8px</radius>
-    <font_family>Open Sans, ui-sans-serif, sans-serif, system-ui</font_family>
+    <font_family>Open Sans</font_family>
   </dark>
 </theme>

@@ -2,8 +2,8 @@
 
 * {
     color: {{ tokens.foreground }};
-    font-family: {{ tokens.font_family }};
-    font-size: {{ scale.TEXT_BASE }};
+    font-size: {{ Typography.FontSize.BASE }};
+    font-family: "{{ tokens.font_family }}", sans-serif;
 }
 
 /* ============================================================
@@ -13,7 +13,7 @@
 QWidget {
     color: {{ tokens.foreground }};
     background-color: {{ tokens.card }};
-    border-radius: {{ radius.class_px(tokens.radius, "xl") }};
+    border-radius: {{ radius.resolveRadius(tokens.radius, "xl") }};
 }
 
 QTabWidget > QWidget {
@@ -28,7 +28,7 @@ QFrame {
     color: {{ tokens.foreground }};
     background-color: {{ tokens.card }};
     border: 1px solid {{ tokens.border }};
-    border-radius: {{ radius.class_px(tokens.radius, "xl") }};
+    border-radius: {{ radius.resolveRadius(tokens.radius, "xl") }};
 }
 
 
@@ -38,8 +38,8 @@ QFrame {
 
 QLabel {
     line-height: 100%;
-    font-size: {{ scale.TEXT_SM }};
-    font-weight: {{ scale.FONT_WEIGHT_MEDIUM }};
+    font-size: {{ Typography.FontSize.SM }};
+    font-weight: {{ Typography.FontWeight.MEDIUM }};
     color: {{ tokens.foreground }};
     border: none;
 }
@@ -48,7 +48,7 @@ QLabel[invalid="true"] {
     color: {{ tokens.destructive }};
 }
 
-QLabel:disabled { color: {{ colors.alpha(tokens.foreground, 0.5) }}; }
+QLabel:disabled { color: {{ Colors.withAlpha(tokens.foreground, 0.5) }}; }
 
 
 /* ============================================================
@@ -57,31 +57,30 @@ QLabel:disabled { color: {{ colors.alpha(tokens.foreground, 0.5) }}; }
 
 QGroupBox {
   border: 1px solid {{ tokens.border }};
-  border-radius: {{ radius.class_px(tokens.radius, "md") }};
-  padding: {{ scale.spacing_px(tokens.spacing, 3) }};
-  padding-top: {{ scale.spacing_px(tokens.spacing, 4) }};
-  margin-top: {{ scale.spacing_px(tokens.spacing, 3) }};
-  font-size: {{ scale.TEXT_SM }};
-  line-height: {{ scale.TEXT_SM }};
+  border-radius: {{ radius.resolveRadius(tokens.radius, "md") }};
+  padding: {{ Scale.resolveSpacing(tokens.spacing, 3) }};
+  padding-top: {{ Scale.resolveSpacing(tokens.spacing, 4) }};
+  margin-top: {{ Scale.resolveSpacing(tokens.spacing, 3) }};
+  font-size: {{ Typography.FontSize.SM }};
   text-transform: uppercase;
 }
 
 QGroupBox::title {
   top: 0;
   subcontrol-origin: margin;
-  left: {{ scale.spacing_px(tokens.spacing, 3) }};
-  padding: 0 {{ scale.spacing_px(tokens.spacing, 1) }};
+  left: {{ Scale.resolveSpacing(tokens.spacing, 3) }};
+  padding: 0 {{ Scale.resolveSpacing(tokens.spacing, 1) }};
 }
 
 QGroupBox::title:disabled {
-  color: {{ colors.alpha(tokens.muted_foreground, 0.5) }};
+  color: {{ Colors.withAlpha(tokens.muted_foreground, 0.5) }};
 }
 
 QGroupBox:flat {
   border: none;
   border-radius: 0;
-  margin-top: {{ scale.spacing_px(tokens.spacing, 3) }};
-  padding-top: {{ scale.spacing_px(tokens.spacing, 4) }};
+  margin-top: {{ Scale.resolveSpacing(tokens.spacing, 3) }};
+  padding-top: {{ Scale.resolveSpacing(tokens.spacing, 4) }};
 }
 
 QGroupBox:flat::title {
@@ -89,22 +88,22 @@ QGroupBox:flat::title {
   left: 0;
   background: transparent;
   subcontrol-origin: margin;
-  padding: 0 {{ scale.spacing_px(tokens.spacing, 1) }} 0 0;
+  padding: 0 {{ Scale.resolveSpacing(tokens.spacing, 1) }} 0 0;
 }
 
 QGroupBox:flat::title:disabled {
-  color: {{ colors.alpha(tokens.muted_foreground, 0.5) }};
+  color: {{ Colors.withAlpha(tokens.muted_foreground, 0.5) }};
 }
 
 QGroupBox::indicator {
-  width: {{ scale.spacing_px(tokens.spacing, 4) }};
-  height: {{ scale.spacing_px(tokens.spacing, 4) }};
+  width: {{ Scale.resolveSpacing(tokens.spacing, 4) }};
+  height: {{ Scale.resolveSpacing(tokens.spacing, 4) }};
   border: 1px solid {{ tokens.input }};
-  border-radius: {{ radius.class_px(tokens.radius, "sm") }};
+  border-radius: {{ radius.resolveRadius(tokens.radius, "sm") }};
   background: {{ checkbox_bg }};
 }
 
-QGroupBox::indicator:hover { border-color: {{ colors.alpha(tokens.ring, 0.5) }}; }
+QGroupBox::indicator:hover { border-color: {{ Colors.withAlpha(tokens.ring, 0.5) }}; }
 
 QGroupBox::indicator:checked,
 QGroupBox::indicator:indeterminate {
@@ -121,14 +120,14 @@ QGroupBox::indicator:indeterminate {
 }
 
 QGroupBox::indicator:disabled {
-  background: {{ colors.alpha(tokens.muted, 0.5) }};
-  border-color: {{ colors.alpha(tokens.input, 0.5) }};
+  background: {{ Colors.withAlpha(tokens.muted, 0.5) }};
+  border-color: {{ Colors.withAlpha(tokens.input, 0.5) }};
 }
 
 QGroupBox::indicator:checked:disabled,
 QGroupBox::indicator:indeterminate:disabled {
-  background: {{ colors.alpha(tokens.primary, 0.5) }};
-  border-color: {{ colors.alpha(tokens.primary, 0.5) }};
+  background: {{ Colors.withAlpha(tokens.primary, 0.5) }};
+  border-color: {{ Colors.withAlpha(tokens.primary, 0.5) }};
 }
 
 
@@ -136,64 +135,64 @@ QGroupBox::indicator:indeterminate:disabled {
    QPushButton
    ============================================================ */
 
-{% set h_default = scale.spacing_px(tokens.spacing, 8) %}
-{% set h_sm      = scale.spacing_px(tokens.spacing, 7) %}
-{% set h_lg      = scale.spacing_px(tokens.spacing, 9) %}
-{% set h_xs      = scale.spacing_px(tokens.spacing, 6) %}
+{% set h_default = Scale.resolveSpacing(tokens.spacing, 8) %}
+{% set h_sm      = Scale.resolveSpacing(tokens.spacing, 7) %}
+{% set h_lg      = Scale.resolveSpacing(tokens.spacing, 9) %}
+{% set h_xs      = Scale.resolveSpacing(tokens.spacing, 6) %}
 
 QPushButton {
     background-color: {{ tokens.primary }};
     color: {{ tokens.primary_foreground }};
     border: 1px solid transparent;
     outline: none;
-    border-radius: {{ radius.class_px(tokens.radius, "lg") }};
-    padding-left: {{ scale.spacing_px(tokens.spacing, 2.5) }};
-    padding-right: {{ scale.spacing_px(tokens.spacing, 2.5) }};
-    min-height: {{ scale.spacing_px(tokens.spacing, 8) }};
-    font-size: {{ scale.TEXT_SM }};
-    font-weight: {{ scale.FONT_WEIGHT_MEDIUM }};
+    border-radius: {{ radius.resolveRadius(tokens.radius, "lg") }};
+    padding-left: {{ Scale.resolveSpacing(tokens.spacing, 2.5) }};
+    padding-right: {{ Scale.resolveSpacing(tokens.spacing, 2.5) }};
+    min-height: {{ Scale.resolveSpacing(tokens.spacing, 8) }};
+    font-size: {{ Typography.FontSize.SM }};
+    font-weight: {{ Typography.FontWeight.MEDIUM }};
 }
 
 QToolButton[class~="rounded-full"],
 QPushButton[class~="rounded-full"] {
-    border-radius: {{ radius.half_px(h_default) }};
+    border-radius: {{ radius.halveRadius(h_default) }};
 }
 
 QToolButton[class~="rounded-full"][scale="sm"],
 QPushButton[class~="rounded-full"][scale="sm"] {
-    border-radius: {{ radius.half_px(h_sm) }};
+    border-radius: {{ radius.halveRadius(h_sm) }};
 }
 
 QToolButton[class~="rounded-full"][scale="lg"],
 QPushButton[class~="rounded-full"][scale="lg"] {
-    border-radius: {{ radius.half_px(h_lg) }};
+    border-radius: {{ radius.halveRadius(h_lg) }};
 }
 
 QToolButton[class~="rounded-full"][scale="xs"],
 QPushButton[class~="rounded-full"][scale="xs"] {
-    border-radius: {{ radius.half_px(h_xs) }};
+    border-radius: {{ radius.halveRadius(h_xs) }};
 }
 
 QToolButton:hover,
 QPushButton:hover {
-    background-color: {{ colors.alpha(tokens.primary, 0.8) }};
+    background-color: {{ Colors.withAlpha(tokens.primary, 0.8) }};
 }
 
 QPushButton:pressed {
     color: {{ tokens.secondary_foreground }};
-    background-color: {{ colors.alpha(tokens.primary, 0.8) }};
+    background-color: {{ Colors.withAlpha(tokens.primary, 0.8) }};
 }
 
 QPushButton:focus {
     background-color: {{ tokens.primary }};
     color: {{ tokens.primary_foreground }};
-    border-color: {{ colors.alpha(tokens.ring, 0.5) }};
+    border-color: {{ Colors.withAlpha(tokens.ring, 0.5) }};
     outline: none;
 }
 
 QPushButton:disabled {
-    background-color: {{ colors.alpha(tokens.primary, 0.5) }};
-    color: {{ colors.alpha(tokens.primary_foreground, 0.5) }};
+    background-color: {{ Colors.withAlpha(tokens.primary, 0.5) }};
+    color: {{ Colors.withAlpha(tokens.primary_foreground, 0.5) }};
     border-color: transparent;
 }
 
@@ -222,7 +221,7 @@ QPushButton[variant="secondary"] {
 
 QPushButton[variant="secondary"]:hover,
 QPushButton[variant="secondary"]:pressed {
-    background-color: {{ colors.mix(tokens.secondary, tokens.foreground, 0.05) }};
+    background-color: {{ Colors.blendColors(tokens.secondary, tokens.foreground, 0.05) }};
     color: {{ tokens.secondary_foreground }};
 }
 
@@ -239,14 +238,14 @@ QPushButton[variant="ghost"]:pressed {
 }
 
 QPushButton[variant="destructive"] {
-    background-color: {{ colors.alpha(tokens.destructive, 0.1) }};
+    background-color: {{ Colors.withAlpha(tokens.destructive, 0.1) }};
     color: {{ tokens.destructive }};
     border-color: transparent;
 }
 
 QPushButton[variant="destructive"]:hover,
 QPushButton[variant="destructive"]:pressed {
-    background-color: {{ colors.alpha(tokens.destructive, 0.2) }};
+    background-color: {{ Colors.withAlpha(tokens.destructive, 0.2) }};
 }
 
 QPushButton[variant="link"] {
@@ -267,7 +266,7 @@ QPushButton[variant="link"]:pressed {
 
 QPushButton[variant="outline"]:disabled {
     background-color: transparent;
-    color: {{ colors.alpha(tokens.foreground, 0.5) }};
+    color: {{ Colors.withAlpha(tokens.foreground, 0.5) }};
     border-color: {{ tokens.border }};
 }
 
@@ -275,26 +274,26 @@ QPushButton[variant="ghost"]:disabled,
 QPushButton[variant="link"]:disabled {
     border: 0px;
     background-color: transparent;
-    color: {{ colors.alpha(tokens.foreground, 0.5) }};
+    color: {{ Colors.withAlpha(tokens.foreground, 0.5) }};
 }
 
 QPushButton[scale="xs"] {
-    border-radius: {{ radius.min_px(tokens.radius, "md", "10px") }};
-    padding-left: {{ scale.spacing_px(tokens.spacing, 2) }};
-    padding-right: {{ scale.spacing_px(tokens.spacing, 2) }};
-    min-height: {{ scale.spacing_px(tokens.spacing, 6) }};
-    font-size: {{ scale.TEXT_XS }};
+    border-radius: {{ radius.clampRadius(tokens.radius, "md", "10px") }};
+    padding-left: {{ Scale.resolveSpacing(tokens.spacing, 2) }};
+    padding-right: {{ Scale.resolveSpacing(tokens.spacing, 2) }};
+    min-height: {{ Scale.resolveSpacing(tokens.spacing, 6) }};
+    font-size: {{ Typography.FontSize.XS }};
 }
 
 QPushButton[scale="sm"] {
-    border-radius: {{ radius.min_px(tokens.radius, "md", "12px") }};
-    min-height: {{ scale.spacing_px(tokens.spacing, 7) }};
-    font-size: 13px;
+    border-radius: {{ radius.clampRadius(tokens.radius, "md", "12px") }};
+    min-height: {{ Scale.resolveSpacing(tokens.spacing, 7) }};
+    font-size: {{ Typography.FontSize.SM }};
 }
 
 QPushButton[scale="lg"] {
-    min-height: {{ scale.spacing_px(tokens.spacing, 9) }};
-    font-size: {{ scale.TEXT_SM }};
+    min-height: {{ Scale.resolveSpacing(tokens.spacing, 9) }};
+    font-size: {{ Typography.FontSize.SM }};
 }
 
 /* ============================================================
@@ -306,34 +305,34 @@ QToolButton {
     color: {{ tokens.primary_foreground }};
     border: 1px solid transparent;
     outline: none;
-    border-radius: {{ radius.class_px(tokens.radius, "lg") }};
+    border-radius: {{ radius.resolveRadius(tokens.radius, "lg") }};
     padding: 0px;
-    min-width: {{ scale.spacing_px(tokens.spacing, 8) }};
-    max-width: {{ scale.spacing_px(tokens.spacing, 8) }};
-    min-height: {{ scale.spacing_px(tokens.spacing, 8) }};
-    max-height: {{ scale.spacing_px(tokens.spacing, 8) }};
-    font-size: {{ scale.TEXT_SM }};
-    font-weight: {{ scale.FONT_WEIGHT_MEDIUM }};
+    min-width: {{ Scale.resolveSpacing(tokens.spacing, 8) }};
+    max-width: {{ Scale.resolveSpacing(tokens.spacing, 8) }};
+    min-height: {{ Scale.resolveSpacing(tokens.spacing, 8) }};
+    max-height: {{ Scale.resolveSpacing(tokens.spacing, 8) }};
+    font-size: {{ Typography.FontSize.SM }};
+    font-weight: {{ Typography.FontWeight.MEDIUM }};
 }
 
-QToolButton:hover { background-color: {{ colors.alpha(tokens.primary, 0.8) }}; }
+QToolButton:hover { background-color: {{ Colors.withAlpha(tokens.primary, 0.8) }}; }
 
 QToolButton:pressed,
 QToolButton:checked {
-    background-color: {{ colors.alpha(tokens.primary, 0.8) }};
+    background-color: {{ Colors.withAlpha(tokens.primary, 0.8) }};
     color: {{ tokens.primary_foreground }};
 }
 
 QToolButton:focus {
     background-color: {{ tokens.primary }};
     color: {{ tokens.primary_foreground }};
-    border-color: {{ colors.alpha(tokens.ring, 0.5) }};
+    border-color: {{ Colors.withAlpha(tokens.ring, 0.5) }};
     outline: none;
 }
 
 QToolButton:disabled {
-    background-color: {{ colors.alpha(tokens.primary, 0.5) }};
-    color: {{ colors.alpha(tokens.primary_foreground, 0.5) }};
+    background-color: {{ Colors.withAlpha(tokens.primary, 0.5) }};
+    color: {{ Colors.withAlpha(tokens.primary_foreground, 0.5) }};
     border-color: transparent;
 }
 
@@ -346,7 +345,7 @@ QToolButton[variant="outline"] {
 QToolButton[variant="outline"]:focus {
     background-color: {{ tokens.background }};
     color: {{ tokens.foreground }};
-    border-color: {{ colors.alpha(tokens.ring, 0.5) }};
+    border-color: {{ Colors.withAlpha(tokens.ring, 0.5) }};
 }
 
 QToolButton[variant="outline"]:hover,
@@ -365,13 +364,13 @@ QToolButton[variant="secondary"] {
 QToolButton[variant="secondary"]:focus {
     background-color: {{ tokens.secondary }};
     color: {{ tokens.secondary_foreground }};
-    border-color: {{ colors.alpha(tokens.ring, 0.5) }};
+    border-color: {{ Colors.withAlpha(tokens.ring, 0.5) }};
 }
 
 QToolButton[variant="secondary"]:hover,
 QToolButton[variant="secondary"]:pressed,
 QToolButton[variant="secondary"]:checked {
-    background-color: {{ colors.mix(tokens.secondary, tokens.foreground, 0.05) }};
+    background-color: {{ Colors.blendColors(tokens.secondary, tokens.foreground, 0.05) }};
     color: {{ tokens.secondary_foreground }};
 }
 
@@ -384,7 +383,7 @@ QToolButton[variant="ghost"] {
 QToolButton[variant="ghost"]:focus {
     background-color: transparent;
     color: {{ tokens.foreground }};
-    border-color: {{ colors.alpha(tokens.ring, 0.5) }};
+    border-color: {{ Colors.withAlpha(tokens.ring, 0.5) }};
 }
 
 QToolButton[variant="ghost"]:hover,
@@ -395,69 +394,69 @@ QToolButton[variant="ghost"]:checked {
 }
 
 QToolButton[variant="destructive"] {
-    background-color: {{ colors.alpha(tokens.destructive, 0.1) }};
+    background-color: {{ Colors.withAlpha(tokens.destructive, 0.1) }};
     color: {{ tokens.destructive }};
     border-color: transparent;
 }
 
 QToolButton[variant="destructive"]:focus {
-    background-color: {{ colors.alpha(tokens.destructive, 0.1) }};
+    background-color: {{ Colors.withAlpha(tokens.destructive, 0.1) }};
     color: {{ tokens.destructive }};
-    border-color: {{ colors.alpha(tokens.ring, 0.5) }};
+    border-color: {{ Colors.withAlpha(tokens.ring, 0.5) }};
 }
 
 QToolButton[variant="destructive"]:hover,
 QToolButton[variant="destructive"]:pressed,
 QToolButton[variant="destructive"]:checked {
-    background-color: {{ colors.alpha(tokens.destructive, 0.2) }};
+    background-color: {{ Colors.withAlpha(tokens.destructive, 0.2) }};
     color: {{ tokens.destructive }};
 }
 
 QToolButton[variant="outline"]:disabled {
     background-color: transparent;
-    color: {{ colors.alpha(tokens.foreground, 0.5) }};
+    color: {{ Colors.withAlpha(tokens.foreground, 0.5) }};
     border-color: {{ tokens.border }};
 }
 
 QToolButton[variant="secondary"]:disabled {
-    background-color: {{ colors.alpha(tokens.secondary, 0.5) }};
-    color: {{ colors.alpha(tokens.secondary_foreground, 0.5) }};
+    background-color: {{ Colors.withAlpha(tokens.secondary, 0.5) }};
+    color: {{ Colors.withAlpha(tokens.secondary_foreground, 0.5) }};
     border-color: transparent;
 }
 
 QToolButton[variant="ghost"]:disabled {
     border: 0px;
     background-color: transparent;
-    color: {{ colors.alpha(tokens.foreground, 0.5) }};
+    color: {{ Colors.withAlpha(tokens.foreground, 0.5) }};
 }
 
 QToolButton[variant="destructive"]:disabled {
-    background-color: {{ colors.alpha(tokens.destructive, 0.1) }};
-    color: {{ colors.alpha(tokens.destructive, 0.5) }};
+    background-color: {{ Colors.withAlpha(tokens.destructive, 0.1) }};
+    color: {{ Colors.withAlpha(tokens.destructive, 0.5) }};
     border-color: transparent;
 }
 
 QToolButton[scale="xs"] {
-    border-radius: {{ radius.min_px(tokens.radius, "md", "10px") }};
-    min-width: {{ scale.spacing_px(tokens.spacing, 6) }};
-    max-width: {{ scale.spacing_px(tokens.spacing, 6) }};
-    min-height: {{ scale.spacing_px(tokens.spacing, 6) }};
-    max-height: {{ scale.spacing_px(tokens.spacing, 6) }};
+    border-radius: {{ radius.clampRadius(tokens.radius, "md", "10px") }};
+    min-width: {{ Scale.resolveSpacing(tokens.spacing, 6) }};
+    max-width: {{ Scale.resolveSpacing(tokens.spacing, 6) }};
+    min-height: {{ Scale.resolveSpacing(tokens.spacing, 6) }};
+    max-height: {{ Scale.resolveSpacing(tokens.spacing, 6) }};
 }
 
 QToolButton[scale="sm"] {
-    border-radius: {{ radius.min_px(tokens.radius, "md", "12px") }};
-    min-width: {{ scale.spacing_px(tokens.spacing, 7) }};
-    max-width: {{ scale.spacing_px(tokens.spacing, 7) }};
-    min-height: {{ scale.spacing_px(tokens.spacing, 7) }};
-    max-height: {{ scale.spacing_px(tokens.spacing, 7) }};
+    border-radius: {{ radius.clampRadius(tokens.radius, "md", "12px") }};
+    min-width: {{ Scale.resolveSpacing(tokens.spacing, 7) }};
+    max-width: {{ Scale.resolveSpacing(tokens.spacing, 7) }};
+    min-height: {{ Scale.resolveSpacing(tokens.spacing, 7) }};
+    max-height: {{ Scale.resolveSpacing(tokens.spacing, 7) }};
 }
 
 QToolButton[scale="lg"] {
-    min-width: {{ scale.spacing_px(tokens.spacing, 9) }};
-    max-width: {{ scale.spacing_px(tokens.spacing, 9) }};
-    min-height: {{ scale.spacing_px(tokens.spacing, 9) }};
-    max-height: {{ scale.spacing_px(tokens.spacing, 9) }};
+    min-width: {{ Scale.resolveSpacing(tokens.spacing, 9) }};
+    max-width: {{ Scale.resolveSpacing(tokens.spacing, 9) }};
+    min-height: {{ Scale.resolveSpacing(tokens.spacing, 9) }};
+    max-height: {{ Scale.resolveSpacing(tokens.spacing, 9) }};
 }
 
 
@@ -465,27 +464,27 @@ QToolButton[scale="lg"] {
    QCheckBox
    ============================================================ */
 
-{% set checkbox_bg = colors.alpha(tokens.input, 0.3) if is_dark else "transparent" %}
-{% set invalid_border = colors.alpha(tokens.destructive, 0.5) if is_dark else tokens.destructive %}
-{% set invalid_outline = colors.alpha(tokens.destructive, 0.4 if is_dark else 0.2) %}
+{% set checkbox_bg = Colors.withAlpha(tokens.input, 0.3) if is_dark else "transparent" %}
+{% set invalid_border = Colors.withAlpha(tokens.destructive, 0.5) if is_dark else tokens.destructive %}
+{% set invalid_outline = Colors.withAlpha(tokens.destructive, 0.4 if is_dark else 0.2) %}
 
 QCheckBox {
   background: transparent;
   color: {{ tokens.foreground }};
-  spacing: {{ scale.spacing_px(tokens.spacing, 2) }};
-  font-size: {{ scale.TEXT_SM }};
-  font-weight: {{ scale.FONT_WEIGHT_MEDIUM }};
+  spacing: {{ Scale.resolveSpacing(tokens.spacing, 2) }};
+  font-size: {{ Typography.FontSize.SM }};
+  font-weight: {{ Typography.FontWeight.MEDIUM }};
 }
 
 QCheckBox::indicator {
-  width: {{ scale.spacing_px(tokens.spacing, 4) }};
-  height: {{ scale.spacing_px(tokens.spacing, 4) }};
+  width: {{ Scale.resolveSpacing(tokens.spacing, 4) }};
+  height: {{ Scale.resolveSpacing(tokens.spacing, 4) }};
   border: 1px solid {{ tokens.input }};
-  border-radius: {{ radius.class_px(tokens.radius, "sm") }};
+  border-radius: {{ radius.resolveRadius(tokens.radius, "sm") }};
   background: {{ checkbox_bg }};
 }
 
-QCheckBox::indicator:hover { border-color: {{ colors.alpha(tokens.ring, 0.5) }}; }
+QCheckBox::indicator:hover { border-color: {{ Colors.withAlpha(tokens.ring, 0.5) }}; }
 
 QCheckBox::indicator:checked,
 QCheckBox::indicator:indeterminate {
@@ -502,18 +501,18 @@ QCheckBox::indicator:indeterminate {
 }
 
 QCheckBox::indicator:disabled {
-  background: {{ colors.alpha(tokens.muted, 0.5) }};
-  border-color: {{ colors.alpha(tokens.input, 0.5) }};
+  background: {{ Colors.withAlpha(tokens.muted, 0.5) }};
+  border-color: {{ Colors.withAlpha(tokens.input, 0.5) }};
 }
 
 QCheckBox::indicator:checked:disabled,
 QCheckBox::indicator:indeterminate:disabled {
-  background: {{ colors.alpha(tokens.primary, 0.5) }};
-  border-color: {{ colors.alpha(tokens.primary, 0.5) }};
+  background: {{ Colors.withAlpha(tokens.primary, 0.5) }};
+  border-color: {{ Colors.withAlpha(tokens.primary, 0.5) }};
 }
 
 QCheckBox:disabled {
-  color: {{ colors.alpha(tokens.muted_foreground, 0.5) }};
+  color: {{ Colors.withAlpha(tokens.muted_foreground, 0.5) }};
 }
 
 QCheckBox[invalid="true"] {
@@ -526,7 +525,7 @@ QCheckBox[invalid="true"]::indicator {
 }
 
 QCheckBox[invalid="true"]::indicator:hover {
-  border-color: {{ colors.alpha(tokens.destructive, 0.8) }};
+  border-color: {{ Colors.withAlpha(tokens.destructive, 0.8) }};
 }
 
 QCheckBox[invalid="true"]::indicator:checked,
@@ -547,27 +546,27 @@ QCheckBox[invalid="true"]::indicator:indeterminate {
    QRadioButton
    ============================================================ */
 
-{% set radio_bg = colors.alpha(tokens.input, 0.3) if is_dark else "transparent" %}
-{% set invalid_border = colors.alpha(tokens.destructive, 0.5) if is_dark else tokens.destructive %}
-{% set invalid_outline = colors.alpha(tokens.destructive, 0.4 if is_dark else 0.2) %}
+{% set radio_bg = Colors.withAlpha(tokens.input, 0.3) if is_dark else "transparent" %}
+{% set invalid_border = Colors.withAlpha(tokens.destructive, 0.5) if is_dark else tokens.destructive %}
+{% set invalid_outline = Colors.withAlpha(tokens.destructive, 0.4 if is_dark else 0.2) %}
 
 QRadioButton {
   background: transparent;
   color: {{ tokens.foreground }};
-  spacing: {{ scale.spacing_px(tokens.spacing, 2) }};
-  font-size: {{ scale.TEXT_SM }};
-  font-weight: {{ scale.FONT_WEIGHT_MEDIUM }};
+  spacing: {{ Scale.resolveSpacing(tokens.spacing, 2) }};
+  font-size: {{ Typography.FontSize.SM }};
+  font-weight: {{ Typography.FontWeight.MEDIUM }};
 }
 
 QRadioButton::indicator {
-  width: {{ scale.spacing_px(tokens.spacing, 4) }};
-  height: {{ scale.spacing_px(tokens.spacing, 4) }};
+  width: {{ Scale.resolveSpacing(tokens.spacing, 4) }};
+  height: {{ Scale.resolveSpacing(tokens.spacing, 4) }};
   border: 1px solid {{ tokens.input }};
-  border-radius: {{ scale.spacing_px(tokens.spacing, 2) }};
+  border-radius: {{ Scale.resolveSpacing(tokens.spacing, 2) }};
   background: {{ radio_bg }};
 }
 
-QRadioButton::indicator:hover { border-color: {{ colors.alpha(tokens.ring, 0.5) }}; }
+QRadioButton::indicator:hover { border-color: {{ Colors.withAlpha(tokens.ring, 0.5) }}; }
 
 QRadioButton::indicator:checked {
   background: {{ tokens.primary }};
@@ -576,17 +575,17 @@ QRadioButton::indicator:checked {
 }
 
 QRadioButton::indicator:disabled {
-  background: {{ colors.alpha(tokens.muted, 0.5) }};
-  border-color: {{ colors.alpha(tokens.input, 0.5) }};
+  background: {{ Colors.withAlpha(tokens.muted, 0.5) }};
+  border-color: {{ Colors.withAlpha(tokens.input, 0.5) }};
 }
 
 QRadioButton::indicator:checked:disabled {
-  background: {{ colors.alpha(tokens.primary, 0.5) }};
-  border-color: {{ colors.alpha(tokens.primary, 0.5) }};
+  background: {{ Colors.withAlpha(tokens.primary, 0.5) }};
+  border-color: {{ Colors.withAlpha(tokens.primary, 0.5) }};
 }
 
 QRadioButton:disabled {
-  color: {{ colors.alpha(tokens.muted_foreground, 0.5) }};
+  color: {{ Colors.withAlpha(tokens.muted_foreground, 0.5) }};
 }
 
 QRadioButton[invalid="true"] { color: {{ tokens.destructive }}; }
@@ -597,7 +596,7 @@ QRadioButton[invalid="true"]::indicator {
 }
 
 QRadioButton[invalid="true"]::indicator:hover {
-  border-color: {{ colors.alpha(tokens.destructive, 0.8) }};
+  border-color: {{ Colors.withAlpha(tokens.destructive, 0.8) }};
 }
 
 QRadioButton[invalid="true"]::indicator:checked {
@@ -610,46 +609,46 @@ QRadioButton[invalid="true"]::indicator:checked {
    QComboBox
    ============================================================ */
 
-{% set combo_bg = colors.alpha(tokens.input, 0.3) if is_dark else "transparent" %}
-{% set combo_disabled_bg = colors.alpha(tokens.input, 0.8 if is_dark else 0.5) %}
-{% set invalid_border = colors.alpha(tokens.destructive, 0.5) if is_dark else tokens.destructive %}
-{% set invalid_outline = colors.alpha(tokens.destructive, 0.4 if is_dark else 0.2) %}
+{% set combo_bg = Colors.withAlpha(tokens.input, 0.3) if is_dark else "transparent" %}
+{% set combo_disabled_bg = Colors.withAlpha(tokens.input, 0.8 if is_dark else 0.5) %}
+{% set invalid_border = Colors.withAlpha(tokens.destructive, 0.5) if is_dark else tokens.destructive %}
+{% set invalid_outline = Colors.withAlpha(tokens.destructive, 0.4 if is_dark else 0.2) %}
 
 QComboBox, QFontComboBox {
   background: {{ combo_bg }};
   color: {{ tokens.foreground }};
   border: 1px solid {{ tokens.input }};
-  border-radius: {{ radius.class_px(tokens.radius, "lg") }};
-  padding: 0 {{ scale.spacing_px(tokens.spacing, 8) }} 0 {{ scale.spacing_px(tokens.spacing, 2.5) }};
-  min-height: {{ scale.spacing_px(tokens.spacing, 8) }};
-  font-size: {{ scale.TEXT_SM }};
+  border-radius: {{ radius.resolveRadius(tokens.radius, "lg") }};
+  padding: 0 {{ Scale.resolveSpacing(tokens.spacing, 8) }} 0 {{ Scale.resolveSpacing(tokens.spacing, 2.5) }};
+  min-height: {{ Scale.resolveSpacing(tokens.spacing, 8) }};
+  font-size: {{ Typography.FontSize.SM }};
   selection-background-color: {{ tokens.primary }};
   selection-color: {{ tokens.primary_foreground }};
 }
 QComboBox:focus, QFontComboBox:focus {
   border-color: {{ tokens.ring }};
-  outline: 3px solid {{ colors.alpha(tokens.ring, 0.5) }};
+  outline: 3px solid {{ Colors.withAlpha(tokens.ring, 0.5) }};
 }
 
 QComboBox:disabled, QFontComboBox:disabled {
   background: {{ combo_disabled_bg }};
-  color: {{ colors.alpha(tokens.muted_foreground, 0.5) }};
-  border-color: {{ colors.alpha(tokens.input, 0.5) }};
+  color: {{ Colors.withAlpha(tokens.muted_foreground, 0.5) }};
+  border-color: {{ Colors.withAlpha(tokens.input, 0.5) }};
 }
 
 QComboBox::drop-down, QFontComboBox::drop-down {
-  width: {{ scale.spacing_px(tokens.spacing, 8) }};
+  width: {{ Scale.resolveSpacing(tokens.spacing, 8) }};
   border: 0;
 }
 
 QComboBox::down-arrow, QFontComboBox::down-arrow {
-  width: {{ scale.spacing_px(tokens.spacing, 4) }};
-  height: {{ scale.spacing_px(tokens.spacing, 4) }};
+  width: {{ Scale.resolveSpacing(tokens.spacing, 4) }};
+  height: {{ Scale.resolveSpacing(tokens.spacing, 4) }};
   image: url("{{ icons.chevron_down(tokens.muted_foreground) }}");
 }
 
 QComboBox:disabled::down-arrow, QFontComboBox:disabled::down-arrow {
-  image: url("{{ icons.chevron_down(colors.alpha(tokens.muted_foreground, 0.5)) }}");
+  image: url("{{ icons.chevron_down(Colors.withAlpha(tokens.muted_foreground, 0.5)) }}");
 }
 
 QComboBox[invalid="true"], QFontComboBox[invalid="true"] {
@@ -666,36 +665,36 @@ QComboBox QAbstractItemView, QFontComboBox QAbstractItemView {
   background: {{ tokens.popover }};
   color: {{ tokens.popover_foreground }};
   border: 1px solid {{ tokens.border }};
-  border-radius: {{ radius.class_px(tokens.radius, "lg") }};
-  padding: {{ scale.spacing_px(tokens.spacing, 1) }};
-  font-size: {{ scale.TEXT_SM }};
+  border-radius: {{ radius.resolveRadius(tokens.radius, "lg") }};
+  padding: {{ Scale.resolveSpacing(tokens.spacing, 1) }};
+  font-size: {{ Typography.FontSize.SM }};
   selection-background-color: {{ tokens.accent }};
   selection-color: {{ tokens.accent_foreground }};
   outline: none;
 }
 
 QComboBox QAbstractItemView::item, QFontComboBox QAbstractItemView::item {
-  padding: {{ scale.spacing_px(tokens.spacing, 1) }} {{ scale.spacing_px(tokens.spacing, 8) }} {{ scale.spacing_px(tokens.spacing, 1) }} {{ scale.spacing_px(tokens.spacing, 1.5) }};
-  min-height: {{ scale.spacing_px(tokens.spacing, 8) }};
+  padding: {{ Scale.resolveSpacing(tokens.spacing, 1) }} {{ Scale.resolveSpacing(tokens.spacing, 8) }} {{ Scale.resolveSpacing(tokens.spacing, 1) }} {{ Scale.resolveSpacing(tokens.spacing, 1.5) }};
+  min-height: {{ Scale.resolveSpacing(tokens.spacing, 8) }};
 }
 
 QComboBox QAbstractItemView::item:selected, QFontComboBox QAbstractItemView::item:selected {
   background: {{ tokens.accent }};
   color: {{ tokens.accent_foreground }};
-  border-radius: {{ radius.class_px(tokens.radius, "md") }};
+  border-radius: {{ radius.resolveRadius(tokens.radius, "md") }};
 }
 
 QComboBox QAbstractItemView::item:disabled, QFontComboBox QAbstractItemView::item:disabled {
-  color: {{ colors.alpha(tokens.muted_foreground, 0.5) }};
+  color: {{ Colors.withAlpha(tokens.muted_foreground, 0.5) }};
 }
 
 /* ============================================================
    QLineEdit / QTextEdit / QPlainTextEdit
    ============================================================ */
 
-{% set input_bg = colors.alpha(tokens.input, 0.31) if is_dark else "transparent" %}
-{% set invalid_border = colors.alpha(tokens.destructive, 0.5) if is_dark else tokens.destructive %}
-{% set invalid_outline = colors.alpha(tokens.destructive, 0.4 if is_dark else 0.2) %}
+{% set input_bg = Colors.withAlpha(tokens.input, 0.31) if is_dark else "transparent" %}
+{% set invalid_border = Colors.withAlpha(tokens.destructive, 0.5) if is_dark else tokens.destructive %}
+{% set invalid_outline = Colors.withAlpha(tokens.destructive, 0.4 if is_dark else 0.2) %}
 
 QLineEdit,
 QTextEdit,
@@ -704,38 +703,38 @@ QPlainTextEdit {
   color: {{ tokens.foreground }};
   border: 1px solid {{ tokens.input }};
   outline: none;
-  border-radius: {{ radius.class_px(tokens.radius, "lg") }};
-  font-size: {{ scale.TEXT_SM }};
+  border-radius: {{ radius.resolveRadius(tokens.radius, "lg") }};
+  font-size: {{ Typography.FontSize.SM }};
   placeholder-text-color: {{ tokens.muted_foreground }};
   selection-background-color: {{ tokens.primary }};
   selection-color: {{ tokens.primary_foreground }};
 }
 
 QLineEdit {
-  padding: 0 {{ scale.spacing_px(tokens.spacing, 2.5) }};
-  min-height: {{ scale.spacing_px(tokens.spacing, 8) }};
+  padding: 0 {{ Scale.resolveSpacing(tokens.spacing, 2.5) }};
+  min-height: {{ Scale.resolveSpacing(tokens.spacing, 8) }};
 }
 
 QTextEdit,
 QPlainTextEdit {
-  padding: {{ scale.spacing_px(tokens.spacing, 2) }} {{ scale.spacing_px(tokens.spacing, 2.5) }};
-  min-height: {{ scale.spacing_px(tokens.spacing, 16) }};
+  padding: {{ Scale.resolveSpacing(tokens.spacing, 2) }} {{ Scale.resolveSpacing(tokens.spacing, 2.5) }};
+  min-height: {{ Scale.resolveSpacing(tokens.spacing, 16) }};
 }
 
 QLineEdit:focus,
 QTextEdit:focus,
 QPlainTextEdit:focus {
-  border: 3px solid {{ colors.alpha(tokens.ring, 0.5) }};
-  outline: 3px solid {{ colors.alpha(tokens.ring, 0.5) }};
+  border: 3px solid {{ Colors.withAlpha(tokens.ring, 0.5) }};
+  outline: 3px solid {{ Colors.withAlpha(tokens.ring, 0.5) }};
 }
 
 QLineEdit:disabled,
 QTextEdit:disabled,
 QPlainTextEdit:disabled {
-  background: {{ colors.alpha(tokens.input, 0.8 if is_dark else 0.5) }};
-  color: {{ colors.alpha(tokens.muted_foreground, 0.5) }};
-  border-color: {{ colors.alpha(tokens.input, 0.5) }};
-  placeholder-text-color: {{ colors.alpha(tokens.muted_foreground, 0.5) }};
+  background: {{ Colors.withAlpha(tokens.input, 0.8 if is_dark else 0.5) }};
+  color: {{ Colors.withAlpha(tokens.muted_foreground, 0.5) }};
+  border-color: {{ Colors.withAlpha(tokens.input, 0.5) }};
+  placeholder-text-color: {{ Colors.withAlpha(tokens.muted_foreground, 0.5) }};
 }
 
 QLineEdit[invalid="true"],
@@ -756,27 +755,27 @@ QDoubleSpinBox {
   color: {{ tokens.foreground }};
   border: 1px solid {{ tokens.input }};
   outline: none;
-  border-radius: {{ radius.class_px(tokens.radius, "lg") }};
-  font-size: {{ scale.TEXT_SM }};
+  border-radius: {{ radius.resolveRadius(tokens.radius, "lg") }};
+  font-size: {{ Typography.FontSize.SM }};
   placeholder-text-color: {{ tokens.muted_foreground }};
   selection-background-color: {{ tokens.primary }};
   selection-color: {{ tokens.primary_foreground }};
-  padding: 0 {{ scale.spacing_px(tokens.spacing, 8) }} 0 {{ scale.spacing_px(tokens.spacing, 2.5) }};
-  min-height: {{ scale.spacing_px(tokens.spacing, 8) }};
+  padding: 0 {{ Scale.resolveSpacing(tokens.spacing, 8) }} 0 {{ Scale.resolveSpacing(tokens.spacing, 2.5) }};
+  min-height: {{ Scale.resolveSpacing(tokens.spacing, 8) }};
 }
 
 QSpinBox:focus,
 QDoubleSpinBox:focus {
   border-color: {{ tokens.ring }};
-  outline: 3px solid {{ colors.alpha(tokens.ring, 0.5) }};
+  outline: 3px solid {{ Colors.withAlpha(tokens.ring, 0.5) }};
 }
 
 QSpinBox:disabled,
 QDoubleSpinBox:disabled {
-  background: {{ colors.alpha(tokens.input, 0.8 if is_dark else 0.5) }};
-  color: {{ colors.alpha(tokens.muted_foreground, 0.5) }};
-  border-color: {{ colors.alpha(tokens.input, 0.5) }};
-  placeholder-text-color: {{ colors.alpha(tokens.muted_foreground, 0.5) }};
+  background: {{ Colors.withAlpha(tokens.input, 0.8 if is_dark else 0.5) }};
+  color: {{ Colors.withAlpha(tokens.muted_foreground, 0.5) }};
+  border-color: {{ Colors.withAlpha(tokens.input, 0.5) }};
+  placeholder-text-color: {{ Colors.withAlpha(tokens.muted_foreground, 0.5) }};
 }
 
 QSpinBox[invalid="true"],
@@ -788,10 +787,10 @@ QDoubleSpinBox[invalid="true"] {
 
 QSpinBox::up-button,
 QDoubleSpinBox::up-button {
-  width: {{ scale.spacing_px(tokens.spacing, 8) }};
+  width: {{ Scale.resolveSpacing(tokens.spacing, 8) }};
   border: none;
   background: transparent;
-  border-top-right-radius: {{ radius.class_px(tokens.radius, "lg") }};
+  border-top-right-radius: {{ radius.resolveRadius(tokens.radius, "lg") }};
   border-top-left-radius: 0px;
   border-bottom-right-radius: 0px;
   border-bottom-left-radius: 0px;
@@ -800,10 +799,10 @@ QDoubleSpinBox::up-button {
 
 QSpinBox::down-button,
 QDoubleSpinBox::down-button {
-  width: {{ scale.spacing_px(tokens.spacing, 8) }};
+  width: {{ Scale.resolveSpacing(tokens.spacing, 8) }};
   border: none;
   background: transparent;
-  border-bottom-right-radius: {{ radius.class_px(tokens.radius, "lg") }};
+  border-bottom-right-radius: {{ radius.resolveRadius(tokens.radius, "lg") }};
   border-top-right-radius: 0px;
   border-top-left-radius: 0px;
   border-bottom-left-radius: 0px;
@@ -828,20 +827,20 @@ QSpinBox::up-button:disabled,
 QDoubleSpinBox::up-button:disabled,
 QSpinBox::down-button:disabled,
 QDoubleSpinBox::down-button:disabled {
-  background: {{ colors.alpha(tokens.muted, 0.5) }};
+  background: {{ Colors.withAlpha(tokens.muted, 0.5) }};
 }
 
 QSpinBox::up-arrow,
 QDoubleSpinBox::up-arrow {
-  width: {{ scale.spacing_px(tokens.spacing, 4) }};
-  height: {{ scale.spacing_px(tokens.spacing, 4) }};
+  width: {{ Scale.resolveSpacing(tokens.spacing, 4) }};
+  height: {{ Scale.resolveSpacing(tokens.spacing, 4) }};
   image: url("{{ icons.chevron_up(tokens.muted_foreground) }}");
 }
 
 QSpinBox::down-arrow,
 QDoubleSpinBox::down-arrow {
-  width: {{ scale.spacing_px(tokens.spacing, 4) }};
-  height: {{ scale.spacing_px(tokens.spacing, 4) }};
+  width: {{ Scale.resolveSpacing(tokens.spacing, 4) }};
+  height: {{ Scale.resolveSpacing(tokens.spacing, 4) }};
   image: url("{{ icons.chevron_down(tokens.muted_foreground) }}");
 }
 
@@ -857,12 +856,12 @@ QDoubleSpinBox::down-arrow:hover {
 
 QSpinBox::up-arrow:disabled,
 QDoubleSpinBox::up-arrow:disabled {
-  image: url("{{ icons.chevron_up(colors.alpha(tokens.muted_foreground, 0.5)) }}");
+  image: url("{{ icons.chevron_up(Colors.withAlpha(tokens.muted_foreground, 0.5)) }}");
 }
 
 QSpinBox::down-arrow:disabled,
 QDoubleSpinBox::down-arrow:disabled {
-  image: url("{{ icons.chevron_down(colors.alpha(tokens.muted_foreground, 0.5)) }}");
+  image: url("{{ icons.chevron_down(Colors.withAlpha(tokens.muted_foreground, 0.5)) }}");
 }
 
 QSpinBox[invalid="true"]::up-arrow,
@@ -879,43 +878,45 @@ QDoubleSpinBox[invalid="true"]::down-arrow {
    QProgressBar
    ============================================================ */
 
+{% set progress_bar_height = Scale.resolveSpacing(tokens.spacing, 8) %}
+
 QProgressBar {
     background-color: {{ tokens.muted }};
     border: 0px;
-    border-radius: {{ radius.class_px(tokens.radius, "full") }};
-    min-height: {{ scale.spacing_px(tokens.spacing, 1) }};
-    max-height: {{ scale.spacing_px(tokens.spacing, 1) }};
+    border-radius: {{ radius.halveRadius(progress_bar_height) }};
+    min-height: {{ Scale.resolveSpacing(tokens.spacing, 1) }};
+    max-height: {{ Scale.resolveSpacing(tokens.spacing, 1) }};
     text-align: center;
     color: transparent;
 }
 
 QProgressBar::chunk {
     background-color: {{ tokens.primary }};
-    border-radius: {{ radius.class_px(tokens.radius, "full") }};
+    border-radius: {{ radius.halveRadius(progress_bar_height) }};
     margin: 0;
 }
 
 QProgressBar[labeled="true"] {
     color: {{ tokens.accent }};
-    min-height: {{ scale.spacing_px(tokens.spacing, 4) }};
-    max-height: {{ scale.spacing_px(tokens.spacing, 4) }};
-    border-radius: {{ radius.class_px(tokens.radius, "md") }};
+    min-height: {{ Scale.resolveSpacing(tokens.spacing, 4) }};
+    max-height: {{ Scale.resolveSpacing(tokens.spacing, 4) }};
+    border-radius: {{ radius.resolveRadius(tokens.radius, "md") }};
 }
 
 QProgressBar::chunk[labeled="true"] {
-    border-radius: {{ radius.class_px(tokens.radius, "md") }};
+    border-radius: {{ radius.resolveRadius(tokens.radius, "md") }};
 }
 
-QProgressBar:disabled { background-color: {{ colors.alpha(tokens.muted, 0.5) }}; }
+QProgressBar:disabled { background-color: {{ Colors.withAlpha(tokens.muted, 0.5) }}; }
 
-QProgressBar::chunk:disabled { background-color: {{ colors.alpha(tokens.primary, 0.5) }}; }
+QProgressBar::chunk:disabled { background-color: {{ Colors.withAlpha(tokens.primary, 0.5) }}; }
 
 /* ============================================================
    QSlider
    ============================================================ */
 
-{% set groove = scale.spacing_int(tokens.spacing, 1) %}
-{% set handle = scale.spacing_int(tokens.spacing, 3) %}
+{% set groove = Scale.toSpacingInt(tokens.spacing, 1) %}
+{% set handle = Scale.toSpacingInt(tokens.spacing, 3) %}
 {% set offset = (handle - groove) // 2 %}
 
 QSlider:horizontal { min-height: {{ handle }}px; }
@@ -925,14 +926,14 @@ QSlider::groove:horizontal {
   height: {{ groove }}px;
   margin: 0;
   background: {{ tokens.muted }};
-  border-radius: {{ radius.class_px(tokens.radius, "full") }};
+  border-radius: {{ radius.halveRadius(Scale.resolveSpacing(tokens.spacing, 1)) }};
 }
 
 QSlider::groove:vertical {
   width: {{ groove }}px;
   margin: 0;
   background: {{ tokens.muted }};
-  border-radius: {{ radius.class_px(tokens.radius, "full") }};
+  border-radius: {{ radius.halveRadius(Scale.resolveSpacing(tokens.spacing, 1)) }};
 }
 
 QSlider::handle {
@@ -952,19 +953,17 @@ QSlider::handle:hover {
 
 QSlider::add-page {
   background: {{ tokens.muted }};
-  border-radius: {{ radius.class_px(tokens.radius, "full") }};
 }
 
 QSlider::sub-page {
   background: {{ tokens.primary }};
-  border-radius: {{ radius.class_px(tokens.radius, "full") }};
 }
 
 QSlider::handle:disabled {
   image: url({{ icons.slider_thumb(tokens.input, tokens.input, handle) }});
 }
 
-QSlider::sub-page:disabled { background: {{ colors.alpha(tokens.input, 0.5) }}; }
+QSlider::sub-page:disabled { background: {{ Colors.withAlpha(tokens.input, 0.5) }}; }
 
 /* ============================================================
    QTabWidget
@@ -976,26 +975,26 @@ QTabWidget::pane {
 
 QTabBar {
     background: {{ tokens.muted }};
-    border-radius: {{ radius.class_px(tokens.radius, "lg") }};
-    padding: {{ scale.spacing_px(tokens.spacing, 1) }};
+    border-radius: {{ radius.resolveRadius(tokens.radius, "lg") }};
+    padding: {{ Scale.resolveSpacing(tokens.spacing, 1) }};
 }
 
 QTabBar::tab {
     background: transparent;
     color: {{ tokens.muted_foreground }};
     border: 1px solid transparent;
-    border-radius: {{ radius.class_px(tokens.radius, "md") }};
-    margin: {{ scale.spacing_px(tokens.spacing, 0.7) }};
-    padding: {{ scale.spacing_px(tokens.spacing, 0.5) }} {{ scale.spacing_px(tokens.spacing, 3) }};
-    min-height: {{ scale.spacing_px(tokens.spacing, 7) }};
-    font-size: {{ scale.TEXT_SM }};
+    border-radius: {{ radius.resolveRadius(tokens.radius, "md") }};
+    margin: {{ Scale.resolveSpacing(tokens.spacing, 0.7) }};
+    padding: {{ Scale.resolveSpacing(tokens.spacing, 0.5) }} {{ Scale.resolveSpacing(tokens.spacing, 3) }};
+    min-height: {{ Scale.resolveSpacing(tokens.spacing, 7) }};
+    font-size: {{ Typography.FontSize.SM }};
 }
 
 QTabBar::tab:selected {
     background: {{ tokens.background }};
     color: {{ tokens.foreground }};
     border-color: {{ tokens.muted }};
-    font-weight: {{ scale.FONT_WEIGHT_BOLD }};
+    font-weight: {{ Typography.FontWeight.BOLD }};
 }
 
 QTabBar::tab:hover {
@@ -1003,7 +1002,7 @@ QTabBar::tab:hover {
 }
 
 QTabBar::tab:disabled {
-    color: {{ colors.alpha(tokens.muted_foreground, 0.5) }};
+    color: {{ Colors.withAlpha(tokens.muted_foreground, 0.5) }};
 }
 
 QTabWidget[variant="line"] QTabBar {
@@ -1018,7 +1017,7 @@ QTabWidget[variant="line"] QTabBar::tab {
     border: none;
     border-bottom: 2px solid transparent;
     border-radius: 0px;
-    padding: {{ scale.spacing_px(tokens.spacing, 1) }} {{ scale.spacing_px(tokens.spacing, 3) }};
+    padding: {{ Scale.resolveSpacing(tokens.spacing, 1) }} {{ Scale.resolveSpacing(tokens.spacing, 3) }};
 }
 
 QTabWidget[variant="line"] QTabBar::tab:selected {
@@ -1032,7 +1031,7 @@ QTabWidget[variant="line"] QTabBar::tab:hover {
 }
 
 QTabWidget[variant="line"] QTabBar::tab:disabled {
-    color: {{ colors.alpha(tokens.muted_foreground, 0.5) }};
+    color: {{ Colors.withAlpha(tokens.muted_foreground, 0.5) }};
 }
 
 QTabWidget[variant="line"] QTabBar::tab:left {

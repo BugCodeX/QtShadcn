@@ -1,91 +1,79 @@
-"""Static shadcn/Tailwind-inspired design scale tokens.
+"""Static shadcn/Tailwind-inspired design scale tokens."""
 
-These values represent stable system-scale tokens, not theme-specific color
-tokens. They are resolved to Qt/QSS-friendly values because Qt stylesheets do
-not support CSS custom properties, ``rem`` units, or ``calc()`` expressions.
-"""
-
+import logging
 import re
 
-REM_PX = 16
+logger = logging.getLogger(__name__)
 
-BREAKPOINT_2XL = "1536px"
-
-CONTAINER_XS = "320px"
-CONTAINER_SM = "384px"
-CONTAINER_MD = "448px"
-CONTAINER_LG = "512px"
-CONTAINER_XL = "576px"
-CONTAINER_2XL = "672px"
-CONTAINER_3XL = "768px"
-CONTAINER_4XL = "896px"
-CONTAINER_5XL = "1024px"
-CONTAINER_6XL = "1152px"
-
-TEXT_XS = "12px"
-TEXT_XS_LINE_HEIGHT = 1 / 0.75
-TEXT_SM = "14px"
-TEXT_SM_LINE_HEIGHT = 1.25 / 0.875
-TEXT_BASE = "16px"
-TEXT_BASE_LINE_HEIGHT = 1.5
-TEXT_LG = "18px"
-TEXT_LG_LINE_HEIGHT = 1.75 / 1.125
-TEXT_XL = "20px"
-TEXT_XL_LINE_HEIGHT = 1.75 / 1.25
-TEXT_2XL = "24px"
-TEXT_2XL_LINE_HEIGHT = 2 / 1.5
-TEXT_3XL = "30px"
-TEXT_3XL_LINE_HEIGHT = 2.25 / 1.875
-TEXT_4XL = "36px"
-TEXT_4XL_LINE_HEIGHT = 2.5 / 2.25
-TEXT_5XL = "48px"
-TEXT_5XL_LINE_HEIGHT = 1
-TEXT_7XL = "72px"
-TEXT_7XL_LINE_HEIGHT = 1
-
-FONT_WEIGHT_LIGHT = 300
-FONT_WEIGHT_NORMAL = 400
-FONT_WEIGHT_MEDIUM = 500
-FONT_WEIGHT_SEMIBOLD = 600
-FONT_WEIGHT_BOLD = 700
-FONT_WEIGHT_EXTRABOLD = 800
-
-TRACKING_TIGHTER = "-0.05em"
-TRACKING_TIGHT = "-0.025em"
-TRACKING_NORMAL = "0em"
-TRACKING_WIDE = "0.025em"
-TRACKING_WIDER = "0.05em"
-TRACKING_WIDEST = "0.1em"
-
-LEADING_TIGHT = 1.25
-LEADING_SNUG = 1.375
-LEADING_NORMAL = 1.5
-LEADING_RELAXED = 1.625
-LEADING_LOOSE = 2
+# ---------------------------------------------------------------------------
+# Constants
+# ---------------------------------------------------------------------------
 
 _PX_RE = re.compile(r"^(-?\d+(?:\.\d+)?)px$")
 
 
-def scale_px(value: str, factor: float) -> str:
-    """Return a Qt-safe pixel value scaled by ``factor``."""
-    match = _PX_RE.match(value.strip())
-    if match is None:
-        return value
+# ---------------------------------------------------------------------------
+# Public API
+# ---------------------------------------------------------------------------
 
-    scaled = float(match.group(1)) * factor
+
+def resolveSpacing(pixelValue: str, scaleFactor: float) -> str:
+    """Scale a base spacing token by a multiplier and return a QSS-ready pixel string.
+
+    Args:
+        pixelValue (str): Base spacing token in pixels, e.g. "4px".
+        scaleFactor (float): Tailwind spacing multiplier (e.g. 2.5 → "10px" for a "4px" base).
+
+    Returns:
+        str: Scaled pixel value ready for QSS (e.g. "10px").
+
+    Examples:
+        >>> resolveSpacing("4px", 2)
+        '8px'
+        >>> resolveSpacing("4px", 2.5)
+        '10px'
+    """
+    return _scalePixel(pixelValue, scaleFactor)
+
+
+def toSpacingInt(pixelValue: str, scaleFactor: float) -> int:
+    """Scale a base spacing token by a multiplier and return an integer pixel value.
+
+    Useful when Qt requires an integer (e.g. setContentsMargins, resize).
+    Falls back to 0 when pixelValue is not a valid pixel string.
+
+    Args:
+        pixelValue (str): Base spacing token in pixels, e.g. "4px".
+        scaleFactor (float): Tailwind spacing multiplier.
+
+    Returns:
+        int: Scaled pixel value as an integer, or 0 if pixelValue is not a valid pixel string.
+
+    Examples:
+        >>> toSpacingInt("4px", 2)
+        8
+        >>> toSpacingInt("auto", 2)
+        0
+    """
+    match = _PX_RE.match(_scalePixel(pixelValue, scaleFactor).strip())
+    if match is None:
+        logger.warning("Unrecognized pixel value format: %s", pixelValue)
+        return 0
+    return int(float(match.group(1)))
+
+
+# ---------------------------------------------------------------------------
+# Internal helpers
+# ---------------------------------------------------------------------------
+
+
+def _scalePixel(pixelString: str, scaleFactor: float) -> str:
+    """Return a Qt-safe pixel value scaled by `scaleFactor`."""
+    match = _PX_RE.match(pixelString.strip())
+    if match is None:
+        logger.warning("Unrecognized pixel value format: %s", pixelString)
+        return pixelString
+    scaled = float(match.group(1)) * scaleFactor
     if scaled % 1 == 0:
         return f"{int(scaled)}px"
     return f"{scaled:.2f}".rstrip("0").rstrip(".") + "px"
-
-
-def spacing_px(value: str, multiple: float) -> str:
-    """Return a Qt-safe spacing multiple."""
-    return scale_px(value, multiple)
-
-
-def spacing_int(value: str, multiple: float) -> int:
-    """Return a spacing multiple as an integer pixel value."""
-    match = _PX_RE.match(scale_px(value, multiple).strip())
-    if match is None:
-        return 0
-    return int(float(match.group(1)))

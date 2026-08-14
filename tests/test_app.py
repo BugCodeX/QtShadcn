@@ -30,9 +30,9 @@ SAMPLE_XML = """\
     <border>#e2e8f0</border>
     <input>#e2e8f0</input>
     <ring>#0f172a</ring>
-    <spacing>0.25rem</spacing>
+    <spacing>4px</spacing>
     <radius>8px</radius>
-    <font_family>system-ui, sans-serif</font_family>
+    <font_family>Open Sans</font_family>
   </light>
   <dark>
     <background>#020617</background>
@@ -54,9 +54,9 @@ SAMPLE_XML = """\
     <border>#1e293b</border>
     <input>#1e293b</input>
     <ring>#cbd5e1</ring>
-    <spacing>0.25rem</spacing>
+    <spacing>4px</spacing>
     <radius>8px</radius>
-    <font_family>system-ui, sans-serif</font_family>
+    <font_family>Open Sans</font_family>
   </dark>
 </theme>
 """
@@ -188,16 +188,16 @@ class TestCustomTokens:
         tokens_dark = getTheme()
         assert tokens_dark.background == "#fedcba"
 
-    def test_custom_tokens_are_resolved(self, qapp: QtWidgets.QApplication, sample_xml: Path):
-        """Test that custom token values are resolved before use."""
+    def test_custom_tokens_are_applied(self, qapp: QtWidgets.QApplication, sample_xml: Path):
+        """Test that custom token values are applied unchanged."""
         setThemeMode("light", save=False)
         setTheme(
             sample_xml,
-            custom_tokens={"background": "oklch(0.21 0.006 285.885)"},
+            custom_tokens={"background": "#123456"},
             save=False,
         )
         tokens = getTheme()
-        assert tokens.background.startswith("rgb(")
+        assert tokens.background == "#123456"
 
 
 class TestAdditionalQss:

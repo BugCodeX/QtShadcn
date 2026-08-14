@@ -1,5 +1,5 @@
 #background {
     color: {{ tokens.foreground }};
     background-color: {{ tokens.background }};
-    border-radius: {{ radius.class_px(tokens.radius, "xl") }};
+    border-radius: {{ radius.resolveRadius(tokens.radius, "xl") }};
 }

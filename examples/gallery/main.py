@@ -304,7 +304,7 @@ class GalleryUiWindow(QtWidgets.QMainWindow):
         ]:
             raw = palette.get(name, "0px")
             try:
-                val = int(raw.replace("px", "").replace("rem", "").strip())
+                val = int(raw.replace("px", "").strip())
             except ValueError:
                 val = 0
             slider.blockSignals(True)

@@ -147,7 +147,7 @@ A QtShadcn theme is a plain XML file with two palette sections:
     <input>#e2e8f0</input>
     <ring>#0f172a</ring>
     <radius>8px</radius>
-    <font_family>system-ui, sans-serif</font_family>
+    <font_family>Open Sans</font_family>
     <spacing>4px</spacing>
     <card>#ffffff</card>
     <card_foreground>#020617</card_foreground>

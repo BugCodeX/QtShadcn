@@ -65,7 +65,7 @@ Save this as `my_theme.xml` next to your script:
     <input>#e2e8f0</input>
     <ring>#0f172a</ring>
     <radius>8px</radius>
-    <font_family>system-ui, sans-serif</font_family>
+    <font_family>Open Sans</font_family>
     <spacing>4px</spacing>
     <card>#ffffff</card>
     <card_foreground>#020617</card_foreground>
@@ -89,7 +89,7 @@ Save this as `my_theme.xml` next to your script:
     <input>#1e293b</input>
     <ring>#cbd5e1</ring>
     <radius>8px</radius>
-    <font_family>system-ui, sans-serif</font_family>
+    <font_family>Open Sans</font_family>
     <spacing>4px</spacing>
     <card>#020617</card>
     <card_foreground>#f8fafc</card_foreground>
@@ -143,7 +143,7 @@ tokens = getTheme()
 QtShadcn includes **Open Sans** and **Roboto** under `qtshadcn/fonts/`. To activate them, set `font_family` in your XML:
 
 ```xml
-<font_family>Open Sans, system-ui, sans-serif</font_family>
+<font_family>Open Sans</font_family>
 ```
 
 The fonts are registered automatically when the stylesheet is rendered.
