@@ -102,6 +102,7 @@ class QtShadcnSettings(_QObject):
 
     themeChanged = QtCore.Signal()
     additionalStyleSheetChanged = QtCore.Signal()
+    fontFamilyChanged = QtCore.Signal()
 
     def __init__(self, parent: QtCore.QObject | None = None) -> None:
         """Create the settings backbone with default config items."""
@@ -124,9 +125,20 @@ class QtShadcnSettings(_QObject):
             None,
             self,
         )
+        self.font_family = ConfigItem(
+            "font_family",
+            [],
+            self._validate_font_family_value,
+            self,
+        )
+        self.font_family.valueChanged.connect(self._emitFontFamilyChanged)
         self._config_dir: Path | None = None
         self._on_load: Callable[[QtShadcnSettings], None] | None = None
         self._theme: ShadcnTheme | None = None
+
+    def _emitFontFamilyChanged(self, _value: object) -> None:
+        """Forward ``font_family`` value changes to ``fontFamilyChanged``."""
+        self.fontFamilyChanged.emit()
 
     @staticmethod
     def _validate_mode(value: Any) -> bool:
@@ -135,6 +147,12 @@ class QtShadcnSettings(_QObject):
     @staticmethod
     def _validate_theme_source(value: Any) -> bool:
         return isinstance(value, str)
+
+    @staticmethod
+    def _validate_font_family_value(value: Any) -> bool:
+        return isinstance(value, str) or (
+            isinstance(value, list) and all(isinstance(v, str) for v in value)
+        )
 
     def config_dir(self) -> Path:
         """Return the directory used for persisted config files."""
@@ -177,6 +195,7 @@ class QtShadcnSettings(_QObject):
         self._load_theme_mode(target, cfg_dir)
         self._load_theme(target, cfg_dir)
         self._load_style_sheet(target, cfg_dir)
+        self._load_font_family(target, cfg_dir)
 
         callback = target._on_load if target._on_load is not None else self._on_load
         if callback is not None:
@@ -218,14 +237,18 @@ class QtShadcnSettings(_QObject):
 
         Args:
             only: Optional subset of
-                ``{"theme_mode", "theme", "additional_style_sheet"}`` to write.
+                ``{"theme_mode", "theme", "additional_style_sheet", "font_family"}`` to write.
                 When omitted, all known files are written.
 
         """
         cfg_dir = self.config_dir()
         cfg_dir.mkdir(parents=True, exist_ok=True)
 
-        keys = only if only is not None else {"theme_mode", "theme", "additional_style_sheet"}
+        keys = (
+            only
+            if only is not None
+            else {"theme_mode", "theme", "additional_style_sheet", "font_family"}
+        )
         if "theme_mode" in keys:
             _atomic_write(
                 cfg_dir / "theme_mode.json",
@@ -236,8 +259,14 @@ class QtShadcnSettings(_QObject):
             _atomic_write(cfg_dir / "theme.json", json.dumps(data, indent=2))
         if "additional_style_sheet" in keys:
             self._save_style_sheet(cfg_dir)
+        if "font_family" in keys:
+            _atomic_write(
+                cfg_dir / "font_family.json",
+                json.dumps({"families": self.font_family.serialize()}, indent=2),
+            )
 
     def _save_style_sheet(self, cfg_dir: Path) -> None:
+        """Persist the additional stylesheet as jinja or qss."""
         content = self.additional_style_sheet.serialize()
         if _looks_like_jinja(content):
             _atomic_write(cfg_dir / "style.jinja", content)
@@ -251,8 +280,25 @@ class QtShadcnSettings(_QObject):
         self.theme_mode.reset()
         self.theme.reset()
         self.additional_style_sheet.reset()
+        self.font_family.reset()
         self._theme = None
         self._config_dir = None
+
+    def _load_font_family(self, target: QtShadcnSettings, cfg_dir: Path) -> None:
+        """Load persisted font family list from ``cfg_dir``."""
+        path = cfg_dir / "font_family.json"
+        families: list[str] = []
+        if path.exists():
+            try:
+                data = json.loads(path.read_text(encoding="utf-8"))
+                if isinstance(data.get("families"), list):
+                    families = [str(v) for v in data["families"] if isinstance(v, str)]
+                elif isinstance(data.get("family"), str):
+                    families = [data["family"]]
+            except (json.JSONDecodeError, OSError) as e:
+                logger.warning("Corrupt font_family.json, resetting: %s", e)
+        if not target.font_family.deserialize(families):
+            target.font_family.reset(block_signal=True)
 
 
 def _load_theme_from_dir(cfg_dir: Path) -> tuple[ShadcnTheme | None, str]:

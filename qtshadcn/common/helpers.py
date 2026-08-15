@@ -1,17 +1,13 @@
 """QtShadcn theme application helpers."""
 
-import logging
 import os
-from importlib import resources
 from pathlib import Path
 from typing import Any, cast
 
-from qtpy import QtGui, QtWidgets
+from qtpy import QtWidgets
 
 from ..exceptions import QtShadcnError
 from ..models import ShadcnTheme, ShadcnThemeTokens
-
-logger = logging.getLogger(__name__)
 
 DEFAULT_THEME_FILE = Path(__file__).resolve().parents[1] / "themes" / "default.xml"
 
@@ -30,35 +26,6 @@ def _resolve_application(app: QtWidgets.QApplication | None) -> QtWidgets.QAppli
     if app is None:
         raise QtShadcnError("No QApplication instance found")
     return app
-
-
-def _add_fonts() -> None:
-    """Register local font files found under the package ``resources/fonts`` directory."""
-    if QtWidgets.QApplication.instance() is None:
-        return
-
-    fonts_pkg = resources.files("qtshadcn.resources.fonts")
-    if not fonts_pkg.is_dir():
-        return
-
-    for font_dir in fonts_pkg.iterdir():
-        if not font_dir.is_dir():
-            continue
-
-        for font_file in font_dir.iterdir():
-            if not font_file.is_file():
-                continue
-
-            suffix = Path(font_file.name).suffix.lower()
-            if suffix not in {".ttf", ".otf"}:
-                continue
-
-            # QFontDatabase needs a real filesystem path; ``as_file`` extracts
-            # package resources to a temporary file when the package is zipped.
-            with resources.as_file(font_file) as font_path:
-                font_id = QtGui.QFontDatabase.addApplicationFont(str(font_path))
-                if font_id == -1:
-                    logger.warning("Could not load font: %s", font_file.name)
 
 
 def _apply_custom_tokens(

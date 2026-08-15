@@ -16,6 +16,13 @@ except ImportError as exc:
 
 try:
     from .common.config import ThemeMode, qsettings
+    from .common.font import (
+        getFontFamilies,
+        getFontFamily,
+        registerFontFamily,
+        setFontFamilies,
+        setFontFamily,
+    )
     from .common.stylesheet import (
         getStyleSheet,
         getTheme,
@@ -50,6 +57,11 @@ __all__ = [
     "getTheme",
     "setStyleSheet",
     "getStyleSheet",
+    "setFontFamily",
+    "setFontFamilies",
+    "getFontFamily",
+    "getFontFamilies",
+    "registerFontFamily",
     "ThemeMode",
     "SystemThemeWatcher",
     # Errors

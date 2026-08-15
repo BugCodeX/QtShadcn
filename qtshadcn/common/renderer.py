@@ -8,12 +8,13 @@ import jinja2
 from ..exceptions import ThemeRenderError
 from ..models import ShadcnThemeTokens
 from ..tokens import colors, radius, scale, typography
-from .helpers import _add_fonts
 from .icon import ThemedIconManager
 
 logger = logging.getLogger(__name__)
 
 TEMPLATE_FILE = str(Path(__file__).resolve().parents[1] / "styles" / "shadcn.jinja")
+
+_iconManager = ThemedIconManager()
 
 
 # ---------------------------------------------------------------------------
@@ -64,15 +65,10 @@ def _build_theme(
     ``additional_qss`` is an inline Jinja/QSS string appended to the base
     stylesheet.
     """
-    try:
-        _add_fonts()
-    except Exception as e:
-        logger.warning("Error loading fonts: %s", e)
-
     render_context = {
         "tokens": tokens,
         "Colors": colors,
-        "Icons": ThemedIconManager(),
+        "Icons": _iconManager,
         "Radius": radius,
         "Scale": scale,
         "Typography": typography,

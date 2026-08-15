@@ -18,6 +18,7 @@ from qtpy import QtCore, QtWidgets
 from ..exceptions import QtShadcnError, ThemeParseError, ThemeRenderError
 from ..models import ShadcnTheme, ShadcnThemeTokens
 from .config import ThemeMode, _load_theme_from_dir, qsettings
+from .font import _ensureFontFamilyRegistered, getFontFamilies, getFontFamily
 from .helpers import _apply_custom_tokens, _atomic_write, _looks_like_jinja, _resolve_theme_file
 from .renderer import _build_theme
 from .theme_parser import _parse_theme_source
@@ -62,6 +63,14 @@ def _render_and_apply() -> None:
     is_dark = _resolve_is_dark(mode, _default_theme)
     tokens = theme.dark if is_dark else theme.light
     additional = qsettings.additional_style_sheet.value
+
+    font_families = getFontFamilies()
+    if font_families:
+        _ensureFontFamilyRegistered(font_families[0])
+
+    active_font_family = getFontFamily()
+    if active_font_family:
+        tokens = tokens.model_copy(update={"font_family": active_font_family})
 
     try:
         stylesheet = _build_theme(tokens, is_dark=is_dark, additional_qss=additional)
@@ -191,6 +200,9 @@ def getStyleSheet() -> str:
 
 # Re-render when cached settings are loaded after QApplication startup.
 qsettings._on_load = lambda _settings: _render_and_apply()
+
+# Re-render when the active font family changes.
+qsettings.font_family.valueChanged.connect(lambda _: _render_and_apply())
 
 # Keep QtCore.Qt alias import for type checkers that need Signal type reference.
 _ = QtCore

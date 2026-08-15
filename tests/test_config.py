@@ -206,6 +206,26 @@ class TestLoadAndSave:
 
         assert qsettings.additional_style_sheet.value == "QWidget { color: red; }"
 
+    def test_load_restores_font_family(self, tmp_path):
+        qsettings.reset_for_test()
+        qsettings.set_config_dir(tmp_path)
+        (tmp_path / "font_family.json").write_text(
+            '{"families": ["Open Sans", "sans-serif"]}', encoding="utf-8"
+        )
+
+        qsettings.load()
+
+        assert qsettings.font_family.value == ["Open Sans", "sans-serif"]
+
+    def test_load_font_family_legacy_single_family(self, tmp_path):
+        qsettings.reset_for_test()
+        qsettings.set_config_dir(tmp_path)
+        (tmp_path / "font_family.json").write_text('{"family": "Open Sans"}', encoding="utf-8")
+
+        qsettings.load()
+
+        assert qsettings.font_family.value == ["Open Sans"]
+
     def test_load_then_save_preserves_style_sheet_content(self, tmp_path):
         qsettings.reset_for_test()
         qsettings.set_config_dir(tmp_path)
@@ -286,3 +306,16 @@ class TestLoadAndSave:
 
         assert (tmp_path / "style.jinja").exists()
         assert not (tmp_path / "style.qss").exists()
+
+    def test_save_writes_font_family(self, tmp_path):
+        qsettings.reset_for_test()
+        qsettings.set_config_dir(tmp_path)
+        qsettings.font_family.set(["Open Sans", "sans-serif"])
+
+        qsettings.save(only={"font_family"})
+
+        path = tmp_path / "font_family.json"
+        assert path.exists()
+        assert json.loads(path.read_text(encoding="utf-8")) == {
+            "families": ["Open Sans", "sans-serif"]
+        }
