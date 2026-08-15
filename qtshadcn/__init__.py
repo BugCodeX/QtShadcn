@@ -3,7 +3,7 @@
 from .exceptions import QtBindingError, QtShadcnError, ThemeParseError, ThemeRenderError
 from .models import ShadcnTheme, ShadcnThemeTokens
 
-__version__ = "0.4.0"
+__version__ = "0.5.0"
 
 try:
     from qtpy import QtBindingsNotFoundError, QtModuleNotInstalledError

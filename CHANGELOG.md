@@ -1,3 +1,24 @@
+# QtShadcn v0.5.0
+
+## Changes
+
+- **Breaking:** renamed `SystemThemeListener` to `SystemThemeWatcher`.
+- Moved bundled icon sources and font files under `qtshadcn/resources/`.
+- `ThemedIconManager` now loads SVG icon sources from package resources via `importlib.resources`.
+- `_add_fonts()` loads fonts from `qtshadcn.resources.fonts` so assets work when installed as a wheel.
+- Normalized QSS template helpers: `icons` -> `Icons`, `radius` -> `Radius`.
+- Renamed `ThemedIconManager` methods to `getIconUrl` and `renderSliderThumb`.
+
+## Verification
+
+```bash
+pip install qtshadcn==0.5.0
+python -c "import qtshadcn; print(qtshadcn.__version__)"
+make test
+```
+
+---
+
 # QtShadcn v0.4.0
 
 ## Changes
