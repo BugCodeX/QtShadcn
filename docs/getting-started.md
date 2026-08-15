@@ -140,7 +140,7 @@ tokens = getTheme()
 
 ## Using Bundled Fonts
 
-QtShadcn includes **Open Sans** and **Roboto** under `qtshadcn/fonts/`. To activate them, set `font_family` in your XML:
+QtShadcn includes **Open Sans** and **Roboto** under `qtshadcn/resources/fonts/`. To activate them, set `font_family` in your XML:
 
 ```xml
 <font_family>Open Sans</font_family>

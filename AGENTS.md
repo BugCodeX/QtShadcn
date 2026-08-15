@@ -42,7 +42,10 @@ qtshadcn/
 │   ├── colors.py     # withAlpha(), blendColors() helpers
 │   ├── radius.py     # resolveRadius() helper
 │   └── scale.py      # resolveSpacing(), toSpacingInt()
-└── fonts/            # Bundled font files
+├── resources/
+│   ├── fonts/        # Bundled font files
+│   └── icons/        # Bundled SVG icon sources
+
 examples/
 └── gallery/          # Modular widget gallery with live theme editor
     ├── main.py

@@ -80,7 +80,7 @@ Use pixel values for `radius` and `spacing`:
 
 ## Fonts
 
-QtShadcn ships with **Open Sans** and **Roboto** under `qtshadcn/fonts/`. They are registered automatically when the stylesheet is rendered.
+QtShadcn ships with **Open Sans** and **Roboto** under `qtshadcn/resources/fonts/`. They are registered automatically when the stylesheet is rendered.
 
 To use them, reference the family name in your theme:
 

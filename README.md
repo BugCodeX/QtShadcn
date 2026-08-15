@@ -23,7 +23,7 @@ QtShadcn loads a local **XML theme file** containing `<light>` and `<dark>` pale
 - **Light & dark palettes** — single XML file, both modes
 - **Auto mode** — follows the OS theme via `darkdetect`
 - **Binding neutral** — works with PySide6, PyQt6, PySide2, or PyQt5 via qtpy
-- **Custom fonts** — drop font files in the package `fonts/` directory
+- **Custom fonts** — drop font files in the package `resources/fonts/` directory
 - **Disk cache** — theme is re-rendered only when the source file changes
 - **App-provided Qt runtime** — install the Qt binding your app already uses
 - **Themed icons** — SVG check icons generated and cached at runtime
