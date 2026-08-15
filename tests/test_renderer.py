@@ -302,7 +302,7 @@ class TestRenderer:
         """Test that chevron up SVGs are generated and cached."""
         tokens = _tokens(muted_foreground="#64748b")
         manager = ThemedIconManager()
-        icon_path = Path(manager.chevron_up(tokens.muted_foreground))
+        icon_path = Path(manager.getIconUrl("chevron-up", tokens.muted_foreground))
 
         assert icon_path.exists()
         assert tokens.muted_foreground in icon_path.read_text(encoding="utf-8")
@@ -350,7 +350,7 @@ class TestRenderer:
         """Test that checkbox SVGs use token colors and avoid the package directory."""
         tokens = _tokens(primary_foreground="#f8fafc")
         manager = ThemedIconManager()
-        icon_path = Path(manager.checkbox_check(tokens.primary_foreground))
+        icon_path = Path(manager.getIconUrl("checkbox-check", tokens.primary_foreground))
         package_dir = Path(__file__).resolve().parents[1] / "qtshadcn"
 
         assert icon_path.exists()
@@ -361,7 +361,7 @@ class TestRenderer:
         """Test that checkbox indeterminate SVGs are generated and cached."""
         tokens = _tokens(primary_foreground="#f8fafc")
         manager = ThemedIconManager()
-        icon_path = Path(manager.checkbox_indeterminate(tokens.primary_foreground))
+        icon_path = Path(manager.getIconUrl("checkbox-indeterminate", tokens.primary_foreground))
 
         assert icon_path.exists()
         assert tokens.primary_foreground in icon_path.read_text(encoding="utf-8")
@@ -408,7 +408,7 @@ class TestRenderer:
         """Test that radio button SVGs are generated and cached."""
         tokens = _tokens(primary_foreground="#f8fafc")
         manager = ThemedIconManager()
-        icon_path = Path(manager.radio_checked(tokens.primary_foreground))
+        icon_path = Path(manager.getIconUrl("radio-checked", tokens.primary_foreground))
 
         assert icon_path.exists()
         assert tokens.primary_foreground in icon_path.read_text(encoding="utf-8")
@@ -426,7 +426,7 @@ class TestRenderer:
         """Test that chevron down SVGs are generated and cached."""
         tokens = _tokens(muted_foreground="#64748b")
         manager = ThemedIconManager()
-        icon_path = Path(manager.chevron_down(tokens.muted_foreground))
+        icon_path = Path(manager.getIconUrl("chevron-down", tokens.muted_foreground))
 
         assert icon_path.exists()
         assert tokens.muted_foreground in icon_path.read_text(encoding="utf-8")

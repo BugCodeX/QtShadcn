@@ -72,8 +72,8 @@ def _build_theme(
     render_context = {
         "tokens": tokens,
         "Colors": colors,
-        "icons": ThemedIconManager(),
-        "radius": radius,
+        "Icons": ThemedIconManager(),
+        "Radius": radius,
         "Scale": scale,
         "Typography": typography,
         "is_dark": is_dark,
