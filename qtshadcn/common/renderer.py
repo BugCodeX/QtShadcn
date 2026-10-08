@@ -1,6 +1,7 @@
 """QtShadcn QSS stylesheet renderer."""
 
 import logging
+from functools import lru_cache
 from pathlib import Path
 
 import jinja2
@@ -22,20 +23,33 @@ _iconManager = ThemedIconManager()
 # ---------------------------------------------------------------------------
 
 
+@lru_cache(maxsize=16)
+def _loadTemplate(path: str) -> jinja2.Template:
+    """Compile a Jinja file template once and cache the compiled form."""
+    source_path = Path(path)
+    env = jinja2.Environment(
+        autoescape=False,
+        loader=jinja2.FileSystemLoader(str(source_path.parent)),
+    )
+    return env.get_template(source_path.name)
+
+
+@lru_cache(maxsize=64)
+def _compileInlineTemplate(source: str) -> jinja2.Template:
+    """Compile an inline Jinja snippet once and cache the compiled form."""
+    env = jinja2.Environment(autoescape=False, loader=jinja2.BaseLoader())
+    return env.from_string(source)
+
+
 def _render_template(source: str, context: dict) -> str:
     """Render a Jinja template from a file path or inline string."""
+    source_path = Path(source)
     try:
-        source_path = Path(source)
-        if source_path.exists():
-            env = jinja2.Environment(
-                autoescape=False,
-                loader=jinja2.FileSystemLoader(str(source_path.parent)),
-            )
-            tpl = env.get_template(source_path.name)
-        else:
-            env = jinja2.Environment(autoescape=False, loader=jinja2.BaseLoader())
-            tpl = env.from_string(source)
-
+        tpl = (
+            _loadTemplate(str(source_path))
+            if source_path.exists()
+            else _compileInlineTemplate(source)
+        )
         return tpl.render(**context)
     except jinja2.TemplateSyntaxError as e:
         raise ThemeRenderError(f"Failed to render template syntax: {e}") from e

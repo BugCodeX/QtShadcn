@@ -654,6 +654,18 @@ class TestRenderer:
         assert Path(TEMPLATE_FILE).exists()
 
 
+def test_compiled_template_is_cached():
+    """Repeated renders reuse the compiled template instead of re-compiling it."""
+    from qtshadcn.common.renderer import TEMPLATE_FILE as template_path
+    from qtshadcn.common.renderer import _loadTemplate
+
+    _loadTemplate.cache_clear()
+    first = _loadTemplate(template_path)
+    second = _loadTemplate(template_path)
+
+    assert first is second
+
+
 def _tokens(**overrides):
     values = {
         "background": "#ffffff",

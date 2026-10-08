@@ -74,10 +74,16 @@ def _render_and_apply() -> None:
 
     try:
         stylesheet = _build_theme(tokens, is_dark=is_dark, additional_qss=additional)
-        app.setStyleSheet(stylesheet)
     except ThemeRenderError:
         logger.exception("Failed to render stylesheet")
         raise
+
+    # Re-polishing every widget is the dominant cost of a theme switch, so
+    # skip the apply when the rendered stylesheet did not actually change
+    # (e.g. setThemeMode + setTheme + setStyleSheet called in sequence).
+    if app.styleSheet() == stylesheet:
+        return
+    app.setStyleSheet(stylesheet)
 
 
 def _normalize_theme_mode(mode: ThemeMode | str) -> ThemeMode:

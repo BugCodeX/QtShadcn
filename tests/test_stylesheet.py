@@ -248,6 +248,15 @@ class TestRendering:
         after = qapp.styleSheet()
         assert after != before or "#020617" in after
 
+    def test_redundant_apply_is_skipped(self, qapp, sample_xml):
+        setThemeMode(ThemeMode.LIGHT)
+        setTheme(sample_xml)
+
+        with patch.object(QtWidgets.QApplication, "setStyleSheet") as apply_spy:
+            setTheme(sample_xml)
+
+        assert apply_spy.call_count == 0
+
     def test_no_application_is_no_op(self, monkeypatch, sample_xml):
         monkeypatch.setattr(QtWidgets.QApplication, "instance", lambda: None)
         setThemeMode(ThemeMode.DARK)
