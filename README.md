@@ -229,12 +229,6 @@ Immutable Pydantic model with one field per design token (`background`, `primary
 
 ---
 
-## Contributing
-
-Contributions are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) for setup instructions, coding conventions, and architecture rules.
-
----
-
 ## License
 
 MIT

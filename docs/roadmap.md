@@ -55,9 +55,3 @@ QtShadcn is becoming a complete shadcn/ui-inspired theming layer for Qt desktop 
 - ⬜ `QColumnView`
 - ⬜ `QUndoView`
 - ⬜ `QQuickWidget`
-
----
-
-## Contributing
-
-Open an issue on [GitHub](https://github.com/BugCodeX/QtShadcn/issues) if a widget you need is missing or if the gallery should demonstrate a specific state.
