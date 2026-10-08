@@ -1,3 +1,27 @@
+# QtShadcn v0.6.0
+
+## What's New
+- Added a font registry API: register custom font families, set the active family, and query the resolved family (`registerFontFamily`, `setFontFamily`, `setFontFamilies`, `getFontFamily`, `getFontFamilies`).
+- Bundled fonts are now registered lazily, only when first used.
+
+## Changes
+- Theme mode switches are ~3.7× faster: Jinja templates are compiled once and the stylesheet is not re-applied when its output did not change.
+
+## Fixes
+- Focused `QLineEdit`, `QTextEdit`, and `QPlainTextEdit` keep their base border width instead of sharing the `QSpinBox` focus border.
+- A stale or legacy `theme.json` no longer crashes theme loading; it falls back to the default theme.
+- `setStyleSheet("")` no longer raises when clearing the additional stylesheet.
+
+## Verification
+
+```bash
+pip install qtshadcn==0.6.0
+python -c "import qtshadcn; print(qtshadcn.__version__)"
+make test
+```
+
+---
+
 # QtShadcn v0.5.0
 
 ## Changes
