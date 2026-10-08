@@ -176,7 +176,7 @@ def getTheme() -> ShadcnThemeTokens:
 def setStyleSheet(source: str | Path, *, save: bool = True) -> None:
     """Set the additional stylesheet layered on top of the base QSS."""
     path = Path(source)
-    content = path.read_text(encoding="utf-8") if path.exists() else str(source)
+    content = path.read_text(encoding="utf-8") if path.is_file() else str(source)
     qsettings.additional_style_sheet.set(content)
 
     if save:
