@@ -14,6 +14,7 @@ from enum import StrEnum
 from pathlib import Path
 from typing import Any, cast
 
+from pydantic import ValidationError
 from qtpy import QtCore
 
 from ..models import ShadcnTheme
@@ -314,7 +315,7 @@ def _load_theme_from_dir(cfg_dir: Path) -> tuple[ShadcnTheme | None, str]:
         try:
             data = json.loads(theme_json.read_text(encoding="utf-8"))
             return ShadcnTheme.model_validate(data), str(theme_json)
-        except (json.JSONDecodeError, OSError) as e:
+        except (json.JSONDecodeError, OSError, ValidationError) as e:
             logger.warning("Could not load theme.json from %s: %s", cfg_dir, e)
     theme_xml = cfg_dir / "theme.xml"
     if theme_xml.exists():

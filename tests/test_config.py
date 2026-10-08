@@ -297,6 +297,20 @@ class TestLoadAndSave:
         assert qsettings.theme_mode.value == ThemeMode.AUTO.value
         assert any("Corrupt theme_mode.json" in record.message for record in caplog.records)
 
+    def test_legacy_theme_json_falls_back_without_crashing(self, tmp_path, caplog):
+        qsettings.reset_for_test()
+        qsettings.set_config_dir(tmp_path)
+        (tmp_path / "theme.json").write_text(
+            json.dumps({"theme_mode": "dark", "custom_tokens": {"light": {}, "dark": {}}}),
+            encoding="utf-8",
+        )
+
+        with caplog.at_level("WARNING", logger="qtshadcn.common.config"):
+            qsettings.load()
+
+        assert qsettings.theme.value == ""
+        assert any("Could not load theme.json" in record.message for record in caplog.records)
+
     def test_save_jinja_style_sheet(self, tmp_path):
         qsettings.reset_for_test()
         qsettings.set_config_dir(tmp_path)
