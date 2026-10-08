@@ -111,11 +111,11 @@ class TestRenderer:
         assert "QTextEdit:disabled" in qss
         assert 'QLineEdit[invalid="true"]' in qss
         assert 'QTextEdit[invalid="true"]' in qss
-        # Focus: border sólido + ring con opacidad 50%
+        # Focus: borde color ring + outline ring al 50%
         assert _selector_block_contains(
             qss,
             "QTextEdit:focus",
-            "border: 3px solid rgba(15, 23, 42, 0.5);",
+            "border-color: #0f172a;",
             "outline: 3px solid rgba(15, 23, 42, 0.5);",
         )
         # Disabled: background input con opacidad 50% (light mode)
