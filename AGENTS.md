@@ -2,6 +2,34 @@
 
 Modern styling and theming framework for Qt/PySide6 applications, inspired by [shadcn/ui](https://ui.shadcn.com).
 
+## Available Skills
+
+Use these specialized skills for detailed patterns and strict project conventions:
+
+| Skill | Description | Location |
+| --- | --- | --- |
+| `numpy-docstrings` | Strict NumPy-style docstrings and human-sounding comments | [.agents/skills/numpy-docstrings/SKILL.md](.agents/skills/numpy-docstrings/SKILL.md) |
+| `naming-conventions` | Strict camelCase/PascalCase naming, no abbreviations, Qt properties/signals/slots | [.agents/skills/naming-conventions/SKILL.md](.agents/skills/naming-conventions/SKILL.md) |
+| `commit-hygiene` | Conventional Commits, project-specific scopes, and atomic Git history | [.agents/skills/commit-hygiene/SKILL.md](.agents/skills/commit-hygiene/SKILL.md) |
+
+---
+
+## Auto-invoke Trigger Matrix
+
+When performing any of these actions, **ALWAYS invoke the corresponding skill FIRST**:
+
+| Action / Intent | Required Skill |
+| --- | --- |
+| Writing or modifying public modules, classes, functions, or methods | `numpy-docstrings` |
+| Writing inline code comments or documenting architectural decisions | `numpy-docstrings` |
+| Declaring or renaming functions, methods, variables, or parameters | `naming-conventions` |
+| Declaring or refactoring Qt signals, slots, or event handlers | `naming-conventions` |
+| Implementing Qt properties (`Property(...)`), getters, or setters | `naming-conventions` |
+| Defining enum classes, enum members, or global constants | `naming-conventions` |
+| Reviewing code for naming consistency or abbreviation violations | `naming-conventions` |
+| Creating, reviewing, drafting, or staging Git commits | `commit-hygiene` |
+| Creating, drafting, or publishing release notes, changelogs, version tags, or GitHub Releases | `release-notes` |
+
 ---
 
 ## Project Overview
@@ -93,6 +121,12 @@ pre-commit run renovate-config-validator # validate Renovate config
 
 ---
 
+## Agent Workflows
+
+- Use codegraph for refactors, code fixes and investigations, including in subagents and when working in worktrees; codegraph is workspace-scoped: in a worktree, run operation init before the first query there, and when a subagent cannot call codegraph, the parent session runs the query and passes the findings in the task handoff
+
+---
+
 ## Coding Conventions
 
 - **Docstrings**: required on all public modules, classes, and functions (pydocstyle enforced via ruff `D` rules)
@@ -102,102 +136,6 @@ pre-commit run renovate-config-validator # validate Renovate config
 - **Line length**: 100 characters (E501 ignored in ruff, but keep it reasonable)
 - **Type annotations**: required on all public functions; `ty` must pass with no warnings
 - **Tests**: no docstrings required in `tests/` or `examples/`
-
-### Naming Conventions
-
-> Ruff does not enforce naming style in this project (`N` rules are not selected). These rules are binding for all agents.
-
-| Symbol | Style | Example |
-| --- | --- | --- |
-| Functions, methods, variables, parameters | `camelCase` | `resolveRadius`, `baseRadius` |
-| Private functions / methods | `_camelCase` (single leading underscore) | `_parsePixel`, `_toPixelString` |
-| Classes | `PascalCase` | `ShadcnTheme`, `ThemeMode` |
-| Global constants | `UPPER_SNAKE_CASE` | `TEXT_SM`, `FONT_WEIGHT_BOLD` |
-
-**No abbreviations.** Names must be self-explanatory without context.
-
-- ❌ `addPx`, `calcBtn`, `ctx`, `val`, `r`
-- ✅ `expandPixel`, `calculateButton`, `context`, `numericValue`, `baseRadius`
-
-**Functions and methods must be verb + context** (at least two words).
-
-- ❌ `process()`, `radius()`, `data()`
-- ✅ `processInvoice()`, `resolveRadius()`, `fetchThemeData()`
-
-The following example shows all rules in action:
-
-```python
-# Public: camelCase, verb + context, no abbreviations
-def calculateTotalPrice(unitPrice: float, quantity: int) -> float: ...
-def fetchUserProfile(userId: str) -> UserProfile: ...
-def formatDisplayName(firstName: str, lastName: str) -> str: ...
-
-
-# Private: _camelCase, same verb + context rule applies
-def _parseRawResponse(responseBody: str) -> dict: ...
-def _buildRequestPayload(eventType: str, metadata: dict) -> dict: ...
-```
-
-### Comment Style
-
-- Comment the **WHY** or the **HOW**, never the obvious **WHAT** (e.g., never `# adds two numbers` above `a + b`)
-- **Forbidden**: docstrings that just restate parameter names without real context
-- **Forbidden**: exhaustive `Args: / Returns: / Raises:` blocks on trivial functions (getters/setters, simple wrappers, functions < 5 lines with obvious behavior)
-- **Forbidden**: filler phrases (`"This function is responsible for..."`, `"Esta función se encarga de..."`)
-- Only comment where the code doesn't explain itself: non-obvious decisions, workarounds, temporary hacks, trade-offs
-- Adapt documentation depth to complexity — trivial functions need minimal docs, complex ones need full context
-
-**Approved docstring format** (Google style — omit sections that add no value):
-
-```python
-def example(parametro1: int, parametro2: str = "default") -> str:
-    """
-    Brief one-line summary of what the function does.
-
-    Longer description only when needed — context, behaviour, or edge cases
-    that the signature and body don't make obvious.
-
-    Args:
-        parametro1 (int): What it represents and why it matters, not just its name.
-        parametro2 (str, optional): When the default is surprising or has side-effects
-            worth noting (default: "default").
-
-    Returns:
-        str: What the return value means, not just its type.
-
-    Raises:
-        ValueError: Only when the condition that triggers it is non-obvious.
-
-    Examples:
-        >>> example(10)
-        'expected result'
-    """
-```
-
-```python
-class TrainingModel:
-    """
-    Represents a machine learning model in training.
-
-    Attributes:
-        parametro1 (str): The identifier name of the model.
-        parametro2 (int): Number of epochs completed so far.
-    """
-    
-    def __init__(self, parametro1: str, parametro2: int = 0):
-        self.parametro1 = parametro1
-        self.parametro2 = parametro2
-```
-
-**When to include each section:**
-
-- `Args:` — always for parameters with non-obvious meaning or constraints
-- `Returns:` — when the return value semantics aren't clear from the type
-- `Raises:` — only for exceptions that callers need to handle
-- `Examples:` — for complex functions, non-obvious usage, or public API
-- Longer description — only when the one-liner isn't sufficient
-
----
 
 ## Architecture Rules
 
