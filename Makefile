@@ -30,7 +30,9 @@ install-dev:
 
 setup-hooks:
 	$(UV) run --extra dev pre-commit install --install-hooks
-
+	
+pre-commit-install:
+	$(UV) run pre-commit install --hook-type pre-commit --hook-type commit-msg
 
 # ---------------------------------------------------------------------------
 # Quality
@@ -45,6 +47,9 @@ format:
 
 type-check:
 	$(UV) run --extra dev ty check
+
+pre-commit-run:
+	$(UV) run pre-commit run --all-files
 
 # ---------------------------------------------------------------------------
 # Tests
