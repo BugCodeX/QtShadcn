@@ -1,3 +1,20 @@
+## [0.7.0] - 2026-10-09
+
+## Breaking Changes
+- **Dropped `qtpy` dependency:** The library no longer depends on `qtpy`.
+- **Dropped Qt5 support:** `PySide2` and `PyQt5` are no longer supported.
+- **Native shim:** A new native `binding.py` shim is used internally to support `PySide6` and `PyQt6` directly.
+
+## Verification
+
+```bash
+pip install qtshadcn==0.7.0
+python -c "import qtshadcn; print(qtshadcn.__version__)"
+make test
+```
+
+---
+
 # QtShadcn v0.6.0
 
 ## What's New
