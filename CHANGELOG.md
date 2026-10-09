@@ -1,3 +1,18 @@
+## [0.8.0] - 2026-10-09
+
+## What's New
+- Added `QScrollBar` styling (horizontal and vertical) matching the minimal, pill-shaped handles and rounded, subtle tracks of the shadcn design language.
+- Added `QScrollArea` styling with default border and `md` rounded corners.
+
+## Verification
+```bash
+pip install qtshadcn==0.8.0
+python -c "import qtshadcn; print(qtshadcn.__version__)"
+make test
+```
+
+---
+
 ## [0.7.0] - 2026-10-09
 
 ## Breaking Changes
