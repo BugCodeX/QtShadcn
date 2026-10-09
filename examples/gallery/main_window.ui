@@ -2136,8 +2136,395 @@ font-weight: 600;</string>
       <item>
        <widget class="QStackedWidget" name="stackedWidget">
         <property name="currentIndex">
-         <number>13</number>
+         <number>1</number>
         </property>
+        <widget class="QWidget" name="scrollarea_page">
+         <layout class="QVBoxLayout" name="verticalLayout_22">
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_57">
+            <property name="bottomMargin">
+             <number>9</number>
+            </property>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_56">
+              <item>
+               <widget class="QLabel" name="label_200">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">font-size: 20pt;
+font-weight: 600;</string>
+                </property>
+                <property name="text">
+                 <string>ScrollArea</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_201">
+                <property name="text">
+                 <string>(QScrollArea)</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_202">
+              <property name="text">
+               <string>Visually or semantically separates content.</string>
+              </property>
+              <property name="wordWrap">
+               <bool>true</bool>
+              </property>
+              <property name="class" stdset="0">
+               <string>muted</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QGridLayout" name="gridLayout_7">
+            <item row="0" column="0">
+             <widget class="QScrollArea" name="scrollArea">
+              <property name="widgetResizable">
+               <bool>true</bool>
+              </property>
+              <widget class="QWidget" name="scrollAreaWidgetContents">
+               <property name="geometry">
+                <rect>
+                 <x>0</x>
+                 <y>0</y>
+                 <width>844</width>
+                 <height>624</height>
+                </rect>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_scroll_content">
+                <item>
+                 <widget class="QLabel" name="scroll_lbl_1">
+                  <property name="text">
+                   <string>Scrollable item 1 — representing some tall content.</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="scroll_lbl_2">
+                  <property name="text">
+                   <string>Scrollable item 2 — representing some tall content.</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="scroll_lbl_3">
+                  <property name="text">
+                   <string>Scrollable item 3 — representing some tall content.</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="scroll_lbl_4">
+                  <property name="text">
+                   <string>Scrollable item 4 — representing some tall content.</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="scroll_lbl_5">
+                  <property name="text">
+                   <string>Scrollable item 5 — representing some tall content.</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="scroll_lbl_6">
+                  <property name="text">
+                   <string>Scrollable item 6 — representing some tall content.</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="scroll_lbl_7">
+                  <property name="text">
+                   <string>Scrollable item 7 — representing some tall content.</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="scroll_lbl_8">
+                  <property name="text">
+                   <string>Scrollable item 8 — representing some tall content.</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="scroll_lbl_9">
+                  <property name="text">
+                   <string>Scrollable item 9 — representing some tall content.</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="scroll_lbl_10">
+                  <property name="text">
+                   <string>Scrollable item 10 — representing some tall content.</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="scroll_lbl_11">
+                  <property name="text">
+                   <string>Scrollable item 11 — representing some tall content.</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="scroll_lbl_12">
+                  <property name="text">
+                   <string>Scrollable item 12 — representing some tall content.</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="scroll_lbl_13">
+                  <property name="text">
+                   <string>Scrollable item 13 — representing some tall content.</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="scroll_lbl_14">
+                  <property name="text">
+                   <string>Scrollable item 14 — representing some tall content.</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="scroll_lbl_15">
+                  <property name="text">
+                   <string>Scrollable item 15 — representing some tall content.</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="scroll_lbl_16">
+                  <property name="text">
+                   <string>Scrollable item 16 — representing some tall content.</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="scroll_lbl_17">
+                  <property name="text">
+                   <string>Scrollable item 17 — representing some tall content.</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="scroll_lbl_18">
+                  <property name="text">
+                   <string>Scrollable item 18 — representing some tall content.</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="scroll_lbl_19">
+                  <property name="text">
+                   <string>Scrollable item 19 — representing some tall content.</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="scroll_lbl_20">
+                  <property name="text">
+                   <string>Scrollable item 20 — representing some tall content.</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="scrollbar_page">
+         <layout class="QVBoxLayout" name="verticalLayout_24">
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_58">
+            <property name="bottomMargin">
+             <number>9</number>
+            </property>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_57">
+              <item>
+               <widget class="QLabel" name="label_203">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">font-size: 20pt;
+font-weight: 600;</string>
+                </property>
+                <property name="text">
+                 <string>ScrollBar</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_204">
+                <property name="text">
+                 <string>(QScrollBar)</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_205">
+              <property name="text">
+               <string>The raw scrollbar component used directly, standalone.</string>
+              </property>
+              <property name="wordWrap">
+               <bool>true</bool>
+              </property>
+              <property name="class" stdset="0">
+               <string>muted</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QGridLayout" name="gridLayout_8">
+            <item row="4" column="0">
+             <widget class="QScrollBar" name="verticalScrollBar">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>200</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>200</height>
+               </size>
+              </property>
+              <property name="orientation">
+               <enum>Qt::Orientation::Vertical</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0">
+             <widget class="QLabel" name="label_57">
+              <property name="styleSheet">
+               <string notr="true">font-size: 13pt;</string>
+              </property>
+              <property name="text">
+               <string>Scroll Vertical</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="1">
+             <widget class="QScrollBar" name="verticalScrollBar_2">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>200</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>200</height>
+               </size>
+              </property>
+              <property name="value">
+               <number>50</number>
+              </property>
+              <property name="orientation">
+               <enum>Qt::Orientation::Vertical</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QScrollBar" name="horizontalScrollBar">
+              <property name="orientation">
+               <enum>Qt::Orientation::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <spacer name="verticalSpacer_76">
+              <property name="orientation">
+               <enum>Qt::Orientation::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="0" column="0">
+             <widget class="QLabel" name="label_52">
+              <property name="styleSheet">
+               <string notr="true">font-size: 13pt;</string>
+              </property>
+              <property name="text">
+               <string>Scroll Horizontal</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QScrollBar" name="horizontalScrollBar_2">
+              <property name="minimumSize">
+               <size>
+                <width>200</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>200</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="value">
+               <number>50</number>
+              </property>
+              <property name="orientation">
+               <enum>Qt::Orientation::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <spacer name="verticalSpacer_75">
+            <property name="orientation">
+             <enum>Qt::Orientation::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </widget>
         <widget class="QWidget" name="overview_page">
          <layout class="QVBoxLayout" name="verticalLayout_7">
           <property name="leftMargin">

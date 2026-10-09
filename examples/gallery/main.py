@@ -57,6 +57,8 @@ PAGES: dict[str, str] = {
     "Slider": "slider_page",
     "Tabs": "tabs_page",
     "Textarea": "textarea_page",
+    "ScrollArea": "scrollarea_page",
+    "ScrollBar": "scrollbar_page",
 }
 
 _HEX_RE = re.compile(r"^#[0-9A-Fa-f]{6}$")
@@ -232,14 +234,17 @@ class GalleryUiWindow(QtWidgets.QMainWindow):
         self._setup_theme_editor()
 
         # Fill the scroll area with many labels to force scrolling
-        if hasattr(self.ui, "scrollAreaWidgetContents") and self.ui.scrollAreaWidgetContents.layout():
+        if (
+            hasattr(self.ui, "scrollAreaWidgetContents")
+            and self.ui.scrollAreaWidgetContents.layout()
+        ):
             layout = self.ui.scrollAreaWidgetContents.layout()
             # Clear existing placeholder labels if any
             while layout.count():
                 item = layout.takeAt(0)
                 if item.widget():
                     item.widget().deleteLater()
-            
+
             # Insert 50 labels
             for i in range(1, 51):
                 lbl = QtWidgets.QLabel(
@@ -247,7 +252,6 @@ class GalleryUiWindow(QtWidgets.QMainWindow):
                     "This text is here to ensure the scrollbar is fully visible and styled."
                 )
                 layout.addWidget(lbl)
-
 
     # ------------------------------------------------------------------
     # Theme editor wiring
