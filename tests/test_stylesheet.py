@@ -143,6 +143,13 @@ class TestThemeMode:
         setThemeMode("dark")
         assert themeMode() == ThemeMode.DARK
 
+    def test_set_theme_mode_target(self, qapp):
+        widget = QtWidgets.QWidget()
+        setThemeMode("light", target=widget)
+        # Should apply to widget, not app
+        assert len(widget.styleSheet()) > 0
+        assert qapp.styleSheet() != widget.styleSheet()
+
     def test_set_theme_mode_enum(self):
         setThemeMode(ThemeMode.LIGHT)
         assert themeMode() == ThemeMode.LIGHT
@@ -157,6 +164,13 @@ class TestThemeMode:
         assert themeMode() == ThemeMode.DARK
         toggleThemeMode()
         assert themeMode() == ThemeMode.LIGHT
+
+    def test_toggle_theme_mode_target(self, qapp):
+        widget = QtWidgets.QWidget()
+        setThemeMode(ThemeMode.LIGHT)
+        toggleThemeMode(target=widget)
+        assert len(widget.styleSheet()) > 0
+        assert qapp.styleSheet() != widget.styleSheet()
 
     def test_is_dark_theme_resolves_dark(self):
         setThemeMode(ThemeMode.DARK)
@@ -184,6 +198,12 @@ class TestSetTheme:
         assert tokens.background == "#ffffff"
         assert (tmp_path / "theme.xml").exists()
         assert (tmp_path / "theme.json").exists()
+
+    def test_set_theme_target(self, qapp, sample_xml):
+        widget = QtWidgets.QWidget()
+        setTheme(sample_xml, target=widget)
+        assert len(widget.styleSheet()) > 0
+        assert qapp.styleSheet() != widget.styleSheet()
 
     def test_set_json_theme(self, qapp, sample_json, tmp_path):
         setThemeMode(ThemeMode.LIGHT)
@@ -220,6 +240,12 @@ class TestSetStyleSheet:
         setStyleSheet("QWidget { color: red; }")
         assert getStyleSheet() == "QWidget { color: red; }"
         assert "QWidget { color: red; }" in qapp.styleSheet()
+
+    def test_set_stylesheet_target(self, qapp):
+        widget = QtWidgets.QWidget()
+        setStyleSheet("QWidget { color: green; }", target=widget)
+        assert "QWidget { color: green; }" in widget.styleSheet()
+        assert "QWidget { color: green; }" not in qapp.styleSheet()
 
     def test_set_qss_file(self, qapp, tmp_path):
         path = tmp_path / "extra.qss"

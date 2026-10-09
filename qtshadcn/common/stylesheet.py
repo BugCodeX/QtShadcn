@@ -52,8 +52,14 @@ def _active_theme() -> ShadcnTheme:
     return qsettings._theme
 
 
-def _render_and_apply() -> None:
-    """Render the current theme and apply it to ``QApplication`` if it exists."""
+def _render_and_apply(target: QtWidgets.QWidget | None = None) -> None:
+    """Render the current theme and apply it to ``target`` or ``QApplication``.
+
+    Note:
+        In v1, a windowed target is not registered for future automatic updates.
+        The ``font_family.valueChanged`` signal and ``_on_load`` callbacks
+        always re-render to the global ``QApplication``.
+    """
     app = cast(Any, QtWidgets.QApplication.instance())
     if app is None:
         return
@@ -78,12 +84,14 @@ def _render_and_apply() -> None:
         logger.exception("Failed to render stylesheet")
         raise
 
+    apply_to = target if target is not None else app
+
     # Re-polishing every widget is the dominant cost of a theme switch, so
     # skip the apply when the rendered stylesheet did not actually change
     # (e.g. setThemeMode + setTheme + setStyleSheet called in sequence).
-    if app.styleSheet() == stylesheet:
+    if apply_to.styleSheet() == stylesheet:
         return
-    app.setStyleSheet(stylesheet)
+    apply_to.setStyleSheet(stylesheet)
 
 
 def _normalize_theme_mode(mode: ThemeMode | str) -> ThemeMode:
@@ -109,19 +117,21 @@ def _write_theme_json(cfg_dir: Path, theme: ShadcnTheme) -> None:
 # ---------------------------------------------------------------------------
 
 
-def setThemeMode(mode: ThemeMode | str, *, save: bool = True) -> None:
+def setThemeMode(
+    mode: ThemeMode | str, *, target: QtWidgets.QWidget | None = None, save: bool = True
+) -> None:
     """Set the active theme mode and re-render the stylesheet."""
     mode_enum = _normalize_theme_mode(mode)
     qsettings.theme_mode.set(mode_enum.value)
     if save:
         qsettings.save(only={"theme_mode"})
-    _render_and_apply()
+    _render_and_apply(target=target)
 
 
-def toggleThemeMode(*, save: bool = True) -> None:
+def toggleThemeMode(*, target: QtWidgets.QWidget | None = None, save: bool = True) -> None:
     """Toggle between light and dark based on the resolved active palette."""
     theme = ThemeMode.LIGHT if isDarkTheme() else ThemeMode.DARK
-    setThemeMode(theme, save=save)
+    setThemeMode(theme, target=target, save=save)
 
 
 def themeMode() -> ThemeMode:
@@ -138,6 +148,7 @@ def setTheme(
     source: str | Path | None = None,
     *,
     custom_tokens: dict[str, Any] | None = None,
+    target: QtWidgets.QWidget | None = None,
     save: bool = True,
 ) -> None:
     """Set the active color palette and re-render the stylesheet."""
@@ -170,7 +181,7 @@ def setTheme(
             _write_theme_json(cfg_dir, theme)
 
     qsettings.themeChanged.emit()
-    _render_and_apply()
+    _render_and_apply(target=target)
 
 
 def getTheme() -> ShadcnThemeTokens:
@@ -179,7 +190,9 @@ def getTheme() -> ShadcnThemeTokens:
     return theme.dark if isDarkTheme() else theme.light
 
 
-def setStyleSheet(source: str | Path, *, save: bool = True) -> None:
+def setStyleSheet(
+    source: str | Path, *, target: QtWidgets.QWidget | None = None, save: bool = True
+) -> None:
     """Set the additional stylesheet layered on top of the base QSS."""
     path = Path(source)
     content = path.read_text(encoding="utf-8") if path.is_file() else str(source)
@@ -196,7 +209,7 @@ def setStyleSheet(source: str | Path, *, save: bool = True) -> None:
             (cfg_dir / "style.jinja").unlink(missing_ok=True)
 
     qsettings.additionalStyleSheetChanged.emit()
-    _render_and_apply()
+    _render_and_apply(target=target)
 
 
 def getStyleSheet() -> str:

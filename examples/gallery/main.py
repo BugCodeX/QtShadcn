@@ -318,9 +318,9 @@ class GalleryUiWindow(QtWidgets.QMainWindow):
             tmp_file.write(_tokens_to_xml_bytes(self._tokens))
             tmp_path = tmp_file.name
         try:
-            setThemeMode(self._active_mode, save=False)
-            setTheme(tmp_path, save=False)
-            setStyleSheet(CUSTOM_PATH, save=False)
+            setThemeMode(self._active_mode, target=self, save=False)
+            setTheme(tmp_path, target=self, save=False)
+            setStyleSheet(CUSTOM_PATH, target=self, save=False)
         finally:
             Path(tmp_path).unlink(missing_ok=True)
         # Re-apply color squares AFTER app.setStyleSheet so they survive re-polish
@@ -399,9 +399,9 @@ class GalleryUiWindow(QtWidgets.QMainWindow):
         """Apply the selected theme mode (0=Auto, 1=Light, 2=Dark)."""
         _mode_keys = ["auto", "light", "dark"]
         self._active_mode = _mode_keys[index] if _mode_keys[index] != "auto" else "dark"
-        setThemeMode(_mode_keys[index], save=False)
-        setTheme(THEME_FILE, save=False)
-        setStyleSheet(CUSTOM_PATH, save=False)
+        setThemeMode(_mode_keys[index], target=self, save=False)
+        setTheme(THEME_FILE, target=self, save=False)
+        setStyleSheet(CUSTOM_PATH, target=self, save=False)
         # Re-apply color squares after app stylesheet update
         self._refresh_editor_widgets()
 
@@ -458,9 +458,9 @@ if __name__ == "__main__":
 
     # Apply initial theme
     logger.info("Applying initial theme (Dark)")
-    setThemeMode("dark", save=False)
-    setTheme(THEME_FILE, save=False)
-    setStyleSheet(CUSTOM_PATH, save=False)
+    setThemeMode("dark", target=window, save=False)
+    setTheme(THEME_FILE, target=window, save=False)
+    setStyleSheet(CUSTOM_PATH, target=window, save=False)
 
     window.show()
     logger.info("Gallery .ui window displayed")
