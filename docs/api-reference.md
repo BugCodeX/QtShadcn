@@ -21,18 +21,15 @@ from qtshadcn import (
 )
 ```
 
-Qt classes should be imported directly from qtpy so your application uses the
-same binding QtShadcn is using:
+Qt classes should be imported from the binding you are using:
 
 ```python
-from qtpy import QtWidgets
+from PySide6 import QtWidgets
 
 app = QtWidgets.QApplication([])
 ```
 
-Supported bindings: **PySide6**, **PyQt6**, **PySide2**, **PyQt5**. Set
-`QT_API` (for example, `QT_API=pyside6`) to choose a binding when multiple are
-installed.
+Supported bindings: **PySide6**, **PyQt6**.
 
 ---
 

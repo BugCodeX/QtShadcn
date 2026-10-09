@@ -4,10 +4,9 @@ import os
 from pathlib import Path
 from typing import Any, cast
 
-from qtpy import QtWidgets
-
 from ..exceptions import QtShadcnError
 from ..models import ShadcnTheme, ShadcnThemeTokens
+from .binding import QtWidgets
 
 DEFAULT_THEME_FILE = Path(__file__).resolve().parents[1] / "themes" / "default.xml"
 

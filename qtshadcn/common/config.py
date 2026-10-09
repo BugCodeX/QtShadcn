@@ -15,9 +15,9 @@ from pathlib import Path
 from typing import Any, cast
 
 from pydantic import ValidationError
-from qtpy import QtCore
 
 from ..models import ShadcnTheme
+from .binding import QtCore
 from .helpers import _atomic_write, _looks_like_jinja
 
 logger = logging.getLogger(__name__)

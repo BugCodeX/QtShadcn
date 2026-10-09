@@ -13,10 +13,10 @@ from pathlib import Path
 from typing import Any, cast
 
 import darkdetect
-from qtpy import QtCore, QtWidgets
 
 from ..exceptions import QtShadcnError, ThemeParseError, ThemeRenderError
 from ..models import ShadcnTheme, ShadcnThemeTokens
+from .binding import QtCore, QtWidgets
 from .config import ThemeMode, _load_theme_from_dir, qsettings
 from .font import _ensureFontFamilyRegistered, getFontFamilies, getFontFamily
 from .helpers import _apply_custom_tokens, _atomic_write, _looks_like_jinja, _resolve_theme_file

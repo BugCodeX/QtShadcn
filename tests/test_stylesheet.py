@@ -4,7 +4,7 @@ import json
 from unittest.mock import patch
 
 import pytest
-from qtpy import QtWidgets
+from qtshadcn.common.binding import QtWidgets
 from qtshadcn.common.config import ThemeMode, qsettings
 from qtshadcn.common.stylesheet import (
     getStyleSheet,

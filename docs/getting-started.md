@@ -3,7 +3,7 @@
 ## Requirements
 
 - Python ≥ 3.11
-- One of the supported Qt bindings: **PySide6**, **PyQt6**, **PySide2**, or **PyQt5**
+- One of the supported Qt bindings: **PySide6** or **PyQt6**
 
 ## Installation
 
@@ -13,7 +13,7 @@ QtShadcn is published on PyPI. A Qt binding is intentionally not bundled; instal
 
 ```bash
 pip install qtshadcn
-pip install PySide6  # or PyQt6, PySide2, PyQt5
+pip install PySide6  # or PyQt6
 ```
 
 ///
@@ -22,7 +22,7 @@ pip install PySide6  # or PyQt6, PySide2, PyQt5
 
 ```bash
 uv add qtshadcn
-uv add PySide6  # or PyQt6, PySide2, PyQt5
+uv add PySide6  # or PyQt6
 ```
 
 ///
@@ -103,7 +103,7 @@ Save this as `my_theme.xml` next to your script:
 
 ```python
 import sys
-from qtpy import QtWidgets
+from PySide6 import QtWidgets
 from qtshadcn import ThemeParseError, setTheme, setThemeMode, getTheme
 
 app = QtWidgets.QApplication(sys.argv)
@@ -174,7 +174,7 @@ setTheme("my_theme.xml", save=False)
 By default, QtShadcn applies the generated stylesheet to the entire application (`QApplication.instance()`). For applications with a single main window or when you want to style a specific window subtree independently, pass `target` to `setThemeMode`, `setTheme`, or `setStyleSheet`:
 
 ```python
-from qtpy import QtWidgets
+from PySide6 import QtWidgets
 from qtshadcn import setTheme, setThemeMode
 
 app = QtWidgets.QApplication([])
@@ -194,26 +194,19 @@ Window scoping speeds up theme switching in single-window applications by avoidi
 
 ## Supported Qt Bindings
 
-QtShadcn supports four Qt bindings through [qtpy](https://github.com/spyder-ide/qtpy):
+QtShadcn supports two Qt bindings through a native shim:
 
-1. PySide6 (`QT_API=pyside6`)
-2. PyQt6 (`QT_API=pyqt6`)
-3. PySide2 (`QT_API=pyside2`)
-4. PyQt5 (`QT_API=pyqt5`)
+1. PySide6
+2. PyQt6
 
 ### Choosing a binding
 
-If only one supported binding is installed, qtpy uses it automatically. When
-multiple bindings are installed, set `QT_API` before importing QtShadcn:
+If only one supported binding is installed, the shim uses it automatically. If both are installed, PySide6 is preferred.
 
-```bash
-export QT_API=pyside6
-```
-
-Import Qt classes directly from qtpy in your application code:
+Import Qt classes from the binding you installed in your application code:
 
 ```python
-from qtpy import QtWidgets
+from PySide6 import QtWidgets
 
 app = QtWidgets.QApplication([])
 ```

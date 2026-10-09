@@ -4,8 +4,8 @@ from pathlib import Path
 from unittest.mock import patch
 
 import pytest
-from qtpy import QtWidgets
 from qtshadcn import getTheme, setStyleSheet, setTheme, setThemeMode
+from qtshadcn.common.binding import QtWidgets
 from qtshadcn.exceptions import QtShadcnError, ThemeParseError
 
 SAMPLE_XML = """\

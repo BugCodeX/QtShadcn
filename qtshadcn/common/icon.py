@@ -12,9 +12,8 @@ from importlib import resources
 from pathlib import Path
 from typing import Any, cast
 
-from qtpy import QtCore
-
 from ..exceptions import QtShadcnError
+from .binding import QtCore
 
 logger = logging.getLogger(__name__)
 

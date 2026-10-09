@@ -11,7 +11,8 @@ import logging
 from typing import Any
 
 import darkdetect
-from qtpy import QtCore
+
+from .binding import QtCore
 
 # qtpy exposes QtCore.QThread as a binding union at type-check time, so we
 # alias it to ``Any`` to keep ``ty`` happy while remaining binding-neutral.

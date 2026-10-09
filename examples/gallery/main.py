@@ -1,6 +1,6 @@
 """QtShadcn .ui Gallery example application.
 
-Demonstrates loading a Qt Designer .ui file using qtpy with a per-binding
+Demonstrates loading a Qt Designer .ui file using a per-binding
 loadUi helper (PySide uses QUiLoader, PyQt uses uic.loadUi).
 """
 
@@ -15,7 +15,7 @@ import tempfile
 from pathlib import Path
 from xml.etree import ElementTree as ET
 
-from qtpy import API_NAME, QtCore, QtGui, QtWidgets
+from PySide6 import QtCore, QtGui, QtWidgets
 from qtshadcn import qsettings, setStyleSheet, setTheme, setThemeMode
 
 try:
@@ -39,15 +39,6 @@ THEME_FILE = str(Path(__file__).resolve().parent / "theme.xml")
 CUSTOM_PATH = str(Path(__file__).resolve().parent / "custom.jinja")
 QRC_FILE = Path(__file__).resolve().parent / "resources.qrc"
 RCC_FILE = Path(__file__).resolve().parent / "resources.rcc"
-
-# Maps the qtpy rcc binary selection to the per-binding tool name.
-# Keys are lower-cased because qtpy.API_NAME is capitalized (e.g. "PySide6").
-_RCC_BINARIES = {
-    "pyside6": "pyside6-rcc",
-    "pyside2": "pyside2-rcc",
-    "pyqt6": "pyrcc6",
-    "pyqt5": "pyrcc5",
-}
 
 # Maps the label shown in select_component to the objectName of each page
 # inside the QStackedWidget. Add or reorder entries freely here.
@@ -156,36 +147,30 @@ def _color_square_style(widget_name: str, color: str) -> str:
 
 
 def _load_ui(ui_file: str | Path, base_instance: QtWidgets.QWidget) -> QtWidgets.QWidget:
-    """Load a Qt Designer ``.ui`` file for the active binding.
+    """Load a Qt Designer ``.ui`` file for PySide6."""
+    from PySide6.QtUiTools import QUiLoader
 
-    PySide bindings provide ``QUiLoader``; PyQt bindings provide ``uic.loadUi``.
-    qtpy does not expose a unified ``loadUi`` across all four bindings, so we
-    dispatch locally.
-    """
-    path = str(ui_file)
-    if API_NAME in ("PySide6", "PySide2"):
-        from qtpy.QtUiTools import QUiLoader
+    class UiLoader(QUiLoader):
+        def __init__(self, base_instance):
+            super().__init__(base_instance)
+            self.base_instance = base_instance
 
-        return QUiLoader().load(path, base_instance)
-    if API_NAME == "PyQt6":
-        from PyQt6.uic import loadUi as _loadUi
+        def createWidget(self, class_name, parent=None, name=""):
+            if parent is None and self.base_instance:
+                return self.base_instance
+            widget = super().createWidget(class_name, parent, name)
+            if self.base_instance:
+                setattr(self.base_instance, name, widget)
+            return widget
 
-        return _loadUi(path, base_instance)
-    if API_NAME == "PyQt5":
-        from PyQt5.uic import loadUi as _loadUi
-
-        return _loadUi(path, base_instance)
-    raise RuntimeError(f"Unsupported Qt binding: {API_NAME}")
+    loader = UiLoader(base_instance)
+    return loader.load(str(ui_file))
 
 
 def compile_qrc_if_needed():
     """Recompile resources.qrc -> resources.rcc if the source changed."""
     if not RCC_FILE.exists() or QRC_FILE.stat().st_mtime > RCC_FILE.stat().st_mtime:
-        rcc_binary = _RCC_BINARIES.get(API_NAME.lower())
-        if rcc_binary is None:
-            logger.warning("No rcc binary known for binding %s; skipping qrc compile", API_NAME)
-            return
-
+        rcc_binary = "pyside6-rcc"
         rcc_path = shutil.which(rcc_binary)
         if rcc_path is None:
             logger.warning("Could not find %s in PATH; skipping qrc compile", rcc_binary)
@@ -449,7 +434,7 @@ if __name__ == "__main__":
     """Run the .ui gallery application."""
     logger.info("Starting QtShadcn Gallery (.ui example)")
 
-    # Legacy binding flags are no longer required; qtpy uses QT_API. Strip them
+    # Legacy binding flags are no longer required. Strip them
     # so they are not passed to QApplication.
     legacy_flags = {"--pyside6", "--pyqt6"}
     filtered_argv = [arg for arg in sys.argv if arg not in legacy_flags]

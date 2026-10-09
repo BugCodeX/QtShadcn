@@ -2,7 +2,7 @@
 
 import json
 
-from qtpy import QtCore
+from qtshadcn.common.binding import QtCore
 from qtshadcn.common.config import ConfigItem, QtShadcnSettings, ThemeMode, qsettings
 from qtshadcn.models import ShadcnTheme, ShadcnThemeTokens
 

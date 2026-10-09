@@ -10,8 +10,7 @@ import logging
 from importlib import resources
 from pathlib import Path
 
-from qtpy import QtGui
-
+from .binding import QtGui
 from .config import qsettings
 
 logger = logging.getLogger(__name__)

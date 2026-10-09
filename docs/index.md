@@ -11,7 +11,7 @@ QtShadcn applies a design-token–based QSS stylesheet to your `QApplication` in
 - 🎨 **Light & dark palettes** — single XML file, both modes
 - 🔄 **Auto mode** — follows the OS preference via `darkdetect`
 - 🪟 **Flexible scope** — apply styles app-wide to `QApplication` or scope to a specific `QWidget`
-- 🖥️ **Binding neutral** — works with PySide6, PyQt6, PySide2, or PyQt5
+- 🖥️ **Binding neutral** — works with PySide6 or PyQt6 via an internal shim
 - **Bundled fonts** — Open Sans and Roboto included out of the box
 - ⚡ **Disk cache** — QSS is re-rendered only when the theme file changes
 - ✅ **App-provided Qt runtime** — install the binding your application already uses
@@ -23,7 +23,7 @@ QtShadcn applies a design-token–based QSS stylesheet to your `QApplication` in
 
 ```python
 import sys
-from qtpy import QtWidgets
+from PySide6 import QtWidgets
 from qtshadcn import setTheme, setThemeMode
 
 app = QtWidgets.QApplication(sys.argv)
@@ -58,7 +58,7 @@ pip install qtshadcn
 uv add qtshadcn
 ```
 
-QtShadcn is distributed through [PyPI](https://pypi.org/project/qtshadcn/). A Qt binding is app-provided rather than bundled, so install PySide6, PyQt6, PySide2, or PyQt5 in your application environment. Set `QT_API` to select one when multiple bindings are present.
+QtShadcn is distributed through [PyPI](https://pypi.org/project/qtshadcn/). A Qt binding is app-provided rather than bundled, so install PySide6 or PyQt6 in your application environment. PySide6 is preferred if both are present.
 
 See [Getting Started](getting-started.md) for the full setup guide.
 

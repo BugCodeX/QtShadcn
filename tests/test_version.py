@@ -28,21 +28,21 @@ def test_version_matches_available_project_version():
 
 
 class _BlockQtBindings(importlib.abc.MetaPathFinder):
-    """Meta path finder that blocks qtpy and all supported Qt bindings."""
+    """Meta path finder that blocks all supported Qt bindings."""
 
     def find_spec(self, fullname: str, path: object = None, target: object = None) -> None:
-        if fullname.split(".", 1)[0] in {"qtpy", "PySide6", "PyQt6", "PySide2", "PyQt5"}:
+        if fullname.split(".", 1)[0] in {"PySide6", "PyQt6", "PySide2", "PyQt5", "qtpy"}:
             raise ImportError(fullname)
         return None
 
 
 @pytest.fixture
 def isolated_qtshadcn_import():
-    """Remove qtshadcn, qtpy, and Qt binding modules before importing."""
+    """Remove qtshadcn and Qt binding modules before importing."""
     original_meta_path = sys.meta_path.copy()
     original_modules = dict(sys.modules)
 
-    blocked_roots = {"qtpy", "PySide6", "PyQt6", "PySide2", "PyQt5"}
+    blocked_roots = {"PySide6", "PyQt6", "PySide2", "PyQt5", "qtpy"}
     for name in list(sys.modules):
         if name == "qtshadcn" or name.startswith("qtshadcn."):
             del sys.modules[name]

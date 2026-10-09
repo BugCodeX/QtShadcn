@@ -12,7 +12,7 @@ import logging
 import sys
 from pathlib import Path
 
-from qtpy import API_NAME, QtWidgets
+from PySide6 import QtWidgets
 from qtshadcn import isDarkTheme, setThemeMode, toggleThemeMode
 
 try:
@@ -40,26 +40,24 @@ UI_FILE = str(Path(__file__).resolve().parent / "main_window.ui")
 
 
 def _load_ui(ui_file: str | Path, base_instance: QtWidgets.QWidget) -> QtWidgets.QWidget:
-    """Load a Qt Designer ``.ui`` file for the active binding.
+    """Load a Qt Designer ``.ui`` file for PySide6."""
+    from PySide6.QtUiTools import QUiLoader
 
-    PySide bindings provide ``QUiLoader``; PyQt bindings provide ``uic.loadUi``.
-    qtpy does not expose a unified ``loadUi`` across all four bindings, so we
-    dispatch locally.
-    """
-    path = str(ui_file)
-    if API_NAME in ("PySide6", "PySide2"):
-        from qtpy.QtUiTools import QUiLoader
+    class UiLoader(QUiLoader):
+        def __init__(self, base_instance):
+            super().__init__(base_instance)
+            self.base_instance = base_instance
 
-        return QUiLoader().load(path, base_instance)
-    if API_NAME == "PyQt6":
-        from PyQt6.uic import loadUi as _loadUi
+        def createWidget(self, class_name, parent=None, name=""):
+            if parent is None and self.base_instance:
+                return self.base_instance
+            widget = super().createWidget(class_name, parent, name)
+            if self.base_instance:
+                setattr(self.base_instance, name, widget)
+            return widget
 
-        return _loadUi(path, base_instance)
-    if API_NAME == "PyQt5":
-        from PyQt5.uic import loadUi as _loadUi
-
-        return _loadUi(path, base_instance)
-    raise RuntimeError(f"Unsupported Qt binding: {API_NAME}")
+    loader = UiLoader(base_instance)
+    return loader.load(str(ui_file))
 
 
 # ---------------------------------------------------------------------------
