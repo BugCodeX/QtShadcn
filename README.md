@@ -22,6 +22,7 @@ QtShadcn loads a local **XML theme file** containing `<light>` and `<dark>` pale
 
 - **Light & dark palettes** — single XML file, both modes
 - **Auto mode** — follows the OS theme via `darkdetect`
+- **Flexible scope** — apply styles app-wide to `QApplication` or scope to a specific `QWidget`
 - **Binding neutral** — works with PySide6, PyQt6, PySide2, or PyQt5 via qtpy
 - **Custom fonts** — drop font files in the package `resources/fonts/` directory
 - **Disk cache** — theme is re-rendered only when the source file changes
@@ -184,13 +185,13 @@ from qtshadcn import (
 )
 ```
 
-### `setThemeMode(mode, *, save=True)`
+### `setThemeMode(mode, *, target=None, save=True)`
 
-Set the active theme mode (`"auto"`, `"light"`, or `"dark"`) and re-render the stylesheet.
+Set the active theme mode (`"auto"`, `"light"`, or `"dark"`) and re-render the stylesheet. Pass `target` (`QWidget`) to scope the stylesheet to that window subtree instead of the entire `QApplication`.
 
-### `toggleThemeMode(*, save=True)`
+### `toggleThemeMode(*, target=None, save=True)`
 
-Cycle the theme mode: auto → light → dark → auto.
+Cycle the theme mode: auto → light → dark → auto. Pass `target` (`QWidget`) to scope to a specific window subtree.
 
 ### `themeMode() -> ThemeMode`
 
@@ -200,17 +201,17 @@ Return the current `ThemeMode`.
 
 Return whether the resolved active palette is dark.
 
-### `setTheme(source, *, custom_tokens=None, save=True)`
+### `setTheme(source, *, custom_tokens=None, target=None, save=True)`
 
-Load a QtShadcn `.xml` or `.json` theme, apply optional token overrides, and re-render the stylesheet.
+Load a QtShadcn `.xml` or `.json` theme, apply optional token overrides, and re-render the stylesheet. Pass `target` (`QWidget`) to scope the stylesheet to that window subtree.
 
 ### `getTheme() -> ShadcnThemeTokens`
 
 Return the resolved tokens for the active mode.
 
-### `setStyleSheet(source, *, save=True)`
+### `setStyleSheet(source, *, target=None, save=True)`
 
-Set an additional stylesheet (inline QSS/Jinja string or `.qss`/`.jinja` file path) layered on top of the base QSS.
+Set an additional stylesheet (inline QSS/Jinja string or `.qss`/`.jinja` file path) layered on top of the base QSS. Pass `target` (`QWidget`) to scope the stylesheet to that window subtree.
 
 ### `getStyleSheet() -> str`
 

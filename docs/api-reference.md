@@ -41,7 +41,12 @@ installed.
 ### `setThemeMode`
 
 ```python
-def setThemeMode(mode: ThemeMode | str, *, save: bool = True) -> None
+def setThemeMode(
+    mode: ThemeMode | str,
+    *,
+    target: QtWidgets.QWidget | None = None,
+    save: bool = True,
+) -> None
 ```
 
 Set the active theme mode and re-render the stylesheet.
@@ -51,6 +56,7 @@ Set the active theme mode and re-render the stylesheet.
 | Name | Type | Description |
 | --- | --- | --- |
 | `mode` | `ThemeMode \| str` | `ThemeMode.AUTO`, `ThemeMode.LIGHT`, `ThemeMode.DARK`, or `"auto"`, `"light"`, `"dark"`. |
+| `target` | `QtWidgets.QWidget \| None` | When provided, applies the stylesheet only to that widget subtree instead of `QApplication.instance()`. Default `None` applies globally. |
 | `save` | `bool` | When `True` (default), persist the mode to `config/theme_mode.json`. |
 
 ---
@@ -58,10 +64,17 @@ Set the active theme mode and re-render the stylesheet.
 ### `toggleThemeMode`
 
 ```python
-def toggleThemeMode(*, save: bool = True) -> None
+def toggleThemeMode(*, target: QtWidgets.QWidget | None = None, save: bool = True) -> None
 ```
 
 Cycle the theme mode: auto → light → dark → auto.
+
+**Parameters:**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `target` | `QtWidgets.QWidget \| None` | When provided, applies the stylesheet only to that widget subtree. Default `None` applies globally. |
+| `save` | `bool` | When `True` (default), persist the mode to `config/theme_mode.json`. |
 
 ---
 
@@ -89,9 +102,10 @@ Return whether the resolved active palette is dark.
 
 ```python
 def setTheme(
-    source: str | Path,
+    source: str | Path | None = None,
     *,
     custom_tokens: dict[str, Any] | None = None,
+    target: QtWidgets.QWidget | None = None,
     save: bool = True,
 ) -> None
 ```
@@ -100,17 +114,18 @@ Load a QtShadcn XML or JSON theme, apply optional token overrides, and re-render
 
 **Pipeline:**
 
-1. Resolves the theme source path
+1. Resolves the theme source path (defaults to bundled default XML theme when omitted)
 2. Parses the XML/JSON, applies `custom_tokens`, resolves all color tokens
 3. Persists the palette when `save=True`
-4. Renders QSS via Jinja2 and calls `app.setStyleSheet(qss)`
+4. Renders QSS via Jinja2 and calls `target.setStyleSheet(qss)` (or `app.setStyleSheet(qss)` when `target` is `None`)
 
 **Parameters:**
 
 | Name | Type | Description |
 | --- | --- | --- |
-| `source` | `str \| Path` | Path to the `.xml` or `.json` theme file. |
+| `source` | `str \| Path \| None` | Path to the `.xml` or `.json` theme file. Defaults to the bundled default XML theme. |
 | `custom_tokens` | `dict[str, Any] \| None` | Token overrides. Mode-specific when top-level keys are `"light"` and/or `"dark"`. |
+| `target` | `QtWidgets.QWidget \| None` | When provided, applies the stylesheet only to that widget subtree. Default `None` applies globally. |
 | `save` | `bool` | When `True` (default), persist the palette to `config/`. |
 
 **Raises:** `ThemeParseError` — if the file is missing, malformed, or has missing tokens.
@@ -130,7 +145,12 @@ Return the active palette tokens for the current mode.
 ### `setStyleSheet`
 
 ```python
-def setStyleSheet(source: str | Path, *, save: bool = True) -> None
+def setStyleSheet(
+    source: str | Path,
+    *,
+    target: QtWidgets.QWidget | None = None,
+    save: bool = True,
+) -> None
 ```
 
 Set the additional stylesheet layered on top of the base QSS.
@@ -138,6 +158,14 @@ Set the additional stylesheet layered on top of the base QSS.
 `source` can be an inline QSS/Jinja string or a path to a `.qss`/`.jinja` file.
 When `save=True`, the content is persisted to `config/style.qss` or
 `config/style.jinja`.
+
+**Parameters:**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `source` | `str \| Path` | Inline QSS/Jinja string or path to a `.qss`/`.jinja` file. |
+| `target` | `QtWidgets.QWidget \| None` | When provided, applies the stylesheet only to that widget subtree. Default `None` applies globally. |
+| `save` | `bool` | When `True` (default), persist the content to `config/`. |
 
 ---
 
@@ -148,6 +176,13 @@ def getStyleSheet() -> str
 ```
 
 Return the current additional stylesheet content.
+
+---
+
+!!! note "Window-scoped theming (v1 limitation)"
+    Passing `target` scopes the current stylesheet rendering to that widget subtree.
+    Background signals such as `font_family.valueChanged` and `SystemThemeWatcher`
+    always re-render globally to `QApplication` and do not re-target specific widgets.
 
 ---
 

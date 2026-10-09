@@ -10,6 +10,7 @@ QtShadcn applies a design-token–based QSS stylesheet to your `QApplication` in
 
 - 🎨 **Light & dark palettes** — single XML file, both modes
 - 🔄 **Auto mode** — follows the OS preference via `darkdetect`
+- 🪟 **Flexible scope** — apply styles app-wide to `QApplication` or scope to a specific `QWidget`
 - 🖥️ **Binding neutral** — works with PySide6, PyQt6, PySide2, or PyQt5
 - **Bundled fonts** — Open Sans and Roboto included out of the box
 - ⚡ **Disk cache** — QSS is re-rendered only when the theme file changes

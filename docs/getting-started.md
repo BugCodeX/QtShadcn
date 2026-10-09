@@ -169,6 +169,29 @@ setTheme("my_theme.xml", save=False)
 
 ---
 
+## Window-Scoped Theming
+
+By default, QtShadcn applies the generated stylesheet to the entire application (`QApplication.instance()`). For applications with a single main window or when you want to style a specific window subtree independently, pass `target` to `setThemeMode`, `setTheme`, or `setStyleSheet`:
+
+```python
+from qtpy import QtWidgets
+from qtshadcn import setTheme, setThemeMode
+
+app = QtWidgets.QApplication([])
+window = QtWidgets.QMainWindow()
+
+# Scope the stylesheet to this window and its child dialogs
+setThemeMode("dark", target=window, save=False)
+setTheme("my_theme.xml", target=window, save=False)
+
+window.show()
+app.exec()
+```
+
+Window scoping speeds up theme switching in single-window applications by avoiding repolishing every widget across the entire process. Child dialogs (such as `QColorDialog` or `QFileDialog` parented to the window) inherit the window stylesheet, while independent sibling windows remain unstyled.
+
+---
+
 ## Supported Qt Bindings
 
 QtShadcn supports four Qt bindings through [qtpy](https://github.com/spyder-ide/qtpy):
