@@ -1061,29 +1061,31 @@ QTabWidget[variant="line"] QTabBar::tab:left:selected {
 
 QScrollBar:horizontal {
     border: none;
-    background: transparent;
+    background-color: {{ Colors.withAlpha(tokens.muted, 0.5) }};
     height: 10px;
     margin: 0px;
+    border-radius: 5px;
 }
 
 QScrollBar:vertical {
     border: none;
-    background: transparent;
+    background-color: {{ Colors.withAlpha(tokens.muted, 0.5) }};
     width: 10px;
     margin: 0px;
+    border-radius: 5px;
 }
 
 QScrollBar::handle:horizontal {
     background-color: {{ Colors.withAlpha(tokens.muted_foreground, 0.3) }};
     min-width: 20px;
-    border-radius: 3px;
+    border-radius: 5px;
     margin: 2px;
 }
 
 QScrollBar::handle:vertical {
     background-color: {{ Colors.withAlpha(tokens.muted_foreground, 0.3) }};
     min-height: 20px;
-    border-radius: 3px;
+    border-radius: 5px;
     margin: 2px;
 }
 
@@ -1112,6 +1114,7 @@ QScrollBar::sub-page:horizontal,
 QScrollBar::add-page:vertical,
 QScrollBar::sub-page:vertical {
     background: none;
+    border-radius: 5px;
 }
 
 QAbstractScrollArea::corner {
