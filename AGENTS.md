@@ -135,7 +135,9 @@ pre-commit run renovate-config-validator # validate Renovate config
 - **Indent**: spaces
 - **Line length**: 100 characters (E501 ignored in ruff, but keep it reasonable)
 - **Type annotations**: required on all public functions; `ty` must pass with no warnings
-- **Tests**: no docstrings required in `tests/` or `examples/`
+- **Tests & Examples**: no docstrings required in `tests/` or `examples/`.
+- **Git Commits**: NEVER run `git commit` without asking the user first. Always request explicit confirmation before creating any Git commit.
+- **Type aliases**: use domain `TypeAlias` definitions (`Pixels`, `ColorLike`) from `_base.py` / `qmaterialyou` instead of repeating raw unions (`QColor | str | None`) across widget signatures.
 
 ## Architecture Rules
 
