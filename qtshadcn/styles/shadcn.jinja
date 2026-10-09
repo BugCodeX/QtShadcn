@@ -1117,3 +1117,18 @@ QScrollBar::sub-page:vertical {
 QAbstractScrollArea::corner {
     background: transparent;
 }
+
+/* ============================================================
+   QScrollArea
+   ============================================================ */
+
+QScrollArea {
+    border: 1px solid {{ tokens.border }};
+    border-radius: {{ Radius.resolveRadius(tokens.radius, "md") }};
+    background-color: transparent;
+}
+
+QScrollArea > QWidget#qt_scrollarea_viewport {
+    background-color: transparent;
+    border-radius: {{ Radius.resolveRadius(tokens.radius, "md") }};
+}
