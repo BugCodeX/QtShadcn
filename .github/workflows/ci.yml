@@ -102,10 +102,6 @@ jobs:
         os: [ubuntu-latest, windows-latest]
         python-version: ["3.11", "3.12", "3.13"]
         binding: [pyside6, pyqt6]
-        include:
-          - os: ubuntu-latest
-            python-version: "3.12"
-            binding: pyqt5
     runs-on: ${{ matrix.os }}
     steps:
       - name: Check out repository
