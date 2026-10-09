@@ -400,8 +400,6 @@ class GalleryUiWindow(QtWidgets.QMainWindow):
         _mode_keys = ["auto", "light", "dark"]
         self._active_mode = _mode_keys[index] if _mode_keys[index] != "auto" else "dark"
         setThemeMode(_mode_keys[index], save=False)
-        setTheme(THEME_FILE, save=False)
-        setStyleSheet(CUSTOM_PATH, save=False)
         # Re-apply color squares after app stylesheet update
         self._refresh_editor_widgets()
 
