@@ -51,14 +51,4 @@ uv.lock
 openspec/
 
 # AI Coding assistants assets
-.claude/skills/
-.gemini/skills/
-.codex/skills/
-.opencode/skills/
-.agents/skills/
-.cursor/skills/
-.github/skills/
-CLAUDE.md
-GEMINI.md
-.github/copilot-instructions.md
-
+odd/
