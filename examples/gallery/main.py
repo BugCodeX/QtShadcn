@@ -17,12 +17,18 @@ from xml.etree import ElementTree as ET
 
 from qtpy import API_NAME, QtCore, QtGui, QtWidgets
 from qtshadcn import qsettings, setStyleSheet, setTheme, setThemeMode
-from rich.logging import RichHandler
+
+try:
+    from rich.logging import RichHandler
+
+    _logging_handler: logging.Handler = RichHandler()
+except ImportError:
+    _logging_handler = logging.StreamHandler()
 
 logging.basicConfig(
     level=logging.INFO,
     format="%(message)s",
-    handlers=[RichHandler()],
+    handlers=[_logging_handler],
 )
 
 logger = logging.getLogger(__name__)

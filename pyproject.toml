@@ -90,6 +90,7 @@ dev = [
   "ruff>=0.16.2",  # linter and formatter
   "pre-commit>=4.6.2",  # git hooks
   "ty>=0.0.71",  # type checker
+  "rich>=13.0.0",  # logging in examples
   "twine>=7.0",  # PyPI upload
   "mkdocs>=1.6.1",  # documentation builder
   "mkdocs-material>=9.7.7",  # Material theme for MkDocs
