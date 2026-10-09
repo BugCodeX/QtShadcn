@@ -127,7 +127,7 @@ path = "qtshadcn/__init__.py"
 # ============================================================
 
 [tool.pytest.ini_options]
-addopts = ["-ra", "--strict-markers", "--strict-config"]
+addopts = ["-ra", "--strict-markers", "--strict-config", "--ignore=examples"]
 norecursedirs = ["examples", "build", "dist", "htmlcov", ".git"]
 python_files = ["test_*.py"]
 testpaths = ["tests"]
