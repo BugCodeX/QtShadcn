@@ -116,7 +116,7 @@ font-weight: 600;</string>
        <item>
         <spacer name="horizontalSpacer_13">
          <property name="orientation">
-          <enum>Qt::Orientation::Horizontal</enum>
+          <enum>Qt::Horizontal</enum>
          </property>
          <property name="sizeHint" stdset="0">
           <size>
@@ -257,7 +257,7 @@ font-weight: 600;</string>
                <item>
                 <spacer name="verticalSpacer_14">
                  <property name="orientation">
-                  <enum>Qt::Orientation::Vertical</enum>
+                  <enum>Qt::Vertical</enum>
                  </property>
                  <property name="sizeHint" stdset="0">
                   <size>
@@ -285,10 +285,10 @@ font-weight: 600;</string>
                  <item>
                   <spacer name="horizontalSpacer_5">
                    <property name="orientation">
-                    <enum>Qt::Orientation::Horizontal</enum>
+                    <enum>Qt::Horizontal</enum>
                    </property>
                    <property name="sizeType">
-                    <enum>QSizePolicy::Policy::Minimum</enum>
+                    <enum>QSizePolicy::Minimum</enum>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
@@ -308,10 +308,10 @@ font-weight: 600;</string>
                  <item>
                   <spacer name="horizontalSpacer_2">
                    <property name="orientation">
-                    <enum>Qt::Orientation::Horizontal</enum>
+                    <enum>Qt::Horizontal</enum>
                    </property>
                    <property name="sizeType">
-                    <enum>QSizePolicy::Policy::Minimum</enum>
+                    <enum>QSizePolicy::Minimum</enum>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
@@ -348,10 +348,10 @@ font-weight: 600;</string>
                  <item>
                   <spacer name="horizontalSpacer_6">
                    <property name="orientation">
-                    <enum>Qt::Orientation::Horizontal</enum>
+                    <enum>Qt::Horizontal</enum>
                    </property>
                    <property name="sizeType">
-                    <enum>QSizePolicy::Policy::Minimum</enum>
+                    <enum>QSizePolicy::Minimum</enum>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
@@ -371,10 +371,10 @@ font-weight: 600;</string>
                  <item>
                   <spacer name="horizontalSpacer_4">
                    <property name="orientation">
-                    <enum>Qt::Orientation::Horizontal</enum>
+                    <enum>Qt::Horizontal</enum>
                    </property>
                    <property name="sizeType">
-                    <enum>QSizePolicy::Policy::Minimum</enum>
+                    <enum>QSizePolicy::Minimum</enum>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
@@ -396,7 +396,7 @@ font-weight: 600;</string>
                <item>
                 <spacer name="verticalSpacer">
                  <property name="orientation">
-                  <enum>Qt::Orientation::Vertical</enum>
+                  <enum>Qt::Vertical</enum>
                  </property>
                  <property name="sizeHint" stdset="0">
                   <size>
@@ -424,7 +424,7 @@ font-weight: 600;</string>
                <item>
                 <spacer name="verticalSpacer_15">
                  <property name="orientation">
-                  <enum>Qt::Orientation::Vertical</enum>
+                  <enum>Qt::Vertical</enum>
                  </property>
                  <property name="sizeHint" stdset="0">
                   <size>
@@ -452,10 +452,10 @@ font-weight: 600;</string>
                  <item>
                   <spacer name="horizontalSpacer_23">
                    <property name="orientation">
-                    <enum>Qt::Orientation::Horizontal</enum>
+                    <enum>Qt::Horizontal</enum>
                    </property>
                    <property name="sizeType">
-                    <enum>QSizePolicy::Policy::Minimum</enum>
+                    <enum>QSizePolicy::Minimum</enum>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
@@ -475,10 +475,10 @@ font-weight: 600;</string>
                  <item>
                   <spacer name="horizontalSpacer_24">
                    <property name="orientation">
-                    <enum>Qt::Orientation::Horizontal</enum>
+                    <enum>Qt::Horizontal</enum>
                    </property>
                    <property name="sizeType">
-                    <enum>QSizePolicy::Policy::Minimum</enum>
+                    <enum>QSizePolicy::Minimum</enum>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
@@ -515,10 +515,10 @@ font-weight: 600;</string>
                  <item>
                   <spacer name="horizontalSpacer_25">
                    <property name="orientation">
-                    <enum>Qt::Orientation::Horizontal</enum>
+                    <enum>Qt::Horizontal</enum>
                    </property>
                    <property name="sizeType">
-                    <enum>QSizePolicy::Policy::Minimum</enum>
+                    <enum>QSizePolicy::Minimum</enum>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
@@ -538,10 +538,10 @@ font-weight: 600;</string>
                  <item>
                   <spacer name="horizontalSpacer_26">
                    <property name="orientation">
-                    <enum>Qt::Orientation::Horizontal</enum>
+                    <enum>Qt::Horizontal</enum>
                    </property>
                    <property name="sizeType">
-                    <enum>QSizePolicy::Policy::Minimum</enum>
+                    <enum>QSizePolicy::Minimum</enum>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
@@ -563,7 +563,7 @@ font-weight: 600;</string>
                <item>
                 <spacer name="verticalSpacer_7">
                  <property name="orientation">
-                  <enum>Qt::Orientation::Vertical</enum>
+                  <enum>Qt::Vertical</enum>
                  </property>
                  <property name="sizeHint" stdset="0">
                   <size>
@@ -591,7 +591,7 @@ font-weight: 600;</string>
                <item>
                 <spacer name="verticalSpacer_16">
                  <property name="orientation">
-                  <enum>Qt::Orientation::Vertical</enum>
+                  <enum>Qt::Vertical</enum>
                  </property>
                  <property name="sizeHint" stdset="0">
                   <size>
@@ -619,10 +619,10 @@ font-weight: 600;</string>
                  <item>
                   <spacer name="horizontalSpacer_27">
                    <property name="orientation">
-                    <enum>Qt::Orientation::Horizontal</enum>
+                    <enum>Qt::Horizontal</enum>
                    </property>
                    <property name="sizeType">
-                    <enum>QSizePolicy::Policy::Minimum</enum>
+                    <enum>QSizePolicy::Minimum</enum>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
@@ -642,10 +642,10 @@ font-weight: 600;</string>
                  <item>
                   <spacer name="horizontalSpacer_28">
                    <property name="orientation">
-                    <enum>Qt::Orientation::Horizontal</enum>
+                    <enum>Qt::Horizontal</enum>
                    </property>
                    <property name="sizeType">
-                    <enum>QSizePolicy::Policy::Minimum</enum>
+                    <enum>QSizePolicy::Minimum</enum>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
@@ -682,10 +682,10 @@ font-weight: 600;</string>
                  <item>
                   <spacer name="horizontalSpacer_29">
                    <property name="orientation">
-                    <enum>Qt::Orientation::Horizontal</enum>
+                    <enum>Qt::Horizontal</enum>
                    </property>
                    <property name="sizeType">
-                    <enum>QSizePolicy::Policy::Minimum</enum>
+                    <enum>QSizePolicy::Minimum</enum>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
@@ -705,10 +705,10 @@ font-weight: 600;</string>
                  <item>
                   <spacer name="horizontalSpacer_30">
                    <property name="orientation">
-                    <enum>Qt::Orientation::Horizontal</enum>
+                    <enum>Qt::Horizontal</enum>
                    </property>
                    <property name="sizeType">
-                    <enum>QSizePolicy::Policy::Minimum</enum>
+                    <enum>QSizePolicy::Minimum</enum>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
@@ -730,7 +730,7 @@ font-weight: 600;</string>
                <item>
                 <spacer name="verticalSpacer_8">
                  <property name="orientation">
-                  <enum>Qt::Orientation::Vertical</enum>
+                  <enum>Qt::Vertical</enum>
                  </property>
                  <property name="sizeHint" stdset="0">
                   <size>
@@ -758,7 +758,7 @@ font-weight: 600;</string>
                <item>
                 <spacer name="verticalSpacer_17">
                  <property name="orientation">
-                  <enum>Qt::Orientation::Vertical</enum>
+                  <enum>Qt::Vertical</enum>
                  </property>
                  <property name="sizeHint" stdset="0">
                   <size>
@@ -786,10 +786,10 @@ font-weight: 600;</string>
                  <item>
                   <spacer name="horizontalSpacer_31">
                    <property name="orientation">
-                    <enum>Qt::Orientation::Horizontal</enum>
+                    <enum>Qt::Horizontal</enum>
                    </property>
                    <property name="sizeType">
-                    <enum>QSizePolicy::Policy::Minimum</enum>
+                    <enum>QSizePolicy::Minimum</enum>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
@@ -809,10 +809,10 @@ font-weight: 600;</string>
                  <item>
                   <spacer name="horizontalSpacer_32">
                    <property name="orientation">
-                    <enum>Qt::Orientation::Horizontal</enum>
+                    <enum>Qt::Horizontal</enum>
                    </property>
                    <property name="sizeType">
-                    <enum>QSizePolicy::Policy::Minimum</enum>
+                    <enum>QSizePolicy::Minimum</enum>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
@@ -849,10 +849,10 @@ font-weight: 600;</string>
                  <item>
                   <spacer name="horizontalSpacer_33">
                    <property name="orientation">
-                    <enum>Qt::Orientation::Horizontal</enum>
+                    <enum>Qt::Horizontal</enum>
                    </property>
                    <property name="sizeType">
-                    <enum>QSizePolicy::Policy::Minimum</enum>
+                    <enum>QSizePolicy::Minimum</enum>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
@@ -872,10 +872,10 @@ font-weight: 600;</string>
                  <item>
                   <spacer name="horizontalSpacer_34">
                    <property name="orientation">
-                    <enum>Qt::Orientation::Horizontal</enum>
+                    <enum>Qt::Horizontal</enum>
                    </property>
                    <property name="sizeType">
-                    <enum>QSizePolicy::Policy::Minimum</enum>
+                    <enum>QSizePolicy::Minimum</enum>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
@@ -897,7 +897,7 @@ font-weight: 600;</string>
                <item>
                 <spacer name="verticalSpacer_9">
                  <property name="orientation">
-                  <enum>Qt::Orientation::Vertical</enum>
+                  <enum>Qt::Vertical</enum>
                  </property>
                  <property name="sizeHint" stdset="0">
                   <size>
@@ -925,7 +925,7 @@ font-weight: 600;</string>
                <item>
                 <spacer name="verticalSpacer_18">
                  <property name="orientation">
-                  <enum>Qt::Orientation::Vertical</enum>
+                  <enum>Qt::Vertical</enum>
                  </property>
                  <property name="sizeHint" stdset="0">
                   <size>
@@ -953,10 +953,10 @@ font-weight: 600;</string>
                  <item>
                   <spacer name="horizontalSpacer_35">
                    <property name="orientation">
-                    <enum>Qt::Orientation::Horizontal</enum>
+                    <enum>Qt::Horizontal</enum>
                    </property>
                    <property name="sizeType">
-                    <enum>QSizePolicy::Policy::Minimum</enum>
+                    <enum>QSizePolicy::Minimum</enum>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
@@ -976,10 +976,10 @@ font-weight: 600;</string>
                  <item>
                   <spacer name="horizontalSpacer_36">
                    <property name="orientation">
-                    <enum>Qt::Orientation::Horizontal</enum>
+                    <enum>Qt::Horizontal</enum>
                    </property>
                    <property name="sizeType">
-                    <enum>QSizePolicy::Policy::Minimum</enum>
+                    <enum>QSizePolicy::Minimum</enum>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
@@ -1016,10 +1016,10 @@ font-weight: 600;</string>
                  <item>
                   <spacer name="horizontalSpacer_37">
                    <property name="orientation">
-                    <enum>Qt::Orientation::Horizontal</enum>
+                    <enum>Qt::Horizontal</enum>
                    </property>
                    <property name="sizeType">
-                    <enum>QSizePolicy::Policy::Minimum</enum>
+                    <enum>QSizePolicy::Minimum</enum>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
@@ -1039,10 +1039,10 @@ font-weight: 600;</string>
                  <item>
                   <spacer name="horizontalSpacer_38">
                    <property name="orientation">
-                    <enum>Qt::Orientation::Horizontal</enum>
+                    <enum>Qt::Horizontal</enum>
                    </property>
                    <property name="sizeType">
-                    <enum>QSizePolicy::Policy::Minimum</enum>
+                    <enum>QSizePolicy::Minimum</enum>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
@@ -1064,7 +1064,7 @@ font-weight: 600;</string>
                <item>
                 <spacer name="verticalSpacer_10">
                  <property name="orientation">
-                  <enum>Qt::Orientation::Vertical</enum>
+                  <enum>Qt::Vertical</enum>
                  </property>
                  <property name="sizeHint" stdset="0">
                   <size>
@@ -1092,7 +1092,7 @@ font-weight: 600;</string>
                <item>
                 <spacer name="verticalSpacer_19">
                  <property name="orientation">
-                  <enum>Qt::Orientation::Vertical</enum>
+                  <enum>Qt::Vertical</enum>
                  </property>
                  <property name="sizeHint" stdset="0">
                   <size>
@@ -1120,10 +1120,10 @@ font-weight: 600;</string>
                  <item>
                   <spacer name="horizontalSpacer_39">
                    <property name="orientation">
-                    <enum>Qt::Orientation::Horizontal</enum>
+                    <enum>Qt::Horizontal</enum>
                    </property>
                    <property name="sizeType">
-                    <enum>QSizePolicy::Policy::Minimum</enum>
+                    <enum>QSizePolicy::Minimum</enum>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
@@ -1143,10 +1143,10 @@ font-weight: 600;</string>
                  <item>
                   <spacer name="horizontalSpacer_40">
                    <property name="orientation">
-                    <enum>Qt::Orientation::Horizontal</enum>
+                    <enum>Qt::Horizontal</enum>
                    </property>
                    <property name="sizeType">
-                    <enum>QSizePolicy::Policy::Minimum</enum>
+                    <enum>QSizePolicy::Minimum</enum>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
@@ -1183,10 +1183,10 @@ font-weight: 600;</string>
                  <item>
                   <spacer name="horizontalSpacer_41">
                    <property name="orientation">
-                    <enum>Qt::Orientation::Horizontal</enum>
+                    <enum>Qt::Horizontal</enum>
                    </property>
                    <property name="sizeType">
-                    <enum>QSizePolicy::Policy::Minimum</enum>
+                    <enum>QSizePolicy::Minimum</enum>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
@@ -1206,10 +1206,10 @@ font-weight: 600;</string>
                  <item>
                   <spacer name="horizontalSpacer_42">
                    <property name="orientation">
-                    <enum>Qt::Orientation::Horizontal</enum>
+                    <enum>Qt::Horizontal</enum>
                    </property>
                    <property name="sizeType">
-                    <enum>QSizePolicy::Policy::Minimum</enum>
+                    <enum>QSizePolicy::Minimum</enum>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
@@ -1231,7 +1231,7 @@ font-weight: 600;</string>
                <item>
                 <spacer name="verticalSpacer_11">
                  <property name="orientation">
-                  <enum>Qt::Orientation::Vertical</enum>
+                  <enum>Qt::Vertical</enum>
                  </property>
                  <property name="sizeHint" stdset="0">
                   <size>
@@ -1259,7 +1259,7 @@ font-weight: 600;</string>
                <item>
                 <spacer name="verticalSpacer_20">
                  <property name="orientation">
-                  <enum>Qt::Orientation::Vertical</enum>
+                  <enum>Qt::Vertical</enum>
                  </property>
                  <property name="sizeHint" stdset="0">
                   <size>
@@ -1287,10 +1287,10 @@ font-weight: 600;</string>
                  <item>
                   <spacer name="horizontalSpacer_43">
                    <property name="orientation">
-                    <enum>Qt::Orientation::Horizontal</enum>
+                    <enum>Qt::Horizontal</enum>
                    </property>
                    <property name="sizeType">
-                    <enum>QSizePolicy::Policy::Minimum</enum>
+                    <enum>QSizePolicy::Minimum</enum>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
@@ -1310,10 +1310,10 @@ font-weight: 600;</string>
                  <item>
                   <spacer name="horizontalSpacer_44">
                    <property name="orientation">
-                    <enum>Qt::Orientation::Horizontal</enum>
+                    <enum>Qt::Horizontal</enum>
                    </property>
                    <property name="sizeType">
-                    <enum>QSizePolicy::Policy::Minimum</enum>
+                    <enum>QSizePolicy::Minimum</enum>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
@@ -1350,10 +1350,10 @@ font-weight: 600;</string>
                  <item>
                   <spacer name="horizontalSpacer_45">
                    <property name="orientation">
-                    <enum>Qt::Orientation::Horizontal</enum>
+                    <enum>Qt::Horizontal</enum>
                    </property>
                    <property name="sizeType">
-                    <enum>QSizePolicy::Policy::Minimum</enum>
+                    <enum>QSizePolicy::Minimum</enum>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
@@ -1373,10 +1373,10 @@ font-weight: 600;</string>
                  <item>
                   <spacer name="horizontalSpacer_46">
                    <property name="orientation">
-                    <enum>Qt::Orientation::Horizontal</enum>
+                    <enum>Qt::Horizontal</enum>
                    </property>
                    <property name="sizeType">
-                    <enum>QSizePolicy::Policy::Minimum</enum>
+                    <enum>QSizePolicy::Minimum</enum>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
@@ -1398,7 +1398,7 @@ font-weight: 600;</string>
                <item>
                 <spacer name="verticalSpacer_12">
                  <property name="orientation">
-                  <enum>Qt::Orientation::Vertical</enum>
+                  <enum>Qt::Vertical</enum>
                  </property>
                  <property name="sizeHint" stdset="0">
                   <size>
@@ -1426,7 +1426,7 @@ font-weight: 600;</string>
                <item>
                 <spacer name="verticalSpacer_21">
                  <property name="orientation">
-                  <enum>Qt::Orientation::Vertical</enum>
+                  <enum>Qt::Vertical</enum>
                  </property>
                  <property name="sizeHint" stdset="0">
                   <size>
@@ -1454,10 +1454,10 @@ font-weight: 600;</string>
                  <item>
                   <spacer name="horizontalSpacer_47">
                    <property name="orientation">
-                    <enum>Qt::Orientation::Horizontal</enum>
+                    <enum>Qt::Horizontal</enum>
                    </property>
                    <property name="sizeType">
-                    <enum>QSizePolicy::Policy::Minimum</enum>
+                    <enum>QSizePolicy::Minimum</enum>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
@@ -1477,10 +1477,10 @@ font-weight: 600;</string>
                  <item>
                   <spacer name="horizontalSpacer_48">
                    <property name="orientation">
-                    <enum>Qt::Orientation::Horizontal</enum>
+                    <enum>Qt::Horizontal</enum>
                    </property>
                    <property name="sizeType">
-                    <enum>QSizePolicy::Policy::Minimum</enum>
+                    <enum>QSizePolicy::Minimum</enum>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
@@ -1517,10 +1517,10 @@ font-weight: 600;</string>
                  <item>
                   <spacer name="horizontalSpacer_49">
                    <property name="orientation">
-                    <enum>Qt::Orientation::Horizontal</enum>
+                    <enum>Qt::Horizontal</enum>
                    </property>
                    <property name="sizeType">
-                    <enum>QSizePolicy::Policy::Minimum</enum>
+                    <enum>QSizePolicy::Minimum</enum>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
@@ -1540,10 +1540,10 @@ font-weight: 600;</string>
                  <item>
                   <spacer name="horizontalSpacer_50">
                    <property name="orientation">
-                    <enum>Qt::Orientation::Horizontal</enum>
+                    <enum>Qt::Horizontal</enum>
                    </property>
                    <property name="sizeType">
-                    <enum>QSizePolicy::Policy::Minimum</enum>
+                    <enum>QSizePolicy::Minimum</enum>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
@@ -1565,7 +1565,7 @@ font-weight: 600;</string>
                <item>
                 <spacer name="verticalSpacer_13">
                  <property name="orientation">
-                  <enum>Qt::Orientation::Vertical</enum>
+                  <enum>Qt::Vertical</enum>
                  </property>
                  <property name="sizeHint" stdset="0">
                   <size>
@@ -1593,7 +1593,7 @@ font-weight: 600;</string>
                <item>
                 <spacer name="verticalSpacer_22">
                  <property name="orientation">
-                  <enum>Qt::Orientation::Vertical</enum>
+                  <enum>Qt::Vertical</enum>
                  </property>
                  <property name="sizeHint" stdset="0">
                   <size>
@@ -1621,10 +1621,10 @@ font-weight: 600;</string>
                  <item>
                   <spacer name="horizontalSpacer_7">
                    <property name="orientation">
-                    <enum>Qt::Orientation::Horizontal</enum>
+                    <enum>Qt::Horizontal</enum>
                    </property>
                    <property name="sizeType">
-                    <enum>QSizePolicy::Policy::Minimum</enum>
+                    <enum>QSizePolicy::Minimum</enum>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
@@ -1644,10 +1644,10 @@ font-weight: 600;</string>
                  <item>
                   <spacer name="horizontalSpacer_8">
                    <property name="orientation">
-                    <enum>Qt::Orientation::Horizontal</enum>
+                    <enum>Qt::Horizontal</enum>
                    </property>
                    <property name="sizeType">
-                    <enum>QSizePolicy::Policy::Minimum</enum>
+                    <enum>QSizePolicy::Minimum</enum>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
@@ -1684,10 +1684,10 @@ font-weight: 600;</string>
                  <item>
                   <spacer name="horizontalSpacer_9">
                    <property name="orientation">
-                    <enum>Qt::Orientation::Horizontal</enum>
+                    <enum>Qt::Horizontal</enum>
                    </property>
                    <property name="sizeType">
-                    <enum>QSizePolicy::Policy::Minimum</enum>
+                    <enum>QSizePolicy::Minimum</enum>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
@@ -1707,10 +1707,10 @@ font-weight: 600;</string>
                  <item>
                   <spacer name="horizontalSpacer_10">
                    <property name="orientation">
-                    <enum>Qt::Orientation::Horizontal</enum>
+                    <enum>Qt::Horizontal</enum>
                    </property>
                    <property name="sizeType">
-                    <enum>QSizePolicy::Policy::Minimum</enum>
+                    <enum>QSizePolicy::Minimum</enum>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
@@ -1747,10 +1747,10 @@ font-weight: 600;</string>
                  <item>
                   <spacer name="horizontalSpacer_11">
                    <property name="orientation">
-                    <enum>Qt::Orientation::Horizontal</enum>
+                    <enum>Qt::Horizontal</enum>
                    </property>
                    <property name="sizeType">
-                    <enum>QSizePolicy::Policy::Minimum</enum>
+                    <enum>QSizePolicy::Minimum</enum>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
@@ -1770,10 +1770,10 @@ font-weight: 600;</string>
                  <item>
                   <spacer name="horizontalSpacer_12">
                    <property name="orientation">
-                    <enum>Qt::Orientation::Horizontal</enum>
+                    <enum>Qt::Horizontal</enum>
                    </property>
                    <property name="sizeType">
-                    <enum>QSizePolicy::Policy::Minimum</enum>
+                    <enum>QSizePolicy::Minimum</enum>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
@@ -1795,7 +1795,7 @@ font-weight: 600;</string>
                <item>
                 <spacer name="verticalSpacer_27">
                  <property name="orientation">
-                  <enum>Qt::Orientation::Vertical</enum>
+                  <enum>Qt::Vertical</enum>
                  </property>
                  <property name="sizeHint" stdset="0">
                   <size>
@@ -1808,7 +1808,7 @@ font-weight: 600;</string>
                <item>
                 <spacer name="verticalSpacer_3">
                  <property name="orientation">
-                  <enum>Qt::Orientation::Vertical</enum>
+                  <enum>Qt::Vertical</enum>
                  </property>
                  <property name="sizeHint" stdset="0">
                   <size>
@@ -1836,7 +1836,7 @@ font-weight: 600;</string>
                <item>
                 <spacer name="verticalSpacer_23">
                  <property name="orientation">
-                  <enum>Qt::Orientation::Vertical</enum>
+                  <enum>Qt::Vertical</enum>
                  </property>
                  <property name="sizeHint" stdset="0">
                   <size>
@@ -1861,10 +1861,10 @@ font-weight: 600;</string>
                  <item>
                   <spacer name="horizontalSpacer_14">
                    <property name="orientation">
-                    <enum>Qt::Orientation::Horizontal</enum>
+                    <enum>Qt::Horizontal</enum>
                    </property>
                    <property name="sizeType">
-                    <enum>QSizePolicy::Policy::Minimum</enum>
+                    <enum>QSizePolicy::Minimum</enum>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
@@ -1894,10 +1894,10 @@ font-weight: 600;</string>
                  <item>
                   <spacer name="horizontalSpacer_15">
                    <property name="orientation">
-                    <enum>Qt::Orientation::Horizontal</enum>
+                    <enum>Qt::Horizontal</enum>
                    </property>
                    <property name="sizeType">
-                    <enum>QSizePolicy::Policy::Minimum</enum>
+                    <enum>QSizePolicy::Minimum</enum>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
@@ -1919,7 +1919,7 @@ font-weight: 600;</string>
                <item>
                 <spacer name="verticalSpacer_26">
                  <property name="orientation">
-                  <enum>Qt::Orientation::Vertical</enum>
+                  <enum>Qt::Vertical</enum>
                  </property>
                  <property name="sizeHint" stdset="0">
                   <size>
@@ -1932,7 +1932,7 @@ font-weight: 600;</string>
                <item>
                 <spacer name="verticalSpacer_4">
                  <property name="orientation">
-                  <enum>Qt::Orientation::Vertical</enum>
+                  <enum>Qt::Vertical</enum>
                  </property>
                  <property name="sizeHint" stdset="0">
                   <size>
@@ -1960,7 +1960,7 @@ font-weight: 600;</string>
                <item>
                 <spacer name="verticalSpacer_25">
                  <property name="orientation">
-                  <enum>Qt::Orientation::Vertical</enum>
+                  <enum>Qt::Vertical</enum>
                  </property>
                  <property name="sizeHint" stdset="0">
                   <size>
@@ -1985,10 +1985,10 @@ font-weight: 600;</string>
                  <item>
                   <spacer name="horizontalSpacer_16">
                    <property name="orientation">
-                    <enum>Qt::Orientation::Horizontal</enum>
+                    <enum>Qt::Horizontal</enum>
                    </property>
                    <property name="sizeType">
-                    <enum>QSizePolicy::Policy::Minimum</enum>
+                    <enum>QSizePolicy::Minimum</enum>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
@@ -2001,7 +2001,7 @@ font-weight: 600;</string>
                  <item>
                   <widget class="QSlider" name="radius_slider">
                    <property name="orientation">
-                    <enum>Qt::Orientation::Horizontal</enum>
+                    <enum>Qt::Horizontal</enum>
                    </property>
                   </widget>
                  </item>
@@ -2029,10 +2029,10 @@ font-weight: 600;</string>
                  <item>
                   <spacer name="horizontalSpacer_18">
                    <property name="orientation">
-                    <enum>Qt::Orientation::Horizontal</enum>
+                    <enum>Qt::Horizontal</enum>
                    </property>
                    <property name="sizeType">
-                    <enum>QSizePolicy::Policy::Minimum</enum>
+                    <enum>QSizePolicy::Minimum</enum>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
@@ -2045,7 +2045,7 @@ font-weight: 600;</string>
                  <item>
                   <widget class="QSlider" name="spacing_slider">
                    <property name="orientation">
-                    <enum>Qt::Orientation::Horizontal</enum>
+                    <enum>Qt::Horizontal</enum>
                    </property>
                   </widget>
                  </item>
@@ -2061,7 +2061,7 @@ font-weight: 600;</string>
                <item>
                 <spacer name="verticalSpacer_24">
                  <property name="orientation">
-                  <enum>Qt::Orientation::Vertical</enum>
+                  <enum>Qt::Vertical</enum>
                  </property>
                  <property name="sizeHint" stdset="0">
                   <size>
@@ -2099,10 +2099,10 @@ font-weight: 600;</string>
            <item row="3" column="0">
             <spacer name="verticalSpacer_62">
              <property name="orientation">
-              <enum>Qt::Orientation::Vertical</enum>
+              <enum>Qt::Vertical</enum>
              </property>
              <property name="sizeType">
-              <enum>QSizePolicy::Policy::Minimum</enum>
+              <enum>QSizePolicy::Minimum</enum>
              </property>
              <property name="sizeHint" stdset="0">
               <size>
@@ -2115,10 +2115,10 @@ font-weight: 600;</string>
            <item row="1" column="0">
             <spacer name="verticalSpacer_63">
              <property name="orientation">
-              <enum>Qt::Orientation::Vertical</enum>
+              <enum>Qt::Vertical</enum>
              </property>
              <property name="sizeType">
-              <enum>QSizePolicy::Policy::Minimum</enum>
+              <enum>QSizePolicy::Minimum</enum>
              </property>
              <property name="sizeHint" stdset="0">
               <size>
@@ -2186,17 +2186,17 @@ font-weight: 600;</string>
              </size>
             </property>
             <property name="orientation">
-             <enum>Qt::Orientation::Horizontal</enum>
+             <enum>Qt::Horizontal</enum>
             </property>
            </widget>
           </item>
           <item>
            <spacer name="verticalSpacer_28">
             <property name="orientation">
-             <enum>Qt::Orientation::Vertical</enum>
+             <enum>Qt::Vertical</enum>
             </property>
             <property name="sizeType">
-             <enum>QSizePolicy::Policy::Minimum</enum>
+             <enum>QSizePolicy::Minimum</enum>
             </property>
             <property name="sizeHint" stdset="0">
              <size>
@@ -2385,7 +2385,7 @@ font-weight: 600;</string>
           <item>
            <spacer name="verticalSpacer_5">
             <property name="orientation">
-             <enum>Qt::Orientation::Vertical</enum>
+             <enum>Qt::Vertical</enum>
             </property>
             <property name="sizeHint" stdset="0">
              <size>
@@ -2468,7 +2468,7 @@ font-weight: 600;</string>
              </size>
             </property>
             <property name="orientation">
-             <enum>Qt::Orientation::Horizontal</enum>
+             <enum>Qt::Horizontal</enum>
             </property>
            </widget>
           </item>
@@ -2712,7 +2712,7 @@ font-weight: 600;</string>
             <item row="2" column="0">
              <spacer name="verticalSpacer_33">
               <property name="orientation">
-               <enum>Qt::Orientation::Vertical</enum>
+               <enum>Qt::Vertical</enum>
               </property>
               <property name="sizeHint" stdset="0">
                <size>
@@ -2769,7 +2769,7 @@ font-weight: 600;</string>
             <item row="13" column="0">
              <spacer name="verticalSpacer_32">
               <property name="orientation">
-               <enum>Qt::Orientation::Vertical</enum>
+               <enum>Qt::Vertical</enum>
               </property>
               <property name="sizeHint" stdset="0">
                <size>
@@ -2980,7 +2980,7 @@ font-weight: 600;</string>
             <item row="2" column="0">
              <spacer name="verticalSpacer_6">
               <property name="orientation">
-               <enum>Qt::Orientation::Vertical</enum>
+               <enum>Qt::Vertical</enum>
               </property>
               <property name="sizeHint" stdset="0">
                <size>
@@ -2995,7 +2995,7 @@ font-weight: 600;</string>
           <item>
            <spacer name="verticalSpacer_29">
             <property name="orientation">
-             <enum>Qt::Orientation::Vertical</enum>
+             <enum>Qt::Vertical</enum>
             </property>
             <property name="sizeHint" stdset="0">
              <size>
@@ -3078,7 +3078,7 @@ font-weight: 600;</string>
              </size>
             </property>
             <property name="orientation">
-             <enum>Qt::Orientation::Horizontal</enum>
+             <enum>Qt::Horizontal</enum>
             </property>
            </widget>
           </item>
@@ -3147,7 +3147,7 @@ font-weight: 600;</string>
             <item row="2" column="0">
              <spacer name="verticalSpacer_40">
               <property name="orientation">
-               <enum>Qt::Orientation::Vertical</enum>
+               <enum>Qt::Vertical</enum>
               </property>
               <property name="sizeHint" stdset="0">
                <size>
@@ -3160,7 +3160,7 @@ font-weight: 600;</string>
             <item row="11" column="0">
              <spacer name="verticalSpacer_39">
               <property name="orientation">
-               <enum>Qt::Orientation::Vertical</enum>
+               <enum>Qt::Vertical</enum>
               </property>
               <property name="sizeHint" stdset="0">
                <size>
@@ -3515,7 +3515,7 @@ font-weight: 600;</string>
             <item row="15" column="0">
              <spacer name="verticalSpacer_41">
               <property name="orientation">
-               <enum>Qt::Orientation::Vertical</enum>
+               <enum>Qt::Vertical</enum>
               </property>
               <property name="sizeHint" stdset="0">
                <size>
@@ -3540,7 +3540,7 @@ font-weight: 600;</string>
           <item>
            <spacer name="verticalSpacer_42">
             <property name="orientation">
-             <enum>Qt::Orientation::Vertical</enum>
+             <enum>Qt::Vertical</enum>
             </property>
             <property name="sizeHint" stdset="0">
              <size>
@@ -3623,7 +3623,7 @@ font-weight: 600;</string>
              </size>
             </property>
             <property name="orientation">
-             <enum>Qt::Orientation::Horizontal</enum>
+             <enum>Qt::Horizontal</enum>
             </property>
            </widget>
           </item>
@@ -3743,7 +3743,7 @@ font-weight: 600;</string>
                <string>correct-horse-battery-staple</string>
               </property>
               <property name="echoMode">
-               <enum>QLineEdit::EchoMode::Password</enum>
+               <enum>QLineEdit::Password</enum>
               </property>
               <property name="placeholderText">
                <string>Password</string>
@@ -3770,7 +3770,7 @@ font-weight: 600;</string>
             <item row="2" column="0">
              <spacer name="verticalSpacer_30">
               <property name="orientation">
-               <enum>Qt::Orientation::Vertical</enum>
+               <enum>Qt::Vertical</enum>
               </property>
               <property name="sizeHint" stdset="0">
                <size>
@@ -3785,7 +3785,7 @@ font-weight: 600;</string>
           <item>
            <spacer name="verticalSpacer_2">
             <property name="orientation">
-             <enum>Qt::Orientation::Vertical</enum>
+             <enum>Qt::Vertical</enum>
             </property>
             <property name="sizeHint" stdset="0">
              <size>
@@ -3868,7 +3868,7 @@ font-weight: 600;</string>
              </size>
             </property>
             <property name="orientation">
-             <enum>Qt::Orientation::Horizontal</enum>
+             <enum>Qt::Horizontal</enum>
             </property>
            </widget>
           </item>
@@ -3934,7 +3934,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
             <item row="6" column="0">
              <spacer name="verticalSpacer_35">
               <property name="orientation">
-               <enum>Qt::Orientation::Vertical</enum>
+               <enum>Qt::Vertical</enum>
               </property>
               <property name="sizeHint" stdset="0">
                <size>
@@ -3947,7 +3947,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
             <item row="2" column="0">
              <spacer name="verticalSpacer_31">
               <property name="orientation">
-               <enum>Qt::Orientation::Vertical</enum>
+               <enum>Qt::Vertical</enum>
               </property>
               <property name="sizeHint" stdset="0">
                <size>
@@ -3994,7 +3994,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
             <item row="4" column="0">
              <spacer name="verticalSpacer_34">
               <property name="orientation">
-               <enum>Qt::Orientation::Vertical</enum>
+               <enum>Qt::Vertical</enum>
               </property>
               <property name="sizeHint" stdset="0">
                <size>
@@ -4089,7 +4089,7 @@ font-weight: 600;</string>
              </size>
             </property>
             <property name="orientation">
-             <enum>Qt::Orientation::Horizontal</enum>
+             <enum>Qt::Horizontal</enum>
             </property>
            </widget>
           </item>
@@ -4104,7 +4104,7 @@ font-weight: 600;</string>
             <item row="2" column="0">
              <spacer name="verticalSpacer_36">
               <property name="orientation">
-               <enum>Qt::Orientation::Vertical</enum>
+               <enum>Qt::Vertical</enum>
               </property>
               <property name="sizeHint" stdset="0">
                <size>
@@ -4200,7 +4200,7 @@ font-weight: 600;</string>
           <item>
            <spacer name="verticalSpacer_38">
             <property name="orientation">
-             <enum>Qt::Orientation::Vertical</enum>
+             <enum>Qt::Vertical</enum>
             </property>
             <property name="sizeHint" stdset="0">
              <size>
@@ -4273,7 +4273,7 @@ font-weight: 600;</string>
              </size>
             </property>
             <property name="orientation">
-             <enum>Qt::Orientation::Horizontal</enum>
+             <enum>Qt::Horizontal</enum>
             </property>
            </widget>
           </item>
@@ -4285,7 +4285,7 @@ font-weight: 600;</string>
             <item row="2" column="0">
              <spacer name="verticalSpacer_37">
               <property name="orientation">
-               <enum>Qt::Orientation::Vertical</enum>
+               <enum>Qt::Vertical</enum>
               </property>
               <property name="sizeHint" stdset="0">
                <size>
@@ -4378,7 +4378,7 @@ font-weight: 600;</string>
           <item>
            <spacer name="verticalSpacer_43">
             <property name="orientation">
-             <enum>Qt::Orientation::Vertical</enum>
+             <enum>Qt::Vertical</enum>
             </property>
             <property name="sizeHint" stdset="0">
              <size>
@@ -4461,7 +4461,7 @@ font-weight: 600;</string>
              </size>
             </property>
             <property name="orientation">
-             <enum>Qt::Orientation::Horizontal</enum>
+             <enum>Qt::Horizontal</enum>
             </property>
            </widget>
           </item>
@@ -4513,7 +4513,7 @@ font-weight: 600;</string>
             <item row="2" column="0">
              <spacer name="verticalSpacer_44">
               <property name="orientation">
-               <enum>Qt::Orientation::Vertical</enum>
+               <enum>Qt::Vertical</enum>
               </property>
               <property name="sizeHint" stdset="0">
                <size>
@@ -4591,7 +4591,7 @@ font-weight: 600;</string>
           <item>
            <spacer name="verticalSpacer_46">
             <property name="orientation">
-             <enum>Qt::Orientation::Vertical</enum>
+             <enum>Qt::Vertical</enum>
             </property>
             <property name="sizeHint" stdset="0">
              <size>
@@ -4664,7 +4664,7 @@ font-weight: 600;</string>
              </size>
             </property>
             <property name="orientation">
-             <enum>Qt::Orientation::Horizontal</enum>
+             <enum>Qt::Horizontal</enum>
             </property>
            </widget>
           </item>
@@ -4722,7 +4722,7 @@ font-weight: 600;</string>
                <string>Select a font</string>
               </property>
               <property name="sizeAdjustPolicy">
-               <enum>QComboBox::SizeAdjustPolicy::AdjustToContentsOnFirstShow</enum>
+               <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
               </property>
               <property name="placeholderText">
                <string/>
@@ -4754,7 +4754,7 @@ font-weight: 600;</string>
             <item row="2" column="0">
              <spacer name="verticalSpacer_45">
               <property name="orientation">
-               <enum>Qt::Orientation::Vertical</enum>
+               <enum>Qt::Vertical</enum>
               </property>
               <property name="sizeHint" stdset="0">
                <size>
@@ -4769,7 +4769,7 @@ font-weight: 600;</string>
           <item>
            <spacer name="verticalSpacer_47">
             <property name="orientation">
-             <enum>Qt::Orientation::Vertical</enum>
+             <enum>Qt::Vertical</enum>
             </property>
             <property name="sizeHint" stdset="0">
              <size>
@@ -4852,7 +4852,7 @@ font-weight: 600;</string>
              </size>
             </property>
             <property name="orientation">
-             <enum>Qt::Orientation::Horizontal</enum>
+             <enum>Qt::Horizontal</enum>
             </property>
            </widget>
           </item>
@@ -4880,10 +4880,10 @@ font-weight: 600;</string>
             <item row="2" column="0">
              <spacer name="verticalSpacer_48">
               <property name="orientation">
-               <enum>Qt::Orientation::Vertical</enum>
+               <enum>Qt::Vertical</enum>
               </property>
               <property name="sizeType">
-               <enum>QSizePolicy::Policy::Minimum</enum>
+               <enum>QSizePolicy::Minimum</enum>
               </property>
               <property name="sizeHint" stdset="0">
                <size>
@@ -5050,7 +5050,7 @@ font-weight: 600;</string>
           <item>
            <spacer name="verticalSpacer_49">
             <property name="orientation">
-             <enum>Qt::Orientation::Vertical</enum>
+             <enum>Qt::Vertical</enum>
             </property>
             <property name="sizeHint" stdset="0">
              <size>
@@ -5133,7 +5133,7 @@ font-weight: 600;</string>
              </size>
             </property>
             <property name="orientation">
-             <enum>Qt::Orientation::Horizontal</enum>
+             <enum>Qt::Horizontal</enum>
             </property>
            </widget>
           </item>
@@ -5229,7 +5229,7 @@ font-weight: 600;</string>
             <item row="2" column="0">
              <spacer name="verticalSpacer_51">
               <property name="orientation">
-               <enum>Qt::Orientation::Vertical</enum>
+               <enum>Qt::Vertical</enum>
               </property>
               <property name="sizeHint" stdset="0">
                <size>
@@ -5394,7 +5394,7 @@ font-weight: 600;</string>
           <item>
            <spacer name="verticalSpacer_50">
             <property name="orientation">
-             <enum>Qt::Orientation::Vertical</enum>
+             <enum>Qt::Vertical</enum>
             </property>
             <property name="sizeHint" stdset="0">
              <size>
@@ -5477,7 +5477,7 @@ font-weight: 600;</string>
              </size>
             </property>
             <property name="orientation">
-             <enum>Qt::Orientation::Horizontal</enum>
+             <enum>Qt::Horizontal</enum>
             </property>
            </widget>
           </item>
@@ -5520,10 +5520,10 @@ font-weight: 600;</string>
             <item row="2" column="0">
              <spacer name="verticalSpacer_53">
               <property name="orientation">
-               <enum>Qt::Orientation::Vertical</enum>
+               <enum>Qt::Vertical</enum>
               </property>
               <property name="sizeType">
-               <enum>QSizePolicy::Policy::Minimum</enum>
+               <enum>QSizePolicy::Minimum</enum>
               </property>
               <property name="sizeHint" stdset="0">
                <size>
@@ -5603,10 +5603,10 @@ font-weight: 600;</string>
                <bool>true</bool>
               </property>
               <property name="orientation">
-               <enum>Qt::Orientation::Horizontal</enum>
+               <enum>Qt::Horizontal</enum>
               </property>
               <property name="textDirection">
-               <enum>QProgressBar::Direction::TopToBottom</enum>
+               <enum>QProgressBar::TopToBottom</enum>
               </property>
               <property name="labeled" stdset="0">
                <string>true</string>
@@ -5680,7 +5680,7 @@ font-weight: 600;</string>
           <item>
            <spacer name="verticalSpacer_52">
             <property name="orientation">
-             <enum>Qt::Orientation::Vertical</enum>
+             <enum>Qt::Vertical</enum>
             </property>
             <property name="sizeHint" stdset="0">
              <size>
@@ -5763,7 +5763,7 @@ font-weight: 600;</string>
              </size>
             </property>
             <property name="orientation">
-             <enum>Qt::Orientation::Horizontal</enum>
+             <enum>Qt::Horizontal</enum>
             </property>
            </widget>
           </item>
@@ -5812,7 +5812,7 @@ font-weight: 600;</string>
             <item row="6" column="0">
              <spacer name="verticalSpacer_57">
               <property name="orientation">
-               <enum>Qt::Orientation::Vertical</enum>
+               <enum>Qt::Vertical</enum>
               </property>
               <property name="sizeHint" stdset="0">
                <size>
@@ -5832,7 +5832,7 @@ font-weight: 600;</string>
             <item row="8" column="0">
              <spacer name="verticalSpacer_56">
               <property name="orientation">
-               <enum>Qt::Orientation::Vertical</enum>
+               <enum>Qt::Vertical</enum>
               </property>
               <property name="sizeHint" stdset="0">
                <size>
@@ -5848,7 +5848,7 @@ font-weight: 600;</string>
                <number>50</number>
               </property>
               <property name="orientation">
-               <enum>Qt::Orientation::Horizontal</enum>
+               <enum>Qt::Horizontal</enum>
               </property>
              </widget>
             </item>
@@ -5861,7 +5861,7 @@ font-weight: 600;</string>
                <number>50</number>
               </property>
               <property name="orientation">
-               <enum>Qt::Orientation::Vertical</enum>
+               <enum>Qt::Vertical</enum>
               </property>
              </widget>
             </item>
@@ -5877,7 +5877,7 @@ font-weight: 600;</string>
                <number>50</number>
               </property>
               <property name="orientation">
-               <enum>Qt::Orientation::Horizontal</enum>
+               <enum>Qt::Horizontal</enum>
               </property>
              </widget>
             </item>
@@ -5891,7 +5891,7 @@ font-weight: 600;</string>
             <item row="1" column="0">
              <spacer name="verticalSpacer_55">
               <property name="orientation">
-               <enum>Qt::Orientation::Vertical</enum>
+               <enum>Qt::Vertical</enum>
               </property>
               <property name="sizeHint" stdset="0">
                <size>
@@ -5910,14 +5910,14 @@ font-weight: 600;</string>
                <number>50</number>
               </property>
               <property name="orientation">
-               <enum>Qt::Orientation::Horizontal</enum>
+               <enum>Qt::Horizontal</enum>
               </property>
              </widget>
             </item>
             <item row="4" column="1">
              <spacer name="horizontalSpacer">
               <property name="orientation">
-               <enum>Qt::Orientation::Horizontal</enum>
+               <enum>Qt::Horizontal</enum>
               </property>
               <property name="sizeHint" stdset="0">
                <size>
@@ -5932,7 +5932,7 @@ font-weight: 600;</string>
           <item>
            <spacer name="verticalSpacer_54">
             <property name="orientation">
-             <enum>Qt::Orientation::Vertical</enum>
+             <enum>Qt::Vertical</enum>
             </property>
             <property name="sizeHint" stdset="0">
              <size>
@@ -6015,7 +6015,7 @@ font-weight: 600;</string>
              </size>
             </property>
             <property name="orientation">
-             <enum>Qt::Orientation::Horizontal</enum>
+             <enum>Qt::Horizontal</enum>
             </property>
            </widget>
           </item>
@@ -6030,7 +6030,7 @@ font-weight: 600;</string>
             <item row="5" column="0">
              <spacer name="verticalSpacer_60">
               <property name="orientation">
-               <enum>Qt::Orientation::Vertical</enum>
+               <enum>Qt::Vertical</enum>
               </property>
               <property name="sizeHint" stdset="0">
                <size>
@@ -6053,7 +6053,7 @@ font-weight: 600;</string>
             <item row="1" column="1">
              <spacer name="horizontalSpacer_17">
               <property name="orientation">
-               <enum>Qt::Orientation::Horizontal</enum>
+               <enum>Qt::Horizontal</enum>
               </property>
               <property name="sizeHint" stdset="0">
                <size>
@@ -6113,7 +6113,7 @@ font-weight: 600;</string>
             <item row="11" column="0">
              <spacer name="verticalSpacer_61">
               <property name="orientation">
-               <enum>Qt::Orientation::Vertical</enum>
+               <enum>Qt::Vertical</enum>
               </property>
               <property name="sizeHint" stdset="0">
                <size>
@@ -6147,7 +6147,7 @@ font-weight: 600;</string>
             <item row="2" column="0">
              <spacer name="verticalSpacer_59">
               <property name="orientation">
-               <enum>Qt::Orientation::Vertical</enum>
+               <enum>Qt::Vertical</enum>
               </property>
               <property name="sizeHint" stdset="0">
                <size>
@@ -6220,7 +6220,7 @@ font-weight: 600;</string>
           <item>
            <spacer name="verticalSpacer_58">
             <property name="orientation">
-             <enum>Qt::Orientation::Vertical</enum>
+             <enum>Qt::Vertical</enum>
             </property>
             <property name="sizeHint" stdset="0">
              <size>
@@ -6303,7 +6303,7 @@ font-weight: 600;</string>
              </size>
             </property>
             <property name="orientation">
-             <enum>Qt::Orientation::Horizontal</enum>
+             <enum>Qt::Horizontal</enum>
             </property>
            </widget>
           </item>
@@ -6490,7 +6490,7 @@ font-weight: 600;</string>
                </size>
               </property>
               <property name="tabPosition">
-               <enum>QTabWidget::TabPosition::West</enum>
+               <enum>QTabWidget::West</enum>
               </property>
               <property name="currentIndex">
                <number>0</number>
@@ -6609,7 +6609,7 @@ font-weight: 600;</string>
              </size>
             </property>
             <property name="orientation">
-             <enum>Qt::Orientation::Horizontal</enum>
+             <enum>Qt::Horizontal</enum>
             </property>
            </widget>
           </item>
@@ -6665,7 +6665,7 @@ font-weight: 600;</string>
                <item>
                 <spacer name="verticalSpacer_68">
                  <property name="orientation">
-                  <enum>Qt::Orientation::Vertical</enum>
+                  <enum>Qt::Vertical</enum>
                  </property>
                  <property name="sizeHint" stdset="0">
                   <size>
@@ -6695,7 +6695,7 @@ font-weight: 600;</string>
                <item>
                 <spacer name="verticalSpacer_66">
                  <property name="orientation">
-                  <enum>Qt::Orientation::Vertical</enum>
+                  <enum>Qt::Vertical</enum>
                  </property>
                  <property name="sizeHint" stdset="0">
                   <size>
@@ -6725,7 +6725,7 @@ font-weight: 600;</string>
                <item>
                 <spacer name="verticalSpacer_67">
                  <property name="orientation">
-                  <enum>Qt::Orientation::Vertical</enum>
+                  <enum>Qt::Vertical</enum>
                  </property>
                  <property name="sizeHint" stdset="0">
                   <size>
@@ -6807,10 +6807,10 @@ font-weight: 600;</string>
                <item>
                 <spacer name="verticalSpacer_71">
                  <property name="orientation">
-                  <enum>Qt::Orientation::Vertical</enum>
+                  <enum>Qt::Vertical</enum>
                  </property>
                  <property name="sizeType">
-                  <enum>QSizePolicy::Policy::Minimum</enum>
+                  <enum>QSizePolicy::Minimum</enum>
                  </property>
                  <property name="sizeHint" stdset="0">
                   <size>
@@ -6850,7 +6850,7 @@ font-weight: 600;</string>
                <item>
                 <spacer name="verticalSpacer_73">
                  <property name="orientation">
-                  <enum>Qt::Orientation::Vertical</enum>
+                  <enum>Qt::Vertical</enum>
                  </property>
                  <property name="sizeHint" stdset="0">
                   <size>
@@ -6907,7 +6907,7 @@ font-weight: 600;</string>
                <item>
                 <spacer name="verticalSpacer_69">
                  <property name="orientation">
-                  <enum>Qt::Orientation::Vertical</enum>
+                  <enum>Qt::Vertical</enum>
                  </property>
                  <property name="sizeHint" stdset="0">
                   <size>
@@ -6937,7 +6937,7 @@ font-weight: 600;</string>
                <item>
                 <spacer name="verticalSpacer_74">
                  <property name="orientation">
-                  <enum>Qt::Orientation::Vertical</enum>
+                  <enum>Qt::Vertical</enum>
                  </property>
                  <property name="sizeHint" stdset="0">
                   <size>
@@ -6967,7 +6967,7 @@ font-weight: 600;</string>
                <item>
                 <spacer name="verticalSpacer_65">
                  <property name="orientation">
-                  <enum>Qt::Orientation::Vertical</enum>
+                  <enum>Qt::Vertical</enum>
                  </property>
                  <property name="sizeHint" stdset="0">
                   <size>
@@ -7010,10 +7010,10 @@ font-weight: 600;</string>
                <item>
                 <spacer name="verticalSpacer_70">
                  <property name="orientation">
-                  <enum>Qt::Orientation::Vertical</enum>
+                  <enum>Qt::Vertical</enum>
                  </property>
                  <property name="sizeType">
-                  <enum>QSizePolicy::Policy::Minimum</enum>
+                  <enum>QSizePolicy::Minimum</enum>
                  </property>
                  <property name="sizeHint" stdset="0">
                   <size>
@@ -7053,7 +7053,7 @@ font-weight: 600;</string>
                <item>
                 <spacer name="verticalSpacer_72">
                  <property name="orientation">
-                  <enum>Qt::Orientation::Vertical</enum>
+                  <enum>Qt::Vertical</enum>
                  </property>
                  <property name="sizeHint" stdset="0">
                   <size>
@@ -7084,7 +7084,7 @@ font-weight: 600;</string>
           <item>
            <spacer name="verticalSpacer_64">
             <property name="orientation">
-             <enum>Qt::Orientation::Vertical</enum>
+             <enum>Qt::Vertical</enum>
             </property>
             <property name="sizeHint" stdset="0">
              <size>
@@ -7154,7 +7154,7 @@ font-weight: 600;</string>
        <item>
         <spacer name="horizontalSpacer_3">
          <property name="orientation">
-          <enum>Qt::Orientation::Horizontal</enum>
+          <enum>Qt::Horizontal</enum>
          </property>
          <property name="sizeHint" stdset="0">
           <size>

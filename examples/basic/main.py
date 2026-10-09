@@ -56,9 +56,18 @@ def _load_ui(ui_file: str | Path, base_instance: QtWidgets.QWidget) -> QtWidgets
 
         return _loadUi(path, base_instance)
     if API_NAME == "PyQt5":
+        import io
+        import re
+
         from PyQt5.uic import loadUi as _loadUi
 
-        return _loadUi(path, base_instance)
+        raw_xml = Path(path).read_text(encoding="utf-8")
+        clean_xml = re.sub(
+            r"<enum>([A-Za-z0-9_]+)::[A-Za-z0-9_]+::([A-Za-z0-9_]+)</enum>",
+            r"<enum>\1::\2</enum>",
+            raw_xml,
+        )
+        return _loadUi(io.StringIO(clean_xml), base_instance)
     raise RuntimeError(f"Unsupported Qt binding: {API_NAME}")
 
 
