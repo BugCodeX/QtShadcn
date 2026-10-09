@@ -231,6 +231,24 @@ class GalleryUiWindow(QtWidgets.QMainWindow):
         # ==================================[THEME EDITOR]===================================
         self._setup_theme_editor()
 
+        # Fill the scroll area with many labels to force scrolling
+        if hasattr(self.ui, "scrollAreaWidgetContents") and self.ui.scrollAreaWidgetContents.layout():
+            layout = self.ui.scrollAreaWidgetContents.layout()
+            # Clear existing placeholder labels if any
+            while layout.count():
+                item = layout.takeAt(0)
+                if item.widget():
+                    item.widget().deleteLater()
+            
+            # Insert 50 labels
+            for i in range(1, 51):
+                lbl = QtWidgets.QLabel(
+                    f"Scrollable item {i} — representing some tall content. "
+                    "This text is here to ensure the scrollbar is fully visible and styled."
+                )
+                layout.addWidget(lbl)
+
+
     # ------------------------------------------------------------------
     # Theme editor wiring
     # ------------------------------------------------------------------
