@@ -104,7 +104,7 @@ QtShadcn currently ships QSS for:
 - `QCheckBox` — toggle controls with themed check icons and disabled states
 - `QRadioButton` — radio controls with themed checked icons
 - `QLineEdit` — input states including focus, disabled, and invalid
-- `QTextEdit` — textarea states including focus, disabled, and invalid
+- `QTextEdit` and `QPlainTextEdit` — textarea states including focus, disabled, and invalid
 - `QComboBox` and `QFontComboBox` — dropdowns, popups, and invalid states
 - `QProgressBar` — determinate, thin, and disabled states
 - `QSlider` — horizontal, vertical, tick, and disabled states

@@ -14,6 +14,7 @@ QtShadcn is becoming a complete shadcn/ui-inspired theming layer for Qt desktop 
 - ✅ `QFontComboBox`
 - ✅ `QLineEdit`
 - ✅ `QTextEdit`
+- ✅ `QPlainTextEdit`
 - ✅ `QLabel`
 - ✅ `QGroupBox`
 - ✅ `QFrame`
@@ -31,7 +32,6 @@ QtShadcn is becoming a complete shadcn/ui-inspired theming layer for Qt desktop 
 
 ## Not implemented
 
-- ⬜ `QPlainTextEdit`
 - ⬜ `QListView`
 - ⬜ `QTreeView`
 - ⬜ `QTableView`
