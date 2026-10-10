@@ -1135,3 +1135,76 @@ QScrollArea > QWidget#qt_scrollarea_viewport {
     background-color: transparent;
     border-radius: {{ Radius.resolveRadius(tokens.radius, "md") }};
 }
+
+/* ============================================================
+   QToolBox
+   ============================================================ */
+
+QToolBox {
+    background-color: transparent;
+    border: none;
+}
+
+QToolBox[variant="outline"] {
+    border: 1px solid {{ tokens.border }};
+    border-radius: {{ Radius.resolveRadius(tokens.radius, "xl") }};
+}
+
+QToolBox[variant="card"] {
+    color: {{ tokens.foreground }};
+    background-color: {{ tokens.card }};
+    border: 1px solid {{ tokens.border }};
+    border-radius: {{ Radius.resolveRadius(tokens.radius, "xl") }};
+}
+
+QToolBox QScrollArea {
+    background-color: transparent;
+    border: none;
+}
+
+QToolBox > QWidget > QWidget {
+    background-color: transparent;
+}
+
+QToolBox::tab {
+    background: transparent;
+    color: {{ tokens.foreground }};
+    border: none;
+    border-bottom: 1px solid {{ tokens.border }};
+    border-radius: 0px;
+    padding: 0px {{ Scale.resolveSpacing(tokens.spacing, 2) }};
+    min-height: {{ Scale.resolveSpacing(tokens.spacing, 10) }};
+    font-size: {{ Typography.FontSize.SM }};
+    font-weight: {{ Typography.FontWeight.MEDIUM }};
+    text-align: left;
+    background-image: url("{{ Icons.getIconUrl("chevron-down", tokens.muted_foreground) }}");
+    background-position: right center;
+    background-repeat: no-repeat;
+    background-origin: content;
+}
+
+QToolBox[variant="outline"]::tab,
+QToolBox[variant="card"]::tab {
+    padding: 0px {{ Scale.resolveSpacing(tokens.spacing, 6) }};
+}
+
+QToolBox::tab:selected {
+    background-color: transparent;
+    color: {{ tokens.foreground }};
+    font-weight: {{ Typography.FontWeight.SEMI_BOLD }};
+    background-image: url("{{ Icons.getIconUrl("chevron-up", tokens.foreground) }}");
+}
+
+QToolBox::tab:disabled {
+    color: {{ Colors.withAlpha(tokens.muted_foreground, 0.5) }};
+}
+
+QToolBox::tab:last:!selected {
+    border-bottom: none;
+}
+
+QToolBox[variant="outline"]::tab:last:!selected,
+QToolBox[variant="card"]::tab:last:!selected {
+    border-bottom-left-radius: {{ Radius.resolveRadius(tokens.radius, "lg") }};
+    border-bottom-right-radius: {{ Radius.resolveRadius(tokens.radius, "lg") }};
+}

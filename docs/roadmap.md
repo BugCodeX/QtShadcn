@@ -24,6 +24,7 @@ QtShadcn is becoming a complete shadcn/ui-inspired theming layer for Qt desktop 
 - ✅ `QDoubleSpinBox`
 - ✅ `QSpinBox`
 - ✅ `QTabWidget`
+- ✅ `QToolBox`
 
 - ✅ `QScrollArea`
 - ✅ `QScrollBar`
@@ -39,7 +40,6 @@ QtShadcn is becoming a complete shadcn/ui-inspired theming layer for Qt desktop 
 - ⬜ `QTreeWidget`
 - ⬜ `QTableWidget`
 - ⬜ `QStackedWidget`
-- ⬜ `QToolBox`
 - ⬜ `QDialogButtonBox`
 - ⬜ `QDateEdit`
 - ⬜ `QTimeEdit`

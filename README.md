@@ -109,6 +109,7 @@ QtShadcn currently ships QSS for:
 - `QProgressBar` — determinate, thin, and disabled states
 - `QSlider` — horizontal, vertical, tick, and disabled states
 - `QScrollArea` and `QScrollBar` — scroll containers with pill-shaped, minimal tracks
+- `QToolBox` — accordion with collapsible sections, dynamic chevrons, and outline/card variants
 - `QGroupBox` and `QFrame` — layout containers
 
 See the [roadmap](docs/roadmap.md) for what is planned next.

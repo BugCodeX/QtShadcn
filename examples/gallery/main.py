@@ -57,7 +57,7 @@ PAGES: dict[str, str] = {
     "Slider": "slider_page",
     "Tabs": "tabs_page",
     "Textarea": "textarea_page",
-    "Scroll": "scroll_page",
+    "Accordion": "accordion_page",
 }
 
 _HEX_RE = re.compile(r"^#[0-9A-Fa-f]{6}$")
