@@ -20,6 +20,14 @@ QTabWidget > QWidget {
     border: none;
 }
 
+QScrollArea,
+QStackedWidget,
+QWidget > QToolBox,
+QToolBox > QWidget,
+QTabWidget > QWidget {
+  border: none;
+}
+
 /* ============================================================
    QFrame
    ============================================================ */
@@ -1207,4 +1215,125 @@ QToolBox[variant="outline"]::tab:last:!selected,
 QToolBox[variant="card"]::tab:last:!selected {
     border-bottom-left-radius: {{ Radius.resolveRadius(tokens.radius, "lg") }};
     border-bottom-right-radius: {{ Radius.resolveRadius(tokens.radius, "lg") }};
+}
+
+/* ============================================================
+   QTableView / QHeaderView
+   ============================================================ */
+
+QTableView {
+    background-color: transparent;
+    color: {{ tokens.foreground }};
+    border: none;
+    gridline-color: transparent;
+    qproperty-showGrid: "false"; 
+    outline: none;
+    font-size: {{ Typography.FontSize.SM }};
+    selection-background-color: {{ tokens.muted }};
+    selection-color: {{ tokens.foreground }};
+}
+
+QTableView::item {
+    padding: {{ Scale.resolveSpacing(tokens.spacing, 2) }} {{ Scale.resolveSpacing(tokens.spacing, 4) }};
+    border: none;
+    border-bottom: 1px solid {{ tokens.border }};
+}
+
+QTableView::item:hover {
+    background-color: {{ Colors.withAlpha(tokens.muted, 0.5) }};
+}
+
+QTableView::item:selected {
+    background-color: {{ tokens.muted }};
+    color: {{ tokens.foreground }};
+}
+
+QTableView::item:disabled {
+    color: {{ Colors.withAlpha(tokens.muted_foreground, 0.5) }};
+}
+
+QHeaderView {
+    background-color: transparent;
+    border: none;
+}
+
+QHeaderView::section {
+    background-color: transparent;
+    color: {{ tokens.muted_foreground }};
+    font-size: {{ Typography.FontSize.SM }};
+    font-weight: {{ Typography.FontWeight.MEDIUM }};
+    padding: {{ Scale.resolveSpacing(tokens.spacing, 2) }} {{ Scale.resolveSpacing(tokens.spacing, 4) }};
+    border: none;
+    border-bottom: 1px solid {{ tokens.border }};
+}
+
+QHeaderView::section:vertical {
+    border-bottom: 1px solid {{ tokens.border }};
+}
+
+QHeaderView::down-arrow {
+    image: url("{{ Icons.getIconUrl("chevron-down", tokens.muted_foreground) }}");
+    width: {{ Scale.resolveSpacing(tokens.spacing, 3) }};
+    height: {{ Scale.resolveSpacing(tokens.spacing, 3) }};
+    padding-right: {{ Scale.resolveSpacing(tokens.spacing, 1) }};
+}
+
+QHeaderView::up-arrow {
+    image: url("{{ Icons.getIconUrl("chevron-up", tokens.muted_foreground) }}");
+    width: {{ Scale.resolveSpacing(tokens.spacing, 3) }};
+    height: {{ Scale.resolveSpacing(tokens.spacing, 3) }};
+    padding-right: {{ Scale.resolveSpacing(tokens.spacing, 1) }};
+}
+
+QTableCornerButton::section {
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid {{ tokens.border }};
+}
+
+QTableView QLineEdit {
+    background-color: {{ tokens.background }};
+    color: {{ tokens.foreground }};
+    border: 1px solid {{ tokens.ring }};
+    border-radius: {{ Radius.resolveRadius(tokens.radius, "sm") }};
+    padding: 0px {{ Scale.resolveSpacing(tokens.spacing, 1.5) }};
+    margin: 0px;
+    min-height: 0px;
+}
+
+QTableView::indicator {
+    width: {{ Scale.resolveSpacing(tokens.spacing, 4) }};
+    height: {{ Scale.resolveSpacing(tokens.spacing, 4) }};
+    border: 1px solid {{ tokens.input }};
+    border-radius: {{ Radius.resolveRadius(tokens.radius, "sm") }};
+    background: {{ Colors.withAlpha(tokens.input, 0.3) if is_dark else "transparent" }};
+}
+
+QTableView::indicator:hover {
+    border-color: {{ Colors.withAlpha(tokens.ring, 0.5) }};
+}
+
+QTableView::indicator:checked,
+QTableView::indicator:indeterminate {
+    background: {{ tokens.primary }};
+    border-color: {{ tokens.primary }};
+}
+
+QTableView::indicator:checked {
+    image: url("{{ Icons.getIconUrl("checkbox-check", tokens.primary_foreground) }}");
+}
+
+QTableView::indicator:indeterminate {
+    image: url("{{ Icons.getIconUrl("checkbox-indeterminate", tokens.primary_foreground) }}");
+}
+
+QTableView::indicator:disabled {
+    background: {{ Colors.withAlpha(tokens.muted, 0.5) }};
+    border-color: {{ Colors.withAlpha(tokens.input, 0.5) }};
+}
+
+QTableView::indicator:checked:disabled,
+QTableView::indicator:indeterminate:disabled {
+    background: {{ Colors.withAlpha(tokens.primary, 0.5) }};
+    border-color: {{ Colors.withAlpha(tokens.primary, 0.5) }};
 }

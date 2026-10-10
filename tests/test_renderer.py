@@ -653,6 +653,217 @@ class TestRenderer:
         """Test that the template file exists."""
         assert Path(TEMPLATE_FILE).exists()
 
+    def test_table_view_selectors_are_present(self):
+        """Test that QTableView and QHeaderView selectors are rendered."""
+        tokens = _tokens()
+        qss = _build_theme(tokens)
+
+        assert "QTableView {" in qss
+        assert "QTableView::item {" in qss
+        assert "QTableView::item:hover {" in qss
+        assert "QTableView::item:selected {" in qss
+        assert "QTableView::item:disabled {" in qss
+        assert "QHeaderView {" in qss
+        assert "QHeaderView::section {" in qss
+        assert "QHeaderView::section:vertical {" in qss
+        assert "QHeaderView::down-arrow {" in qss
+        assert "QHeaderView::up-arrow {" in qss
+        assert "QTableCornerButton::section {" in qss
+        assert "QTableView QLineEdit {" in qss
+        assert "QTableView::indicator {" in qss
+        assert "QTableView::indicator:hover {" in qss
+        assert "QTableView::indicator:checked {" in qss
+        assert "QTableView::indicator:indeterminate {" in qss
+        assert "QTableView::indicator:disabled {" in qss
+
+    def test_table_view_semantics_are_rendered(self):
+        """Test that QTableView renders shadcn table semantics."""
+        tokens = _tokens(
+            spacing="4px",
+            background="#ffffff",
+            foreground="#020617",
+            border="#e2e8f0",
+            muted="#f1f5f9",
+            muted_foreground="#64748b",
+            ring="#0f172a",
+            input="#e2e8f0",
+            primary="#0f172a",
+            primary_foreground="#f8fafc",
+        )
+        qss = _build_theme(tokens)
+
+        assert _selector_block_contains(
+            qss,
+            "QTableView {",
+            "background-color: transparent;",
+            "color: #020617;",
+            "border: none;",
+            "gridline-color: transparent;",
+            "outline: none;",
+            "font-size: 14px;",
+            "selection-background-color: #f1f5f9;",
+            "selection-color: #020617;",
+        )
+        assert _selector_block_contains(
+            qss,
+            "QTableView::item {",
+            "padding: 8px 16px;",
+            "border: none;",
+            "border-bottom: 1px solid #e2e8f0;",
+        )
+        assert _selector_block_contains(
+            qss,
+            "QTableView::item:selected {",
+            "background-color: #f1f5f9;",
+            "color: #020617;",
+        )
+
+    def test_header_view_semantics_are_rendered(self):
+        """Test that QHeaderView renders shadcn header semantics."""
+        tokens = _tokens(
+            spacing="4px",
+            border="#e2e8f0",
+            muted_foreground="#64748b",
+        )
+        qss = _build_theme(tokens)
+
+        assert _selector_block_contains(
+            qss,
+            "QHeaderView {",
+            "background-color: transparent;",
+            "border: none;",
+        )
+        assert _selector_block_contains(
+            qss,
+            "QHeaderView::section {",
+            "background-color: transparent;",
+            "color: #64748b;",
+            "font-size: 14px;",
+            "font-weight: 500;",
+            "padding: 8px 16px;",
+            "border: none;",
+            "border-bottom: 1px solid #e2e8f0;",
+        )
+
+    def test_table_corner_button_is_rendered(self):
+        """Test that QTableCornerButton::section renders border tokens."""
+        tokens = _tokens(border="#e2e8f0")
+        qss = _build_theme(tokens)
+
+        assert _selector_block_contains(
+            qss,
+            "QTableCornerButton::section {",
+            "background-color: transparent;",
+            "border: none;",
+            "border-bottom: 1px solid #e2e8f0;",
+        )
+
+    def test_table_view_line_edit_is_rendered(self):
+        """Test that QTableView QLineEdit renders inline-editor semantics."""
+        tokens = _tokens(
+            spacing="4px",
+            background="#ffffff",
+            foreground="#020617",
+            ring="#0f172a",
+            radius="8px",
+        )
+        qss = _build_theme(tokens)
+
+        assert _selector_block_contains(
+            qss,
+            "QTableView QLineEdit {",
+            "background-color: #ffffff;",
+            "color: #020617;",
+            "border: 1px solid #0f172a;",
+            "padding: 0px 6px;",
+            "margin: 0px;",
+            "min-height: 0px;",
+        )
+
+    def test_table_view_indicator_light_mode_is_transparent(self):
+        """Test that QTableView::indicator background is transparent in light mode."""
+        tokens = _tokens(
+            spacing="4px", input="#e2e8f0", primary="#0f172a", primary_foreground="#f8fafc"
+        )
+        qss = _build_theme(tokens, is_dark=False)
+
+        assert _selector_block_contains(
+            qss,
+            "QTableView::indicator {",
+            "background: transparent;",
+            "border: 1px solid #e2e8f0;",
+        )
+
+    def test_table_view_indicator_dark_mode_uses_input_alpha(self):
+        """Test that QTableView::indicator background uses input/30 alpha in dark mode."""
+        tokens = _tokens(spacing="4px", input="#343434")
+        qss = _build_theme(tokens, is_dark=True)
+
+        assert _selector_block_contains(
+            qss,
+            "QTableView::indicator {",
+            "background: rgba(52, 52, 52, 0.3);",
+        )
+
+    def test_table_view_indicator_checked_uses_primary(self):
+        """Test that QTableView::indicator checked/indeterminate use primary token."""
+        tokens = _tokens(primary="#0f172a", primary_foreground="#f8fafc")
+        qss = _build_theme(tokens)
+
+        assert _selector_block_contains(
+            qss,
+            "QTableView::indicator:checked {",
+            'image: url("',
+        )
+        assert "checkbox-check" in qss
+        assert "checkbox-indeterminate" in qss
+        assert _selector_block_contains(
+            qss,
+            "QTableView::indicator:checked,",
+            "background: #0f172a;",
+            "border-color: #0f172a;",
+        )
+
+    def test_table_view_indicator_disabled_uses_muted(self):
+        """Test that QTableView::indicator disabled uses muted token at 50% opacity."""
+        tokens = _tokens(muted="#f1f5f9", input="#e2e8f0", primary="#0f172a")
+        qss = _build_theme(tokens)
+
+        assert _selector_block_contains(
+            qss,
+            "QTableView::indicator:disabled {",
+            "background: rgba(241, 245, 249, 0.5);",
+            "border-color: rgba(226, 232, 240, 0.5);",
+        )
+        assert _selector_block_contains(
+            qss,
+            "QTableView::indicator:checked:disabled,",
+            "background: rgba(15, 23, 42, 0.5);",
+            "border-color: rgba(15, 23, 42, 0.5);",
+        )
+
+    def test_header_view_arrows_use_chevron_icons(self):
+        """Test that QHeaderView sort arrows use chevron SVG icons."""
+        tokens = _tokens(spacing="4px", muted_foreground="#64748b")
+        qss = _build_theme(tokens)
+
+        assert _selector_block_contains(
+            qss,
+            "QHeaderView::down-arrow {",
+            "width: 12px;",
+            "height: 12px;",
+            "padding-right: 4px;",
+        )
+        assert _selector_block_contains(
+            qss,
+            "QHeaderView::up-arrow {",
+            "width: 12px;",
+            "height: 12px;",
+            "padding-right: 4px;",
+        )
+        assert "chevron-down" in qss
+        assert "chevron-up" in qss
+
 
 def test_compiled_template_is_cached():
     """Repeated renders reuse the compiled template instead of re-compiling it."""
