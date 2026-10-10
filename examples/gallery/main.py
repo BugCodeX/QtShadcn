@@ -237,6 +237,10 @@ class GalleryUiWindow(QtWidgets.QMainWindow):
         if hasattr(self.ui, "table_view_invoices"):
             self._setup_table_page()
 
+        # ==================================[DATEPICKER PAGE]=================================
+        if hasattr(self.ui, "date_edit_picker"):
+            self._setup_datepicker_page()
+
         # Fill the scroll area with many labels to force scrolling
         if (
             hasattr(self.ui, "scrollAreaWidgetContents")
@@ -260,6 +264,22 @@ class GalleryUiWindow(QtWidgets.QMainWindow):
     # ------------------------------------------------------------------
     # Table demo wiring
     # ------------------------------------------------------------------
+
+
+    # ------------------------------------------------------------------
+    # DatePicker demo wiring
+    # ------------------------------------------------------------------
+
+    def _setup_datepicker_page(self) -> None:
+        """Configure default date for the QDateEdit if present."""
+        date_edit = getattr(self.ui, "date_edit_picker", None)
+        if date_edit:
+            date_edit.setDate(QtCore.QDate.currentDate())
+            
+            # Hide week numbers on the calendar widget if accessible
+            cal = date_edit.calendarWidget()
+            if cal:
+                cal.setVerticalHeaderFormat(QtWidgets.QCalendarWidget.VerticalHeaderFormat.NoVerticalHeader)
 
     def _setup_table_page(self) -> None:
         """Configure and populate QTableView with the shadcn invoice dataset."""
