@@ -3,7 +3,7 @@
 from .exceptions import QtBindingError, QtShadcnError, ThemeParseError, ThemeRenderError
 from .models import ShadcnTheme, ShadcnThemeTokens
 
-__version__ = "0.9.0"
+__version__ = "1.0.0"
 
 from .common.config import ThemeMode, qsettings
 from .common.font import (

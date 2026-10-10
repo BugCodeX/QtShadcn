@@ -1,3 +1,22 @@
+## [1.0.0] - 2026-10-10
+
+## What's New
+
+- Added `QTableView` and `QTableWidget` styling replicating the shadcn/ui table specification with transparent background, subtle horizontal dividers, header styling, and seamless row selection.
+- Added support for in-cell editor styling (`QTableView QLineEdit`) with focused ring outlines and reset geometry.
+- Added support for checkable table indicators (`QTableView::indicator`) matching `QCheckBox` styling with dynamic light/dark alpha backgrounds and themed check/indeterminate SVGs.
+- Added Table component showcase in the gallery (`examples/gallery`) with interactive checkable invoices and aligned numeric columns.
+
+## Verification
+
+```bash
+pip install qtshadcn==1.0.0
+python -c "import qtshadcn; print(qtshadcn.__version__)"
+make test
+```
+
+---
+
 ## [0.9.0] - 2026-10-09
 
 ## What's New
