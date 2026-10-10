@@ -219,6 +219,7 @@ QtShadcn ships QSS for these widgets:
 - `QSlider` — horizontal, vertical, tick, and disabled states
 - `QScrollArea` and `QScrollBar` — scroll containers with pill-shaped, minimal tracks
 - `QToolBox` — accordion with collapsible sections, dynamic chevrons, and outline/card variants
+- `QDateEdit`, `QTimeEdit`, `QDateTimeEdit`, and `QCalendarWidget` — date pickers with custom card popovers, dynamic chevron navigation, transparent headers, and seamlessly styled grids
 - `QTableView` and `QTableWidget` — data tables with header styling, horizontal dividers, cell hover/selection, in-cell editors, and checkable indicators
 - `QGroupBox` and `QFrame` — layout containers
 
