@@ -675,6 +675,13 @@ class TestRenderer:
         assert "QTableView::indicator:checked {" in qss
         assert "QTableView::indicator:indeterminate {" in qss
         assert "QTableView::indicator:disabled {" in qss
+        assert "QDateEdit::drop-down {" in qss
+        assert "QTimeEdit::drop-down {" in qss
+        assert "QDateTimeEdit::drop-down {" in qss
+        assert "QCalendarWidget QWidget {" in qss
+        assert "QCalendarWidget QWidget#qt_calendar_navigationbar {" in qss
+        assert "QCalendarWidget QToolButton {" in qss
+        assert "QCalendarWidget QTableView {" in qss
 
     def test_table_view_semantics_are_rendered(self):
         """Test that QTableView renders shadcn table semantics."""

@@ -758,7 +758,10 @@ QPlainTextEdit[invalid="true"] {
    ============================================================ */
 
 QSpinBox,
-QDoubleSpinBox {
+QDoubleSpinBox,
+QDateEdit,
+QTimeEdit,
+QDateTimeEdit {
   background: {{ input_bg }};
   color: {{ tokens.foreground }};
   border: 1px solid {{ tokens.input }};
@@ -773,13 +776,19 @@ QDoubleSpinBox {
 }
 
 QSpinBox:focus,
-QDoubleSpinBox:focus {
+QDoubleSpinBox:focus,
+QDateEdit:focus,
+QTimeEdit:focus,
+QDateTimeEdit:focus {
   border-color: {{ tokens.ring }};
   outline: 3px solid {{ Colors.withAlpha(tokens.ring, 0.5) }};
 }
 
 QSpinBox:disabled,
-QDoubleSpinBox:disabled {
+QDoubleSpinBox:disabled,
+QDateEdit:disabled,
+QTimeEdit:disabled,
+QDateTimeEdit:disabled {
   background: {{ Colors.withAlpha(tokens.input, 0.8 if is_dark else 0.5) }};
   color: {{ Colors.withAlpha(tokens.muted_foreground, 0.5) }};
   border-color: {{ Colors.withAlpha(tokens.input, 0.5) }};
@@ -787,14 +796,20 @@ QDoubleSpinBox:disabled {
 }
 
 QSpinBox[invalid="true"],
-QDoubleSpinBox[invalid="true"] {
+QDoubleSpinBox[invalid="true"],
+QDateEdit[invalid="true"],
+QTimeEdit[invalid="true"],
+QDateTimeEdit[invalid="true"] {
   color: {{ tokens.destructive }};
   border-color: {{ invalid_border }};
   outline: 3px solid {{ invalid_outline }};
 }
 
 QSpinBox::up-button,
-QDoubleSpinBox::up-button {
+QDoubleSpinBox::up-button,
+QDateEdit::up-button,
+QTimeEdit::up-button,
+QDateTimeEdit::up-button {
   width: {{ Scale.resolveSpacing(tokens.spacing, 8) }};
   border: none;
   background: transparent;
@@ -806,7 +821,10 @@ QDoubleSpinBox::up-button {
 }
 
 QSpinBox::down-button,
-QDoubleSpinBox::down-button {
+QDoubleSpinBox::down-button,
+QDateEdit::down-button,
+QTimeEdit::down-button,
+QDateTimeEdit::down-button {
   width: {{ Scale.resolveSpacing(tokens.spacing, 8) }};
   border: none;
   background: transparent;
@@ -819,66 +837,108 @@ QDoubleSpinBox::down-button {
 
 QSpinBox::up-button:hover,
 QDoubleSpinBox::up-button:hover,
+QDateEdit::up-button:hover,
+QTimeEdit::up-button:hover,
+QDateTimeEdit::up-button:hover,
 QSpinBox::down-button:hover,
-QDoubleSpinBox::down-button:hover {
+QDoubleSpinBox::down-button:hover,
+QDateEdit::down-button:hover,
+QTimeEdit::down-button:hover,
+QDateTimeEdit::down-button:hover {
   background: {{ tokens.muted }};
 }
 
 QSpinBox::up-button:pressed,
 QDoubleSpinBox::up-button:pressed,
+QDateEdit::up-button:pressed,
+QTimeEdit::up-button:pressed,
+QDateTimeEdit::up-button:pressed,
 QSpinBox::down-button:pressed,
-QDoubleSpinBox::down-button:pressed {
+QDoubleSpinBox::down-button:pressed,
+QDateEdit::down-button:pressed,
+QTimeEdit::down-button:pressed,
+QDateTimeEdit::down-button:pressed {
   background: {{ tokens.accent }};
 }
 
 QSpinBox::up-button:disabled,
 QDoubleSpinBox::up-button:disabled,
+QDateEdit::up-button:disabled,
+QTimeEdit::up-button:disabled,
+QDateTimeEdit::up-button:disabled,
 QSpinBox::down-button:disabled,
-QDoubleSpinBox::down-button:disabled {
+QDoubleSpinBox::down-button:disabled,
+QDateEdit::down-button:disabled,
+QTimeEdit::down-button:disabled,
+QDateTimeEdit::down-button:disabled {
   background: {{ Colors.withAlpha(tokens.muted, 0.5) }};
 }
 
 QSpinBox::up-arrow,
-QDoubleSpinBox::up-arrow {
+QDoubleSpinBox::up-arrow,
+QDateEdit::up-arrow,
+QTimeEdit::up-arrow,
+QDateTimeEdit::up-arrow {
   width: {{ Scale.resolveSpacing(tokens.spacing, 4) }};
   height: {{ Scale.resolveSpacing(tokens.spacing, 4) }};
   image: url("{{ Icons.getIconUrl("chevron-up", tokens.muted_foreground) }}");
 }
 
 QSpinBox::down-arrow,
-QDoubleSpinBox::down-arrow {
+QDoubleSpinBox::down-arrow,
+QDateEdit::down-arrow,
+QTimeEdit::down-arrow,
+QDateTimeEdit::down-arrow {
   width: {{ Scale.resolveSpacing(tokens.spacing, 4) }};
   height: {{ Scale.resolveSpacing(tokens.spacing, 4) }};
   image: url("{{ Icons.getIconUrl("chevron-down", tokens.muted_foreground) }}");
 }
 
 QSpinBox::up-arrow:hover,
-QDoubleSpinBox::up-arrow:hover {
+QDoubleSpinBox::up-arrow:hover,
+QDateEdit::up-arrow:hover,
+QTimeEdit::up-arrow:hover,
+QDateTimeEdit::up-arrow:hover {
   image: url("{{ Icons.getIconUrl("chevron-up", tokens.foreground) }}");
 }
 
 QSpinBox::down-arrow:hover,
-QDoubleSpinBox::down-arrow:hover {
+QDoubleSpinBox::down-arrow:hover,
+QDateEdit::down-arrow:hover,
+QTimeEdit::down-arrow:hover,
+QDateTimeEdit::down-arrow:hover {
   image: url("{{ Icons.getIconUrl("chevron-down", tokens.foreground) }}");
 }
 
 QSpinBox::up-arrow:disabled,
-QDoubleSpinBox::up-arrow:disabled {
+QDoubleSpinBox::up-arrow:disabled,
+QDateEdit::up-arrow:disabled,
+QTimeEdit::up-arrow:disabled,
+QDateTimeEdit::up-arrow:disabled {
   image: url("{{ Icons.getIconUrl("chevron-up", Colors.withAlpha(tokens.muted_foreground, 0.5)) }}");
 }
 
 QSpinBox::down-arrow:disabled,
-QDoubleSpinBox::down-arrow:disabled {
+QDoubleSpinBox::down-arrow:disabled,
+QDateEdit::down-arrow:disabled,
+QTimeEdit::down-arrow:disabled,
+QDateTimeEdit::down-arrow:disabled {
   image: url("{{ Icons.getIconUrl("chevron-down", Colors.withAlpha(tokens.muted_foreground, 0.5)) }}");
 }
 
 QSpinBox[invalid="true"]::up-arrow,
-QDoubleSpinBox[invalid="true"]::up-arrow {
+QDoubleSpinBox[invalid="true"]::up-arrow,
+QDateEdit[invalid="true"]::up-arrow,
+QTimeEdit[invalid="true"]::up-arrow,
+QDateTimeEdit[invalid="true"]::up-arrow {
   image: url("{{ Icons.getIconUrl("chevron-up", tokens.destructive) }}");
 }
 
 QSpinBox[invalid="true"]::down-arrow,
-QDoubleSpinBox[invalid="true"]::down-arrow {
+QDoubleSpinBox[invalid="true"]::down-arrow,
+QDateEdit[invalid="true"]::down-arrow,
+QTimeEdit[invalid="true"]::down-arrow,
+QDateTimeEdit[invalid="true"]::down-arrow {
   image: url("{{ Icons.getIconUrl("chevron-down", tokens.destructive) }}");
 }
 
@@ -1336,4 +1396,127 @@ QTableView::indicator:checked:disabled,
 QTableView::indicator:indeterminate:disabled {
     background: {{ Colors.withAlpha(tokens.primary, 0.5) }};
     border-color: {{ Colors.withAlpha(tokens.primary, 0.5) }};
+}
+
+/* ============================================================
+   QCalendarWidget & Date/Time Drop-downs
+   ============================================================ */
+
+QDateEdit::drop-down,
+QTimeEdit::drop-down,
+QDateTimeEdit::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: {{ Scale.resolveSpacing(tokens.spacing, 6) }};
+    border-left: 1px solid transparent;
+}
+
+QDateEdit::down-arrow,
+QTimeEdit::down-arrow,
+QDateTimeEdit::down-arrow {
+    image: url("{{ Icons.getIconUrl('calendar', tokens.muted_foreground) }}");
+    width: {{ Scale.resolveSpacing(tokens.spacing, 4) }};
+    height: {{ Scale.resolveSpacing(tokens.spacing, 4) }};
+}
+
+QDateEdit::down-arrow:hover,
+QTimeEdit::down-arrow:hover,
+QDateTimeEdit::down-arrow:hover {
+    image: url("{{ Icons.getIconUrl('calendar', tokens.foreground) }}");
+}
+
+QDateEdit::down-arrow:disabled,
+QTimeEdit::down-arrow:disabled,
+QDateTimeEdit::down-arrow:disabled {
+    image: url("{{ Icons.getIconUrl('calendar', Colors.withAlpha(tokens.muted_foreground, 0.5)) }}");
+}
+
+QCalendarWidget QWidget {
+    background-color: {{ tokens.popover }};
+    color: {{ tokens.popover_foreground }};
+    border-radius: {{ Radius.resolveRadius(tokens.radius, 'lg') }};
+}
+
+QCalendarWidget QWidget#qt_calendar_navigationbar {
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid {{ tokens.border }};
+    min-height: {{ Scale.resolveSpacing(tokens.spacing, 10) }};
+}
+
+QCalendarWidget QToolButton {
+    background-color: transparent;
+    color: {{ tokens.popover_foreground }};
+    border: none;
+    border-radius: {{ Radius.resolveRadius(tokens.radius, 'sm') }};
+    margin: {{ Scale.resolveSpacing(tokens.spacing, 1) }};
+    padding: {{ Scale.resolveSpacing(tokens.spacing, 1) }} {{ Scale.resolveSpacing(tokens.spacing, 3) }};
+    font-size: {{ Typography.FontSize.SM }};
+    font-weight: {{ Typography.FontWeight.MEDIUM }};
+}
+
+QCalendarWidget QToolButton:hover {
+    background-color: {{ tokens.muted }};
+    color: {{ tokens.foreground }};
+}
+
+QCalendarWidget QToolButton:pressed {
+    background-color: {{ Colors.withAlpha(tokens.muted, 0.8) }};
+}
+
+QCalendarWidget QToolButton::menu-indicator {
+    image: none;
+}
+
+QCalendarWidget QToolButton#qt_calendar_prevmonth {
+    qproperty-icon: none;
+    image: url("{{ Icons.getIconUrl('chevron-left', tokens.popover_foreground) }}");
+    padding: {{ Scale.resolveSpacing(tokens.spacing, 1.5) }};
+    width: {{ Scale.resolveSpacing(tokens.spacing, 4) }};
+    height: {{ Scale.resolveSpacing(tokens.spacing, 4) }};
+}
+
+QCalendarWidget QToolButton#qt_calendar_nextmonth {
+    qproperty-icon: none;
+    image: url("{{ Icons.getIconUrl('chevron-right', tokens.popover_foreground) }}");
+    padding: {{ Scale.resolveSpacing(tokens.spacing, 1.5) }};
+    width: {{ Scale.resolveSpacing(tokens.spacing, 4) }};
+    height: {{ Scale.resolveSpacing(tokens.spacing, 4) }};
+}
+
+QCalendarWidget QSpinBox {
+    background-color: transparent;
+    border: none;
+    color: {{ tokens.popover_foreground }};
+}
+
+QCalendarWidget QTableView {
+    background-color: transparent;
+    selection-background-color: {{ tokens.primary }};
+    selection-color: {{ tokens.primary_foreground }};
+    outline: none;
+    border: none;
+}
+
+QCalendarWidget QTableView::item {
+    border: none;
+    border-radius: {{ Radius.resolveRadius(tokens.radius, 'sm') }};
+}
+
+QCalendarWidget QTableView::item:hover {
+    background-color: {{ tokens.muted }};
+    color: {{ tokens.foreground }};
+}
+
+QCalendarWidget QTableView::item:selected {
+    background-color: {{ tokens.primary }};
+    color: {{ tokens.primary_foreground }};
+}
+
+QCalendarWidget QAbstractItemView:enabled {
+    color: {{ tokens.popover_foreground }};
+}
+
+QCalendarWidget QAbstractItemView:disabled {
+    color: {{ Colors.withAlpha(tokens.popover_foreground, 0.5) }};
 }
