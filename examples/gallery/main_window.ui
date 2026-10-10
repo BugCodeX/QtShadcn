@@ -2963,6 +2963,95 @@ font-weight: 600;</string>
           </item>
          </layout>
         </widget>
+        <widget class="QWidget" name="table_page">
+         <layout class="QVBoxLayout" name="verticalLayout_58">
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_header_2">
+            <property name="bottomMargin">
+             <number>9</number>
+            </property>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_title_2">
+              <item>
+               <widget class="QLabel" name="label_title_2">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">font-size: 20pt; font-weight: 600;</string>
+                </property>
+                <property name="text">
+                 <string>Table</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_subtitle_2">
+                <property name="text">
+                 <string>(QTableView &amp; QTableWidget)</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_description_2">
+              <property name="text">
+               <string>A vertically stacked set of interactive headings that each reveal a section of content.</string>
+              </property>
+              <property name="wordWrap">
+               <bool>true</bool>
+              </property>
+              <property name="class" stdset="0">
+               <string>muted</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <widget class="QTableView" name="table_view_invoices">
+            <property name="alternatingRowColors">
+             <bool>false</bool>
+            </property>
+            <property name="selectionMode">
+             <enum>QAbstractItemView::SelectionMode::SingleSelection</enum>
+            </property>
+            <property name="selectionBehavior">
+             <enum>QAbstractItemView::SelectionBehavior::SelectRows</enum>
+            </property>
+            <property name="showGrid">
+             <bool>true</bool>
+            </property>
+            <property name="sortingEnabled">
+             <bool>true</bool>
+            </property>
+            <attribute name="horizontalHeaderStretchLastSection">
+             <bool>false</bool>
+            </attribute>
+            <attribute name="verticalHeaderVisible">
+             <bool>false</bool>
+            </attribute>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_table_caption">
+            <property name="text">
+             <string>A list of your recent invoices.</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignmentFlag::AlignCenter</set>
+            </property>
+            <property name="class" stdset="0">
+             <string>muted small</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
         <widget class="QWidget" name="overview_page">
          <layout class="QVBoxLayout" name="verticalLayout_7">
           <property name="leftMargin">

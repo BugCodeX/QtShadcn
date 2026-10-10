@@ -58,6 +58,7 @@ PAGES: dict[str, str] = {
     "Tabs": "tabs_page",
     "Textarea": "textarea_page",
     "Accordion": "accordion_page",
+    "Table": "table_page",
 }
 
 _HEX_RE = re.compile(r"^#[0-9A-Fa-f]{6}$")
@@ -232,6 +233,10 @@ class GalleryUiWindow(QtWidgets.QMainWindow):
         # ==================================[THEME EDITOR]===================================
         self._setup_theme_editor()
 
+        # ==================================[TABLE PAGE]=====================================
+        if hasattr(self.ui, "table_view_invoices"):
+            self._setup_table_page()
+
         # Fill the scroll area with many labels to force scrolling
         if (
             hasattr(self.ui, "scrollAreaWidgetContents")
@@ -251,6 +256,60 @@ class GalleryUiWindow(QtWidgets.QMainWindow):
                     "This text is here to ensure the scrollbar is fully visible and styled."
                 )
                 layout.addWidget(lbl)
+
+    # ------------------------------------------------------------------
+    # Table demo wiring
+    # ------------------------------------------------------------------
+
+    def _setup_table_page(self) -> None:
+        """Configure and populate QTableView with the shadcn invoice dataset."""
+        headers = ["Invoice", "Status", "Method", "Amount"]
+        model = QtGui.QStandardItemModel(0, len(headers), self)
+        model.setHorizontalHeaderLabels(headers)
+
+        invoices = [
+            ("INV001", "Paid", "Credit Card", "$250.00", True),
+            ("INV002", "Pending", "PayPal", "$150.00", False),
+            ("INV003", "Unpaid", "Bank Transfer", "$350.00", False),
+            ("INV004", "Paid", "Credit Card", "$450.00", True),
+            ("INV005", "Paid", "PayPal", "$550.00", True),
+            ("INV006", "Pending", "Bank Transfer", "$200.00", False),
+            ("INV008", "Unpaid", "Credit Card", "$300.00", False),
+            ("INV009", "Paid", "Credit Card", "$250.00", True),
+            ("INV010", "Pending", "PayPal", "$150.00", False),
+            ("INV011", "Unpaid", "Bank Transfer", "$350.00", False),
+            ("INV012", "Paid", "Credit Card", "$450.00", True),
+            ("INV013", "Paid", "PayPal", "$550.00", True),
+            ("INV014", "Pending", "Bank Transfer", "$200.00", False),
+            ("INV015", "Unpaid", "Credit Card", "$300.00", False),
+        ]
+
+        for invoice, status, method, amount, checked in invoices:
+            item_invoice = QtGui.QStandardItem(invoice)
+            item_invoice.setCheckable(True)
+            item_invoice.setCheckState(
+                QtCore.Qt.CheckState.Checked if checked else QtCore.Qt.CheckState.Unchecked
+            )
+
+            item_status = QtGui.QStandardItem(status)
+            item_method = QtGui.QStandardItem(method)
+
+            item_amount = QtGui.QStandardItem(amount)
+            item_amount.setTextAlignment(
+                QtCore.Qt.AlignmentFlag.AlignRight | QtCore.Qt.AlignmentFlag.AlignVCenter
+            )
+
+            model.appendRow([item_invoice, item_status, item_method, item_amount])
+
+        table: QtWidgets.QTableView = self.ui.table_view_invoices
+        # table.setShowGrid(False)
+        table.setModel(model)
+
+        header = table.horizontalHeader()
+        header.setSectionResizeMode(0, QtWidgets.QHeaderView.ResizeMode.ResizeToContents)
+        header.setSectionResizeMode(1, QtWidgets.QHeaderView.ResizeMode.Stretch)
+        header.setSectionResizeMode(2, QtWidgets.QHeaderView.ResizeMode.Stretch)
+        header.setSectionResizeMode(3, QtWidgets.QHeaderView.ResizeMode.ResizeToContents)
 
     # ------------------------------------------------------------------
     # Theme editor wiring
