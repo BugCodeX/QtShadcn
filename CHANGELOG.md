@@ -1,10 +1,31 @@
+## [0.9.0] - 2026-10-09
+
+## What's New
+
+- Added `QToolBox` (Accordion) styling replicating Radix UI / shadcn accordion components with clean bottom dividers, transparent tabs, and dynamic chevron indicators (`chevron-down` / `chevron-up`).
+- Added `QToolBox` container variants: `outline` (or `borders`) and `card` for enclosed accordion sections.
+- Added `QPlainTextEdit` styling, matching the `QTextEdit` multiline textarea design.
+- Added standalone Accordion example page and unified side-by-side Textarea demonstration in the gallery.
+
+## Verification
+
+```bash
+pip install qtshadcn==0.9.0
+python -c "import qtshadcn; print(qtshadcn.__version__)"
+make test
+```
+
+---
+
 ## [0.8.0] - 2026-10-09
 
 ## What's New
+
 - Added `QScrollBar` styling (horizontal and vertical) matching the minimal, pill-shaped handles and rounded, subtle tracks of the shadcn design language.
 - Added `QScrollArea` styling with default border and `md` rounded corners.
 
 ## Verification
+
 ```bash
 pip install qtshadcn==0.8.0
 python -c "import qtshadcn; print(qtshadcn.__version__)"
@@ -16,6 +37,7 @@ make test
 ## [0.7.0] - 2026-10-09
 
 ## Breaking Changes
+
 - **Dropped `qtpy` dependency:** The library no longer depends on `qtpy`.
 - **Dropped Qt5 support:** `PySide2` and `PyQt5` are no longer supported.
 - **Native shim:** A new native `binding.py` shim is used internally to support `PySide6` and `PyQt6` directly.
@@ -33,13 +55,16 @@ make test
 # QtShadcn v0.6.0
 
 ## What's New
+
 - Added a font registry API: register custom font families, set the active family, and query the resolved family (`registerFontFamily`, `setFontFamily`, `setFontFamilies`, `getFontFamily`, `getFontFamilies`).
 - Bundled fonts are now registered lazily, only when first used.
 
 ## Changes
+
 - Theme mode switches are ~3.7× faster: Jinja templates are compiled once and the stylesheet is not re-applied when its output did not change.
 
 ## Fixes
+
 - Focused `QLineEdit`, `QTextEdit`, and `QPlainTextEdit` keep their base border width instead of sharing the `QSpinBox` focus border.
 - A stale or legacy `theme.json` no longer crashes theme loading; it falls back to the default theme.
 - `setStyleSheet("")` no longer raises when clearing the additional stylesheet.
@@ -125,7 +150,6 @@ make test
 ---
 
 # QtShadcn v0.2.0
-
 
 ## Breaking Changes
 
