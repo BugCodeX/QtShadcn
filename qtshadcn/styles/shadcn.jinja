@@ -1286,7 +1286,7 @@ QTableView {
     color: {{ tokens.foreground }};
     border: none;
     gridline-color: transparent;
-    qproperty-showGrid: "false"; 
+    qproperty-showGrid: "false";
     outline: none;
     font-size: {{ Typography.FontSize.SM }};
     selection-background-color: {{ tokens.muted }};
@@ -1402,46 +1402,59 @@ QTableView::indicator:indeterminate:disabled {
    QCalendarWidget & Date/Time Drop-downs
    ============================================================ */
 
-QDateEdit::drop-down,
-QTimeEdit::drop-down,
-QDateTimeEdit::drop-down {
-    subcontrol-origin: padding;
-    subcontrol-position: top right;
-    width: {{ Scale.resolveSpacing(tokens.spacing, 6) }};
-    border-left: 1px solid transparent;
+QDateEdit::drop-down {
+    width: {{ Scale.resolveSpacing(tokens.spacing, 8) }};
+    border: 0;
 }
 
-QDateEdit::down-arrow,
-QTimeEdit::down-arrow,
-QDateTimeEdit::down-arrow {
+QTimeEdit::drop-down {
+    width: {{ Scale.resolveSpacing(tokens.spacing, 8) }};
+    border: 0;
+}
+
+QDateTimeEdit::drop-down {
+    width: {{ Scale.resolveSpacing(tokens.spacing, 8) }};
+    border: 0;
+}
+
+QDateEdit[calendarPopup="true"]::down-arrow,
+QDateTimeEdit[calendarPopup="true"]::down-arrow {
     image: url("{{ Icons.getIconUrl('calendar', tokens.muted_foreground) }}");
     width: {{ Scale.resolveSpacing(tokens.spacing, 4) }};
     height: {{ Scale.resolveSpacing(tokens.spacing, 4) }};
 }
 
-QDateEdit::down-arrow:hover,
-QTimeEdit::down-arrow:hover,
-QDateTimeEdit::down-arrow:hover {
+QDateEdit[calendarPopup="true"]::down-arrow:hover,
+QDateTimeEdit[calendarPopup="true"]::down-arrow:hover {
     image: url("{{ Icons.getIconUrl('calendar', tokens.foreground) }}");
 }
 
-QDateEdit::down-arrow:disabled,
-QTimeEdit::down-arrow:disabled,
-QDateTimeEdit::down-arrow:disabled {
+QDateEdit[calendarPopup="true"]::down-arrow:disabled,
+QDateTimeEdit[calendarPopup="true"]::down-arrow:disabled {
     image: url("{{ Icons.getIconUrl('calendar', Colors.withAlpha(tokens.muted_foreground, 0.5)) }}");
 }
 
+QCalendarWidget {
+    background-color: transparent;
+    min-width: {{ Scale.resolveSpacing(tokens.spacing, 72) }};
+}
+
 QCalendarWidget QWidget {
-    background-color: {{ tokens.popover }};
+    background-color: transparent;
     color: {{ tokens.popover_foreground }};
-    border-radius: {{ Radius.resolveRadius(tokens.radius, 'lg') }};
 }
 
 QCalendarWidget QWidget#qt_calendar_navigationbar {
-    background-color: transparent;
-    border: none;
-    border-bottom: 1px solid {{ tokens.border }};
-    min-height: {{ Scale.resolveSpacing(tokens.spacing, 10) }};
+    background-color: {{ tokens.popover }};
+    border: 1px solid {{ tokens.border }};
+    border-bottom: none;
+    border-top-left-radius: {{ Radius.resolveRadius(tokens.radius, 'lg') }};
+    border-top-right-radius: {{ Radius.resolveRadius(tokens.radius, 'lg') }};
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    min-height: {{ Scale.resolveSpacing(tokens.spacing, 9) }};
+    max-height: {{ Scale.resolveSpacing(tokens.spacing, 9) }};
+    padding: 0px {{ Scale.resolveSpacing(tokens.spacing, 1) }};
 }
 
 QCalendarWidget QToolButton {
@@ -1449,8 +1462,10 @@ QCalendarWidget QToolButton {
     color: {{ tokens.popover_foreground }};
     border: none;
     border-radius: {{ Radius.resolveRadius(tokens.radius, 'sm') }};
-    margin: {{ Scale.resolveSpacing(tokens.spacing, 1) }};
-    padding: {{ Scale.resolveSpacing(tokens.spacing, 1) }} {{ Scale.resolveSpacing(tokens.spacing, 3) }};
+    margin: 0px;
+    padding: 0px;
+    min-height: {{ Scale.resolveSpacing(tokens.spacing, 7) }};
+    max-height: {{ Scale.resolveSpacing(tokens.spacing, 7) }};
     font-size: {{ Typography.FontSize.SM }};
     font-weight: {{ Typography.FontWeight.MEDIUM }};
 }
@@ -1466,22 +1481,38 @@ QCalendarWidget QToolButton:pressed {
 
 QCalendarWidget QToolButton::menu-indicator {
     image: none;
+    width: 0px;
+    height: 0px;
+}
+
+QCalendarWidget QToolButton#qt_calendar_prevmonth,
+QCalendarWidget QToolButton#qt_calendar_nextmonth {
+    min-width: {{ Scale.resolveSpacing(tokens.spacing, 3.5) }};
+    max-width: {{ Scale.resolveSpacing(tokens.spacing, 3.5) }};
+    min-height: {{ Scale.resolveSpacing(tokens.spacing, 3.5) }};
+    max-height: {{ Scale.resolveSpacing(tokens.spacing, 3.5) }};
+    padding: {{ Scale.resolveSpacing(tokens.spacing, 1.75) }};
+    margin: {{ Scale.resolveSpacing(tokens.spacing, 1) }};
 }
 
 QCalendarWidget QToolButton#qt_calendar_prevmonth {
     qproperty-icon: none;
     image: url("{{ Icons.getIconUrl('chevron-left', tokens.popover_foreground) }}");
-    padding: {{ Scale.resolveSpacing(tokens.spacing, 1.5) }};
-    width: {{ Scale.resolveSpacing(tokens.spacing, 4) }};
-    height: {{ Scale.resolveSpacing(tokens.spacing, 4) }};
 }
 
 QCalendarWidget QToolButton#qt_calendar_nextmonth {
     qproperty-icon: none;
     image: url("{{ Icons.getIconUrl('chevron-right', tokens.popover_foreground) }}");
-    padding: {{ Scale.resolveSpacing(tokens.spacing, 1.5) }};
-    width: {{ Scale.resolveSpacing(tokens.spacing, 4) }};
-    height: {{ Scale.resolveSpacing(tokens.spacing, 4) }};
+}
+
+QCalendarWidget QToolButton#qt_calendar_monthbutton {
+    padding: 0px {{ Scale.resolveSpacing(tokens.spacing, 2) }};
+    min-width: {{ Scale.resolveSpacing(tokens.spacing, 25) }};
+}
+
+QCalendarWidget QToolButton#qt_calendar_yearbutton {
+    padding: 0px {{ Scale.resolveSpacing(tokens.spacing, 2) }};
+    min-width: {{ Scale.resolveSpacing(tokens.spacing, 14) }};
 }
 
 QCalendarWidget QSpinBox {
@@ -1491,16 +1522,39 @@ QCalendarWidget QSpinBox {
 }
 
 QCalendarWidget QTableView {
-    background-color: transparent;
+    background-color: {{ Colors.withAlpha(tokens.background, 0.01) }};
+    border: 1px solid {{ tokens.border }};
+    border-top: none;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-left-radius: {{ Radius.resolveRadius(tokens.radius, 'lg') }};
+    border-bottom-right-radius: {{ Radius.resolveRadius(tokens.radius, 'lg') }};
     selection-background-color: {{ tokens.primary }};
     selection-color: {{ tokens.primary_foreground }};
     outline: none;
-    border: none;
+    padding: 10px;
+
+}
+
+QCalendarWidget[navigationBarVisible="false"] QTableView {
+    border: 1px solid {{ tokens.border }};
+    border-radius: {{ Radius.resolveRadius(tokens.radius, 'lg') }};
+}
+
+QCalendarWidget[gridVisible="true"] QTableView {
+  qproperty-showGrid: true;
+  gridline-color: {{ Colors.withAlpha(tokens.muted_foreground, 0.35) }};
 }
 
 QCalendarWidget QTableView::item {
+    color: {{ tokens.popover_foreground }};
     border: none;
+    padding: 0px;
     border-radius: {{ Radius.resolveRadius(tokens.radius, 'sm') }};
+}
+
+QCalendarWidget QTableView::item:disabled {
+    color: {{ Colors.withAlpha(tokens.popover_foreground, 0.4) }};
 }
 
 QCalendarWidget QTableView::item:hover {
@@ -1518,5 +1572,5 @@ QCalendarWidget QAbstractItemView:enabled {
 }
 
 QCalendarWidget QAbstractItemView:disabled {
-    color: {{ Colors.withAlpha(tokens.popover_foreground, 0.5) }};
+    color: {{ Colors.withAlpha(tokens.popover_foreground, 0.4) }};
 }

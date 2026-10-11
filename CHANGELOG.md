@@ -4,7 +4,7 @@
 
 - Added `QDateEdit`, `QTimeEdit`, and `QDateTimeEdit` styling integrating cleanly with standard input and spinbox semantics.
 - Added `QCalendarWidget` styling matching the shadcn/ui popover and calendar specification: rounded card-like popovers, transparent navigation headers, dynamic chevron navigation arrows (`chevron-left`/`chevron-right`), and a seamlessly styled date grid with solid `primary` accents for selected days.
-- Added standalone DatePicker component in the gallery (`examples/gallery`).
+- Added comprehensive Date & Time showcase in the gallery (`examples/gallery`).
 
 ## Verification
 

@@ -59,6 +59,7 @@ PAGES: dict[str, str] = {
     "Textarea": "textarea_page",
     "Accordion": "accordion_page",
     "Table": "table_page",
+    "Date & Time": "datetime_page",
 }
 
 _HEX_RE = re.compile(r"^#[0-9A-Fa-f]{6}$")
@@ -271,15 +272,43 @@ class GalleryUiWindow(QtWidgets.QMainWindow):
     # ------------------------------------------------------------------
 
     def _setup_datepicker_page(self) -> None:
-        """Configure default date for the QDateEdit if present."""
-        date_edit = getattr(self.ui, "date_edit_picker", None)
-        if date_edit:
-            date_edit.setDate(QtCore.QDate.currentDate())
-            
-            # Hide week numbers on the calendar widget if accessible
-            cal = date_edit.calendarWidget()
+        """Configure default dates and times for date/time widgets."""
+        current_date = QtCore.QDate.currentDate()
+        current_time = QtCore.QTime.currentTime()
+        current_datetime = QtCore.QDateTime.currentDateTime()
+
+        date_picker = getattr(self.ui, "date_edit_picker", None)
+        if date_picker:
+            date_picker.setDate(current_date)
+            cal = date_picker.calendarWidget()
             if cal:
-                cal.setVerticalHeaderFormat(QtWidgets.QCalendarWidget.VerticalHeaderFormat.NoVerticalHeader)
+                cal.setVerticalHeaderFormat(
+                    QtWidgets.QCalendarWidget.VerticalHeaderFormat.NoVerticalHeader
+                )
+
+        date_spin = getattr(self.ui, "date_edit_spin", None)
+        if date_spin:
+            date_spin.setDate(current_date)
+
+        time_picker = getattr(self.ui, "time_edit_picker", None)
+        if time_picker:
+            time_picker.setTime(current_time)
+
+        datetime_picker = getattr(self.ui, "datetime_edit_picker", None)
+        if datetime_picker:
+            datetime_picker.setDateTime(current_datetime)
+            cal_dt = datetime_picker.calendarWidget()
+            if cal_dt:
+                cal_dt.setVerticalHeaderFormat(
+                    QtWidgets.QCalendarWidget.VerticalHeaderFormat.NoVerticalHeader
+                )
+
+        calendar_demo = getattr(self.ui, "calendar_widget_demo", None)
+        if calendar_demo:
+            calendar_demo.setSelectedDate(current_date)
+            calendar_demo.setVerticalHeaderFormat(
+                QtWidgets.QCalendarWidget.VerticalHeaderFormat.NoVerticalHeader
+            )
 
     def _setup_table_page(self) -> None:
         """Configure and populate QTableView with the shadcn invoice dataset."""

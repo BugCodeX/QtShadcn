@@ -2139,7 +2139,7 @@ font-weight: 600;</string>
       <item>
        <widget class="QStackedWidget" name="stackedWidget">
         <property name="currentIndex">
-         <number>2</number>
+         <number>4</number>
         </property>
         <widget class="QWidget" name="scroll_page">
          <layout class="QVBoxLayout" name="verticalLayout_22">
@@ -2635,8 +2635,8 @@ font-weight: 600;</string>
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>396</width>
-                   <height>151</height>
+                   <width>88</width>
+                   <height>98</height>
                   </rect>
                  </property>
                  <attribute name="label">
@@ -2660,8 +2660,8 @@ font-weight: 600;</string>
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>396</width>
-                   <height>151</height>
+                   <width>88</width>
+                   <height>130</height>
                   </rect>
                  </property>
                  <attribute name="label">
@@ -2760,8 +2760,8 @@ font-weight: 600;</string>
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>396</width>
-                   <height>151</height>
+                   <width>88</width>
+                   <height>130</height>
                   </rect>
                  </property>
                  <attribute name="label">
@@ -2785,8 +2785,8 @@ font-weight: 600;</string>
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>396</width>
-                   <height>151</height>
+                   <width>88</width>
+                   <height>114</height>
                   </rect>
                  </property>
                  <attribute name="label">
@@ -2887,8 +2887,8 @@ font-weight: 600;</string>
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>848</width>
-                 <height>153</height>
+                 <width>88</width>
+                 <height>130</height>
                 </rect>
                </property>
                <attribute name="label">
@@ -2912,8 +2912,8 @@ font-weight: 600;</string>
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>848</width>
-                 <height>153</height>
+                 <width>88</width>
+                 <height>130</height>
                 </rect>
                </property>
                <attribute name="label">
@@ -3049,6 +3049,330 @@ font-weight: 600;</string>
              <string>muted small</string>
             </property>
            </widget>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="datetime_page">
+         <layout class="QVBoxLayout" name="verticalLayout_59">
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_header_3">
+            <property name="bottomMargin">
+             <number>9</number>
+            </property>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_title_3">
+              <item>
+               <widget class="QLabel" name="label_title_3">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">font-size: 20pt; font-weight: 600;</string>
+                </property>
+                <property name="text">
+                 <string>Date &amp; Time</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_subtitle_3">
+                <property name="text">
+                 <string>(QDateEdit, QTimeEdit, QDateTimeEdit &amp; QCalendarWidget)</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_description_3">
+              <property name="text">
+               <string>Date and time input controls featuring dropdown calendar popovers, spin buttons, and an embedded calendar widget.</string>
+              </property>
+              <property name="wordWrap">
+               <bool>true</bool>
+              </property>
+              <property name="class" stdset="0">
+               <string>muted</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <widget class="Line" name="line_20">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>2</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>2</height>
+             </size>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Orientation::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QGridLayout" name="gridLayout_8">
+            <property name="horizontalSpacing">
+             <number>6</number>
+            </property>
+            <item row="4" column="0">
+             <widget class="QCalendarWidget" name="calendar_widget_demo_3">
+              <property name="maximumSize">
+               <size>
+                <width>320</width>
+                <height>260</height>
+               </size>
+              </property>
+              <property name="gridVisible">
+               <bool>false</bool>
+              </property>
+              <property name="horizontalHeaderFormat">
+               <enum>QCalendarWidget::HorizontalHeaderFormat::ShortDayNames</enum>
+              </property>
+              <property name="verticalHeaderFormat">
+               <enum>QCalendarWidget::VerticalHeaderFormat::NoVerticalHeader</enum>
+              </property>
+              <property name="navigationBarVisible">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <layout class="QVBoxLayout" name="verticalLayout_63">
+              <item>
+               <spacer name="verticalSpacer_75">
+                <property name="orientation">
+                 <enum>Qt::Orientation::Vertical</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>40</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_datetime_edit_4">
+                <property name="text">
+                 <string>navigationBarVisible=False (QCalendarWidget)</string>
+                </property>
+                <property name="class" stdset="0">
+                 <string>small</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCalendarWidget" name="calendar_widget_demo_6">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>260</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>320</width>
+                  <height>260</height>
+                 </size>
+                </property>
+                <property name="selectedDate">
+                 <date>
+                  <year>2026</year>
+                  <month>8</month>
+                  <day>11</day>
+                 </date>
+                </property>
+                <property name="maximumDate">
+                 <date>
+                  <year>9999</year>
+                  <month>12</month>
+                  <day>31</day>
+                 </date>
+                </property>
+                <property name="gridVisible">
+                 <bool>false</bool>
+                </property>
+                <property name="verticalHeaderFormat">
+                 <enum>QCalendarWidget::VerticalHeaderFormat::NoVerticalHeader</enum>
+                </property>
+                <property name="navigationBarVisible">
+                 <bool>false</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="verticalSpacer_35">
+                <property name="orientation">
+                 <enum>Qt::Orientation::Vertical</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>40</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
+            </item>
+            <item row="4" column="1">
+             <widget class="QCalendarWidget" name="calendar_widget_demo_5">
+              <property name="maximumSize">
+               <size>
+                <width>320</width>
+                <height>260</height>
+               </size>
+              </property>
+              <property name="selectedDate">
+               <date>
+                <year>2030</year>
+                <month>10</month>
+                <day>11</day>
+               </date>
+              </property>
+              <property name="gridVisible">
+               <bool>false</bool>
+              </property>
+              <property name="horizontalHeaderFormat">
+               <enum>QCalendarWidget::HorizontalHeaderFormat::NoHorizontalHeader</enum>
+              </property>
+              <property name="verticalHeaderFormat">
+               <enum>QCalendarWidget::VerticalHeaderFormat::NoVerticalHeader</enum>
+              </property>
+              <property name="dateEditEnabled">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <layout class="QVBoxLayout" name="verticalLayout_datetime_inputs">
+              <property name="spacing">
+               <number>12</number>
+              </property>
+              <item>
+               <spacer name="verticalSpacer_76">
+                <property name="orientation">
+                 <enum>Qt::Orientation::Vertical</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>40</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_52">
+                <property name="text">
+                 <string>Pick a date (QDateEdit with Calendar Popup)</string>
+                </property>
+                <property name="class" stdset="0">
+                 <string>small</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QDateEdit" name="date_edit_picker">
+                <property name="calendarPopup">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_date_spin">
+                <property name="text">
+                 <string>Date SpinBox (QDateEdit without Popup)</string>
+                </property>
+                <property name="class" stdset="0">
+                 <string>small</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QDateEdit" name="date_edit_spin">
+                <property name="calendarPopup">
+                 <bool>false</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_time_edit">
+                <property name="text">
+                 <string>Pick a time (QTimeEdit)</string>
+                </property>
+                <property name="class" stdset="0">
+                 <string>small</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QTimeEdit" name="time_edit_picker"/>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_datetime_edit">
+                <property name="text">
+                 <string>Date &amp; Time (QDateTimeEdit with Calendar Popup)</string>
+                </property>
+                <property name="class" stdset="0">
+                 <string>small</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QDateTimeEdit" name="datetime_edit_picker">
+                <property name="calendarPopup">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="verticalSpacer_31">
+                <property name="orientation">
+                 <enum>Qt::Orientation::Vertical</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>40</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
+            </item>
+            <item row="3" column="1">
+             <widget class="QLabel" name="label_datetime_edit_2">
+              <property name="text">
+               <string>NoHorizontalHeader (QCalendarWidget)</string>
+              </property>
+              <property name="class" stdset="0">
+               <string>small</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0">
+             <widget class="QLabel" name="label_datetime_edit_3">
+              <property name="text">
+               <string>ShortDayName (QCalendarWidget)</string>
+              </property>
+              <property name="class" stdset="0">
+               <string>small</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </item>
          </layout>
         </widget>
